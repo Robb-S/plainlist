@@ -3,21 +3,15 @@ import React, {useContext} from 'react'
 const initValues = {
   loading: true,
   user: {},
-  categories: {},
-  lists: {},
-  items: {},
+  categories: [],
+  lists: [],
+  items: [],
 };
 
 const StoreContext = React.createContext();
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'ADD_ITEM': {
-      return state;
-    }
-    case 'DELETE_ITEM': {
-      return state;
-    }
     case 'FINISHED_LOADING': {
       return {
         ...state,
@@ -25,18 +19,12 @@ function reducer(state, action) {
       };
     }
     case 'SET_USER': {
-      // console.log('SET_USER');
-      // console.log(state);
-      // console.log(action.payload.user);
       return {
         ...state,
         user: action.payload.user,
       };
     }
-    case 'DO_NOTHING': {
-      return state;
-    }
-    case 'GET_LISTS': {
+    case 'SET_LISTS': {
       return {
         ...state,
         categories: action.payload.categories,
@@ -44,7 +32,9 @@ function reducer(state, action) {
         items: action.payload.items,
       };
     }
-
+    case 'DO_NOTHING': {
+      return state;
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
