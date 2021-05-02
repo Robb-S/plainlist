@@ -1,48 +1,48 @@
-import {allUsers, allCategories} from './testdata';
+import {allUsers, allCategories, allLists, allItems} from './testdata';
 
 const getUserByID = async (userID) => {
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+  await delay(500);
   const matchingID = allUsers.filter(oneUser => {
     return oneUser.id === userID
   })
-  setTimeout(() => {
-  }, 500);
   return matchingID.length>0 ? matchingID[0] : null;
 }
 
 const getListsByUserID = async (userID) => {
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+  await delay(500);
   const uCats = allCategories.filter(oneCategory => {
-    return oneCategory.userid === userID
-  })
-  setTimeout(() => {
-  }, 500);
-  return { categories: uCats };
+    return oneCategory.userid === userID;
+  });
+  const uLists = allLists.filter(oneList => {
+    return oneList.userid === userID;
+  });
+  const uItems = allItems.filter(oneItem => {
+    return oneItem.userid === userID;
+  }); 
+  return { categories: uCats, lists: uLists, items: uItems };
 }
 
-const handleGetUser = async (userID, dispatch) =>  {
+const handleGetUserAndData = async (userID, dispatch) =>  {
     // simulate loading of items from an API
     const user = await getUserByID(userID);
-    const {categories} = getListsByUserID(userID);
-
-    await dispatch({
+    const {categories, lists, items} = await getListsByUserID(userID);
+    dispatch({
       type: 'SET_USER',
       payload: {user},
     });
-
-    setTimeout(() => {
-      dispatch({
-        type: 'FINISHED_LOADING',
-      })
-    }, 500);
-
-    await dispatch({
-      type: 'GET_LISTS',
+    dispatch({
+      type: 'SET_LISTS',
       payload: {        
         categories: categories,
-        lists: {},
-        items: {},
+        lists: lists,
+        items: items,
       },
     });
-
+    dispatch({
+      type: 'FINISHED_LOADING',
+    });
   }  
 
-export {getUserByID, handleGetUser};
+export {getUserByID, handleGetUserAndData};
