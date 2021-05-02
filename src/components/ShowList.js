@@ -6,17 +6,23 @@ const ShowList = () => {
   const store = useStore();
   const state = store.state;
   const nickname = state.user.nickname;
-  // const catnum = state.categories.length;
-  const catnum = '*** NOT YET ***';
-  // console.log('nickname: ' + nickname);
-  console.log(state);
+  const catnum = state.categories.length;
+  const listnum = state.lists.length;
+  const itemnum = state.items.length;
+  // console.log(state);
 
   // const dispatch = store.dispatch;
 
   return (
     <div className="main-show">
       This is the ShowList component.  Hello {nickname}.
+      <br />
       categories: {catnum}
+      <br />
+      lists: {listnum}
+      <br />
+      items: {itemnum}
+      
     </div>
   )
 }
