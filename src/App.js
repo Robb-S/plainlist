@@ -1,21 +1,24 @@
 import './App.css';
 
+import React, { useEffect } from 'react';
+import ShowList from './components/ShowList';
+import {useStore} from './store/StoreContext';
+import {handleGetUser} from './store/getUser';
+
 function App() {
+  const store = useStore();
+  const state = store.state;
+  const isLoaded = !store.state.loading;
+  const dispatch = store.dispatch;
+
+  useEffect(() => {
+    handleGetUser('2', dispatch);
+  }, []);
+
+
   return (
     <div className="App">
-      <header className="App-header">        
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isLoaded && <ShowList />}
     </div>
   );
 }
