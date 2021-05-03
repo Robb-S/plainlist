@@ -43,8 +43,10 @@ const AllCats = () => {
                     <tr key={cat.id}>
                       <td>
                       <Link className='linky2'
-                        to={`/cat/${cat.id}`}
-                        title={cat.categoryName}
+                        to={{
+                          pathname: `/cat/`,
+                          state: { catID: `${cat.id}`}
+                        }}
                       >
                         {cat.categoryName}
                       </Link>

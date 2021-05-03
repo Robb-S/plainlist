@@ -1,12 +1,12 @@
 import React, {Fragment} from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import {getListsByCatID, getCatRec} from '../store/getData';
 import Loading from './Loading';
 
 const OneCat = () => {
-  const { id } = useParams();
+  const id = useLocation().state.catID;
   const { state } = useStore();
   // const { state, dispatch } = useStore();
   const isLoaded = !state.loading;
@@ -26,7 +26,6 @@ const OneCat = () => {
           </div>
           <Link className='linky'
             to={`/`}
-            title="See all categories"
           >
             See all categories
           </Link>
@@ -59,9 +58,12 @@ const OneCat = () => {
                   <tr key={list.id}>
                     <td>
                     <Link className='linky2'
-                      to={`/list/${list.id}`}
                       title={list.listName}
-                    >
+                      to={{
+                        pathname: `/list/`,
+                        state: { listID: `${list.id}`}
+                      }}
+                   >
                       {list.listName}
                     </Link>
                     </td>

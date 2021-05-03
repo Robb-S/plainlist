@@ -25,9 +25,9 @@ function App() {
     <div className="App">
       <Switch>
         <Route path="/" component={AllCats} exact />
-        <Route path="/cat/:id" component={OneCat} exact />
-        <Route path="/list/:id" component={OneList} exact />
-        <Route path="/item/:id" component={OneItem} exact />
+        <Route path="/cat/" component={OneCat} exact />
+        <Route path="/list/" component={OneList} exact />
+        <Route path="/item/" component={OneItem} exact />
       </Switch>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import {getItemsByListID, getListRec, getParentCatName, getParentCatID, getItemRec} 
@@ -7,8 +7,8 @@ import {getItemsByListID, getListRec, getParentCatName, getParentCatID, getItemR
 import {handleRemoveItem} from '../store/handlers';
 import Loading from './Loading';
 
-const OneList = () => {
-  const { id } = useParams();
+const OneList = () => {  
+  const id = useLocation().state.listID;
   const {state, dispatch} = useStore();
   const isLoaded = !state.loading;
   // const nickname = state.user.nickname;
@@ -18,7 +18,7 @@ const OneList = () => {
   const parentCatID = getParentCatID(id, state);
 
   const removeItem = (itemID) => {
-    console.log ('** removeItem: ' + itemID);
+    // console.log ('** removeItem: ' + itemID);
     // make confirmation dialog
     if (!getItemRec(itemID, state)) { // check that it still exists in state
       alert("Sorry, that item can't be found.");
@@ -39,8 +39,10 @@ const OneList = () => {
             List: {oneListRec.listName}
           </div>
           <Link className='linky2'
-            to={`/cat/${parentCatID}`}
-            title="See category"
+            to={{
+              pathname: `/cat/`,
+              state: { catID: `${parentCatID}`}
+            }}
           >
             Up to: "{parentCatName}" category)
           </Link>
