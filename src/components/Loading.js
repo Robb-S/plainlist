@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/ShowList.css';
+import '../css/lists.css';
 
 const Loading = () => {
 

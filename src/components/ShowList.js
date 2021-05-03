@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import '../css/ShowList.css';
+import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import Loading from './Loading';
 

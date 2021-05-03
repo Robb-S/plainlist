@@ -9,7 +9,7 @@ import OneItem from './components/OneItem';
 
 // import Loading from './components/Loading';
 import {useStore} from './store/StoreContext';
-import {handleGetUserAndData} from './store/getUser';
+import {handleGetUserAndData} from './store/fetchUserAndData';
 
 function App() {
   const store = useStore();

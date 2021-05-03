@@ -4,6 +4,7 @@ import {useStore} from '../store/StoreContext';
 import Loading from './Loading';
 
 const OneCat = () => {
+  
   const store = useStore();
   const state = store.state;
   const isLoaded = !store.state.loading;
@@ -11,6 +12,7 @@ const OneCat = () => {
   const catnum = state.categories.length;
   const listnum = state.lists.length;
   const itemnum = state.items.length;
+  const oneCatLists = [];
   // console.log(state);
 
   // const dispatch = store.dispatch;
@@ -31,6 +33,28 @@ const OneCat = () => {
       </div>
       }
       
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {oneCatLists.map(({ id, listName }) => {
+              <tr key={id}>
+                <td>{listName}</td>
+                <td>
+                  <button
+                    className="btn default-btn"
+                  >
+                    Go to list
+                  </button>
+                </td>
+              </tr>
+          })}
+        </tbody>
+      </table>
     </Fragment>
   )
 }
