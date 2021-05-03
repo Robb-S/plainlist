@@ -18,7 +18,7 @@ function App() {
   const dispatch = store.dispatch;
 
   useEffect(() => {
-    handleGetUserAndData('2', dispatch);
+    handleGetUserAndData('1', dispatch);
   }, [dispatch]);
 
   return (

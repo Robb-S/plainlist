@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import { useParams } from 'react-router-dom';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
-import {getItemsByListID} from '../store/getData';
+import {getItemsByListID, getListRec} from '../store/getData';
 import Loading from './Loading';
 
 const OneList = () => {
@@ -14,9 +14,10 @@ const OneList = () => {
   const catnum = state.categories.length;
   const listnum = state.lists.length;
   const itemnum = state.items.length;
-  const oneListItems = [];
-  // const oneListItems = getItemsByListID(id,state.items);
-  // console.log(state);
+  // const oneListItems = [];
+  const oneListItems = getItemsByListID(id,state.items);
+  const oneListRec = getListRec(id,state.lists);
+  // console.log(oneListItems);
 
   // const dispatch = store.dispatch;
 
@@ -26,7 +27,7 @@ const OneList = () => {
 
       {isLoaded && 
       <div className="main-show">
-        This is the OneList component for list {id}.  Hello {nickname}.
+        This is the OneList component for list {oneListRec.listName}.  Hello {nickname}.
         <br />
         categories: {catnum}
         <br />
@@ -44,18 +45,16 @@ const OneList = () => {
           </tr>
         </thead>
         <tbody>
-          {oneListItems.map(({ id, itemName }) => {
-              <tr key={id}>
-                <td>{itemName}</td>
-                <td>
-                  <button
-                    className="btn default-btn"
-                  >
-                    Go to list
-                  </button>
-                </td>
-              </tr>
-          })}
+          { oneListItems.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.itemName}</td>
+                  <td>
+                    <button >
+                      Go there
+                    </button>
+                  </td>
+                </tr>
+              ))}
         </tbody>
       </table>
 
