@@ -63,11 +63,6 @@ const AllCats = () => {
                       >
                         Down
                       </button>
-                      <button
-                        className="btn default-btn"
-                      >
-                        Delete
-                      </button>
                       </td>
                     </tr>
                   ))}

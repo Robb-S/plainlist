@@ -12,6 +12,12 @@ const StoreContext = React.createContext();
 
 function reducer(state, action) {
   switch (action.type) {
+    case 'STARTED_LOADING': {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
     case 'FINISHED_LOADING': {
       return {
         ...state,
@@ -34,6 +40,16 @@ function reducer(state, action) {
     }
     case 'DO_NOTHING': {
       return state;
+    }
+    case 'DELETE_ITEM': {
+      console.log('*** deleting item in reducer');
+      console.log(action.payload);
+      return {
+        ...state,
+        items: state.items.filter(
+          (item) => item.id !== action.payload
+        ),
+      };
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);

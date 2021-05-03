@@ -2,19 +2,30 @@ import React, {Fragment} from 'react';
 import { useParams, Link } from 'react-router-dom';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
-import {getItemsByListID, getListRec, getParentCatName, getParentCatID} from '../store/getData';
+import {getItemsByListID, getListRec, getParentCatName, getParentCatID, getItemRec} 
+  from '../store/getData';
+import {handleRemoveItem} from '../store/handlers';
 import Loading from './Loading';
 
 const OneList = () => {
   const { id } = useParams();
-  const { state } = useStore();
-  // const {state, dispatch} = useStore();
+  const {state, dispatch} = useStore();
   const isLoaded = !state.loading;
   // const nickname = state.user.nickname;
   const oneListItems = getItemsByListID(id, state);
   const oneListRec = getListRec(id, state);
   const parentCatName = getParentCatName(id, state);
   const parentCatID = getParentCatID(id, state);
+
+  const removeItem = (itemID) => {
+    console.log ('** removeItem: ' + itemID);
+    // make confirmation dialog
+    if (!getItemRec(itemID, state)) { // check that it still exists in state
+      alert("Sorry, that item can't be found.");
+      return;
+    }
+    handleRemoveItem(itemID, dispatch);
+  }
 
   return (
     <Fragment>
@@ -36,7 +47,7 @@ const OneList = () => {
           <button
             className="btn default-btn"
           >
-            Edit list details 
+            Edit/delete list 
           </button>
           <button
             className="btn default-btn"
@@ -60,6 +71,7 @@ const OneList = () => {
                     <td>
                     <button
                       className="btn default-btn"
+                      onClick={() => removeItem(item.id)}
                     >
                       Delete
                     </button>

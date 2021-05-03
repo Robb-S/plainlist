@@ -34,7 +34,7 @@ const OneCat = () => {
           <button
             className="btn default-btn"
           >
-            Edit category details 
+            Edit/delete category
           </button>
           
           <button
@@ -79,11 +79,6 @@ const OneCat = () => {
                       className="btn default-btn"
                     >
                       Down
-                    </button>
-                    <button
-                      className="btn default-btn"
-                    >
-                      Delete
                     </button>
                     </td>
                   </tr>
