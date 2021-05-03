@@ -1,15 +1,20 @@
 import './App.css';
 
 import React, { useEffect } from 'react';
-import ShowList from './components/ShowList';
-import Loading from './components/Loading';
+import { Route, Switch } from 'react-router-dom';
+import AllCats from './components/AllCats';
+import OneCat from './components/OneCat';
+import OneList from './components/OneList';
+import OneItem from './components/OneItem';
+
+// import Loading from './components/Loading';
 import {useStore} from './store/StoreContext';
 import {handleGetUserAndData} from './store/getUser';
 
 function App() {
   const store = useStore();
   // const state = store.state;
-  const isLoaded = !store.state.loading;
+  // const isLoaded = !store.state.loading;
   const dispatch = store.dispatch;
 
   useEffect(() => {
@@ -18,8 +23,12 @@ function App() {
 
   return (
     <div className="App">
-      {!isLoaded && <Loading />}
-      {isLoaded && <ShowList />}
+      <Switch>
+        <Route path="/" component={AllCats} exact />
+        <Route path="/cat/:id" component={OneCat} exact />
+        <Route path="/list/:id" component={OneList} exact />
+        <Route path="/item/:id" component={OneItem} exact />
+      </Switch>
     </div>
   );
 }

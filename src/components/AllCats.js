@@ -1,9 +1,9 @@
 import React, {Fragment} from 'react';
-import '../css/ShowList.css';
+import '../css/AllCats.css';
 import {useStore} from '../store/StoreContext';
 import Loading from './Loading';
 
-const ShowList = () => {
+const AllCats = () => {
   const store = useStore();
   const state = store.state;
   const isLoaded = !store.state.loading;
@@ -21,7 +21,7 @@ const ShowList = () => {
 
       {isLoaded && 
       <div className="main-show">
-        This is the ShowList component.  Hello {nickname}.
+        This is the AllCats component.  Hello {nickname}.
         <br />
         categories: {catnum}
         <br />
@@ -35,4 +35,4 @@ const ShowList = () => {
   )
 }
 
-export default ShowList;
+export default AllCats;
