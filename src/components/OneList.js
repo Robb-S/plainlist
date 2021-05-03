@@ -8,7 +8,7 @@ import {handleRemoveItem} from '../store/handlers';
 import Loading from './Loading';
 
 const OneList = () => {  
-  const id = useLocation().state.listID;
+  const id = useLocation().state.listID; // TODO redirect when this doesn't exist
   const {state, dispatch} = useStore();
   const isLoaded = !state.loading;
   // const nickname = state.user.nickname;

@@ -1,9 +1,11 @@
 import React, {Fragment} from 'react';
+// import { useLocation, Link } from 'react-router-dom';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import Loading from './Loading';
 
 const OneItem = () => {
+  // const id = useLocation().state.itemID; // TODO redirect when this doesn't exist
   const store = useStore();
   const state = store.state;
   const isLoaded = !store.state.loading;
