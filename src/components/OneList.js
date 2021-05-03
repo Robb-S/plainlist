@@ -15,8 +15,8 @@ const OneList = () => {
   const listnum = state.lists.length;
   const itemnum = state.items.length;
   // const oneListItems = [];
-  const oneListItems = getItemsByListID(id,state.items);
-  const oneListRec = getListRec(id,state.lists);
+  const oneListItems = getItemsByListID(id, state);
+  const oneListRec = getListRec(id, state);
   // console.log(oneListItems);
 
   // const dispatch = store.dispatch;

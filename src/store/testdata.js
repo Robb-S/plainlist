@@ -72,7 +72,7 @@ const allLists = [
 {
   id: '101',
   categoryID: '1',
-  listpos: 0,
+  listPos: 0,
   userID: '1',
   listName: 'main to-do',
   categoryPos: 0,
@@ -83,7 +83,7 @@ const allLists = [
 {  
   id: '102',
   categoryID: '2',
-  listpos: 0,
+  listPos: 0,
   userID: '1',
   listName: 'main shopping',
   categoryPos: 0,
@@ -94,7 +94,7 @@ const allLists = [
 {  
   id: '103',
   categoryID: '3',
-  listpos: 0,
+  listPos: 0,
   userID: '2',
   listName: 'main to-do',
   categoryPos: 0,
@@ -105,7 +105,7 @@ const allLists = [
 {  
   id: '104',
   categoryID: '4',
-  listpos: 0,
+  listPos: 0,
   userID: '2',
   listName: 'main shopping',
   categoryPos: 0,
