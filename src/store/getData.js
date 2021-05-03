@@ -1,12 +1,25 @@
 
 const getParentListName = (itemID, state) => {
-  const itemParentListID = getItemRec(itemID, state).listID;
-  return getListName(itemParentListID, state);
+  if (!state.loading) {
+    const itemParentListID = getItemRec(itemID, state).listID;
+    return getListName(itemParentListID, state);
+  }
+  return null;
 }
 
 const getParentCatName = (listID, state) => {
-  const listParentCatID = getListRec(listID, state).categoryID;
-  return getCatName(listParentCatID, state);
+  if (!state.loading) {
+    const listParentCatID = getListRec(listID, state).categoryID;
+    return getCatName(listParentCatID, state);
+  }
+  return null;
+}
+
+const getParentCatID = (listID, state) => {
+  if (!state.loading) {
+    return getListRec(listID, state).categoryID;  
+  }
+  return null;
 }
 
 const getListName = (listID, state) => {
@@ -53,4 +66,4 @@ const getItemsByListID = (listID, state) => {
 }
 
 export {getItemsByListID, getListsByCatID, getListRec, getCatRec, getItemRec, getListName, getCatName,
-  getParentListName, getParentCatName };
+  getParentListName, getParentCatName, getParentCatID };

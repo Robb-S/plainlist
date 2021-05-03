@@ -22,7 +22,7 @@ const OneCat = () => {
       {!isLoaded && <Loading />}
 
       {isLoaded && 
-      <div className="main-show">
+      <div className="main-container">
         This is the OneCat component.  Hello {nickname}.
         <br />
         categories: {catnum}
@@ -45,10 +45,25 @@ const OneCat = () => {
               <tr key={id}>
                 <td>{listName}</td>
                 <td>
+                <button
+                    className="btn default-btn"
+                  >
+                    Edit
+                  </button>
                   <button
                     className="btn default-btn"
                   >
-                    Go to list
+                    Delete
+                  </button>
+                  <button
+                    className="btn default-btn"
+                  >
+                    Move up
+                  </button>
+                  <button
+                    className="btn default-btn"
+                  >
+                    Move down
                   </button>
                 </td>
               </tr>

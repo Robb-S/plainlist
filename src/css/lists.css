@@ -1,5 +1,16 @@
-.main-show {
+.main-container {
   padding: 14px;
   margin-top: 20px;
   font-size: 18px;
+  text-align: left;
+}
+
+.heading {
+  margin: 11px 11px 24px 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+button {
+  margin: 4px 5px 4px 5px; 
 }

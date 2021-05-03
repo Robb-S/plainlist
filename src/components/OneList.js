@@ -2,63 +2,84 @@ import React, {Fragment} from 'react';
 import { useParams } from 'react-router-dom';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
-import {getItemsByListID, getListRec} from '../store/getData';
+import {getItemsByListID, getListRec, getParentCatName, getParentCatID} from '../store/getData';
 import Loading from './Loading';
 
 const OneList = () => {
-  let { id } = useParams();
-  const store = useStore();
-  const state = store.state;
-  const isLoaded = !store.state.loading;
-  const nickname = state.user.nickname;
-  const catnum = state.categories.length;
-  const listnum = state.lists.length;
-  const itemnum = state.items.length;
-  // const oneListItems = [];
+  const { id } = useParams();
+  // const store = useStore();
+  const state = useStore().state;
+  const isLoaded = !state.loading;
+  // const nickname = state.user.nickname;
   const oneListItems = getItemsByListID(id, state);
   const oneListRec = getListRec(id, state);
-  // console.log(oneListItems);
-
-  // const dispatch = store.dispatch;
+  const parentCatName = getParentCatName(id, state);
+  const parentCatID = getParentCatID(id, state);
 
   return (
     <Fragment>
       {!isLoaded && <Loading />}
 
       {isLoaded && 
-      <div className="main-show">
-        This is the OneList component for list {oneListRec.listName}.  Hello {nickname}.
-        <br />
-        categories: {catnum}
-        <br />
-        lists: {listnum}
-        <br />
-        items: {itemnum}      
-      </div>
-      }
+      <Fragment>
+      <div className="main-container">
+        <div className='heading'>
+          List: {oneListRec.listName}
+          <br />
+          <button
+            className="btn default-btn"
+          >
+            Up to {parentCatName} category (ID {parentCatID})
+          </button>
+          <br />
+          <button
+            className="btn default-btn"
+          >
+            Edit list details 
+          </button>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          { oneListItems.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.itemName}</td>
-                  <td>
-                    <button >
-                      Go there
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            { oneListItems.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.itemName}</td>
+                    <td>
+                    <button
+                      className="btn default-btn"
+                    >
+                      Delete
                     </button>
-                  </td>
-                </tr>
-              ))}
-        </tbody>
-      </table>
-
-      
+                    <button
+                      className="btn default-btn"
+                    >
+                      Up
+                    </button>
+                    <button
+                      className="btn default-btn"
+                    >
+                      Down
+                    </button>
+                    <button
+                      className="btn default-btn"
+                    >
+                      Edit/more
+                    </button>
+                    </td>
+                  </tr>
+                ))}
+          </tbody>
+        </table>
+      </div>
+      </Fragment>
+    }
     </Fragment>
   )
 }
