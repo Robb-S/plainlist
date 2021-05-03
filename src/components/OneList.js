@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import {getItemsByListID, getListRec, getParentCatName, getParentCatID} from '../store/getData';
@@ -7,8 +7,8 @@ import Loading from './Loading';
 
 const OneList = () => {
   const { id } = useParams();
-  // const store = useStore();
-  const state = useStore().state;
+  const { state } = useStore();
+  // const {state, dispatch} = useStore();
   const isLoaded = !state.loading;
   // const nickname = state.user.nickname;
   const oneListItems = getItemsByListID(id, state);
@@ -22,20 +22,26 @@ const OneList = () => {
 
       {isLoaded && 
       <Fragment>
-      <div className="main-container">
+      <div className="mainContainer">
         <div className='heading'>
-          List: {oneListRec.listName}
-          <br />
-          <button
-            className="btn default-btn"
+          <div className="headingName">
+            List: {oneListRec.listName}
+          </div>
+          <Link className='linky2'
+            to={`/cat/${parentCatID}`}
+            title="See category"
           >
-            Up to {parentCatName} category (ID {parentCatID})
-          </button>
-          <br />
+            Up to: "{parentCatName}" category)
+          </Link>
           <button
             className="btn default-btn"
           >
             Edit list details 
+          </button>
+          <button
+            className="btn default-btn"
+          >
+            Add item 
           </button>
 
         </div>

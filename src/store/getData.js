@@ -51,10 +51,21 @@ const getListRec = (listID, state) => {
   return matchItems.length>0 ? matchItems[0] : null ;
 }
 
+const getAllCats = (state) => {
+  const matchItems = state.categories;
+  matchItems.forEach(cat => { 
+    cat.childCount = getListsByCatID(cat.id, state).length;
+  });
+  return matchItems;
+}
+
 const getListsByCatID = (categoryID, state) => {
   const matchItems = state.lists.filter(oneList => {
     return oneList.categoryID === categoryID
   })
+  matchItems.forEach(list => { 
+    list.childCount = getItemsByListID(list.id, state).length;
+  });
   return matchItems;
 }
 
@@ -66,4 +77,4 @@ const getItemsByListID = (listID, state) => {
 }
 
 export {getItemsByListID, getListsByCatID, getListRec, getCatRec, getItemRec, getListName, getCatName,
-  getParentListName, getParentCatName, getParentCatID };
+  getParentListName, getParentCatName, getParentCatID, getAllCats };
