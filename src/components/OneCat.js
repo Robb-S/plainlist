@@ -56,6 +56,7 @@ const OneCat = () => {
           <thead>
             <tr>
               <th>Lists</th>
+              <th>Alt links</th>
               <th>Size</th>
               <th>Action</th>
             </tr>
@@ -72,6 +73,16 @@ const OneCat = () => {
                     }}
                   >
                     {list.listName}
+                  </Link>
+                </td>
+                <td>
+                  <Link className='linky2'
+                    to={{
+                      pathname: `/list2/`,
+                      state: { listID: `${list.id}`}
+                    }}
+                  >
+                    Alt
                   </Link>
                 </td>
                 <td>

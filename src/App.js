@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import AllCats from './components/AllCats';
 import OneCat from './components/OneCat';
 import OneList from './components/OneList';
+import OneList2 from './components/OneList2';
 import OneItem from './components/OneItem';
 
 // import Loading from './components/Loading';
@@ -27,6 +28,7 @@ function App() {
         <Route path="/" component={AllCats} exact />
         <Route path="/cat/" component={OneCat} exact />
         <Route path="/list/" component={OneList} exact />
+        <Route path="/list2/" component={OneList2} exact />
         <Route path="/item/" component={OneItem} exact />
       </Switch>
     </div>
