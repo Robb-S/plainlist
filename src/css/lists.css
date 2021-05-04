@@ -29,3 +29,10 @@ button {
   border: 1px #440044 solid;
   padding: 5px;  
 }
+
+.additem {
+  border: 0px #440044 solid;
+  padding: 5px;  
+  margin-bottom: 30px;
+}
+

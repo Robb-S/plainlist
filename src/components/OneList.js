@@ -1,15 +1,20 @@
 import React, {Fragment} from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, Redirect } from 'react-router-dom';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import {getItemsByListID, getListRec, getParentCatName, getParentCatID, getItemRec} 
   from '../store/getData';
 import {handleRemoveItem} from '../store/handlers';
 import Loading from './Loading';
+import AddItem from './AddItem';
 
-const OneList = () => {  
-  const id = useLocation().state.listID; // TODO redirect when this doesn't exist
-  const {state, dispatch} = useStore();
+const OneList = () => {
+  const data = useLocation(); // to retrieve params from data.state
+  // data.state will only exist when set up in LINK, not if URL was entered manually
+  const needsRedirect = data.state ? false : true; // is it called from link or manual URL
+  const id = needsRedirect ? null : data.state.listID; 
+  const {state, dispatch} = useStore();  // this must come before conditional render
+  if (needsRedirect) {return (<Redirect to="/" />);}  // back to main page if no ID
   const isLoaded = !state.loading;
   // const nickname = state.user.nickname;
   const oneListItems = getItemsByListID(id, state);
@@ -19,7 +24,7 @@ const OneList = () => {
 
   const removeItem = (itemID) => {
     // console.log ('** removeItem: ' + itemID);
-    // make confirmation dialog
+    // TODO: make confirmation dialog
     if (!getItemRec(itemID, state)) { // check that it still exists in state
       alert("Sorry, that item can't be found.");
       return;
@@ -33,7 +38,7 @@ const OneList = () => {
 
       {isLoaded && 
       <Fragment>
-      <div className="mainContainer">
+      <div className='mainContainer'>
         <div className='heading'>
           <div className="headingName">
             List: {oneListRec.listName}
@@ -43,27 +48,18 @@ const OneList = () => {
               pathname: `/cat/`,
               state: { catID: `${parentCatID}`}
             }}
-          >
-            Up to: "{parentCatName}" category)
-          </Link>
-          <button
-            className="btn default-btn"
-          >
-            Edit/delete list 
-          </button>
-          <button
-            className="btn default-btn"
-          >
-            Add item 
-          </button>
-
+          >Up to: "{parentCatName}" category)</Link>
+          <button className="btn default-btn">Edit/delete list</button>
         </div>
+
+        <AddItem/>
 
         <table>
           <thead>
             <tr>
               <th>Name</th>
               <th>Action</th>
+              <th> </th>
             </tr>
           </thead>
           <tbody>
@@ -93,6 +89,7 @@ const OneList = () => {
                       Edit/more
                     </button>
                     </td>
+                    <td>{item.itemNote}</td>
                   </tr>
                 ))}
           </tbody>

@@ -38,9 +38,6 @@ function reducer(state, action) {
         items: action.payload.items,
       };
     }
-    case 'DO_NOTHING': {
-      return state;
-    }
     case 'DELETE_ITEM': {
       console.log('*** deleting item in reducer');
       console.log(action.payload);
@@ -50,6 +47,17 @@ function reducer(state, action) {
           (item) => item.id !== action.payload
         ),
       };
+    }
+    case 'ADD_ITEM': {
+      console.log('*** adding item in reducer');
+      console.log(action.payload);
+      return {
+        ...state,
+        items: [...state.items, action.payload],
+      };
+    }
+    case 'DO_NOTHING': {
+      return state;
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
