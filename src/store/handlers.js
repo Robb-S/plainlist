@@ -15,9 +15,21 @@ const handleRemoveItem = async (itemID, dispatch) =>  {
   dispatch({
     type: 'FINISHED_LOADING',
   });
-}  
+}
 
-const handleAddItem = async (newItem, dispatch) => {
+/**
+ * Find highest sortOrder in objects in array, and add 1.
+ */
+const makeHighestSortOrder = (theArray) => {
+  return Math.max(...theArray.map(o => o.sortOrder), 0) + 1;
+}
+
+/**
+ * Take new itemName and itemNote from input, then  add a
+ * high sortOder attribute so it sorts to the top of the list.
+ * ID and other attributes will be taken care of by REST API.
+ */
+const handleAddItem = async (newItem, items, dispatch) => {
   console.log('* handleAddItem');
   dispatch({
     type: 'STARTED_LOADING',
@@ -27,7 +39,8 @@ const handleAddItem = async (newItem, dispatch) => {
   // simulate deletion of items from an API
   // TODO: write to API, then handle result
   newItem.id = makeStringID(); // add a random ID (temporary measure)
-  const dbItem = {...newItem};
+  newItem.sortOrder = makeHighestSortOrder(items);
+  const dbItem = {...newItem}; // this will be replaced by API return
   console.log(dbItem);
   dispatch({
     type: 'ADD_ITEM',

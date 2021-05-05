@@ -56,7 +56,7 @@ const getAllCats = (state) => {
   matchItems.forEach(cat => { 
     cat.childCount = getListsByCatID(cat.id, state).length;
   });
-  return matchItems;
+  return matchItems.sort(sortOrderRevSort);
 }
 
 const getListsByCatID = (categoryID, state) => {
@@ -66,15 +66,26 @@ const getListsByCatID = (categoryID, state) => {
   matchItems.forEach(list => { 
     list.childCount = getItemsByListID(list.id, state).length;
   });
-  return matchItems;
+  return matchItems.sort(sortOrderRevSort);
 }
-
+/**
+ * Find items for a particular list, then reverse sort them by itemPos.
+ */
 const getItemsByListID = (listID, state) => {
   const matchItems = state.items.filter(oneItem => {
     return oneItem.listID === listID
   })
-  return matchItems;
+  return matchItems.sort(sortOrderRevSort);
 }
+
+/**
+ * Comparison function for ordering arrays by reverse sortOrder.
+ * Used by getItemsByListID, getListsByCatID, getAllCats.
+ */
+ const sortOrderRevSort = (a, b) => {
+  return (a.sortOrder > b.sortOrder) ? -1 : 1;
+}
+
 
 export {getItemsByListID, getListsByCatID, getListRec, getCatRec, getItemRec, getListName, getCatName,
   getParentListName, getParentCatName, getParentCatID, getAllCats };

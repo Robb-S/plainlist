@@ -34,7 +34,7 @@ const allCategories = [
   id: '1',
   userID: '1',
   categoryName: 'to do',
-  categoryPos: 1,
+  sortOrder: 1,
   creationDate: 0,
   lastUse: 0,
   active: true,
@@ -43,7 +43,7 @@ const allCategories = [
   id: '2',
   userID: '1',
   categoryName: 'shopping',
-  categoryPos: 0,
+  sortOrder: 0,
   created: 0,
   lastUsed: 0,
   active: true,
@@ -52,7 +52,7 @@ const allCategories = [
   id: '3',
   userID: '2',
   categoryName: 'stuff to do',
-  categoryPos: 1,
+  sortOrder: 1,
   creationDate: 0,
   lastUse: 0,
   active: true,
@@ -61,7 +61,7 @@ const allCategories = [
   id: '4',
   userID: '2',
   categoryName: 'major shopping',
-  categoryPos: 0,
+  sortOrder: 1,
   created: 0,
   lastUsed: 0,
   active: true,
@@ -72,7 +72,7 @@ const allLists = [
 {
   id: '101',
   categoryID: '1',
-  listPos: 0,
+  sortOrder: 0,
   userID: '1',
   listName: 'main to-do',
   categoryPos: 0,
@@ -83,7 +83,7 @@ const allLists = [
 {  
   id: '102',
   categoryID: '2',
-  listPos: 0,
+  sortOrder: 1,
   userID: '1',
   listName: 'main shopping',
   categoryPos: 0,
@@ -94,7 +94,7 @@ const allLists = [
 {  
   id: '103',
   categoryID: '3',
-  listPos: 0,
+  sortOrder: 3,
   userID: '2',
   listName: 'main to-do',
   categoryPos: 0,
@@ -105,7 +105,7 @@ const allLists = [
 {  
   id: '104',
   categoryID: '4',
-  listPos: 0,
+  sortOrder: 4,
   userID: '2',
   listName: 'main shopping',
   categoryPos: 0,
@@ -118,7 +118,7 @@ const allLists = [
 const allItems = [
 { 
   id: '10001',
-  itemPos: 0,
+  sortOrder: 0,
   listID: '101',
   userID: '1',
   itemName: 'start to-do list',
@@ -131,7 +131,7 @@ const allItems = [
 },
 {   
   id: '10002',
-  itemPos: 1,
+  sortOrder: 1,
   listID: '101',
   userID: '1',
   itemName: 'go bowling',
@@ -144,7 +144,7 @@ const allItems = [
 },
 {   
   id: '10003',
-  itemPos: 0,
+  sortOrder: 0,
   listID: '102',
   userID: '1',
   itemName: 'salt',
@@ -157,7 +157,7 @@ const allItems = [
 },
 {   
   id: '10004',
-  itemPos: 1,
+  sortOrder: 1,
   listID: '102',
   userID: '1',
   itemName: 'pepper',
@@ -170,7 +170,7 @@ const allItems = [
 },
 {   
   id: '10005',
-  itemPos: 0,
+  sortOrder: 0,
   listID: '103',
   userID: '2',
   itemName: 'water plants',
@@ -183,7 +183,7 @@ const allItems = [
 },
 {   
   id: '10006',
-  itemPos: 1,
+  sortOrder: 1,
   listID: '103',
   userID: '2',
   itemName: 'work on UI for list app',
@@ -196,7 +196,7 @@ const allItems = [
 },
 {   
   id: '10007',
-  itemPos: 0,
+  sortOrder: 0,
   listID: '104',
   userID: '2',
   itemName: 'olive oil',
@@ -209,7 +209,7 @@ const allItems = [
 },
 {   
   id: '10008',
-  itemPos: 1,
+  sortOrder: 1,
   listID: '104',
   userID: '2',
   itemName: 'balsamic vinegar',
@@ -222,7 +222,7 @@ const allItems = [
 },
 {   
   id: '10009',
-  itemPos: 0,
+  sortOrder: 3,
   listID: '102',
   userID: '1',
   itemName: 'tomato sauce',
@@ -235,7 +235,7 @@ const allItems = [
 },
 {   
   id: '10010',
-  itemPos: 0,
+  sortOrder: 4,
   listID: '102',
   userID: '1',
   itemName: 'zucchinis',
@@ -248,7 +248,7 @@ const allItems = [
 },
 {   
   id: '10011',
-  itemPos: 0,
+  sortOrder: 6,
   listID: '102',
   userID: '1',
   itemName: 'eggplants',
@@ -261,11 +261,11 @@ const allItems = [
 },
 {   
   id: '10012',
-  itemPos: 0,
+  sortOrder: 5,
   listID: '102',
   userID: '1',
   itemName: 'aubergines',
-  itemNote: 'British eggplants',
+  itemNote: 'like British eggplants',
   importance: 0,
   created: 0,
   lastUsed: 0,
