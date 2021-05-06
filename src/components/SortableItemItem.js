@@ -4,13 +4,10 @@ import {CSS} from '@dnd-kit/utilities';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import {handleRemoveItem} from '../store/handlers';
-// import {Item} from './Item';
-import { MdDragHandle, MdDelete } from 'react-icons/md';
+import { MdDragHandle } from 'react-icons/md';
 import { FiTrash2, FiEdit } from 'react-icons/fi';
 
 export function SortableItemItem(props) {
-  // console.log('props');
-  // console.log(props);
   const {state, dispatch} = useStore();  
 
   const { attributes, listeners, setNodeRef, transform, transition } = 
@@ -29,7 +26,6 @@ export function SortableItemItem(props) {
   const editItem = (itemID) => {
     // handleEditItem(itemID, state, dispatch);
   }
-
 
   return (
     <tr ref={setNodeRef} style={style} className='oneItemLine'>
