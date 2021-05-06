@@ -8,4 +8,17 @@ const makeStringID = () => {
   return uuidv4();
 }
 
-export {makeStringID};
+/**
+ * SImple helper to return array position at which attribute is found.
+ */
+const findPosWithAttr = (array, attr, value) => {
+  for(let i = 0; i < array.length; i += 1) {
+      if(array[i][attr] === value) {
+          return i;
+      }
+  }
+  return -1;
+}
+
+
+export {makeStringID, findPosWithAttr};

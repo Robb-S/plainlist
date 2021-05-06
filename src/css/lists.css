@@ -36,3 +36,89 @@ button {
   margin-bottom: 30px;
 }
 
+/* table {
+  border-collapse: collapse;
+} */
+
+table.itemsTable {
+  border: 0px solid #999999;
+  border-collapse: separate; 
+  border-spacing: 0 16px;
+}
+
+
+table.itemsTable td.dragHandle {
+  border-style: solid;
+  border-color: #999999;
+  border-width: 1px 0 1px 1px;
+  padding: 12px 12px 8px 12px;
+}
+
+table.itemsTable td.itemName {
+  border-style: solid;
+  border-color: #999999;
+  border-width: 1px 0 1px 0px;
+  padding: 8px 12px 12px 12px;
+}
+
+table.itemsTable td.itemNote {
+  border-style: solid;
+  border-color: #999999;
+  border-width: 1px 0 1px 0;
+  padding: 10px 12px 10px 12px;
+  font-size: 75%;
+}
+
+table.itemsTable td.buttons {
+  border-style: solid;
+  border-color: #999999;
+  border-width: 1px 1px 1px 0;
+  padding: 12px 12px 8px 12px;
+}
+
+li.oneItemLine {
+  border: 1px solid #999999;
+  margin: 18px 0 18px 0;
+}
+
+span.itemName {
+  padding: 8px 12px 12px 12px; 
+}
+
+span.itemNote {
+  padding: 10px 12px 10px 12px;
+  font-size: 75%;
+}
+
+span.iconBorder {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #99cccc;
+  padding: 8px 4px 0px 4px;
+}
+
+
+span.iconBorderSmall {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #99cccc;
+  padding: 2px 4px 0px 4px;
+}
+
+
+span.iconDelete {
+  cursor: pointer;
+}
+
+span.iconEdit {
+  cursor: pointer;
+}
+
+span.iconHandle {
+  cursor: move;
+}
+
+span.sliver5 {
+  width: 5px;
+}
+
