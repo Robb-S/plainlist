@@ -1,6 +1,11 @@
 import {makeStringID} from '../util/helpers';
+import {getItemRec} from './getData';
 
-const handleRemoveItem = async (itemID, dispatch) =>  {
+const handleRemoveItem = async (itemID, state, dispatch) =>  {
+  if (!getItemRec(itemID, state)) { // check that it still exists in state
+    alert("Sorry, that item can't be found.");
+    return;
+  }
   dispatch({
     type: 'STARTED_LOADING',
   });
