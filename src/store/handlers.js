@@ -1,6 +1,6 @@
 import {makeStringID, confirmQuest, makeHighestNumericAttribute, 
   AreObjectsDifferent} from '../util/helpers';
-import {getItemRec} from './getData';
+import {getItemRec, getItemsByListID} from './getData';
 
 /**
  * Take new itemName and itemNote from input, then  add a
@@ -95,8 +95,21 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
   if (newOneListItems.length<1) return; // this should never happen
   const listID = newOneListItems[0].listID;
   console.log('listID found: ' + listID);
-
-
+  const expectedListSize = getItemsByListID(listID, state).length;
+  if (expectedListSize!==newOneListItems.length) return; // something out of sync
+  const newItemsReversed = [...newOneListItems];
+  newItemsReversed.reverse();
+  const itemsToUpdate = [];  // collect altered items first, then update them
+  // console.log(newItemsReversed);
+  for (const [index, oneItem] of newItemsReversed.entries()) {
+    // console.log(index, oneItem);
+    if ((index+1)!==oneItem.sortOrder) {
+      oneItem.sortOrder = index+1;
+      itemsToUpdate.push(oneItem);
+    }
+  }
+  console.log( itemsToUpdate.length + ' items to update....');
+  console.log( itemsToUpdate);
 }
 
 

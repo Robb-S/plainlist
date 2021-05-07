@@ -36,10 +36,15 @@ const ItemsList = () => {
     })
   );
 
+  function callHandleUpdateItemsList (items)  {
+    handleUpdateItemsList(items, state, dispatch);
+  }
+
   useEffect(() => { // this is called after handleDragEnd updates positions within array.
     console.log('useEffect for items');
     console.log(items);
-    handleUpdateItemsList(items, state, dispatch);
+    callHandleUpdateItemsList(items);
+
   }, [items]);
 
   // function handleDragStart(event) {
