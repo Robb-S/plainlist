@@ -78,5 +78,31 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
   });
 }
 
+/**
+ * handleUpdateItemsList - receives array of items from one list, with new sort order
+ * to be determined by each item's position with the array.  
+ * 1) find size of original array of items for this listID from store.
+ *   compare array sizes.  if different, then abort.  (maybe items out of sync)
+ * 2) loop through new array in reverse
+ * 3) for each item, see if it needs a new sortOrder number. 
+ * 4) if so, then update API and dispatch 'UPDATE_ITEM' 
+ * Future enhancement - if any of the API operations fails, then abort and try to roll
+ * back.  Although the worst that will happen without this enhancement is that the sort
+ * order displayed may be slightly different from expectation in the event of multiple 
+ * API call failures.  
+ */
+const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
+  if (newOneListItems.length<1) return; // this should never happen
+  const listID = newOneListItems[0].listID;
+  console.log('listID found: ' + listID);
 
-export {handleRemoveItem, handleAddItem, handleUpdateItem};
+
+}
+
+
+export {
+  handleRemoveItem, 
+  handleAddItem, 
+  handleUpdateItem, 
+  handleUpdateItemsList,
+};
