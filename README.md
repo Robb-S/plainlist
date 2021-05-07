@@ -11,8 +11,9 @@ This repository is the code for a web-based front end, built in React.
 ## Structure
 
 <pre>
+App
 Loading - loading message 
-App - display all categories, including heading
+AllCats - display all categories, including heading
   OneCat - one category, including heading
     OneList -one list, including heading
       AddItem - input form to add an itemName and itemNote 
