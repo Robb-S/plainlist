@@ -56,7 +56,7 @@ const OneCat = () => {
           <thead>
             <tr>
               <th>Lists</th>
-              <th>Alt links</th>
+              {/* <th>Alt links</th> */}
               <th>Size</th>
               <th>Action</th>
             </tr>
@@ -75,7 +75,7 @@ const OneCat = () => {
                     {list.listName}
                   </Link>
                 </td>
-                <td>
+                {/* <td>
                   <Link className='linky2'
                     to={{
                       pathname: `/list2/`,
@@ -84,7 +84,7 @@ const OneCat = () => {
                   >
                     Alt
                   </Link>
-                </td>
+                </td> */}
                 <td>
                       {list.childCount}
                 </td>
