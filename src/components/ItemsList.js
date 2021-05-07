@@ -1,3 +1,7 @@
+/**
+ * ItemsList - show list of items as draggable elements.  Called by OneList.  
+ * Handles REORDER_LIST on dragEnd.
+ */
 import React, {Fragment, useState, useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor,  
@@ -10,19 +14,20 @@ import {useStore} from '../store/StoreContext';
 import {getItemsByListID} from '../store/getData';
 import {SortableItemItem} from './SortableItemItem';
 import {findPosWithAttr} from '../util/helpers';
-
+import {handleUpdateItemsList} from '../store/handlers';
 
 const ItemsList = () => {
   const data = useLocation(); // to retrieve params from data.state
   // data.state will only exist when set up in LINK, not if URL was entered manually
   const needsRedirect = data.state ? false : true; // is it called from link or manual URL
   const listID = needsRedirect ? null : data.state.listID; 
-  const {state } = useStore();  // this must come before conditional render
+  const {state, dispatch } = useStore();  // this must come before conditional render
 
   const oneListItems = getItemsByListID(listID, state);
-
-  // const [activeId, setActiveId] = useState(null);
-  const [items, setItems] = useState([...oneListItems]);
+  // const [activeId, setActiveId] = useState(null); // used with DragOverlay
+  // set variable 'items' as local array, which can be reordered by dragging.
+  // not to be confused with 'items' in state.
+  const [items, setItems] = useState([...oneListItems]); 
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -31,9 +36,10 @@ const ItemsList = () => {
     })
   );
 
-  useEffect(() => {
-    // console.log('useEffect for items');
-    // console.log(items);
+  useEffect(() => { // this is called after handleDragEnd updates positions within array.
+    console.log('useEffect for items');
+    console.log(items);
+    handleUpdateItemsList(items, state, dispatch);
   }, [items]);
 
   // function handleDragStart(event) {
