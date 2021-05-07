@@ -22,7 +22,6 @@ export function SortableItemItem(props) {
   };
   
   const removeItem = (itemID) => {
-    // TODO: make confirmation dialog
     handleRemoveItem(itemID, state, dispatch);
   }
 
