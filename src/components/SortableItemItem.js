@@ -1,3 +1,8 @@
+/**
+ * SortableItemItem component.  Display one item from list, with update and delete 
+ * handlers.  It is set up as a sortable list element (although it's currently a 
+ * table row), working with a dnd-kit sortable list.
+ */
 import React, {Fragment, useState} from 'react';
 import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
