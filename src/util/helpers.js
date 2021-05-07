@@ -36,4 +36,19 @@ const confirmQuest = (cQuestion) => {
   return window.confirm(cQuestion);
 }
 
-export {makeStringID, findPosWithAttr, makeHighestNumericAttribute, confirmQuest};
+/**
+ * Compares two objects to see if they have same value via JSON.stringify.
+ * May cause occasional unnecessary rewrites if somehow the attributes are 
+ * in different order, but it doesn't matter.
+ */
+const AreObjectsDifferent = (a, b) => {
+  return JSON.stringify(a) !== JSON.stringify(b);
+}
+
+export {
+  makeStringID, 
+  findPosWithAttr, 
+  makeHighestNumericAttribute, 
+  confirmQuest,
+  AreObjectsDifferent,
+};

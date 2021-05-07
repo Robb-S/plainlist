@@ -3,7 +3,7 @@ import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
-import {handleRemoveItem} from '../store/handlers';
+import { handleRemoveItem, handleUpdateItem } from '../store/handlers';
 import { MdDragHandle } from 'react-icons/md';
 import { FiTrash2, FiEdit, FiCheckSquare, FiXCircle } from 'react-icons/fi';
 
@@ -29,9 +29,9 @@ export function SortableItemItem(props) {
     setEditMode(true);
   }
 
-  const editItem = (itemID) => {
+  const updateItem = (itemID) => {
     setEditMode(false);
-    // handleEditItem(itemID, state, dispatch);
+    handleUpdateItem(itemID, itemName, itemNote, state, dispatch);
   }
 
   const cancelEdit = () => {
@@ -96,7 +96,7 @@ export function SortableItemItem(props) {
           <td className='buttons editButtons'>
             <span className='editButtonArea'>
               <span className='iconCheckmark iconNoBorder'>
-                <FiCheckSquare onClick={() => editItem(props.item.id)}
+                <FiCheckSquare onClick={() => updateItem(props.item.id)}
                 title='accept edit' size='24' color='#555555' />
               </span>
               <span className="sliver5"> </span>

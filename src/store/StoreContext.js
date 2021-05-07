@@ -1,4 +1,5 @@
 import React, {useContext} from 'react'
+import { AppReducer } from './AppReducer';
 
 const initValues = {
   loading: true,
@@ -10,63 +11,8 @@ const initValues = {
 
 const StoreContext = React.createContext();
 
-function reducer(state, action) {
-  switch (action.type) {
-    case 'STARTED_LOADING': {
-      return {
-        ...state,
-        loading: true,
-      };
-    }
-    case 'FINISHED_LOADING': {
-      return {
-        ...state,
-        loading: false,
-      };
-    }
-    case 'SET_USER': {
-      return {
-        ...state,
-        user: action.payload.user,
-      };
-    }
-    case 'SET_LISTS': {
-      return {
-        ...state,
-        categories: action.payload.categories,
-        lists: action.payload.lists,
-        items: action.payload.items,
-      };
-    }
-    case 'DELETE_ITEM': {
-      console.log('*** deleting item in reducer');
-      console.log(action.payload);
-      return {
-        ...state,
-        items: state.items.filter(
-          (item) => item.id !== action.payload
-        ),
-      };
-    }
-    case 'ADD_ITEM': {
-      console.log('*** adding item in reducer');
-      console.log(action.payload);
-      return {
-        ...state,
-        items: [...state.items, action.payload],
-      };
-    }
-    case 'DO_NOTHING': {
-      return state;
-    }
-    default: {
-      throw new Error(`Unhandled action type: ${action.type}`);
-    }
-  }
-}
-
 function StoreProvider({children}) {
-  const [state, dispatch] = React.useReducer(reducer, initValues );
+  const [state, dispatch] = React.useReducer(AppReducer, initValues );
   const value = {state, dispatch};
   return (<StoreContext.Provider value={value}>{children}</StoreContext.Provider>);
 }
