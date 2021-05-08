@@ -94,11 +94,11 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
  */
 const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
   if (newOneListItems.length<1) return; // this should never happen
-  const listID = newOneListItems[0].listID;
-  console.log('listID found: ' + listID);
+  const listID = newOneListItems[0].listID;  // same for all, so just check first one.
+  // console.log('listID found: ' + listID);
   const expectedListSize = getItemsByListID(listID, state).length;
-  if (expectedListSize!==newOneListItems.length) return; // something out of sync
-  const newItemsReversed = [...newOneListItems];
+  if (expectedListSize!==newOneListItems.length) return; // something is out of sync
+  const newItemsReversed = [...newOneListItems]; // otherwise will affect current display.
   newItemsReversed.reverse();
   const itemsToUpdate = [];  // collect altered items first, then update them
   // console.log(newItemsReversed);
@@ -113,7 +113,8 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
     }
   }
   console.log( itemsToUpdate.length + ' items to update....');
-  console.log( itemsToUpdate);
+  // console.log( itemsToUpdate);
+  // TODO: call API update, then dispatch UPDATE_ITEM for all items in this array.
 }
 
 
