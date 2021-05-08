@@ -2,7 +2,7 @@
  * ItemsList - show list of items as draggable elements.  Called by OneList.  
  * Handles REORDER_LIST on dragEnd.
  */
-import React, {Fragment, useState, useEffect} from 'react';
+import React, {Fragment, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor,  
   useSensors } from '@dnd-kit/core';
@@ -36,17 +36,6 @@ const ItemsList = () => {
     })
   );
 
-  function callHandleUpdateItemsList (items)  {
-    handleUpdateItemsList(items, state, dispatch);
-  }
-
-  useEffect(() => { // this is called after handleDragEnd updates positions within array.
-    console.log('useEffect for items');
-    console.log(items);
-    callHandleUpdateItemsList(items);
-
-  }, [items]);
-
   // function handleDragStart(event) {
   //   const {active} = event;
   //   setActiveId(active.id);
@@ -55,11 +44,16 @@ const ItemsList = () => {
   const handleDragEnd = (event) => {
     const {active, over} = event;
     if (active.id !== over.id) {
-      setItems((items) => {
-        const oldIndex = findPosWithAttr(items, 'id', active.id);
-        const newIndex = findPosWithAttr(items, 'id', over.id);
-        return arrayMove(items, oldIndex, newIndex);
-      });
+      const oldIndex = findPosWithAttr(items, 'id', active.id);
+      const newIndex = findPosWithAttr(items, 'id', over.id);
+      const newItems = arrayMove(items, oldIndex, newIndex);
+      setItems(newItems);
+      handleUpdateItemsList(newItems, state, dispatch);
+      // setItems((items) => {
+      //   const oldIndex = findPosWithAttr(items, 'id', active.id);
+      //   const newIndex = findPosWithAttr(items, 'id', over.id);
+      //   return arrayMove(items, oldIndex, newIndex);
+      // });
     }
   }
 

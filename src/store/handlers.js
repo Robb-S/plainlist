@@ -81,6 +81,7 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
 /**
  * handleUpdateItemsList - receives array of items from one list, with new sort order
  * to be determined by each item's position with the array.  
+ * NOTE: Sort order starts with 1.
  * 1) find size of original array of items for this listID from store.
  *   compare array sizes.  if different, then abort.  (maybe items out of sync)
  * 2) loop through new array in reverse
@@ -104,6 +105,9 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
   for (const [index, oneItem] of newItemsReversed.entries()) {
     // console.log(index, oneItem);
     if ((index+1)!==oneItem.sortOrder) {
+      // console.log('sort order different: ');
+      // console.log('index+1: ' + (index + 1));
+      // console.log('current sortOrder: ' + oneItem.sortOrder);
       oneItem.sortOrder = index+1;
       itemsToUpdate.push(oneItem);
     }
