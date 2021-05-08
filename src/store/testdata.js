@@ -34,7 +34,7 @@ const allCategories = [
   id: '1',
   userID: '1',
   categoryName: 'to do',
-  sortOrder: 1,
+  sortOrder: 2,
   creationDate: 0,
   lastUse: 0,
   active: true,
@@ -43,7 +43,7 @@ const allCategories = [
   id: '2',
   userID: '1',
   categoryName: 'shopping',
-  sortOrder: 0,
+  sortOrder: 1,
   created: 0,
   lastUsed: 0,
   active: true,
@@ -52,7 +52,7 @@ const allCategories = [
   id: '3',
   userID: '2',
   categoryName: 'stuff to do',
-  sortOrder: 1,
+  sortOrder: 2,
   creationDate: 0,
   lastUse: 0,
   active: true,
@@ -72,7 +72,7 @@ const allLists = [
 {
   id: '101',
   categoryID: '1',
-  sortOrder: 0,
+  sortOrder: 2,
   userID: '1',
   listName: 'main to-do',
   categoryPos: 0,
@@ -118,7 +118,7 @@ const allLists = [
 const allItems = [
 { 
   id: '10001',
-  sortOrder: 0,
+  sortOrder: 2,
   listID: '101',
   userID: '1',
   itemName: 'start to-do list',
@@ -144,7 +144,7 @@ const allItems = [
 },
 {   
   id: '10003',
-  sortOrder: 0,
+  sortOrder: 1,
   listID: '102',
   userID: '1',
   itemName: 'salt',
@@ -157,7 +157,7 @@ const allItems = [
 },
 {   
   id: '10004',
-  sortOrder: 1,
+  sortOrder: 2,
   listID: '102',
   userID: '1',
   itemName: 'pepper',
@@ -170,7 +170,7 @@ const allItems = [
 },
 {   
   id: '10005',
-  sortOrder: 0,
+  sortOrder: 1,
   listID: '103',
   userID: '2',
   itemName: 'water plants',
@@ -183,7 +183,7 @@ const allItems = [
 },
 {   
   id: '10006',
-  sortOrder: 1,
+  sortOrder: 2,
   listID: '103',
   userID: '2',
   itemName: 'work on UI for list app',
@@ -196,7 +196,7 @@ const allItems = [
 },
 {   
   id: '10007',
-  sortOrder: 0,
+  sortOrder: 1,
   listID: '104',
   userID: '2',
   itemName: 'olive oil',
@@ -209,7 +209,7 @@ const allItems = [
 },
 {   
   id: '10008',
-  sortOrder: 1,
+  sortOrder: 2,
   listID: '104',
   userID: '2',
   itemName: 'balsamic vinegar',
