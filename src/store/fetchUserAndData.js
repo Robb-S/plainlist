@@ -25,8 +25,19 @@ const getListsByUserID = async (userID) => {
   return { categories: uCats, lists: uLists, items: uItems };
 }
 
+const setAxiosAuthToken = token => {
+  if (typeof token !== "undefined" && token) {
+    // Apply for every request
+    axios.defaults.headers.common["Authorization"] = "Token " + token;
+  } else {
+    // Delete auth header
+    delete axios.defaults.headers.common["Authorization"];
+  }
+};
 
 const getListsByUserIDTestAPI = async (userID) => {
+  let token='7e206beb2140d19d8745fed18a5e0e5326e83c0e';
+  setAxiosAuthToken(token);
   const delay = ms => new Promise(res => setTimeout(res, ms));
   await delay(500);
   let uCats = allCategories.filter(oneCategory => {
@@ -38,6 +49,33 @@ const getListsByUserIDTestAPI = async (userID) => {
   let uItems = allItems.filter(oneItem => {
     return oneItem.userID === userID;
   }); 
+
+  const api4 = 'http://127.0.0.1:8000/api-token-auth/';
+  const logdata = {'username':'admin', 'password':'zdj1superuser'};
+  try {
+    const response4 = await axios.post(api4, logdata);
+     // Success 🎉
+     // uLists = response2.data;
+    console.log('token');
+    token = response4.data.token;
+    console.log(token);
+    setAxiosAuthToken(token);
+  } catch (error) {
+    console.log(error);
+  }
+
+  console.log(axios.defaults.headers.common);
+
+  const api_get_items_with_token = 'http://127.0.0.1:8000/itembyuser/';
+  try {
+    const response5 = await axios.get(api_get_items_with_token);
+    // Success 🎉
+    console.log(response5);
+    uItems = response5.data;
+  } catch (error) {
+    console.log(error);
+  }
+
 
   //console.log(uCats);
   const api1 = 'http://127.0.0.1:8000/itembyusertest/?userid=1';
@@ -59,14 +97,17 @@ const getListsByUserIDTestAPI = async (userID) => {
   } catch (error) {
     console.log(error);
   }
-  try {
-    const response1 = await axios.get(api1);
-    // Success 🎉
-    uItems = response1.data;
-    //console.log(uItems);
-  } catch (error) {
-    console.log(error);
-  }  
+  // try {
+  //   const response1 = await axios.get(api1);
+  //   // Success 🎉
+  //   uItems = response1.data;
+  //   //console.log(uItems);
+  // } catch (error) {
+  //   console.log(error);
+  // }  
+
+
+
 
   return { categories: uCats, lists: uLists, items: uItems };
 }
