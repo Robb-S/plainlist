@@ -12,6 +12,8 @@ import Loading from './Loading';
  */
 const OneCat = () => {
   const data = useLocation(); // to retrieve params from data.state
+  console.log('OneCata data:');
+  console.log(data);
   // data.state will only exist when set up in LINK, not if URL was entered manually
   const needsRedirect = data.state ? false : true; // is it called from link or manual URL
   const id = needsRedirect ? null : data.state.catID; 
@@ -69,7 +71,7 @@ const OneCat = () => {
                     title={list.listName}
                     to={{
                       pathname: `/list/`,
-                      state: { listID: `${list.id}`}
+                      state: { listID: list.id }
                     }}
                   >
                     {list.listName}

@@ -35,7 +35,7 @@ const OneList = () => {
           <Link className='linky2'
             to={{
               pathname: `/cat/`,
-              state: { catID: `${parentCatID}`}
+              state: { catID: parentCatID }
             }}
           >Up to: "{parentCatName}" category)</Link>
           <button className="btn default-btn">Edit/delete list</button>
