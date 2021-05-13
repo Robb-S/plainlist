@@ -18,7 +18,7 @@ function App() {
   const dispatch = store.dispatch;
 
   useEffect(() => {
-    handleGetUserAndData('1', 'testAPI', dispatch);
+    handleGetUserAndData(1, 'testAPI', dispatch);
   }, [dispatch]);
 
   return (

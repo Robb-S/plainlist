@@ -40,9 +40,9 @@ const getListsByUserIDTestAPI = async (userID) => {
   }); 
 
   //console.log(uCats);
-  const api1 = 'http://127.0.0.1:8000/itembyusertest/?userid=2';
-  const api2 = 'http://127.0.0.1:8000/listbyusertest/?userid=2';
-  const api3 = 'http://127.0.0.1:8000/categorybyusertest/?userid=2';
+  const api1 = 'http://127.0.0.1:8000/itembyusertest/?userid=1';
+  const api2 = 'http://127.0.0.1:8000/listbyusertest/?userid=1';
+  const api3 = 'http://127.0.0.1:8000/categorybyusertest/?userid=1';
   try {
     const response3 = await axios.get(api3);
     // Success 🎉

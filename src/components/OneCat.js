@@ -11,9 +11,7 @@ import Loading from './Loading';
  * this won't happen, so we need to redirect to the main page.
  */
 const OneCat = () => {
-  const data = useLocation(); // to retrieve params from data.state
-  console.log('OneCata data:');
-  console.log(data);
+  const data = useLocation(); // to retrieve params (id=catID) from data.state
   // data.state will only exist when set up in LINK, not if URL was entered manually
   const needsRedirect = data.state ? false : true; // is it called from link or manual URL
   const id = needsRedirect ? null : data.state.catID; 
