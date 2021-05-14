@@ -12,13 +12,15 @@ import {useStore} from './store/StoreContext';
 import {handleGetUserAndData} from './store/fetchUserAndData';
 
 function App() {
+  const testMode = 'API';   // API or testData
+  const testUserID = 1;     // 1 or 2 (when using testData)
   const store = useStore();
   // const state = store.state;
   // const isLoaded = !store.state.loading;
   const dispatch = store.dispatch;
 
   useEffect(() => {
-    handleGetUserAndData(1, 'API', dispatch);
+    handleGetUserAndData(testUserID, testMode, dispatch);
   }, [dispatch]);
 
   return (
@@ -27,7 +29,6 @@ function App() {
         <Route path="/" component={AllCats} exact />
         <Route path="/cat/" component={OneCat} exact />
         <Route path="/list/" component={OneList} exact />
-        {/* <Route path="/list2/" component={OneList2} exact /> */}
       </Switch>
     </div>
   );
