@@ -49,6 +49,7 @@ const AreObjectsDifferent = (a, b) => {
 const setAxiosAuthToken = token => {
   if (typeof token !== "undefined" && token) {
     axios.defaults.headers.common["Authorization"] = "Token " + token;
+    axios.defaults.headers.common["Content-Type"] = 'application/json';
   } else { // Delete auth header    
     delete axios.defaults.headers.common["Authorization"];
   }

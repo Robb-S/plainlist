@@ -1,6 +1,9 @@
-import {makeStringID, confirmQuest, makeHighestNumericAttribute, 
+import {confirmQuest, makeHighestNumericAttribute, 
   AreObjectsDifferent} from '../util/helpers';
 import {getItemRec, getItemsByListID} from './getData';
+import axios from 'axios';
+import * as api from '../util/constants';
+// import {getToken} from './fetchUserAndData';
 
 /**
  * Take new itemName and itemNote from input, then  add a
@@ -16,14 +19,31 @@ import {getItemRec, getItemsByListID} from './getData';
   await delay(200);
   // simulate deletion of items from an API
   // TODO: write to API, then handle result
-  newItem.id = makeStringID(); // add a random ID (temporary measure)
   newItem.sortOrder = makeHighestNumericAttribute(items, 'sortOrder');
-  const dbItem = {...newItem}; // this will be replaced by API return
-  console.log(dbItem);
-  dispatch({
-    type: 'ADD_ITEM',
-    payload: dbItem,
-  });
+  console.log('new item:');
+  console.log(newItem);
+  const newItemJSON = JSON.stringify(newItem);
+  try {
+    const config = {
+      method: "post",
+      url: api.API_ITEMS,
+      data: newItemJSON,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };  
+    const responseAddItem = await axios(config);
+    console.log('this was returned from API: ')
+    console.log(responseAddItem);
+    const dbItem = responseAddItem.data;
+    console.log(dbItem);
+    dispatch({
+      type: 'ADD_ITEM',
+      payload: dbItem,
+    });
+  } catch (error) {
+    console.log(error);
+  }
   dispatch({
     type: 'FINISHED_LOADING',
   });

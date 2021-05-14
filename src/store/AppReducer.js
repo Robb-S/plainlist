@@ -55,6 +55,8 @@ function AppReducer(state, action) {
     case 'ADD_ITEM': { // payload is item object
       console.log('*** adding item in reducer');
       console.log(action.payload);
+      console.log('other items: ');
+      console.log(state.items);
       return {
         ...state,
         items: [...state.items, action.payload],

@@ -45,16 +45,16 @@ const getListsByToken = async () => {
 }
 
 /**
- * Fetch the data objects and return them.
+ * Fetch data objects and return them.
  */
-const fetchListsByUserID = async (userID, testMode) => {
-  if (testMode==='testData') {
-    const {user, categories, lists, items} = await getListsByUserIDTestData(userID);
-    return {user, categories, lists, items};
-  }
-  if (testMode==='API') {
+const fetchListsByUserID = async (userID, runMode) => {
+  if (runMode==='API') {
     await getToken();
     const {user, categories, lists, items} = await getListsByToken();
+    return {user, categories, lists, items};
+  }
+  if (runMode==='testData') {
+    const {user, categories, lists, items} = await getListsByUserIDTestData(userID);
     return {user, categories, lists, items};
   }
 }
@@ -62,10 +62,10 @@ const fetchListsByUserID = async (userID, testMode) => {
 /**
  * Get user and list data from test data or real API, handle dispatch to store
  * 
- * @param {*} testMode 'testData' or 'API'
+ * @param {*} runMode 'testData' or 'API'
  */
-const handleGetUserAndData = async (userID, testMode, dispatch) =>  {
-    const {user, categories, lists, items} = await fetchListsByUserID(userID, testMode);
+const handleGetUserAndData = async (userID, runMode, dispatch) =>  {
+    const {user, categories, lists, items} = await fetchListsByUserID(userID, runMode);
     dispatch({
       type: 'SET_USER',
       payload: {user},
@@ -105,4 +105,4 @@ const handleGetUserAndData = async (userID, testMode, dispatch) =>  {
     return { user: user, categories: uCats, lists: uLists, items: uItems };
   }
 
-export {handleGetUserAndData};
+export {getToken, handleGetUserAndData};

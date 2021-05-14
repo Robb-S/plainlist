@@ -12,7 +12,7 @@ import {useStore} from './store/StoreContext';
 import {handleGetUserAndData} from './store/fetchUserAndData';
 
 function App() {
-  const testMode = 'API';   // API or testData
+  const runMode = 'API';   // API or testData
   const testUserID = 1;     // 1 or 2 (when using testData)
   const store = useStore();
   // const state = store.state;
@@ -20,7 +20,7 @@ function App() {
   const dispatch = store.dispatch;
 
   useEffect(() => {
-    handleGetUserAndData(testUserID, testMode, dispatch);
+    handleGetUserAndData(testUserID, runMode, dispatch);
   }, [dispatch]);
 
   return (
