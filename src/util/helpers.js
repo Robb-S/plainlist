@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
 /**
  * Make unique string ID.  Currently using uuid.  Probably only temporary, as IDs will
@@ -45,10 +46,19 @@ const AreObjectsDifferent = (a, b) => {
   return JSON.stringify(a) !== JSON.stringify(b);
 }
 
+const setAxiosAuthToken = token => {
+  if (typeof token !== "undefined" && token) {
+    axios.defaults.headers.common["Authorization"] = "Token " + token;
+  } else { // Delete auth header    
+    delete axios.defaults.headers.common["Authorization"];
+  }
+};
+
 export {
   makeStringID, 
   findPosWithAttr, 
   makeHighestNumericAttribute, 
   confirmQuest,
   AreObjectsDifferent,
+  setAxiosAuthToken,
 };

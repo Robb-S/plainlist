@@ -1,132 +1,68 @@
 import {allUsers, allCategories, allLists, allItems} from './testdata';
 import axios from 'axios';
+import {API_AUTH, API_ITEMS, API_LISTS, API_CATS, API_USER_BASIC} from '../util/constants';
+import {setAxiosAuthToken} from '../util/helpers';
 
-const getUserByID = async (userID) => {
-  const delay = ms => new Promise(res => setTimeout(res, ms));
-  await delay(500);
-  const matchingID = allUsers.filter(oneUser => {
-    return oneUser.id === userID
-  })
-  return matchingID.length>0 ? matchingID[0] : null;
-}
-
-const getListsByUserID = async (userID) => {
-  const delay = ms => new Promise(res => setTimeout(res, ms));
-  await delay(500);
-  const uCats = allCategories.filter(oneCategory => {
-    return oneCategory.userID === userID;
-  });
-  const uLists = allLists.filter(oneList => {
-    return oneList.userID === userID;
-  });
-  const uItems = allItems.filter(oneItem => {
-    return oneItem.userID === userID;
-  }); 
-  return { categories: uCats, lists: uLists, items: uItems };
-}
-
-const setAxiosAuthToken = token => {
-  if (typeof token !== "undefined" && token) {
-    // Apply for every request
-    axios.defaults.headers.common["Authorization"] = "Token " + token;
-  } else {
-    // Delete auth header
-    delete axios.defaults.headers.common["Authorization"];
-  }
-};
-
-const getListsByUserIDTestAPI = async (userID) => {
-  let token='7e206beb2140d19d8745fed18a5e0e5326e83c0e';
-  setAxiosAuthToken(token);
-  const delay = ms => new Promise(res => setTimeout(res, ms));
-  await delay(500);
-  let uCats = allCategories.filter(oneCategory => {
-    return oneCategory.userID === userID;
-  });
-  let uLists = allLists.filter(oneList => {
-    return oneList.userID === userID;
-  });
-  let uItems = allItems.filter(oneItem => {
-    return oneItem.userID === userID;
-  }); 
-
-  const api4 = 'http://127.0.0.1:8000/api-token-auth/';
-  const logdata = {'username':'admin', 'password':'zdj1superuser'};
+const getToken = async () => {
+  let token = '';
+  const loginData = {'username':'admin', 'password':'zdj1superuser'};
   try {
-    const response4 = await axios.post(api4, logdata);
-     // Success 🎉
-     // uLists = response2.data;
-    console.log('token');
-    token = response4.data.token;
-    console.log(token);
+    const responseToken = await axios.post(API_AUTH, loginData);
+    token = responseToken.data.token;
     setAxiosAuthToken(token);
   } catch (error) {
     console.log(error);
   }
-
-  console.log(axios.defaults.headers.common);
-
-  const api_get_items_with_token = 'http://127.0.0.1:8000/itembyuser/';
-  try {
-    const response5 = await axios.get(api_get_items_with_token);
-    // Success 🎉
-    console.log(response5);
-    uItems = response5.data;
-  } catch (error) {
-    console.log(error);
-  }
-
-
-  //console.log(uCats);
-  const api1 = 'http://127.0.0.1:8000/itembyusertest/?userid=1';
-  const api2 = 'http://127.0.0.1:8000/listbyusertest/?userid=1';
-  const api3 = 'http://127.0.0.1:8000/categorybyusertest/?userid=1';
-  try {
-    const response3 = await axios.get(api3);
-    // Success 🎉
-    uCats = response3.data;
-    //console.log(uCats);
-  } catch (error) {
-    console.log(error);
-  }
-  try {
-    const response2 = await axios.get(api2);
-    // Success 🎉
-    uLists = response2.data;
-    //console.log(uLists);
-  } catch (error) {
-    console.log(error);
-  }
-  // try {
-  //   const response1 = await axios.get(api1);
-  //   // Success 🎉
-  //   uItems = response1.data;
-  //   //console.log(uItems);
-  // } catch (error) {
-  //   console.log(error);
-  // }  
-
-
-
-
-  return { categories: uCats, lists: uLists, items: uItems };
 }
 
-const fetchListsByUserID = async (userID, mode) => {
-  if (mode==='simulated') {
-    const {categories, lists, items} = await getListsByUserID(userID);
-    return {categories, lists, items};
+/**
+ * get data from API.
+ * 
+ */
+const getListsByToken = async () => {
+  // let user = {};
+  let user, uCats, uLists, uItems = [];
+  try {
+    const responseUsers = await axios.get(API_USER_BASIC);
+    const userArray = responseUsers.data;
+    user = userArray.length>0 ? userArray[0] : [];
+    console.log('fetched user: ');
+    console.log(user);
+    const responseCats = await axios.get(API_CATS);
+    uCats = responseCats.data;
+    const responseLists = await axios.get(API_LISTS);
+    uLists = responseLists.data;
+    const responseItems = await axios.get(API_ITEMS);
+    uItems = responseItems.data;
+  } catch (error) {
+    console.log(error);
   }
-  if (mode==='testAPI') {
-    const {categories, lists, items} = await getListsByUserIDTestAPI(userID);
-    return {categories, lists, items};
+  return { user: user, categories: uCats, lists: uLists, items: uItems };
+}
+
+const fetchListsByUserID = async (userID, testMode) => {
+  if (testMode==='testData') {
+    const {user, categories, lists, items} = await getListsByUserIDTestData(userID);
+    return {user, categories, lists, items};
+  }
+  if (testMode==='API') {
+    // const user = await getUserByID(userID);
+    // console.log('user: ');
+    // console.log(user);
+    const {user, categories, lists, items} = await getListsByToken();
+    return {user, categories, lists, items};
   }
 }
 
-const handleGetUserAndData = async (userID, mode, dispatch) =>  {
+/**
+ * 
+ * @param {*} testMode 'testData' or 'API'
+ */
+
+const handleGetUserAndData = async (userID, testMode, dispatch) =>  {
     // simulate loading of items from an API
-    const user = await getUserByID(userID);
-    const {categories, lists, items} = await fetchListsByUserID(userID, mode);
+    await getToken();
+    const {user, categories, lists, items} = await fetchListsByUserID(userID, testMode);
     dispatch({
       type: 'SET_USER',
       payload: {user},
@@ -144,4 +80,26 @@ const handleGetUserAndData = async (userID, mode, dispatch) =>  {
     });
   }  
 
-export {getUserByID, handleGetUserAndData};
+  /**
+   * Test mode, with dummy data supplied.  Simulated delay.
+   */
+  const getListsByUserIDTestData = async (userID) => {
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+    await delay(500);
+    const matchingID = allUsers.filter(oneUser => {
+      return oneUser.id === userID
+    })
+    const user = matchingID.length>0 ? matchingID[0] : null;
+    const uCats = allCategories.filter(oneCategory => {
+      return oneCategory.userID === userID;
+    });
+    const uLists = allLists.filter(oneList => {
+      return oneList.userID === userID;
+    });
+    const uItems = allItems.filter(oneItem => {
+      return oneItem.userID === userID;
+    }); 
+    return { user: user, categories: uCats, lists: uLists, items: uItems };
+  }
+
+export {handleGetUserAndData};
