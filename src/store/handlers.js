@@ -1,48 +1,29 @@
-import {confirmQuest, makeHighestNumericAttribute, 
-  AreObjectsDifferent} from '../util/helpers';
+import {confirmQuest, makeHighestNumericAttribute, AreObjectsDifferent } from '../util/helpers';
 import {getItemRec, getItemsByListID} from './getData';
-import axios from 'axios';
+// import axios from 'axios';
 import * as api from '../util/constants';
-// import {getToken} from './fetchUserAndData';
+import {addItemAPI, deleteItemAPI, updateItemAPI} from './apiCalls';
 
 /**
  * Take new itemName and itemNote from input, then  add a
  * high sortOder attribute so it sorts to the top of the list.
  * ID and other attributes will be taken care of by REST API.
  */
- const handleAddItem = async (newItem, items, dispatch) => {
-  console.log('* handleAddItem');
+const handleAddItem = async (newItem, state, dispatch) => {
+  const items = state.items;
   dispatch({
     type: 'STARTED_LOADING',
   });
-  const delay = ms => new Promise(res => setTimeout(res, ms));
-  await delay(200);
-  // simulate deletion of items from an API
-  // TODO: write to API, then handle result
+  // add high sortOrder to make it sort to beginning of list
   newItem.sortOrder = makeHighestNumericAttribute(items, 'sortOrder');
-  console.log('new item:');
-  console.log(newItem);
-  const newItemJSON = JSON.stringify(newItem);
-  try {
-    const config = {
-      method: "post",
-      url: api.API_ITEMS,
-      data: newItemJSON,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };  
-    const responseAddItem = await axios(config);
-    console.log('this was returned from API: ')
-    console.log(responseAddItem);
-    const dbItem = responseAddItem.data;
-    console.log(dbItem);
+  const {dbItem, status} = await addItemAPI(newItem, state.runMode);
+  if (status===api.OK) {
     dispatch({
       type: 'ADD_ITEM',
       payload: dbItem,
     });
-  } catch (error) {
-    console.log(error);
+  } else {
+    alert (api.MSG_FAILED);
   }
   dispatch({
     type: 'FINISHED_LOADING',
@@ -61,19 +42,24 @@ const handleRemoveItem = async (itemID, state, dispatch) =>  {
   dispatch({
     type: 'STARTED_LOADING',
   });
-  const delay = ms => new Promise(res => setTimeout(res, ms));
-  await delay(200);
-  // simulate deletion of items from an API
-  // check for success with API, else show error message
-  dispatch({
-    type: 'DELETE_ITEM',
-    payload: itemID,
-  });
+  const status = await deleteItemAPI(theItem.id, state.runMode);
+  if (status===api.OK) {
+    dispatch({
+      type: 'DELETE_ITEM',
+      payload: itemID,
+    });
+  } else {
+    alert (api.MSG_FAILED);
+  }
   dispatch({
     type: 'FINISHED_LOADING',
   });
 }
 
+/**
+ * Takes two possibly updated fields and checks to see if at least one has been updated.
+ * If so, then calls API and replaces updated item in state
+ */
 const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatch) => {
   const oldItem = getItemRec(itemID, state);
   const newItem = {...oldItem};
@@ -84,15 +70,17 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
   dispatch({
     type: 'STARTED_LOADING',
   });
-  const delay = ms => new Promise(res => setTimeout(res, ms));
-  await delay(200);
-  // simulate deletion of items from an API
-  // TODO: check for success with API, else show error message
-  const itemFromAPI = {...newItem}; // TODO: use API return
-  dispatch({
-    type: 'UPDATE_ITEM',
-    payload: itemFromAPI,
-  });
+  const {itemFromAPI, status} = await updateItemAPI(newItem, state.runMode);
+  // console.log('handleUpdateItem API call returns ' + status)
+  // console.log(itemFromAPI);
+  if (status===api.OK) {
+    dispatch({
+      type: 'UPDATE_ITEM',
+      payload: itemFromAPI,
+    });
+  } else {
+    alert (api.MSG_FAILED);
+  }
   dispatch({
     type: 'FINISHED_LOADING',
   });
@@ -137,10 +125,22 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
   // TODO: call API update, then dispatch UPDATE_ITEM for all items in this array.
 }
 
+/**
+ * Set the runMode flag in store. Used to skip API step when using test data.
+ * 
+ * @param runMode - api.RUNMODE_API or api.RUNMODE_TEST from constants file
+ */
+ const handleSetRunMode = async (runMode, dispatch) => {
+  dispatch({
+    type: 'SET_RUNMODE',
+    payload: runMode,
+  })
+}
 
 export {
   handleRemoveItem, 
   handleAddItem, 
   handleUpdateItem, 
   handleUpdateItemsList,
+  handleSetRunMode,
 };

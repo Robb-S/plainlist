@@ -17,7 +17,7 @@ const AddItem = () => {
     e.preventDefault();
     if (itemName.length===0) {return;}
     const newItem = { itemName: itemName, itemNote: itemNote, listID: id, userID: userID};
-    handleAddItem(newItem, state.items, dispatch);
+    handleAddItem(newItem, state, dispatch);
   };
 
   return (
