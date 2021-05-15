@@ -72,6 +72,31 @@ const handleLogout = async (dispatch) => {
   });
 }
 
+/**
+ * Take new itemName and itemNote from input, then  add a
+ * high sortOder attribute so it sorts to the top of the list.
+ * ID and other attributes will be taken care of by REST API.
+ */
+ const handleReg = async (userInfo, state, dispatch) => {
+   console.log('**handleReg called');
+   console.log(userInfo);
+   return ('success2');
+  // dispatch({
+  //   type: 'STARTED_LOADING',
+  // });
+  // const status = await getToken2(userInfo);
+  // if (status===api.OK) {
+  //   dispatch({
+  //     type: 'USER_LOGIN',
+  //   });
+  //   await handleGetUserAndData(null, api.RUNMODE_API, dispatch);
+  //   dispatch({
+  //     type: 'FINISHED_LOADING',
+  //   });
+  // } else {
+  //   alert (api.MSG_LOGIN_FAILED);
+  // }
+}
 
 
 const handleRemoveItem = async (itemID, state, dispatch) =>  {
@@ -219,4 +244,5 @@ export {
   handleSetRunMode,
   handleLogin,
   handleLogout,
+  handleReg,
 };

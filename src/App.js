@@ -6,6 +6,7 @@ import AllCats from './components/AllCats';
 import OneCat from './components/OneCat';
 import OneList from './components/OneList';
 import Login from './components/Login';
+import Registration from './components/Registration';
 
 import {useStore} from './store/StoreContext';
 import {handleGetUserAndData} from './store/fetchUserAndData';
@@ -40,6 +41,7 @@ function App() {
         <Route path="/cat/" component={OneCat} exact />
         <Route path="/list/" component={OneList} exact />
         <Route path='/login/' component={Login} exact />
+        <Route path='/reg/' component={Registration} exact />
       </Switch>
     </div>
   );

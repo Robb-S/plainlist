@@ -2,7 +2,7 @@ import React, {Fragment, useState} from 'react';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import {handleLogin} from '../store/handlers';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 const Login = () => {  
   const {state, dispatch} = useStore();
@@ -41,7 +41,12 @@ const Login = () => {
             />
             <button>Log in</button>
           </form>
-        </div>      
+        </div> 
+        <div className='redirectLink'>
+          <Link to={{ pathname: '/reg/' }}>
+            Register new user
+          </Link>
+        </div>     
     </Fragment>
   )
 }
