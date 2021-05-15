@@ -4,6 +4,7 @@ import {getItemRec, getItemsByListID} from './getData';
 import * as api from '../util/constants';
 import {addItemAPI, deleteItemAPI, updateItemAPI, getToken2} from './apiCalls';
 import {handleGetUserAndData} from './fetchUserAndData';
+import {setAxiosAuthToken} from '../util/helpers';
 
 /**
  * Take new itemName and itemNote from input, then  add a
@@ -53,6 +54,24 @@ const handleAddItem = async (newItem, state, dispatch) => {
     alert (api.MSG_LOGIN_FAILED);
   }
 }
+
+/**
+ * Reset state and delete from localStorage.
+ */
+const handleLogout = async (dispatch) => {
+  console.log('* handleLogout');
+  await dispatch({
+    type: 'STARTED_LOADING',
+  });
+  await dispatch({
+    type: 'USER_LOGOUT',
+  });
+  localStorage.removeItem('token');
+  await dispatch({
+    type: 'FINISHED_LOADING',
+  });
+}
+
 
 
 const handleRemoveItem = async (itemID, state, dispatch) =>  {
@@ -162,6 +181,19 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
   }) 
   if (runMode===api.RUNMODE_API) {
     console.log('*** handleSetRunMode for API');
+    let token = localStorage.getItem('token');
+    console.log(token);
+    // token = '7e206beb2140d19d8745fed18a5e0e5326e83c0e';
+    if (token!==null) {
+      setAxiosAuthToken(token);
+      await dispatch({
+        type: 'USER_LOGIN',
+      });
+      await handleGetUserAndData(testUserId, runMode, dispatch);
+      await dispatch({
+        type: 'FINISHED_LOADING',
+      }); 
+    }
     // await handleLocalTokenFetch();
     // await handleGetUserAndData(testUserId, runMode, dispatch);
     // dispatch({
@@ -169,11 +201,11 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
     // }); 
   }
   if (runMode===api.RUNMODE_DEMO) {
-    dispatch({
+    await dispatch({
       type: 'USER_LOGIN',
     });
     await handleGetUserAndData(testUserId, runMode, dispatch);
-    dispatch({
+    await dispatch({
       type: 'FINISHED_LOADING',
     }); 
   }
@@ -186,4 +218,5 @@ export {
   handleUpdateItemsList,
   handleSetRunMode,
   handleLogin,
+  handleLogout,
 };

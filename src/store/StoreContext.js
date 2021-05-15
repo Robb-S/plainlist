@@ -14,7 +14,7 @@ const initValues = {
 const StoreContext = React.createContext();
 
 function StoreProvider({children}) {
-  const [state, dispatch] = React.useReducer(AppReducer, initValues );
+  const [state, dispatch] = React.useReducer(AppReducer, initValues);
   const value = {state, dispatch};
   return (<StoreContext.Provider value={value}>{children}</StoreContext.Provider>);
 }

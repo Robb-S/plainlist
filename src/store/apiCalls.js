@@ -116,6 +116,7 @@ const updateItemAPI = async (updateItem, runMode) => {
     const responseToken = await axios.post(api.API_AUTH, loginData);
     token = responseToken.data.token;
     setAxiosAuthToken(token);
+    localStorage.setItem('token', token);
     return api.OK;
   } catch (error) {
     console.log(error);

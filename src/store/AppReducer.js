@@ -25,6 +25,12 @@ function AppReducer(state, action) {
         loggedIn: true,
       }
     }
+    case 'USER_LOGOUT': {
+      return {
+        ...state,
+        loggedIn: false,
+      }
+    }
     case 'SET_USER': {
       return {
         ...state,

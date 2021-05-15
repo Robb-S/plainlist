@@ -1,18 +1,26 @@
 import React, {Fragment} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import {getAllCats} from '../store/getData';
 import Loading from './Loading';
 import Login from './Login';
+import {handleLogout} from '../store/handlers';
 
 const AllCats = () => {
-  const { state } =  useStore();
+  const { state, dispatch } =  useStore();
+  const history = useHistory();
   const allCats = getAllCats(state);
-  const showLogin = state.loading && !state.loggedIn;
-  const showLoading = state.loading && state.loggedIn;
-  const showMain = !state.loading;
+  let showLogin = state.loading && !state.loggedIn;
+  let showLoading = state.loading && state.loggedIn;
+  let showMain = !state.loading;
 
+  const onLogout = async () => {
+    console.log('* onLogout');
+    await handleLogout(dispatch);
+    history.push('/login/');
+  }
+ 
   return (
     <Fragment>
       {showLoading && <Loading />}
@@ -32,6 +40,13 @@ const AllCats = () => {
             Add new category 
           </button>
    
+          <button
+            className="btn default-btn"
+            onClick={() => onLogout()}
+          >
+            Log out 
+          </button>
+
           </div>
   
           <table>
