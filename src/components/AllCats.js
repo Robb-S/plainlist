@@ -4,17 +4,21 @@ import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import {getAllCats} from '../store/getData';
 import Loading from './Loading';
+import Login from './Login';
 
 const AllCats = () => {
   const { state } =  useStore();
-  const isLoaded = !state.loading;
   const allCats = getAllCats(state);
+  const showLogin = state.loading && !state.loggedIn;
+  const showLoading = state.loading && state.loggedIn;
+  const showMain = !state.loading;
 
   return (
     <Fragment>
-      {!isLoaded && <Loading />}
+      {showLoading && <Loading />}
+      {showLogin && <Login />}
 
-      {isLoaded && 
+      {showMain && 
       <Fragment>
       <div className='mainContainer'>
         <div className='heading'>
@@ -78,3 +82,15 @@ const AllCats = () => {
   }
 
 export default AllCats;
+
+/*
+        <Fragment>
+          <div className='logoBar' >Would You Rather?</div>
+          { loggedOut===true
+          ? null
+          : <Navbar />
+          }
+          <Loading />
+        </Fragment>
+ * 
+ */

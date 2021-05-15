@@ -6,6 +6,7 @@ import { getListRec, getParentCatName, getParentCatID } from '../store/getData';
 import Loading from './Loading';
 import AddItem from './AddItem';
 import ItemsList from './ItemsList';
+import Login from './Login';
 
 const OneList = () => {
   const data = useLocation(); // to retrieve params from data.state
@@ -15,17 +16,19 @@ const OneList = () => {
   const {state} = useStore();  // this must come before conditional render
 
   if (needsRedirect) {return (<Redirect to="/" />);}  // back to main page if no ID
-  const isLoaded = !state.loading;
-  // const nickname = state.user.nickname;
+  const showLogin = state.loading && !state.loggedIn;
+  const showLoading = state.loading && state.loggedIn;
+  const showMain = !state.loading;
   const oneListRec = getListRec(listID, state);
   const parentCatName = getParentCatName(listID, state);
   const parentCatID = getParentCatID(listID, state);
 
   return (
     <Fragment>
-      {!isLoaded && <Loading />}
+      {showLoading && <Loading />}
+      {showLogin && <Login />}
 
-      {isLoaded && 
+      {showMain && 
       <Fragment>
       <div className='mainContainer'>
         <div className='heading'>

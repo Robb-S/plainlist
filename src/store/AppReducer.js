@@ -19,6 +19,12 @@ function AppReducer(state, action) {
         runMode: action.payload,
       };
     }
+    case 'USER_LOGIN': {
+      return {
+        ...state,
+        loggedIn: true,
+      }
+    }
     case 'SET_USER': {
       return {
         ...state,

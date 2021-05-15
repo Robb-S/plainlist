@@ -2,7 +2,8 @@ import {confirmQuest, makeHighestNumericAttribute, AreObjectsDifferent } from '.
 import {getItemRec, getItemsByListID} from './getData';
 // import axios from 'axios';
 import * as api from '../util/constants';
-import {addItemAPI, deleteItemAPI, updateItemAPI} from './apiCalls';
+import {addItemAPI, deleteItemAPI, updateItemAPI, getToken2} from './apiCalls';
+import {handleGetUserAndData} from './fetchUserAndData';
 
 /**
  * Take new itemName and itemNote from input, then  add a
@@ -29,6 +30,30 @@ const handleAddItem = async (newItem, state, dispatch) => {
     type: 'FINISHED_LOADING',
   });
 }
+
+/**
+ * Take new itemName and itemNote from input, then  add a
+ * high sortOder attribute so it sorts to the top of the list.
+ * ID and other attributes will be taken care of by REST API.
+ */
+ const handleLogin = async (userInfo, state, dispatch) => {
+  dispatch({
+    type: 'STARTED_LOADING',
+  });
+  const status = await getToken2(userInfo);
+  if (status===api.OK) {
+    dispatch({
+      type: 'USER_LOGIN',
+    });
+    await handleGetUserAndData(null, api.RUNMODE_API, dispatch);
+    dispatch({
+      type: 'FINISHED_LOADING',
+    });
+  } else {
+    alert (api.MSG_LOGIN_FAILED);
+  }
+}
+
 
 const handleRemoveItem = async (itemID, state, dispatch) =>  {
   const theItem = getItemRec(itemID, state);
@@ -126,15 +151,32 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
 }
 
 /**
- * Set the runMode flag in store. Used to skip API step when using test data.
+ * Set the runMode flag in store. Used to skip API steps when using test data.
  * 
- * @param runMode - api.RUNMODE_API or api.RUNMODE_TEST from constants file
+ * @param runMode - api.RUNMODE_API or api.RUNMODE_DEMO from constants file
  */
- const handleSetRunMode = async (runMode, dispatch) => {
-  dispatch({
+ const handleSetRunMode = async (testUserId, runMode, dispatch) => {
+  await dispatch({
     type: 'SET_RUNMODE',
     payload: runMode,
-  })
+  }) 
+  if (runMode===api.RUNMODE_API) {
+    console.log('*** handleSetRunMode for API');
+    // await handleLocalTokenFetch();
+    // await handleGetUserAndData(testUserId, runMode, dispatch);
+    // dispatch({
+    //   type: 'FINISHED_LOADING',
+    // }); 
+  }
+  if (runMode===api.RUNMODE_DEMO) {
+    dispatch({
+      type: 'USER_LOGIN',
+    });
+    await handleGetUserAndData(testUserId, runMode, dispatch);
+    dispatch({
+      type: 'FINISHED_LOADING',
+    }); 
+  }
 }
 
 export {
@@ -143,4 +185,5 @@ export {
   handleUpdateItem, 
   handleUpdateItemsList,
   handleSetRunMode,
+  handleLogin,
 };

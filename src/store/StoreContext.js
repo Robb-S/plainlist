@@ -3,7 +3,7 @@ import { AppReducer } from './AppReducer';
 
 const initValues = {
   loading: true,
-  loggedIn: true,
+  loggedIn: false,
   runMode: 'API',
   user: {},
   categories: [],

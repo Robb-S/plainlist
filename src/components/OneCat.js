@@ -4,6 +4,7 @@ import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import {getListsByCatID, getCatRec} from '../store/getData';
 import Loading from './Loading';
+import Login from './Login';
 
 /**
  * Display the lists in one category.  In order to hide the category ID from the URL,
@@ -16,17 +17,19 @@ const OneCat = () => {
   const needsRedirect = data.state ? false : true; // is it called from link or manual URL
   const id = needsRedirect ? null : data.state.catID; 
   const { state } = useStore();  // this must come before conditional render
-  // const { state, dispatch } = useStore(); // this must come before conditional render
   if (needsRedirect) {return (<Redirect to="/" />);}  // back to main page if no ID
-  const isLoaded = !state.loading;
+  const showLogin = state.loading && !state.loggedIn;
+  const showLoading = state.loading && state.loggedIn;
+  const showMain = !state.loading;
   const oneCatLists = getListsByCatID(id, state);
   const oneCatRec = getCatRec(id, state);
 
   return (
     <Fragment>
-      {!isLoaded && <Loading />}
+      {showLoading && <Loading />}
+      {showLogin && <Login />}
 
-      {isLoaded && 
+      {showMain && 
       <Fragment>
       <div className='mainContainer'>
         <div className='heading'>

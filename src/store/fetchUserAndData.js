@@ -11,7 +11,7 @@ const fetchListsByUserID = async (userID, runMode) => {
     const {user, categories, lists, items} = await getInitDataByToken();
     return {user, categories, lists, items};
   }
-  if (runMode===api.RUNMODE_TEST) {
+  if (runMode===api.RUNMODE_DEMO) {
     const {user, categories, lists, items} = await getListsByUserIDTestData(userID);
     return {user, categories, lists, items};
   }
@@ -23,23 +23,24 @@ const fetchListsByUserID = async (userID, runMode) => {
  * @param {*} runMode 'testData' or 'API'
  */
 const handleGetUserAndData = async (userID, runMode, dispatch) =>  {
-    const {user, categories, lists, items} = await fetchListsByUserID(userID, runMode);
-    dispatch({
-      type: 'SET_USER',
-      payload: {user},
-    });
-    dispatch({
-      type: 'SET_LISTS',
-      payload: {        
-        categories: categories,
-        lists: lists,
-        items: items,
-      },
-    });
-    dispatch({
-      type: 'FINISHED_LOADING',
-    });
-  }  
+  console.log('** handleGetUserAndData');
+  const {user, categories, lists, items} = await fetchListsByUserID(userID, runMode);
+  dispatch({
+    type: 'SET_USER',
+    payload: {user},
+  });
+  dispatch({
+    type: 'SET_LISTS',
+    payload: {        
+      categories: categories,
+      lists: lists,
+      items: items,
+    },
+  });
+  dispatch({
+    type: 'FINISHED_LOADING',
+  });
+}  
 
   /**
    * Test mode, with dummy data supplied and simulated delay.

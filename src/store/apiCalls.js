@@ -15,7 +15,7 @@ import {setAxiosAuthToken} from '../util/helpers';
  * @returns object with new item from API (w/ assigned ID), plus status flag
  */
  const addItemAPI = async (newItem, runMode) => {
-  if (runMode===api.RUNMODE_TEST) {
+  if (runMode===api.RUNMODE_DEMO) {
     const dbItem = {...newItem};
     dbItem.id = makeStringID();  // just add a temporary unique ID if test data
     return {dbItem: dbItem, status: api.OK};
@@ -43,7 +43,7 @@ import {setAxiosAuthToken} from '../util/helpers';
  * @returns status flag
  */
 const deleteItemAPI = async (itemID, runMode) => {
-  if (runMode===api.RUNMODE_TEST) {
+  if (runMode===api.RUNMODE_DEMO) {
     return (api.OK); // no API call, so no problem
   } else {
     const config = {
@@ -67,7 +67,7 @@ const deleteItemAPI = async (itemID, runMode) => {
  * @returns object with updated item from API call, plus status flag
  */
 const updateItemAPI = async (updateItem, runMode) => {
-  if (runMode===api.RUNMODE_TEST) {
+  if (runMode===api.RUNMODE_DEMO) {
     const dbItem = {...updateItem};
     return {itemFromAPI: dbItem, status: api.OK};
   } else {
@@ -106,6 +106,25 @@ const updateItemAPI = async (updateItem, runMode) => {
 }
 
 /**
+ * Get the token to use for the rest of this session.
+ * TODO: get it from cookie or trigger login.  Add error handling.
+ */
+ const getToken2 = async (userInfo) => {
+  let token = '';
+  const loginData = {'username':userInfo.userName, 'password':userInfo.userPwd};
+  try {
+    const responseToken = await axios.post(api.API_AUTH, loginData);
+    token = responseToken.data.token;
+    setAxiosAuthToken(token);
+    return api.OK;
+  } catch (error) {
+    console.log(error);
+    return api.FAILED;
+  }
+}
+
+
+/**
  * get data from REST API.
  * TODO: error handling.
  */
@@ -133,4 +152,5 @@ const getInitDataByToken = async () => {
 
 export {
   addItemAPI, updateItemAPI, deleteItemAPI, getTokenFromAPI, getInitDataByToken,
+  getToken2,
 };
