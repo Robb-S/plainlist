@@ -10,6 +10,25 @@ import * as api from '../util/constants';
 import {setAxiosAuthToken} from '../util/helpers';
 
 /**
+ * 
+ */
+const userExistsAPI = async (userName) => {
+  const config = {
+    method: "get",
+    url: api.API_IS_USER + userName + '/',
+  }
+  try { 
+    const responseUserExists = await axios(config);
+    console.log(responseUserExists.data.userExists);
+    return {userExists: responseUserExists.data.userExists, status: api.OK };
+  } catch (error) {
+    console.log(error);
+    return {userExists: null, status: api.FAILED};
+  }  
+}  
+
+
+/**
  * Handle API call to add an item.  Also, add a unique item ID if using test data.
  * 
  * @returns object with new item from API (w/ assigned ID), plus status flag
@@ -153,5 +172,5 @@ const getInitDataByToken = async () => {
 
 export {
   addItemAPI, updateItemAPI, deleteItemAPI, getTokenFromAPI, getInitDataByToken,
-  getToken2,
+  getToken2, userExistsAPI,
 };

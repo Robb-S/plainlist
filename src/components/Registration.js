@@ -1,8 +1,11 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import {handleReg} from '../store/handlers';
+import {useDebounce} from '../util/helpers';
 import { useHistory, Link } from 'react-router-dom';
+import {userExistsAPI} from '../store/apiCalls';
+import * as api from '../util/constants';
 
 const Registration = () => {  
   const {state, dispatch} = useStore();
@@ -15,6 +18,31 @@ const Registration = () => {
   const [userPwd2, setUserPwd2] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [regMsg, setRegMsg] = useState('Please fill out the fields below.');
+  const [uNameMsg, setUNameMsg] = useState('');
+  const debouncedUserName = useDebounce(userName, 300);
+
+  // Effect for API call
+  useEffect(() => {
+    checkUserName(debouncedUserName);
+    },
+    [debouncedUserName] // Only call effect if debounced search term changes
+  );
+
+  async function checkUserName(debouncedUserName) {
+    if (debouncedUserName.length>2) {
+      const {userExists, status} = await userExistsAPI(debouncedUserName);
+      console.log( 'userExists called');
+      console.log('status: ' + status);
+      console.log('userExists: ' + userExists);
+      if (status===api.OK && userExists) {
+        setUNameMsg('* ' + api.WARN_USER_EXISTS + ' *');
+      } else {
+        setUNameMsg(api.MSG_USER_AVAILABLE);
+      }
+    } else {
+      setUNameMsg(' ');
+    }
+  }
 
   const onSubmitReg = async (e) => {
     e.preventDefault();
@@ -28,6 +56,13 @@ const Registration = () => {
     else setRegMsg(regResult);
   };
 
+  // # BASE_URL/isuser/admin/ pattern
+  const onChangeUserName = async (e) => {
+    const uName = e.target.value;
+    console.log('length: ' + uName.length);
+    setUserName(uName);
+  }
+
   return (
     <Fragment>
         <div className='additem'>
@@ -37,10 +72,12 @@ const Registration = () => {
             <label>User name: </label>
             <input
               value={userName}
-              onChange={(e) => setUserName(e.target.value)}
+              onChange={onChangeUserName}
               type="text"
               placeholder="user name"
             />
+            <br />
+            {uNameMsg}
             <br /><br />
             <label> Password: </label>
             <input
@@ -77,5 +114,7 @@ const Registration = () => {
     </Fragment>
   )
 }
+
+
 
 export default Registration;

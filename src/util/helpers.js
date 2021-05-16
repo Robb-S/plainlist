@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
+import {useState, useEffect} from 'react';
 
 /**
  * Make unique string ID.  Currently using uuid.  Probably only temporary, as IDs will
@@ -55,6 +56,32 @@ const setAxiosAuthToken = token => {
   }
 };
 
+/**
+ * Helper to debounce input from text fields before using it.  Use with UseEffect.
+ */
+function useDebounce(value, delay) {
+  // State and setters for debounced value (from UseHooks.com)
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  useEffect(
+    () => {
+      // Update debounced value after delay
+      const handler = setTimeout(() => {
+        setDebouncedValue(value);
+      }, delay);
+
+      // Cancel the timeout if value changes (also on delay change or unmount)
+      // This is how we prevent debounced value from updating if value is changed ...
+      // .. within the delay period. Timeout gets cleared and restarted.
+      return () => {
+        clearTimeout(handler);
+      };
+    },
+    [value, delay] // Only re-call effect if value or delay changes
+  );
+  return debouncedValue;
+}
+
+
 export {
   makeStringID, 
   findPosWithAttr, 
@@ -62,4 +89,5 @@ export {
   confirmQuest,
   AreObjectsDifferent,
   setAxiosAuthToken,
+  useDebounce,
 };
