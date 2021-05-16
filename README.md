@@ -15,6 +15,8 @@ User authentication and authorization are handled by the Django authentication s
 
 Most internal state is handled by context and reducer hooks, but without Redux.  (The data didn't seem complex enough to warrant the use of Redux.)  
 
+For new user registration, I've implemented a feature to check whether a requested username is available, in real time as the username is being typed, rather than waiting to submit all the new-user data.  To do this I created a username-checking endpoint in the Django API that accepts a username and returns true or false depending on whether it already exists, and debounced the keyboard input. 
+
 Since I started out the React side of the project using internal sample data, I've kept it and set up a "demo" option, in case anyone wanted to play with the code without the bother of setting up a back-end API server.  Demo mode can be set up by changing one variable in the app.js file.
 
 
