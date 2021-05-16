@@ -1,13 +1,13 @@
 import {allUsers, allCategories, allLists, allItems} from './testdata';
 import * as api from '../util/constants';
-import {getTokenFromAPI, getInitDataByToken} from './apiCalls';
+import {getInitDataByToken} from './apiCalls';
 
 /**
  * Fetch data objects and return them.
  */
 const fetchListsByUserID = async (userID, runMode) => {
   if (runMode===api.RUNMODE_API) {
-    await getTokenFromAPI();
+    // await getTokenFromAPI();
     const {user, categories, lists, items} = await getInitDataByToken();
     return {user, categories, lists, items};
   }

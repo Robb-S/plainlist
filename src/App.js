@@ -9,8 +9,7 @@ import Login from './components/Login';
 import Registration from './components/Registration';
 
 import {useStore} from './store/StoreContext';
-import {handleGetUserAndData} from './store/fetchUserAndData';
-import {handleSetRunMode} from './store/handlers';
+import {handleSetRunModeAndInitLoad} from './store/handlers';
 import * as api from './util/constants';
 
 function App() {
@@ -18,22 +17,13 @@ function App() {
   // const runMode = api.RUNMODE_DEMO;   // api.RUNMODE_API or api.RUNMODE_DEMO  
   const testUserID = 1;     // 1 or 2 (when using testData)
   const store = useStore();
-  // const state = store.state;
-  // const isLoaded = !store.state.loading;
   const dispatch = store.dispatch;
-  const isLoggedIn = store.isLoggedIn;
+  // const isLoggedIn = store.isLoggedIn;
 
   useEffect(() => {
-    handleSetRunMode(testUserID, runMode, dispatch);
+    handleSetRunModeAndInitLoad(testUserID, runMode, dispatch);
   }, [dispatch, runMode]);
   
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      handleGetUserAndData(testUserID, runMode, dispatch);
-    }
-  }, [dispatch, runMode, isLoggedIn]);
-
   return (
     <div className="App">
       <Switch>

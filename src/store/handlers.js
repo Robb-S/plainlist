@@ -2,7 +2,7 @@ import {confirmQuest, makeHighestNumericAttribute, AreObjectsDifferent } from '.
 import {getItemRec, getItemsByListID} from './getData';
 // import axios from 'axios';
 import * as api from '../util/constants';
-import {addItemAPI, deleteItemAPI, updateItemAPI, getToken2} from './apiCalls';
+import {addItemAPI, deleteItemAPI, updateItemAPI, getTokenFromAPI} from './apiCalls';
 import {handleGetUserAndData} from './fetchUserAndData';
 import {setAxiosAuthToken} from '../util/helpers';
 
@@ -33,20 +33,22 @@ const handleAddItem = async (newItem, state, dispatch) => {
 }
 
 /**
- * Take new itemName and itemNote from input, then  add a
- * high sortOder attribute so it sorts to the top of the list.
- * ID and other attributes will be taken care of by REST API.
+ * Take login info, get auth token from Django API call (if login info works).
+ * (That API caller function will also set axios header and local storage.)
+ * Then set login flag to true, get initial data from API, set loading flag to false.
+ * If login fails, keep logged in flag false, loading flag true, and show error message.
  */
  const handleLogin = async (userInfo, state, dispatch) => {
   dispatch({
     type: 'STARTED_LOADING',
   });
-  const status = await getToken2(userInfo);
+  const status = await getTokenFromAPI(userInfo);
   if (status===api.OK) {
     dispatch({
       type: 'USER_LOGIN',
     });
     await handleGetUserAndData(null, api.RUNMODE_API, dispatch);
+    console.log('***** loading init data with handleLogin in handlers *****');
     dispatch({
       type: 'FINISHED_LOADING',
     });
@@ -198,7 +200,7 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
  * 
  * @param runMode - api.RUNMODE_API or api.RUNMODE_DEMO from constants file
  */
- const handleSetRunMode = async (testUserId, runMode, dispatch) => {
+ const handleSetRunModeAndInitLoad = async (testUserId, runMode, dispatch) => {
   await dispatch({
     type: 'SET_RUNMODE',
     payload: runMode,
@@ -208,27 +210,24 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
     let token = localStorage.getItem('token');
     console.log(token);
     // token = '7e206beb2140d19d8745fed18a5e0e5326e83c0e';
-    if (token!==null) {
+    if (token!==null) { // if found, then set logged in = true
       setAxiosAuthToken(token);
       await dispatch({
         type: 'USER_LOGIN',
       });
       await handleGetUserAndData(testUserId, runMode, dispatch);
+      console.log('***** loading init data with handleSetRunMode in handlers *****');
       await dispatch({
         type: 'FINISHED_LOADING',
       }); 
     }
-    // await handleLocalTokenFetch();
-    // await handleGetUserAndData(testUserId, runMode, dispatch);
-    // dispatch({
-    //   type: 'FINISHED_LOADING',
-    // }); 
   }
   if (runMode===api.RUNMODE_DEMO) {
     await dispatch({
       type: 'USER_LOGIN',
     });
-    await handleGetUserAndData(testUserId, runMode, dispatch);
+    await handleGetUserAndData(testUserId, runMode, dispatch); // load from data file
+    console.log('***** loading init data with handleSetRunMode in handlers *****');
     await dispatch({
       type: 'FINISHED_LOADING',
     }); 
@@ -240,7 +239,7 @@ export {
   handleAddItem, 
   handleUpdateItem, 
   handleUpdateItemsList,
-  handleSetRunMode,
+  handleSetRunModeAndInitLoad,
   handleLogin,
   handleLogout,
   handleReg,

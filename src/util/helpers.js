@@ -3,8 +3,8 @@ import axios from 'axios';
 import {useState, useEffect} from 'react';
 
 /**
- * Make unique string ID.  Currently using uuid.  Probably only temporary, as IDs will
- * be supplied by the backend REST API.
+ * Make unique string ID.  Currently using uuid.  Used to provide IDs in demo
+ * mode, when there's no back-end API to supply the IDs automatically.
  */
 const makeStringID = () => {
   return uuidv4();
@@ -12,6 +12,11 @@ const makeStringID = () => {
 
 /**
  * Simple helper to return array position at which attribute is found.
+ * Accepts an array of objects.  Returns the position in that array where
+ * the object has an attribute equal to the specified value.
+ * Used when manipulating array items that are being reordered with drag and drop.
+ * 
+ * @returns position, or -1 if not found
  */
 const findPosWithAttr = (array, attr, value) => {
   for(let i = 0; i < array.length; i += 1) {
@@ -24,7 +29,8 @@ const findPosWithAttr = (array, attr, value) => {
 
 /**
  * Find element with highest value of numericAttr (e.g. sortOrder) 
- * in objects in array, and add 1.
+ * in objects in array, and add 1.  Used to provide new, highest sortOrder value so 
+ * that a newly added element sticks to the top of the list.
  */
  const makeHighestNumericAttribute = (theArray, numericAttr) => {
   return Math.max(...theArray.map(o => o.sortOrder), 0) + 1;
@@ -47,10 +53,13 @@ const AreObjectsDifferent = (a, b) => {
   return JSON.stringify(a) !== JSON.stringify(b);
 }
 
+/**
+ * Sets the axios default header once an autorization token is available.
+ */
 const setAxiosAuthToken = token => {
   if (typeof token !== "undefined" && token) {
     axios.defaults.headers.common["Authorization"] = "Token " + token;
-    axios.defaults.headers.common["Content-Type"] = 'application/json';
+    // axios.defaults.headers.common["Content-Type"] = 'application/json';
   } else { // Delete auth header    
     delete axios.defaults.headers.common["Authorization"];
   }
@@ -58,6 +67,7 @@ const setAxiosAuthToken = token => {
 
 /**
  * Helper to debounce input from text fields before using it.  Use with UseEffect.
+ * From useHooks.com.
  */
 function useDebounce(value, delay) {
   // State and setters for debounced value (from UseHooks.com)
@@ -68,10 +78,7 @@ function useDebounce(value, delay) {
       const handler = setTimeout(() => {
         setDebouncedValue(value);
       }, delay);
-
       // Cancel the timeout if value changes (also on delay change or unmount)
-      // This is how we prevent debounced value from updating if value is changed ...
-      // .. within the delay period. Timeout gets cleared and restarted.
       return () => {
         clearTimeout(handler);
       };
@@ -80,7 +87,6 @@ function useDebounce(value, delay) {
   );
   return debouncedValue;
 }
-
 
 export {
   makeStringID, 
