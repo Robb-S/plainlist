@@ -98,7 +98,6 @@ const handleLogout = async (dispatch) => {
   // }
 }
 
-
 const handleRemoveItem = async (itemID, state, dispatch) =>  {
   const theItem = getItemRec(itemID, state);
   if (!theItem) { // check that it still exists in state
