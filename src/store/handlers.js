@@ -2,7 +2,6 @@ import {confirmQuest, makeHighestNumericAttribute, AreObjectsDifferent } from '.
 import {getItemRec, getItemsByListID} from './getData';
 // import axios from 'axios';
 import * as api from '../util/constants';
-// import {addItemAPI, deleteItemAPI, updateItemAPI, getTokenFromAPI} from './apiCalls';
 import {addRecAPI, deleteRecAPI, updateRecAPI, getTokenFromAPI} from './apiCalls';
 import {handleGetUserAndData} from './fetchUserAndData';
 import {setAxiosAuthToken} from '../util/helpers';
@@ -172,6 +171,7 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
  * API call failures.  
  */
 const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
+  const runMode = state.runMode;
   if (newOneListItems.length<1) return; // this should never happen
   const listID = newOneListItems[0].listID;  // same for all, so just check first one.
   const expectedListSize = getItemsByListID(listID, state).length;
@@ -192,7 +192,7 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
   });
   let updateErrors = 0;
   itemsToUpdate.forEach(async function(updateItem) {
-    const {status} = await updateRecAPI(updateItem, api.RUNMODE_API, 'item');
+    const {status} = await updateRecAPI(updateItem, runMode, 'item');
     if (status!==api.OK) {updateErrors += 1;} 
   })
   /** We'll update state even if there were errors, as they may be corrected on the next 
