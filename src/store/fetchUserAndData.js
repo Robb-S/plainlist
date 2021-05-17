@@ -23,7 +23,7 @@ const fetchListsByUserID = async (userID, runMode) => {
  * @param {*} runMode 'testData' or 'API'
  */
 const handleGetUserAndData = async (userID, runMode, dispatch) =>  {
-  console.log('** handleGetUserAndData');
+  // console.log('** handleGetUserAndData');
   const {user, categories, lists, items} = await fetchListsByUserID(userID, runMode);
   dispatch({
     type: 'SET_USER',
@@ -42,26 +42,27 @@ const handleGetUserAndData = async (userID, runMode, dispatch) =>  {
   });
 }  
 
-  /**
-   * Test mode, with dummy data supplied and simulated delay.
-   */
-  const getListsByUserIDTestData = async (userID) => {
-    const delay = ms => new Promise(res => setTimeout(res, ms));
-    await delay(500);
-    const matchingID = allUsers.filter(oneUser => {
-      return oneUser.id === userID
-    })
-    const user = matchingID.length>0 ? matchingID[0] : null;
-    const uCats = allCategories.filter(oneCategory => {
-      return oneCategory.userID === userID;
-    });
-    const uLists = allLists.filter(oneList => {
-      return oneList.userID === userID;
-    });
-    const uItems = allItems.filter(oneItem => {
-      return oneItem.userID === userID;
-    }); 
-    return { user: user, categories: uCats, lists: uLists, items: uItems };
-  }
+/**
+ * Test mode, with dummy data supplied and simulated delay.
+ */
+const getListsByUserIDTestData = async (userID) => {
+  // simulate data fetch delay from API.
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+  await delay(500);
+  const matchingID = allUsers.filter(oneUser => {
+    return oneUser.id === userID
+  })
+  const user = matchingID.length>0 ? matchingID[0] : null;
+  const uCats = allCategories.filter(oneCategory => {
+    return oneCategory.userID === userID;
+  });
+  const uLists = allLists.filter(oneList => {
+    return oneList.userID === userID;
+  });
+  const uItems = allItems.filter(oneItem => {
+    return oneItem.userID === userID;
+  }); 
+  return { user: user, categories: uCats, lists: uLists, items: uItems };
+}
 
 export {handleGetUserAndData};

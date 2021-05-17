@@ -69,46 +69,63 @@ const userExistsAPI = async (userName) => {
   return { user: user, categories: uCats, lists: uLists, items: uItems };
 }
 
+// Next come generic API calls to add, delete or update records.
+
 /**
- * Handle API call to add an item.  Also, add a unique item ID if using test data.
+ * Return URL for API call depending on record type.
  * 
- * @returns object with new item from API (w/ assigned ID), plus status flag
+ * @param {*} recType = 'item', 'category' or 'list'
+ * @returns API URL (from constants file).
  */
- const addItemAPI = async (newItem, runMode) => {
+const recTypeToAPIUrl = (recType) => {
+  switch (recType) {
+    case 'item': { return api.API_ITEMS; }
+    case 'list': { return api.API_LISTS; }
+    case 'category': { return api.API_CATS; }    
+    default: {
+      throw new Error(`Unhandled record type: ${recType}`);
+    } 
+  }
+}
+
+/**
+ * Handle API call to add a record.  Also, add a unique ID if using test data. 
+ * @returns object with new record from API (w/ assigned ID), plus status flag
+ */
+ const addRecAPI = async (newRec, runMode, recType) => {
   if (runMode===api.RUNMODE_DEMO) {
-    const dbItem = {...newItem};
-    dbItem.id = makeStringID();  // just add a temporary unique ID if test data
-    return {dbItem: dbItem, status: api.OK};
+    const dbRec = {...newRec};
+    dbRec.id = makeStringID();  // just add a temporary unique ID if test data
+    return {dbRec: dbRec, status: api.OK};
   } else {
-    const newItemJSON = JSON.stringify(newItem);
+    const newRecJSON = JSON.stringify(newRec);
     const config = {
       method: "post",
-      url: api.API_ITEMS,
-      data: newItemJSON,
+      url: recTypeToAPIUrl(recType),
+      data: newRecJSON,
       headers: api.JSON_HEADER,
     }; 
     try { 
       const response = await axios(config);
-      return {dbItem: response.data, status: api.OK };
+      return {dbRec: response.data, status: api.OK };
     } catch (error) {
       console.log(error);
-      return {dbItem: newItem, status: api.FAILED};
+      return {dbRec: newRec, status: api.FAILED};
     }
   }
 }
 
 /**
- * Handle API call for item deletion.
- * 
+ * Handle API call for record deletion. * 
  * @returns status flag
  */
-const deleteItemAPI = async (itemID, runMode) => {
+ const deleteRecAPI = async (recID, runMode, recType) => {
   if (runMode===api.RUNMODE_DEMO) {
     return (api.OK); // no API call, so no problem
   } else {
     const config = {
       method: "delete",
-      url: api.API_ITEMS + itemID + '/',
+      url: recTypeToAPIUrl(recType) + recID + '/',
     }; 
     try { 
       const response = await axios(config);
@@ -121,197 +138,282 @@ const deleteItemAPI = async (itemID, runMode) => {
   }
 }
 
+
 /**
- * API call to update an item.
- * 
- * @returns object with updated item from API call, plus status flag
+ * API call to update a record. 
+ * @returns object with updated record from API call, plus status flag
  */
-const updateItemAPI = async (updateItem, runMode) => {
+ const updateRecAPI = async (updateRec, runMode, recType) => {
   if (runMode===api.RUNMODE_DEMO) {
-    const dbItem = {...updateItem};
-    return {itemFromAPI: dbItem, status: api.OK};
+    const dbRec = {...updateRec};
+    return {dbRec: dbRec, status: api.OK};
   } else {
-    const itemID = updateItem.id;
-    const updateItemJSON = JSON.stringify(updateItem);
+    const recID = updateRec.id;
+    const updateRecJSON = JSON.stringify(updateRec);
     const config = {
       method: "put",
-      url: api.API_ITEMS + itemID + '/',
-      data: updateItemJSON,
+      url: recTypeToAPIUrl(recType) + recID + '/',
+      data: updateRecJSON,
       headers: api.JSON_HEADER,
     }; 
     try { 
       const response = await axios(config);
-      return {itemFromAPI: response.data, status: api.OK };
+      return {dbRec: response.data, status: api.OK };
     } catch (error) {
       console.log(error);
-      return {itemFromAPI: updateItem, status: api.FAILED};
+      return {dbRec: updateRec, status: api.FAILED};
     }
   }
 }
 
+// TODO: delete the next nine functions and switch to generic version above.
 
-/**
- * Handle API call to add a category.  Also, add a unique item ID if using test data.
- * 
- * @returns object with new category from API (w/ assigned ID), plus status flag
- */
- const addCatAPI = async (newCategory, runMode) => {
-  if (runMode===api.RUNMODE_DEMO) {
-    const dbCategory = {...newCategory};
-    dbCategory.id = makeStringID();  // just add a temporary unique ID if test data
-    return {dbCategory: dbCategory, status: api.OK};
-  } else {
-    const newCategoryJSON = JSON.stringify(newCategory);
-    const config = {
-      method: "post",
-      url: api.API_CATS,
-      data: newCategoryJSON,
-      headers: api.JSON_HEADER,
-    }; 
-    try { 
-      const response = await axios(config);
-      return {dbCategory: response.data, status: api.OK };
-    } catch (error) {
-      console.log(error);
-      return {dbCategory: newCategory, status: api.FAILED};
-    }
-  }
-}
+// /**
+//  * Handle API call to add an item.  Also, add a unique item ID if using test data.
+//  * 
+//  * @returns object with new item from API (w/ assigned ID), plus status flag
+//  */
+//  const addItemAPI = async (newRec, runMode) => {
+//   if (runMode===api.RUNMODE_DEMO) {
+//     const dbRec = {...newRec};
+//     dbRec.id = makeStringID();  // just add a temporary unique ID if test data
+//     return {dbRec: dbRec, status: api.OK};
+//   } else {
+//     const newRecJSON = JSON.stringify(newRec);
+//     const config = {
+//       method: "post",
+//       url: api.API_ITEMS,
+//       data: newRecJSON,
+//       headers: api.JSON_HEADER,
+//     }; 
+//     try { 
+//       const response = await axios(config);
+//       return {dbRec: response.data, status: api.OK };
+//     } catch (error) {
+//       console.log(error);
+//       return {dbRec: newRec, status: api.FAILED};
+//     }
+//   }
+// }
 
-/**
- * Handle API call for category deletion.
- * 
- * @returns status flag
- */
-const deleteCatAPI = async (categoryID, runMode) => {
-  if (runMode===api.RUNMODE_DEMO) {
-    return (api.OK); // no API call, so no problem
-  } else {
-    const config = {
-      method: "delete",
-      url: api.API_CATS + categoryID + '/',
-    }; 
-    try { 
-      const response = await axios(config);
-      console.log(response)
-      return (api.OK);
-    } catch (error) {
-      console.log(error);
-      return (api.FAILED);
-    }
-  }
-}
+// /**
+//  * Handle API call for item deletion.
+//  * 
+//  * @returns status flag
+//  */
+// const deleteItemAPI = async (recID, runMode) => {
+//   if (runMode===api.RUNMODE_DEMO) {
+//     return (api.OK); // no API call, so no problem
+//   } else {
+//     const config = {
+//       method: "delete",
+//       url: api.API_ITEMS + recID + '/',
+//     }; 
+//     try { 
+//       const response = await axios(config);
+//       console.log(response)
+//       return (api.OK);
+//     } catch (error) {
+//       console.log(error);
+//       return (api.FAILED);
+//     }
+//   }
+// }
 
-/**
- * API call to update a category.
- * 
- * @returns object with updated category from API call, plus status flag
- */
-const updateCatAPI = async (updateCategory, runMode) => {
-  if (runMode===api.RUNMODE_DEMO) {
-    const dbCategory = {...updateCategory};
-    return {categoryFromAPI: dbCategory, status: api.OK};
-  } else {
-    const categoryID = updateCategory.id;
-    const updateCategoryJSON = JSON.stringify(updateCategory);
-    const config = {
-      method: "put",
-      url: api.API_CATS + categoryID + '/',
-      data: updateCategoryJSON,
-      headers: api.JSON_HEADER,
-    }; 
-    try { 
-      const response = await axios(config);
-      return {categoryFromAPI: response.data, status: api.OK };
-    } catch (error) {
-      console.log(error);
-      return {categoryFromAPI: updateCategory, status: api.FAILED};
-    }
-  }
-}
+// /**
+//  * API call to update an item.
+//  * 
+//  * @returns object with updated item from API call, plus status flag
+//  */
+// const updateItemAPI = async (updateRec, runMode) => {
+//   if (runMode===api.RUNMODE_DEMO) {
+//     const dbRec = {...updateRec};
+//     return {dbRec: dbRec, status: api.OK};
+//   } else {
+//     const recID = updateRec.id;
+//     const updateRecJSON = JSON.stringify(updateRec);
+//     const config = {
+//       method: "put",
+//       url: api.API_ITEMS + recID + '/',
+//       data: updateRecJSON,
+//       headers: api.JSON_HEADER,
+//     }; 
+//     try { 
+//       const response = await axios(config);
+//       return {dbRec: response.data, status: api.OK };
+//     } catch (error) {
+//       console.log(error);
+//       return {dbRec: updateRec, status: api.FAILED};
+//     }
+//   }
+// }
 
-/**
- * Handle API call to add a list.  Also, add a unique list ID if using test data.
- * 
- * @returns object with new list from API (w/ assigned ID), plus status flag
- */
- const addListAPI = async (newList, runMode) => {
-  if (runMode===api.RUNMODE_DEMO) {
-    const dbList = {...newList};
-    dbList.id = makeStringID();  // just add a temporary unique ID if test data
-    return {dbList: dbList, status: api.OK};
-  } else {
-    const newListJSON = JSON.stringify(newList);
-    const config = {
-      method: "post",
-      url: api.API_LISTS,
-      data: newListJSON,
-      headers: api.JSON_HEADER,
-    }; 
-    try { 
-      const response = await axios(config);
-      return {dbList: response.data, status: api.OK };
-    } catch (error) {
-      console.log(error);
-      return {dbList: newList, status: api.FAILED};
-    }
-  }
-}
 
-/**
- * Handle API call for list deletion.
- * 
- * @returns status flag
- */
-const deleteListAPI = async (listID, runMode) => {
-  if (runMode===api.RUNMODE_DEMO) {
-    return (api.OK); // no API call, so no problem
-  } else {
-    const config = {
-      method: "delete",
-      url: api.API_LISTS + listID + '/',
-    }; 
-    try { 
-      const response = await axios(config);
-      console.log(response)
-      return (api.OK);
-    } catch (error) {
-      console.log(error);
-      return (api.FAILED);
-    }
-  }
-}
+// /**
+//  * Handle API call to add a category.  Also, add a unique item ID if using test data.
+//  * 
+//  * @returns object with new category from API (w/ assigned ID), plus status flag
+//  */
+//  const addCatAPI = async (newRec, runMode) => {
+//   if (runMode===api.RUNMODE_DEMO) {
+//     const dbRec = {...newRec};
+//     dbRec.id = makeStringID();  // just add a temporary unique ID if test data
+//     return {dbRec: dbRec, status: api.OK};
+//   } else {
+//     const newRecJSON = JSON.stringify(newRec);
+//     const config = {
+//       method: "post",
+//       url: api.API_CATS,
+//       data: newRecJSON,
+//       headers: api.JSON_HEADER,
+//     }; 
+//     try { 
+//       const response = await axios(config);
+//       return {dbRec: response.data, status: api.OK };
+//     } catch (error) {
+//       console.log(error);
+//       return {dbRec: newRec, status: api.FAILED};
+//     }
+//   }
+// }
 
-/**
- * API call to update a list.
- * 
- * @returns object with updated list from API call, plus status flag
- */
-const updateListAPI = async (updateList, runMode) => {
-  if (runMode===api.RUNMODE_DEMO) {
-    const dbList = {...updateList};
-    return {listFromAPI: dbList, status: api.OK};
-  } else {
-    const listID = updateList.id;
-    const updateListJSON = JSON.stringify(updateList);
-    const config = {
-      method: "put",
-      url: api.API_LISTS + listID + '/',
-      data: updateListJSON,
-      headers: api.JSON_HEADER,
-    }; 
-    try { 
-      const response = await axios(config);
-      return {listFromAPI: response.data, status: api.OK };
-    } catch (error) {
-      console.log(error);
-      return {listFromAPI: updateList, status: api.FAILED};
-    }
-  }
-}
+// /**
+//  * Handle API call for category deletion.
+//  * 
+//  * @returns status flag
+//  */
+// const deleteCatAPI = async (recID, runMode) => {
+//   if (runMode===api.RUNMODE_DEMO) {
+//     return (api.OK); // no API call, so no problem
+//   } else {
+//     const config = {
+//       method: "delete",
+//       url: api.API_CATS + recID + '/',
+//     }; 
+//     try { 
+//       const response = await axios(config);
+//       console.log(response)
+//       return (api.OK);
+//     } catch (error) {
+//       console.log(error);
+//       return (api.FAILED);
+//     }
+//   }
+// }
+
+
+// /**
+//  * API call to update a category.
+//  * 
+//  * @returns object with updated category from API call, plus status flag
+//  */
+// const updateCatAPI = async (updateRec, runMode) => {
+//   if (runMode===api.RUNMODE_DEMO) {
+//     const dbRec = {...updateRec};
+//     return {dbRec: dbRec, status: api.OK};
+//   } else {
+//     const recID = updateRec.id;
+//     const updateRecJSON = JSON.stringify(updateRec);
+//     const config = {
+//       method: "put",
+//       url: api.API_CATS + recID + '/',
+//       data: updateRecJSON,
+//       headers: api.JSON_HEADER,
+//     }; 
+//     try { 
+//       const response = await axios(config);
+//       return {dbRec: response.data, status: api.OK };
+//     } catch (error) {
+//       console.log(error);
+//       return {dbRec: updateRec, status: api.FAILED};
+//     }
+//   }
+// }
+
+// /**
+//  * Handle API call to add a list.  Also, add a unique list ID if using test data.
+//  * 
+//  * @returns object with new list from API (w/ assigned ID), plus status flag
+//  */
+//  const addListAPI = async (newRec, runMode) => {
+//   if (runMode===api.RUNMODE_DEMO) {
+//     const dbRec = {...newRec};
+//     dbRec.id = makeStringID();  // just add a temporary unique ID if test data
+//     return {dbRec: dbRec, status: api.OK};
+//   } else {
+//     const newRecJSON = JSON.stringify(newRec);
+//     const config = {
+//       method: "post",
+//       url: api.API_LISTS,
+//       data: newRecJSON,
+//       headers: api.JSON_HEADER,
+//     }; 
+//     try { 
+//       const response = await axios(config);
+//       return {dbRec: response.data, status: api.OK };
+//     } catch (error) {
+//       console.log(error);
+//       return {dbRec: newRec, status: api.FAILED};
+//     }
+//   }
+// }
+
+// /**
+//  * Handle API call for list deletion.
+//  * 
+//  * @returns status flag
+//  */
+// const deleteListAPI = async (recID, runMode) => {
+//   if (runMode===api.RUNMODE_DEMO) {
+//     return (api.OK); // no API call, so no problem
+//   } else {
+//     const config = {
+//       method: "delete",
+//       url: api.API_LISTS + recID + '/',
+//     }; 
+//     try { 
+//       const response = await axios(config);
+//       console.log(response)
+//       return (api.OK);
+//     } catch (error) {
+//       console.log(error);
+//       return (api.FAILED);
+//     }
+//   }
+// }
+
+// /**
+//  * API call to update a list.
+//  * 
+//  * @returns object with updated list from API call, plus status flag
+//  */
+// const updateListAPI = async (updateRec, runMode) => {
+//   if (runMode===api.RUNMODE_DEMO) {
+//     const dbRec = {...updateRec};
+//     return {dbRec: dbRec, status: api.OK};
+//   } else {
+//     const recID = updateRec.id;
+//     const updateRecJSON = JSON.stringify(updateRec);
+//     const config = {
+//       method: "put",
+//       url: api.API_LISTS + recID + '/',
+//       data: updateRecJSON,
+//       headers: api.JSON_HEADER,
+//     }; 
+//     try { 
+//       const response = await axios(config);
+//       return {dbRec: response.data, status: api.OK };
+//     } catch (error) {
+//       console.log(error);
+//       return {dbRec: updateRec, status: api.FAILED};
+//     }
+//   }
+// }
 
 export {
-  addItemAPI, updateItemAPI, deleteItemAPI, addCatAPI, updateCatAPI, deleteCatAPI, 
-  addListAPI, updateListAPI, deleteListAPI, 
+  // addItemAPI, updateItemAPI, deleteItemAPI, 
+  // addCatAPI, updateCatAPI, deleteCatAPI, 
+  // addListAPI, updateListAPI, deleteListAPI, 
   getTokenFromAPI, userExistsAPI, getInitDataByToken,
+  addRecAPI, deleteRecAPI, updateRecAPI, 
 };

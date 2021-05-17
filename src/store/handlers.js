@@ -2,7 +2,8 @@ import {confirmQuest, makeHighestNumericAttribute, AreObjectsDifferent } from '.
 import {getItemRec, getItemsByListID} from './getData';
 // import axios from 'axios';
 import * as api from '../util/constants';
-import {addItemAPI, deleteItemAPI, updateItemAPI, getTokenFromAPI} from './apiCalls';
+// import {addItemAPI, deleteItemAPI, updateItemAPI, getTokenFromAPI} from './apiCalls';
+import {addRecAPI, deleteRecAPI, updateRecAPI, getTokenFromAPI} from './apiCalls';
 import {handleGetUserAndData} from './fetchUserAndData';
 import {setAxiosAuthToken} from '../util/helpers';
 
@@ -18,11 +19,11 @@ const handleAddItem = async (newItem, state, dispatch) => {
   });
   // add high sortOrder to make it sort to beginning of list
   newItem.sortOrder = makeHighestNumericAttribute(items, 'sortOrder');
-  const {dbItem, status} = await addItemAPI(newItem, state.runMode);
+  const {dbRec, status} = await addRecAPI(newItem, state.runMode, 'item');
   if (status===api.OK) {
     dispatch({
       type: 'ADD_ITEM',
-      payload: dbItem,
+      payload: dbRec,
     });
   } else {
     alert (api.MSG_FAILED);
@@ -48,7 +49,7 @@ const handleAddItem = async (newItem, state, dispatch) => {
       type: 'USER_LOGIN',
     });
     await handleGetUserAndData(null, api.RUNMODE_API, dispatch);
-    console.log('***** loading init data with handleLogin in handlers *****');
+    // console.log('***** loading init data with handleLogin in handlers *****');
     dispatch({
       type: 'FINISHED_LOADING',
     });
@@ -61,7 +62,7 @@ const handleAddItem = async (newItem, state, dispatch) => {
  * Reset state and delete from localStorage.
  */
 const handleLogout = async (dispatch) => {
-  console.log('* handleLogout');
+  // console.log('* handleLogout');
   await dispatch({
     type: 'STARTED_LOADING',
   });
@@ -112,7 +113,7 @@ const handleRemoveItem = async (itemID, state, dispatch) =>  {
   dispatch({
     type: 'STARTED_LOADING',
   });
-  const status = await deleteItemAPI(theItem.id, state.runMode);
+  const status = await deleteRecAPI(theItem.id, state.runMode, 'item');
   if (status===api.OK) {
     dispatch({
       type: 'DELETE_ITEM',
@@ -140,13 +141,13 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
   dispatch({
     type: 'STARTED_LOADING',
   });
-  const {itemFromAPI, status} = await updateItemAPI(newItem, state.runMode);
+  const {dbRec, status} = await updateRecAPI(newItem, state.runMode, 'item');
   // console.log('handleUpdateItem API call returns ' + status)
-  // console.log(itemFromAPI);
+  // console.log(dbRec);
   if (status===api.OK) {
     dispatch({
       type: 'UPDATE_ITEM',
-      payload: itemFromAPI,
+      payload: dbRec,
     });
   } else {
     alert (api.MSG_FAILED);
@@ -173,30 +174,44 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
 const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
   if (newOneListItems.length<1) return; // this should never happen
   const listID = newOneListItems[0].listID;  // same for all, so just check first one.
-  // console.log('listID found: ' + listID);
   const expectedListSize = getItemsByListID(listID, state).length;
   if (expectedListSize!==newOneListItems.length) return; // something is out of sync
   const newItemsReversed = [...newOneListItems]; // otherwise will affect current display.
   newItemsReversed.reverse();
   const itemsToUpdate = [];  // collect altered items first, then update them
-  // console.log(newItemsReversed);
   for (const [index, oneItem] of newItemsReversed.entries()) {
-    // console.log(index, oneItem);
     if ((index+1)!==oneItem.sortOrder) {
-      // console.log('sort order different: ');
-      // console.log('index+1: ' + (index + 1));
-      // console.log('current sortOrder: ' + oneItem.sortOrder);
       oneItem.sortOrder = index+1;
       itemsToUpdate.push(oneItem);
     }
   }
-  console.log( itemsToUpdate.length + ' items to update....');
-  // console.log( itemsToUpdate);
-  // TODO: call API update, then dispatch UPDATE_ITEM for all items in this array.
+  // console.log( itemsToUpdate.length + ' items to update....');
+  if (itemsToUpdate.length===0) return;
+  dispatch({
+    type: 'STARTED_LOADING',
+  });
+  let updateErrors = 0;
+  itemsToUpdate.forEach(async function(updateItem) {
+    const {status} = await updateRecAPI(updateItem, api.RUNMODE_API, 'item');
+    if (status!==api.OK) {updateErrors += 1;} 
+  })
+  /** We'll update state even if there were errors, as they may be corrected on the next 
+  round of reordering, and the worst that can happen is the items will be slightly out
+  of order.  Future enhancement: maybe show a message? */
+  console.log('# of updateErrors: '+ updateErrors);
+  itemsToUpdate.forEach( async function(updateItem) {
+    await dispatch({
+      type: 'UPDATE_ITEM',
+      payload: updateItem,
+    }); 
+  })
+  dispatch({
+    type: 'FINISHED_LOADING',
+  });
 }
 
 /**
- * Set the runMode flag in store. Used to skip API steps when using test data.
+ * Set the runMode flag in store. Flag is used to skip API steps when using test data.
  * 
  * @param runMode - api.RUNMODE_API or api.RUNMODE_DEMO from constants file
  */
@@ -206,9 +221,9 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
     payload: runMode,
   }) 
   if (runMode===api.RUNMODE_API) {
-    console.log('*** handleSetRunMode for API');
+    // console.log('*** handleSetRunMode for API');
     let token = localStorage.getItem('token');
-    console.log(token);
+    console.log('token: ' + token);
     // token = '7e206beb2140d19d8745fed18a5e0e5326e83c0e';
     if (token!==null) { // if found, then set logged in = true
       setAxiosAuthToken(token);
@@ -216,7 +231,7 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
         type: 'USER_LOGIN',
       });
       await handleGetUserAndData(testUserId, runMode, dispatch);
-      console.log('***** loading init data with handleSetRunMode in handlers *****');
+      // console.log('***** loading init data with handleSetRunMode in handlers *****');
       await dispatch({
         type: 'FINISHED_LOADING',
       }); 
@@ -227,7 +242,7 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
       type: 'USER_LOGIN',
     });
     await handleGetUserAndData(testUserId, runMode, dispatch); // load from data file
-    console.log('***** loading init data with handleSetRunMode in handlers *****');
+    // console.log('***** loading init data with handleSetRunMode in handlers *****');
     await dispatch({
       type: 'FINISHED_LOADING',
     }); 
