@@ -1,9 +1,9 @@
 import React, {Fragment, useState} from 'react';
-import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import {handleAddCategory} from '../store/handlers';
 import {FiCheckSquare, FiXCircle} from 'react-icons/fi';
 import * as api from '../util/constants';
+import '../css/lists.css';
 
 const AddCat = ({ props }) => {
   const { editMode, cancelEdit }  = props;
@@ -18,14 +18,17 @@ const AddCat = ({ props }) => {
     e.preventDefault();
     onRequestAdd();
   }
-
   const onRequestAdd = async () => {
     if (catName.length===0) {return;}
     const newCategory = { categoryName: catName, userID: userID };
     const status = await handleAddCategory(newCategory, state, dispatch);
     if (status===api.OK) { cancelEdit(); }
     // TODO: maybe add additional message if API operation failed?
-  };
+  }
+  const cancelEditLocal = () => {
+    setCatName('');     // clear the input field for next time
+    cancelEdit();
+  }
 
   return (
     <Fragment>
@@ -49,7 +52,7 @@ const AddCat = ({ props }) => {
             </span>
             <span className="sliver5"> </span>
             <span className='iconEdit iconNoBorder'>
-              <FiXCircle onClick={() => cancelEdit()}
+              <FiXCircle onClick={() => cancelEditLocal()}
               title='cancel edit' className='iconBorder' size='24' color='#555555' />
             </span>
           </span>

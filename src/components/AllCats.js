@@ -1,12 +1,12 @@
 import React, {Fragment, useState} from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import {getAllCats} from '../store/getData';
 import Loading from './Loading';
 import Login from './Login';
 import AddCat from './AddCat';
 import {handleLogout} from '../store/handlers';
+import '../css/lists.css';
 
 const AllCats = () => {
   const { state, dispatch } =  useStore();
@@ -18,21 +18,29 @@ const AllCats = () => {
   let showMain = !state.loading;
 
   const onLogout = async () => {
-    console.log('* onLogout');
     await handleLogout(dispatch);
     history.push('/login/');
   }
- 
   const setupEdit = () => {
     setEditMode(true);
-    console.log('edit is set.')
   }
-
   const cancelEdit = () => {
     setEditMode(false);
   }
-
+  /**
+   * Show the "add category" button initially, but hide it once it's pressed, return
+   * to view when edit is finished or cancelled. 
+   */
+  const displayAddButton = () => {
+    if (editMode) {return null};
+    return (
+      <button className="btn default-btn" onClick={() => setupEdit()}> 
+        Add new category
+      </button>
+    )
+  }
   const addCatProps = { editMode: editMode, cancelEdit: cancelEdit};
+
   return (
     <Fragment>
       {showLoading && <Loading />}
@@ -45,14 +53,7 @@ const AllCats = () => {
           <div className='headingName'>
             Categories          
           </div>
-        
-          <button
-            className="btn default-btn"
-            onClick={() => setupEdit()} 
-          >
-            Add new category 
-          </button>
-   
+          {displayAddButton()}
           <button
             className="btn default-btn"
             onClick={() => onLogout()}
@@ -96,15 +97,3 @@ const AllCats = () => {
   }
 
 export default AllCats;
-
-/*
-        <Fragment>
-          <div className='logoBar' >Would You Rather?</div>
-          { loggedOut===true
-          ? null
-          : <Navbar />
-          }
-          <Loading />
-        </Fragment>
- * 
- */
