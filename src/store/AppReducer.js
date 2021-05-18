@@ -55,6 +55,17 @@ function AppReducer(state, action) {
         ),
       };
     }
+    case 'DELETE_CAT': { // payload is category ID
+      console.log('*** deleting category in reducer');
+      console.log(action.payload);
+      return {
+        ...state,
+        categories: state.categories.filter(
+          (category) => category.id !== action.payload
+        ),
+      };
+    }
+
     case 'UPDATE_ITEM': { // payload is updatedItem object
       console.log('*** updating item in reducer');
       console.log(action.payload);

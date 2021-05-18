@@ -51,7 +51,7 @@ const AllCats = () => {
       <div className='mainContainer'>
         <div className='heading'>
           <div className='headingName'>
-            Categories          
+            All categories          
           </div>
           {displayAddButton()}
           <button

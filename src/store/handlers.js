@@ -1,5 +1,5 @@
 import {confirmQuest, makeHighestNumericAttribute, AreObjectsDifferent } from '../util/helpers';
-import {getItemRec, getItemsByListID} from './getData';
+import {getItemRec, getItemsByListID, getCatRec} from './getData';
 // import axios from 'axios';
 import * as api from '../util/constants';
 import {addRecAPI, deleteRecAPI, updateRecAPI, getTokenFromAPI} from './apiCalls';
@@ -153,6 +153,32 @@ const handleRemoveItem = async (itemID, state, dispatch) =>  {
   });
 }
 
+const handleRemoveCategory = async (catID, state, dispatch) =>  {
+  const theCat = getCatRec(catID, state);
+  if (!theCat) { // check that it still exists in state
+    alert("Sorry, that category can't be found.");
+    return;
+  }
+  const delConfirmMsg = 'Are you sure you wnat to delete category ' + theCat.categoryName + '?';
+  const keepGoing = confirmQuest(delConfirmMsg);
+  if (!keepGoing) return;
+  dispatch({
+    type: 'STARTED_LOADING',
+  });
+  const status = await deleteRecAPI(theCat.id, state.runMode, 'category');
+  if (status===api.OK) {
+    dispatch({
+      type: 'DELETE_CAT',
+      payload: catID,
+    });
+  } else {
+    alert (api.MSG_FAILED);
+  }
+  dispatch({
+    type: 'FINISHED_LOADING',
+  });
+}
+
 /**
  * Takes two possibly updated fields and checks to see if at least one has been updated.
  * If so, then calls API and replaces updated item in state
@@ -278,6 +304,7 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
 
 export {
   handleRemoveItem, 
+  handleRemoveCategory, 
   handleAddItem, 
   handleAddCategory, 
   handleUpdateItem, 

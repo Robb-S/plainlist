@@ -8,7 +8,6 @@ const AddItem = () => {
   const id = useLocation().state.listID; // or should this be passed by parameter? 
   const {state, dispatch} = useStore();
   const isLoaded = !state.loading;  // maybe not needed, if handled by parent component
-  const userID = state.user.id;
 
   const [itemName, setItemName] = useState('');
   const [itemNote, setItemNote] = useState('');
@@ -16,7 +15,7 @@ const AddItem = () => {
   const onSubmitAdd = (e) => {
     e.preventDefault();
     if (itemName.length===0) {return;}
-    const newItem = { itemName: itemName, itemNote: itemNote, listID: id, userID: userID};
+    const newItem = { itemName: itemName, itemNote: itemNote, listID: id};
     handleAddItem(newItem, state, dispatch);
   };
 

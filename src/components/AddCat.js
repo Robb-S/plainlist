@@ -8,7 +8,6 @@ import '../css/lists.css';
 const AddCat = ({ props }) => {
   const { editMode, cancelEdit }  = props;
   const { state, dispatch } = useStore();
-  const userID = state.user.id;     
   const [catName, setCatName] = useState('');
 
   /**
@@ -20,7 +19,7 @@ const AddCat = ({ props }) => {
   }
   const onRequestAdd = async () => {
     if (catName.length===0) {return;}
-    const newCategory = { categoryName: catName, userID: userID };
+    const newCategory = { categoryName: catName };
     const status = await handleAddCategory(newCategory, state, dispatch);
     if (status===api.OK) { cancelEdit(); }
     // TODO: maybe add additional message if API operation failed?
