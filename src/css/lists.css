@@ -134,3 +134,14 @@ span.sliver5 {
   width: 5px;
 }
 
+div.addArea {
+  display: grid;
+  grid-template-columns: 200px 3fr;
+  border: 1px solid #99cccc;
+  padding: 12px 12px 16px 12px;
+}
+
+.editButtonArea {
+  align-self: end;
+}
+

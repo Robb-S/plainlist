@@ -70,14 +70,29 @@ function AppReducer(state, action) {
         items: updatedItems,
       };
     }
-    case 'ADD_ITEM': { // payload is item object
+    case 'ADD_ITEM': { // payload is rec object
       console.log('*** adding item in reducer');
-      console.log(action.payload);
-      console.log('other items: ');
-      console.log(state.items);
+      // console.log(action.payload);
+      // console.log('other items: ');
+      // console.log(state.items);
       return {
         ...state,
         items: [...state.items, action.payload],
+      };
+    }
+    case 'ADD_CAT': { // payload is rec object
+      console.log('*** adding cat in reducer');
+      return {
+        ...state,
+        categories: [...state.categories, action.payload],
+      };
+    }
+    case 'ADD_LIST': { // payload is rec object
+      console.log('*** adding list in reducer');
+      // console.log(action.payload);
+      return {
+        ...state,
+        lists: [...state.lists, action.payload],
       };
     }
     case 'DO_NOTHING': {

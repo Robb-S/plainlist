@@ -7,32 +7,6 @@ import {handleGetUserAndData} from './fetchUserAndData';
 import {setAxiosAuthToken} from '../util/helpers';
 
 /**
- * Take new itemName and itemNote from input, then  add a
- * high sortOder attribute so it sorts to the top of the list.
- * ID and other attributes will be taken care of by REST API.
- */
-const handleAddItem = async (newItem, state, dispatch) => {
-  const items = state.items;
-  dispatch({
-    type: 'STARTED_LOADING',
-  });
-  // add high sortOrder to make it sort to beginning of list
-  newItem.sortOrder = makeHighestNumericAttribute(items, 'sortOrder');
-  const {dbRec, status} = await addRecAPI(newItem, state.runMode, 'item');
-  if (status===api.OK) {
-    dispatch({
-      type: 'ADD_ITEM',
-      payload: dbRec,
-    });
-  } else {
-    alert (api.MSG_FAILED);
-  }
-  dispatch({
-    type: 'FINISHED_LOADING',
-  });
-}
-
-/**
  * Take login info, get auth token from Django API call (if login info works).
  * (That API caller function will also set axios header and local storage.)
  * Then set login flag to true, get initial data from API, set loading flag to false.
@@ -98,6 +72,59 @@ const handleLogout = async (dispatch) => {
   // } else {
   //   alert (api.MSG_LOGIN_FAILED);
   // }
+}
+
+/**
+ * Take new itemName and itemNote from input, then  add a
+ * high sortOder attribute so it sorts to the top of the list.
+ * ID and other attributes will be taken care of by REST API.
+ */
+ const handleAddItem = async (newItem, state, dispatch) => {
+  const items = state.items;
+  dispatch({
+    type: 'STARTED_LOADING',
+  });
+  // add high sortOrder to make it sort to beginning of list
+  newItem.sortOrder = makeHighestNumericAttribute(items, 'sortOrder');
+  const {dbRec, status} = await addRecAPI(newItem, state.runMode, 'item');
+  if (status===api.OK) {
+    dispatch({
+      type: 'ADD_ITEM',
+      payload: dbRec,
+    });
+  } else {
+    alert (api.MSG_FAILED);
+  }
+  dispatch({
+    type: 'FINISHED_LOADING',
+  });
+}
+
+/**
+ * Take new rec with categoryName from input, then add a
+ * high sortOder attribute so it sorts to the top of the list.
+ * ID and other attributes will be taken care of by REST API.
+ */
+const handleAddCategory = async (newCategory, state, dispatch) => {
+  const categories = state.categories;
+  dispatch({
+    type: 'STARTED_LOADING',
+  });
+  // add high sortOrder to make it sort to beginning of list
+  newCategory.sortOrder = makeHighestNumericAttribute(categories, 'sortOrder');
+  const {dbRec, status} = await addRecAPI(newCategory, state.runMode, 'category');
+  if (status===api.OK) {
+    dispatch({
+      type: 'ADD_CAT',
+      payload: dbRec,
+    });
+  } else {
+    alert (api.MSG_FAILED);
+  }
+  dispatch({
+    type: 'FINISHED_LOADING',
+  });
+  return status;
 }
 
 const handleRemoveItem = async (itemID, state, dispatch) =>  {
@@ -252,6 +279,7 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
 export {
   handleRemoveItem, 
   handleAddItem, 
+  handleAddCategory, 
   handleUpdateItem, 
   handleUpdateItemsList,
   handleSetRunModeAndInitLoad,

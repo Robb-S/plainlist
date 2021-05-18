@@ -1,14 +1,16 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import {getAllCats} from '../store/getData';
 import Loading from './Loading';
 import Login from './Login';
+import AddCat from './AddCat';
 import {handleLogout} from '../store/handlers';
 
 const AllCats = () => {
   const { state, dispatch } =  useStore();
+  const [editMode, setEditMode] = useState(false);  // set edit mode when edit button is pressed.
   const history = useHistory();
   const allCats = getAllCats(state);
   let showLogin = state.loading && !state.loggedIn;
@@ -21,6 +23,16 @@ const AllCats = () => {
     history.push('/login/');
   }
  
+  const setupEdit = () => {
+    setEditMode(true);
+    console.log('edit is set.')
+  }
+
+  const cancelEdit = () => {
+    setEditMode(false);
+  }
+
+  const addCatProps = { editMode: editMode, cancelEdit: cancelEdit};
   return (
     <Fragment>
       {showLoading && <Loading />}
@@ -36,6 +48,7 @@ const AllCats = () => {
         
           <button
             className="btn default-btn"
+            onClick={() => setupEdit()} 
           >
             Add new category 
           </button>
@@ -46,53 +59,39 @@ const AllCats = () => {
           >
             Log out 
           </button>
-
-          </div>
-  
-          <table>
-            <thead>
-              <tr>
-                <th>Category</th>
-                <th>Size</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              { allCats.map((cat) => (
-                    <tr key={cat.id}>
-                      <td>
-                      <Link className='linky2'
-                        to={{
-                          pathname: `/cat/`,
-                          state: { catID: cat.id }
-                        }}
-                      >
-                        {cat.categoryName}
-                      </Link>
-                      </td>
-                      <td>
-                        {cat.childCount}
-                      </td>
-                      <td>
-                      <button
-                        className="btn default-btn"
-                      >
-                        Up
-                      </button>
-                      <button
-                        className="btn default-btn"
-                      >
-                        Down
-                      </button>
-                      </td>
-                    </tr>
-                  ))}
-            </tbody>
-          </table>
         </div>
-        </Fragment>
-      }
+        <AddCat props={addCatProps} />  
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th># of Lists</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allCats.map((cat) => (
+              <tr key={cat.id}>
+                <td>
+                <Link className='linky2'
+                  to={{
+                    pathname: `/cat/`,
+                    state: { catID: cat.id }
+                  }}
+                >
+                  {cat.categoryName}
+                </Link>
+                </td>
+                <td>
+                  {cat.childCount} list(s)
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       </Fragment>
+      }
+    </Fragment>
     )
   }
 
