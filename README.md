@@ -27,3 +27,5 @@ This repository is the code for a web-based front end, built in React.
 `yarn start`
 
 To run in demo mode, commment out line 17 and uncomment line 18 in App.js.
+
+To run it with a locally based API, follow the deployment instructions at https://github.com/Robb-S/plaindj
