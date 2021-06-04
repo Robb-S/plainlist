@@ -49,7 +49,7 @@ export function SortableItemItem(props) {
     <Fragment>
       { !editMode && 
       <Fragment>
-        <tr ref={setNodeRef} style={style} className='oneItemLine'>
+        <tr ref={setNodeRef} style={style} className='oneItemLine noselect'>
           <td className='dragHandle'>
             <span className='iconBorderSmall iconHandle'>
               <MdDragHandle {...listeners} {...attributes} 
