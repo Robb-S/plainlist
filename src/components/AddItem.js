@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import {handleAddItem} from '../store/handlers';
+import { FiCheckSquare, FiXCircle } from 'react-icons/fi';
 
 const AddItem = () => {  
   const id = useLocation().state.listID; // or should this be passed by parameter? 
@@ -18,6 +19,17 @@ const AddItem = () => {
     const newItem = { itemName: itemName, itemNote: itemNote, listID: id};
     handleAddItem(newItem, state, dispatch);
   };
+
+  const onSubmitAdd2 = () => {
+    if (itemName.length===0) {return;}
+    const newItem = { itemName: itemName, itemNote: itemNote, listID: id};
+    handleAddItem(newItem, state, dispatch);
+  };
+
+  const cancelAdd = () => {
+    setItemName('')
+    setItemNote('')
+  }
 
   return (
     <Fragment>
@@ -39,7 +51,16 @@ const AddItem = () => {
               type="text"
               placeholder="note"
             />
-            <button>Add item</button>
+            <span className='editButtonArea'>
+              <span className='iconCheckmark iconNoBorder'>
+                <FiCheckSquare onClick={() => onSubmitAdd2()}
+                title='add item' size='24' color='#555555' />
+              </span>
+              <span className='iconEdit iconNoBorder'>
+                <FiXCircle onClick={() => cancelAdd()}
+                title='cancel item' className='iconBorder' size='24' color='#555555' />
+              </span>
+            </span>
           </form>
         </div>      
       </Fragment>

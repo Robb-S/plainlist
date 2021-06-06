@@ -5,6 +5,7 @@ import {getAllCats} from '../store/getData';
 import Loading from './Loading';
 import Login from './Login';
 import AddCat from './AddCat';
+import { FiSettings } from 'react-icons/fi';
 import '../css/lists.css';
 
 const AllCats = () => {
@@ -35,6 +36,26 @@ const AllCats = () => {
   }
   const addCatProps = { editMode: editMode, cancelEdit: cancelEdit};
 
+  const crumbArea = () => {
+    return (
+      <Fragment>
+        <div className='crumbsandsettings'>
+          <div className='breadcrumbs'>
+          <span className='oneCrumb'>
+              All categories 
+            </span>
+          </div>
+          <div className='settingsicon'>
+            <Link className='linky3 oneCrumb' to={`/set/`}>
+              <FiSettings 
+                title='settings' className='iconBorder' size='24' color='#555555' />
+            </Link>
+          </div>
+        </div>
+      </Fragment>
+    )
+  }
+
   return (
     <Fragment>
       {showLoading && <Loading />}
@@ -43,6 +64,7 @@ const AllCats = () => {
       {showMain && 
       <Fragment>
       <div className='mainContainer'>
+        { crumbArea() }
         <div className='heading'>
           <div className='headingName'>
             All categories          
@@ -61,7 +83,7 @@ const AllCats = () => {
             {allCats.map((cat) => (
               <tr key={cat.id}>
                 <td>
-                <Link className='linky2'
+                <Link className='linky3'
                   to={{
                     pathname: `/cat/`,
                     state: { catID: cat.id }

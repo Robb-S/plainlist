@@ -7,6 +7,7 @@ import Loading from './Loading';
 import AddItem from './AddItem';
 import ItemsList from './ItemsList';
 import Login from './Login';
+import { FiTrash2, FiEdit, FiSettings } from 'react-icons/fi';
 
 const OneList = () => {
   const data = useLocation(); // to retrieve params from data.state
@@ -23,6 +24,48 @@ const OneList = () => {
   const parentCatName = getParentCatName(listID, state);
   const parentCatID = getParentCatID(listID, state);
 
+
+  const crumbArea = () => {
+    return (
+      <Fragment>
+        <div className='crumbsandsettings'>
+          <div className='breadcrumbs'>
+            <Link className='linky3 oneCrumb' to={`/`}>
+              All categories 
+            </Link>
+            <span className='oneCrumb'>:</span>
+            <Link className='linky3 oneCrumb' 
+              to={{
+                pathname: `/cat/`,
+                state: { catID: parentCatID }
+              }}
+            >{parentCatName} category</Link>
+            <span className='oneCrumb'>:</span>
+            <span className='oneCrumb'>
+              {oneListRec.listName} list
+            </span>
+          </div>
+          <div className='settingsicon'>
+            <Link className='linky3 oneCrumb' to={`/set/`}>
+              <FiSettings 
+                title='settings' className='iconBorder' size='24' color='#555555' />
+            </Link>
+          </div>
+        </div>
+      </Fragment>
+    )
+  }
+
+  const editList = async () => {
+    console.log('* edit list called, nothing here yet.')
+    // handleRemoveCategory(id, state, dispatch);
+  }
+
+  const removeList = async () => {
+    console.log('* remove list called, nothing here yet.')
+    // handleRemoveCategory(id, state, dispatch);
+  }
+
   return (
     <Fragment>
       {showLoading && <Loading />}
@@ -31,19 +74,24 @@ const OneList = () => {
       {showMain && 
       <Fragment>
       <div className='mainContainer'>
+        { crumbArea() }
         <div className='heading'>
-          <div className="headingName">
-            List: {oneListRec.listName}
+          <div className='headingNameDiv'>
+            <span className='headingName'>
+              {oneListRec.listName}
+            </span>
+            <span className="spacer"> </span>
+            <span className='iconEdit XiconBorder'>
+              <FiEdit onClick={() => editList()}
+              title='edit list' className='iconBorder' size='24' color='#555555' />
+            </span>
+            <span className="spacer"> </span>
+            <span className='iconDelete XiconBorder'>
+            <FiTrash2 onClick={() => removeList()}
+              title='delete list' className='iconBorder' size='24' color='#555555' />
+            </span>
           </div>
-          <Link className='linky2'
-            to={{
-              pathname: `/cat/`,
-              state: { catID: parentCatID }
-            }}
-          >Up to: "{parentCatName}" category)</Link>
-          <button className="btn default-btn">Edit/delete list</button>
         </div>
-
         <AddItem/>
         <ItemsList />
       </div>

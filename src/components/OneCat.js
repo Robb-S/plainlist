@@ -67,7 +67,7 @@ const OneCat = () => {
     return(
       <thead>
         <tr>
-          <th>Lists</th>
+          <th>List</th>
           <th># of items</th>
         </tr>
       </thead>
@@ -93,12 +93,12 @@ const OneCat = () => {
               <span className='headingName'>
                 Category: {oneCatRec.categoryName}          
               </span>
-              <span className="sliver5"> </span>
+              <span className="spacer"> </span>
               <span className='iconEdit XiconBorder'>
                 <FiEdit 
                 title='edit category' className='iconBorder' size='24' color='#555555' />
               </span>
-              <span className="sliver5"> </span>
+              <span className="spacer"> </span>
               <span className='iconDelete XiconBorder'>
               <FiTrash2 onClick={() => removeCategory()}
                 title='delete category' className='iconBorder' size='24' color='#555555' />
@@ -118,7 +118,7 @@ const OneCat = () => {
               { oneCatLists.map((list) => (
                 <tr key={list.id}>
                   <td>
-                    <Link className='linky2'
+                    <Link className='linky3'
                       title={list.listName}
                       to={{
                         pathname: `/list/`,
