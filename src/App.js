@@ -7,6 +7,7 @@ import OneCat from './components/OneCat';
 import OneList from './components/OneList';
 import Login from './components/Login';
 import Registration from './components/Registration';
+import Settings from './components/Settings';
 
 import {useStore} from './store/StoreContext';
 import {handleSetRunModeAndInitLoad} from './store/handlers';
@@ -32,6 +33,7 @@ function App() {
         <Route path="/list/" component={OneList} exact />
         <Route path='/login/' component={Login} exact />
         <Route path='/reg/' component={Registration} exact />
+        <Route path='/set/' component={Settings} exact />
       </Switch>
     </div>
   );
