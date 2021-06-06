@@ -100,6 +100,11 @@ const handleLogout = async (dispatch) => {
   });
 }
 
+const handleAddList = async (newList, state, dispatch) => {
+  console.log('* handleAddList called, nothing here yet. ');
+  console.log(newList);
+}
+
 /**
  * Take new rec with categoryName from input, then add a
  * high sortOder attribute so it sorts to the top of the list.
@@ -313,4 +318,5 @@ export {
   handleLogin,
   handleLogout,
   handleReg,
+  handleAddList,
 };

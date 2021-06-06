@@ -89,6 +89,15 @@ table.itemsTable td.editButtons {
   padding: 12px 12px 8px 12px;
 }
 
+div.thaddarea {
+  padding: 1px 0 25px 0;
+  font-weight: normal;
+}
+
+.headerAddLabel {
+  font-size: 14px;
+  padding: 0 0 15px 0;
+}
 
 li.oneItemLine {
   border: 1px solid #999999;

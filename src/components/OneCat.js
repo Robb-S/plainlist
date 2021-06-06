@@ -4,10 +4,9 @@ import {useStore} from '../store/StoreContext';
 import {getListsByCatID, getCatRec} from '../store/getData';
 import Loading from './Loading';
 import Login from './Login';
+import AddList from './AddList';
 import { FiTrash2, FiEdit, FiSettings } from 'react-icons/fi';
-// import { FiTrash2, FiEdit, FiCheckSquare, FiXCircle } from 'react-icons/fi';
 import { handleRemoveCategory  } from '../store/handlers';
-// import { handleRemoveCategory, handleUpdateCategory } from '../store/handlers';
 import '../css/lists.css';
 
 /**
@@ -76,7 +75,6 @@ const OneCat = () => {
 
   const removeCategory = async () => {
     handleRemoveCategory(id, state, dispatch);
-
   }
 
   return (
@@ -103,15 +101,9 @@ const OneCat = () => {
               <FiTrash2 onClick={() => removeCategory()}
                 title='delete category' className='iconBorder' size='24' color='#555555' />
               </span>
-            </div>
-        
-            <button
-              className="btn default-btn"
-            >
-              Add new list 
-            </button>
+            </div>  
           </div>
-
+          <AddList />
           <table>
             {tableHead()}
             <tbody>

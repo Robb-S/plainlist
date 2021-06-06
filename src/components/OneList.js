@@ -92,7 +92,7 @@ const OneList = () => {
             </span>
           </div>
         </div>
-        <AddItem/>
+        <AddItem />
         <ItemsList />
       </div>
       </Fragment>
