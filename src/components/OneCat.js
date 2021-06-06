@@ -131,7 +131,7 @@ const OneCat = () => {
                     </Link>
                   </td> */}
                   <td>
-                        {list.childCount}
+                        {list.childCount} item(s)
                   </td>
                 </tr>
               ))}

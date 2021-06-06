@@ -6,6 +6,7 @@ import Loading from './Loading';
 import Login from './Login';
 import AddCat from './AddCat';
 import { FiSettings } from 'react-icons/fi';
+import { FcTodoList } from 'react-icons/fc';
 import '../css/lists.css';
 
 const AllCats = () => {
@@ -29,9 +30,14 @@ const AllCats = () => {
   const displayAddButton = () => {
     if (editMode) {return null};
     return (
-      <button className="btn default-btn" onClick={() => setupEdit()}> 
-        Add new category
-      </button>
+      <div className="showAddArea">
+        <span className='iconBorder'>
+          <FcTodoList onClick={() => setupEdit()}
+            title='add new list' className='iconBorder' size='24' color='#555555' />
+        </span>
+        <span className="spacer"> </span>
+        <span className="headerAddLabel">Add new category</span>
+      </div>  
     )
   }
   const addCatProps = { editMode: editMode, cancelEdit: cancelEdit};
@@ -66,11 +72,13 @@ const AllCats = () => {
       <div className='mainContainer'>
         { crumbArea() }
         <div className='heading'>
-          <div className='headingName'>
-            All categories          
+          <div className='headingNameDiv'>
+            <span className='headingName'>
+              All categories          
+            </span>
           </div>
-          {displayAddButton()}
         </div>
+        {displayAddButton()}
         <AddCat props={addCatProps} />  
         <table>
           <thead>

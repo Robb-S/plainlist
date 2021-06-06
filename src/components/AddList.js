@@ -16,12 +16,10 @@ const AddList = () => {
 
   const onSubmitAdd = (e) => {
     e.preventDefault();
-    if (listName.length===0) {return;}
-    const newList = { listName: listName, categoryID: id};
-    handleAddList(newList, state, dispatch);
+    onRequestAdd()
   };
 
-  const onSubmitAdd2 = () => {
+  const onRequestAdd = () => {
     if (listName.length===0) {return;}
     const newList = { listName: listName, categoryID: id};
     handleAddList(newList, state, dispatch);
@@ -40,7 +38,7 @@ const AddList = () => {
     <Fragment>
       { !editMode && 
       <Fragment>
-        <div className="thaddarea">
+        <div className="showAddArea">
           <span className='iconBorder'>
             <FcTodoList onClick={() => setupEdit()}
               title='add new list' className='iconBorder' size='24' color='#555555' />
@@ -50,30 +48,31 @@ const AddList = () => {
         </div>  
       </Fragment>
       }
-
       { editMode && 
       <Fragment>
-        <div className='additem'>
-          <form onSubmit={onSubmitAdd}>
-            <label>New list: </label>
-            <input
-              value={listName}
-              onChange={(e) => setListName(e.target.value)}
-              type="text"
-              placeholder="name of list"
-            />
-            <span className='editButtonArea'>
-              <span className='iconCheckmark iconNoBorder'>
-                <FiCheckSquare onClick={() => onSubmitAdd2()}
-                title='add list' size='24' color='#555555' />
-              </span>
-              <span className='iconEdit iconNoBorder'>
-                <FiXCircle onClick={() => cancelAdd()}
-                title='cancel list' className='iconBorder' size='24' color='#555555' />
-              </span>
+        <div className='addArea'>
+          <form className='addCategoryForm' onSubmit={onSubmitAdd}>
+            <span className='addAreaInput'>
+              <div>List name</div>
+              <input
+                value={listName}
+                onChange={(e) => setListName(e.target.value)}
+                type="text"
+              />
             </span>
           </form>
-        </div>      
+          <span className='editButtonArea'>
+            <span className='iconCheckmark iconNoBorder'>
+              <FiCheckSquare onClick={() => onRequestAdd()}
+              title='add list' size='24' color='#555555' />
+            </span>
+            <span className="sliver5"> </span>
+            <span className='iconEdit iconNoBorder'>
+              <FiXCircle onClick={() => cancelAdd()}
+              title='cancel new list' className='iconBorder' size='24' color='#555555' />
+            </span>
+          </span>
+        </div>
       </Fragment>
     }
     </Fragment>
