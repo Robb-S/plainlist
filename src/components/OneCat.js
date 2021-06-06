@@ -120,18 +120,8 @@ const OneCat = () => {
                       {list.listName}
                     </Link>
                   </td>
-                  {/* <td>
-                    <Link className='linky2'
-                      to={{
-                        pathname: `/list2/`,
-                        state: { listID: `${list.id}`}
-                      }}
-                    >
-                      Alt
-                    </Link>
-                  </td> */}
                   <td>
-                        {list.childCount} item(s)
+                    {list.childCount} item(s)
                   </td>
                 </tr>
               ))}

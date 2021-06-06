@@ -1,5 +1,5 @@
 import {confirmQuest, makeHighestNumericAttribute, AreObjectsDifferent } from '../util/helpers';
-import {getItemRec, getItemsByListID, getCatRec} from './getData';
+import {getItemRec, getItemsByListID, getCatRec, getListRec} from './getData';
 // import axios from 'axios';
 import * as api from '../util/constants';
 import {addRecAPI, deleteRecAPI, updateRecAPI, getTokenFromAPI} from './apiCalls';
@@ -103,6 +103,25 @@ const handleLogout = async (dispatch) => {
 const handleAddList = async (newList, state, dispatch) => {
   console.log('* handleAddList called, nothing here yet. ');
   console.log(newList);
+  const lists = state.lists;
+  dispatch({
+    type: 'STARTED_LOADING',
+  });
+  // add high sortOrder to make it sort to beginning of list
+  newList.sortOrder = makeHighestNumericAttribute(lists, 'sortOrder');
+  const {dbRec, status} = await addRecAPI(newList, state.runMode, 'list');
+  if (status===api.OK) {
+    dispatch({
+      type: 'ADD_LIST',
+      payload: dbRec,
+    });
+  } else {
+    alert (api.MSG_FAILED);
+  }
+  dispatch({
+    type: 'FINISHED_LOADING',
+  });
+  return status;
 }
 
 /**
@@ -183,6 +202,34 @@ const handleRemoveCategory = async (catID, state, dispatch) =>  {
     type: 'FINISHED_LOADING',
   });
 }
+
+
+const handleRemoveList = async (listID, state, dispatch) =>  {
+  const theList = getListRec(listID, state);
+  if (!theList) { // check that it still exists in state
+    alert("Sorry, that list can't be found.");
+    return;
+  }
+  const delConfirmMsg = 'Are you sure you wnat to delete list ' + theList.listName + '?';
+  const keepGoing = confirmQuest(delConfirmMsg);
+  if (!keepGoing) return;
+  dispatch({
+    type: 'STARTED_LOADING',
+  });
+  const status = await deleteRecAPI(theList.id, state.runMode, 'list');
+  if (status===api.OK) {
+    dispatch({
+      type: 'DELETE_LIST',
+      payload: listID,
+    });
+  } else {
+    alert (api.MSG_FAILED);
+  }
+  dispatch({
+    type: 'FINISHED_LOADING',
+  });
+}
+
 
 /**
  * Takes two possibly updated fields and checks to see if at least one has been updated.
@@ -319,4 +366,5 @@ export {
   handleLogout,
   handleReg,
   handleAddList,
+  handleRemoveList,
 };

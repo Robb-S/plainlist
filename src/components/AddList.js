@@ -1,6 +1,7 @@
 import React, {Fragment, useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import '../css/lists.css';
+import * as api from '../util/constants';
 import {useStore} from '../store/StoreContext';
 import {handleAddList} from '../store/handlers';
 import { FiCheckSquare, FiXCircle } from 'react-icons/fi';
@@ -19,10 +20,12 @@ const AddList = () => {
     onRequestAdd()
   };
 
-  const onRequestAdd = () => {
+  const onRequestAdd = async () => {
     if (listName.length===0) {return;}
     const newList = { listName: listName, categoryID: id};
-    handleAddList(newList, state, dispatch);
+    const status = await handleAddList(newList, state, dispatch);
+    if (status!==api.OK) {  }
+    // TODO: maybe add additional message if API operation failed?
   };
 
   const cancelAdd = () => {

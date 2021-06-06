@@ -21,7 +21,8 @@ const AddCat = ({ props }) => {
     if (catName.length===0) {return;}
     const newCategory = { categoryName: catName };
     const status = await handleAddCategory(newCategory, state, dispatch);
-    if (status===api.OK) { cancelAdd(); }
+    // if (status===api.OK) { cancelAdd(); }
+    if (status!==api.OK) {  }
     // TODO: maybe add additional message if API operation failed?
   }
   const cancelAddLocal = () => {

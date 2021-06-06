@@ -65,7 +65,16 @@ function AppReducer(state, action) {
         ),
       };
     }
-
+    case 'DELETE_LIST': { // payload is list ID
+      console.log('*** deleting list in reducer');
+      console.log(action.payload);
+      return {
+        ...state,
+        lists: state.lists.filter(
+          (list) => list.id !== action.payload
+        ),
+      };
+    }
     case 'UPDATE_ITEM': { // payload is updatedItem object
       console.log('*** updating item in reducer');
       console.log(action.payload);
