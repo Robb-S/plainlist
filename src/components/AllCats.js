@@ -1,26 +1,20 @@
 import React, {Fragment, useState} from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {useStore} from '../store/StoreContext';
 import {getAllCats} from '../store/getData';
 import Loading from './Loading';
 import Login from './Login';
 import AddCat from './AddCat';
-import {handleLogout} from '../store/handlers';
 import '../css/lists.css';
 
 const AllCats = () => {
-  const { state, dispatch } =  useStore();
+  const { state } =  useStore();
   const [editMode, setEditMode] = useState(false);  // set edit mode when edit button is pressed.
-  const history = useHistory();
   const allCats = getAllCats(state);
   let showLogin = state.loading && !state.loggedIn;
   let showLoading = state.loading && state.loggedIn;
   let showMain = !state.loading;
 
-  const onLogout = async () => {
-    await handleLogout(dispatch);
-    history.push('/login/');
-  }
   const setupEdit = () => {
     setEditMode(true);
   }
@@ -54,12 +48,6 @@ const AllCats = () => {
             All categories          
           </div>
           {displayAddButton()}
-          <button
-            className="btn default-btn"
-            onClick={() => onLogout()}
-          >
-            Log out 
-          </button>
         </div>
         <AddCat props={addCatProps} />  
         <table>
