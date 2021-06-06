@@ -6,7 +6,7 @@ import * as api from '../util/constants';
 import '../css/lists.css';
 
 const AddCat = ({ props }) => {
-  const { editMode, cancelEdit }  = props;
+  const { addMode, cancelAdd }  = props;
   const { state, dispatch } = useStore();
   const [catName, setCatName] = useState('');
 
@@ -21,17 +21,17 @@ const AddCat = ({ props }) => {
     if (catName.length===0) {return;}
     const newCategory = { categoryName: catName };
     const status = await handleAddCategory(newCategory, state, dispatch);
-    if (status===api.OK) { cancelEdit(); }
+    if (status===api.OK) { cancelAdd(); }
     // TODO: maybe add additional message if API operation failed?
   }
-  const cancelEditLocal = () => {
+  const cancelAddLocal = () => {
     setCatName('');     // clear the input field for next time
-    cancelEdit();
+    cancelAdd();
   }
 
   return (
     <Fragment>
-      {editMode && 
+      {addMode && 
       <Fragment>
         <div className='addArea'>
           <form className='addCategoryForm' onSubmit={onSubmitAdd}>
@@ -47,12 +47,12 @@ const AddCat = ({ props }) => {
           <span className='editButtonArea'>
             <span className='iconCheckmark iconNoBorder'>
               <FiCheckSquare onClick={() => onRequestAdd()}
-              title='accept edit' size='24' color='#555555' />
+              title='accept add' size='24' color='#555555' />
             </span>
             <span className="sliver5"> </span>
             <span className='iconEdit iconNoBorder'>
-              <FiXCircle onClick={() => cancelEditLocal()}
-              title='cancel edit' className='iconBorder' size='24' color='#555555' />
+              <FiXCircle onClick={() => cancelAddLocal()}
+              title='cancel add' className='iconBorder' size='24' color='#555555' />
             </span>
           </span>
         </div>

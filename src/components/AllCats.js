@@ -11,36 +11,36 @@ import '../css/lists.css';
 
 const AllCats = () => {
   const { state } =  useStore();
-  const [editMode, setEditMode] = useState(false);  // set edit mode when edit button is pressed.
+  const [addMode, setAddMode] = useState(false);  // set add mode when add button is pressed.
   const allCats = getAllCats(state);
   let showLogin = state.loading && !state.loggedIn;
   let showLoading = state.loading && state.loggedIn;
   let showMain = !state.loading;
 
-  const setupEdit = () => {
-    setEditMode(true);
+  const setupAdd = () => {
+    setAddMode(true);
   }
-  const cancelEdit = () => {
-    setEditMode(false);
+  const cancelAdd = () => {
+    setAddMode(false);
   }
   /**
    * Show the "add category" button initially, but hide it once it's pressed, return
    * to view when edit is finished or cancelled. 
    */
   const displayAddButton = () => {
-    if (editMode) {return null};
+    if (addMode) {return null};
     return (
       <div className="showAddArea">
         <span className='iconBorder'>
-          <FcTodoList onClick={() => setupEdit()}
-            title='add new list' className='iconBorder' size='24' color='#555555' />
+          <FcTodoList onClick={() => setupAdd()}
+            title='add new list' className='iconBorder' size='18' color='#555555' />
         </span>
         <span className="spacer"> </span>
         <span className="headerAddLabel">Add new category</span>
       </div>  
     )
   }
-  const addCatProps = { editMode: editMode, cancelEdit: cancelEdit};
+  const addCatProps = { addMode: addMode, cancelAdd: cancelAdd};
 
   const crumbArea = () => {
     return (

@@ -10,7 +10,7 @@ const AddList = () => {
   const id = useLocation().state.catID; // or should this be passed by parameter? 
   const {state, dispatch} = useStore();
 
-  const [editMode, setEditMode] = useState(false);  // set edit mode when add button is pressed.
+  const [addMode, setAddMode] = useState(false);  // set add mode when add button is pressed.
 
   const [listName, setListName] = useState('');
 
@@ -27,28 +27,28 @@ const AddList = () => {
 
   const cancelAdd = () => {
     setListName('');
-    setEditMode(false);
+    setAddMode(false);
   }
 
-  const setupEdit = () => {
-    setEditMode(true);
+  const setupAdd = () => {
+    setAddMode(true);
   }
 
   return (
     <Fragment>
-      { !editMode && 
+      { !addMode && 
       <Fragment>
         <div className="showAddArea">
           <span className='iconBorder'>
-            <FcTodoList onClick={() => setupEdit()}
-              title='add new list' className='iconBorder' size='24' color='#555555' />
+            <FcTodoList onClick={() => setupAdd()}
+              title='add new list' className='iconBorder' size='18' color='#555555' />
             </span>
           <span className="spacer"> </span>
           <span className="headerAddLabel">Add new list</span>
         </div>  
       </Fragment>
       }
-      { editMode && 
+      { addMode && 
       <Fragment>
         <div className='addArea'>
           <form className='addCategoryForm' onSubmit={onSubmitAdd}>
