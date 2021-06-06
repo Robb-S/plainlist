@@ -4,7 +4,7 @@ import {useStore} from '../store/StoreContext';
 import {getListsByCatID, getCatRec} from '../store/getData';
 import Loading from './Loading';
 import Login from './Login';
-import { FiTrash2, FiEdit } from 'react-icons/fi';
+import { FiTrash2, FiEdit, FiSettings } from 'react-icons/fi';
 // import { FiTrash2, FiEdit, FiCheckSquare, FiXCircle } from 'react-icons/fi';
 import { handleRemoveCategory  } from '../store/handlers';
 // import { handleRemoveCategory, handleUpdateCategory } from '../store/handlers';
@@ -33,14 +33,22 @@ const OneCat = () => {
   const crumbArea = () => {
     return (
       <Fragment>
-        <div className='breadcrumbs'>
-          <Link className='linky3 oneCrumb' to={`/`}>
-            All categories 
-          </Link>
-          <span className='oneCrumb'>:</span>
-          <span className='oneCrumb'>
-            {oneCatRec.categoryName}  
-          </span>
+        <div className='crumbsandsettings'>
+          <div className='breadcrumbs'>
+            <Link className='linky3 oneCrumb' to={`/`}>
+              All categories 
+            </Link>
+            <span className='oneCrumb'>:</span>
+            <span className='oneCrumb'>
+              {oneCatRec.categoryName}  
+            </span>
+          </div>
+          <div className='settingsicon'>
+            <Link className='linky3 oneCrumb' to={`/set/`}>
+              <FiSettings 
+                title='settings' className='iconBorder' size='24' color='#555555' />
+            </Link>
+          </div>
         </div>
       </Fragment>
     )

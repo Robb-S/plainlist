@@ -156,6 +156,16 @@ div.addArea {
   padding: 0 8px 0 0;
 }
 
+div.crumbsandsettings {
+  width: 500px;
+  display: grid;
+  grid-template-columns: 1fr 65px;
+}
+div.settingsicon {
+  text-align: right;
+  padding: 12px 8px 8px 12px;
+}
+
 span.headingName {
   padding: 0 15px 0 0;
 }
@@ -163,6 +173,8 @@ span.headingName {
 div.headingNameDiv {
   padding: 10px 0 35px 0;
 }
+
+
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
