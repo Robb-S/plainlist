@@ -80,6 +80,7 @@ table.itemsTable td.dragHandle {
   border-color: #999999;
   border-width: 1px 0 1px 1px;
   padding: 12px 12px 8px 12px;
+  touch-action: none;
 }
 
 table.itemsTable td.itemName {
@@ -102,7 +103,7 @@ table.itemsTable td.buttons {
   border-style: solid;
   border-color: #999999;
   border-width: 1px 1px 1px 0;
-  padding: 12px 12px 8px 12px;
+  padding: 12px 8px 8px 2px;
 }
 
 table.itemsTable td.editButtons {

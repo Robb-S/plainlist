@@ -5,10 +5,10 @@
 import React, {Fragment, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor,  
-  useSensors } from '@dnd-kit/core';
+  useSensors, TouchSensor } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, 
   verticalListSortingStrategy } from '@dnd-kit/sortable';
-import {restrictToWindowEdges, restrictToVerticalAxis} from '@dnd-kit/modifiers';
+import {restrictToParentElement, restrictToVerticalAxis} from '@dnd-kit/modifiers';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
 import {getItemsByListID} from '../store/getData';
@@ -30,10 +30,17 @@ const ItemsList = () => {
   const [items, setItems] = useState([...oneListItems]); 
 
   const sensors = useSensors(
+    useSensor(TouchSensor, {
+      // Press delay of 250ms, with tolerance of 5px of movement
+      activationConstraint: {
+        delay: 2,
+        tolerance: 3,
+      },
+    }),
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   // function handleDragStart(event) {
@@ -63,6 +70,7 @@ const ItemsList = () => {
         sensors={sensors}
         collisionDetection={closestCenter}
         // onDragStart={handleDragStart}
+        modifiers={[restrictToVerticalAxis, restrictToParentElement]}
         onDragEnd={handleDragEnd}
       >
         <SortableContext 
@@ -72,7 +80,6 @@ const ItemsList = () => {
           <table className="itemsTable">
           <tbody>
           {items.map(item => <SortableItemItem key={item.id} id={item.id} item={item} 
-            modifiers={[restrictToVerticalAxis, restrictToWindowEdges]} handle 
           />)}
           </tbody>
           </table>

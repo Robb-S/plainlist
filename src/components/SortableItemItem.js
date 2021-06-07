@@ -67,7 +67,7 @@ export function SortableItemItem(props) {
               <FiEdit onClick={() => setupEdit()}
               title='edit item' className='iconBorder' size='24' color='#555555' />
             </span>
-            <span className="sliver5"> </span>
+            <span className="spacer"> </span>
             <span className='iconDelete iconBorder'>
               <FiTrash2 onClick={() => removeItem(props.item.id)}
               title='delete item' className='iconBorder' size='24' color='#555555' />
