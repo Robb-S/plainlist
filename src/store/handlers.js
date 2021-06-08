@@ -232,7 +232,7 @@ const handleRemoveList = async (listID, state, dispatch) =>  {
 
 
 /**
- * Takes possibly updated field checks to see if it has been updated.
+ * Takes possibly updated name and checks to see if it has been updated.
  * If so, then calls API and replaces updated list in state
  */
  const handleUpdateList = async (listID, newListName, state, dispatch) => {
@@ -250,6 +250,36 @@ const handleRemoveList = async (listID, state, dispatch) =>  {
   if (status===api.OK) {
     dispatch({
       type: 'UPDATE_LIST',
+      payload: dbRec,
+    });
+  } else {
+    alert (api.MSG_FAILED);
+  }
+  dispatch({
+    type: 'FINISHED_LOADING',
+  });
+  return status;
+}
+
+/**
+ * Takes possibly updated name and checks to see if it has been updated.
+ * If so, then calls API and replaces updated category in state
+ */
+ const handleUpdateCategory = async (categoryID, newCatName, state, dispatch) => {
+  const oldCat = getListRec(categoryID, state);
+  const newCat = {...oldCat};
+  newCat.categoryName = newCatName;
+  const noChange = !AreObjectsDifferent(oldCat, newCat);
+  if (noChange) return;
+  dispatch({
+    type: 'STARTED_LOADING',
+  });
+  const {dbRec, status} = await updateRecAPI(newCat, state.runMode, 'category');
+  // console.log('handleUpdateList API call returns ' + status)
+  // console.log(dbRec);
+  if (status===api.OK) {
+    dispatch({
+      type: 'UPDATE_CAT',
       payload: dbRec,
     });
   } else {
@@ -387,16 +417,17 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
 
 export {
   handleRemoveItem, 
+  handleRemoveList,
   handleRemoveCategory, 
-  handleAddItem, 
+  handleAddItem,
+  handleAddList,
   handleAddCategory, 
   handleUpdateItem, 
+  handleUpdateList,
+  handleUpdateCategory,
   handleUpdateItemsList,
   handleSetRunModeAndInitLoad,
   handleLogin,
   handleLogout,
   handleReg,
-  handleAddList,
-  handleRemoveList,
-  handleUpdateList,
 };

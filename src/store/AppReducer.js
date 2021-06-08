@@ -47,7 +47,7 @@ function AppReducer(state, action) {
     }
     case 'DELETE_ITEM': { // payload is item ID
       console.log('*** deleting item in reducer');
-      console.log(action.payload);
+      // console.log(action.payload);
       return {
         ...state,
         items: state.items.filter(
@@ -57,7 +57,7 @@ function AppReducer(state, action) {
     }
     case 'DELETE_CAT': { // payload is category ID
       console.log('*** deleting category in reducer');
-      console.log(action.payload);
+      // console.log(action.payload);
       return {
         ...state,
         categories: state.categories.filter(
@@ -67,7 +67,7 @@ function AppReducer(state, action) {
     }
     case 'DELETE_LIST': { // payload is list ID
       console.log('*** deleting list in reducer');
-      console.log(action.payload);
+      // console.log(action.payload);
       return {
         ...state,
         lists: state.lists.filter(
@@ -77,7 +77,7 @@ function AppReducer(state, action) {
     }
     case 'UPDATE_ITEM': { // payload is updatedItem object
       console.log('*** updating item in reducer');
-      console.log(action.payload);
+      // console.log(action.payload);
       const updatedItem = action.payload;
       const updatedItems = state.items.map((item) => {
         if (item.id === updatedItem.id) {
@@ -93,7 +93,7 @@ function AppReducer(state, action) {
 
     case 'UPDATE_LIST': { // payload is updatedList object
       console.log('*** updating list in reducer');
-      console.log(action.payload);
+      // console.log(action.payload);
       const updatedList = action.payload;
       const updatedLists = state.lists.map((list) => {
         if (list.id === updatedList.id) {
@@ -109,7 +109,7 @@ function AppReducer(state, action) {
 
     case 'UPDATE_CAT': { // payload is updatedCat object
       console.log('*** updating category in reducer');
-      console.log(action.payload);
+      // console.log(action.payload);
       const updatedCat = action.payload;
       const updatedCats = state.categories.map((cat) => {
         if (cat.id === updatedCat.id) {
