@@ -88,20 +88,20 @@ const AllCats = () => {
             </tr>
           </thead>
           <tbody>
-            {allCats.map((cat) => (
-              <tr key={cat.id}>
+            {allCats.map((category) => (
+              <tr key={category.id}>
                 <td>
                 <Link className='linky3'
                   to={{
                     pathname: `/cat/`,
-                    state: { categoryID: cat.id }
+                    state: { categoryID: category.id }
                   }}
                 >
-                  {cat.categoryName}
+                  {category.categoryName}
                 </Link>
                 </td>
                 <td>
-                  {cat.childCount} list(s)
+                  {category.childCount} list(s)
                 </td>
               </tr>
             ))}

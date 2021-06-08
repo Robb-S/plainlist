@@ -86,6 +86,5 @@ const getItemsByListID = (listID, state) => {
   return (a.sortOrder > b.sortOrder) ? -1 : 1;
 }
 
-
 export {getItemsByListID, getListsByCatID, getListRec, getCatRec, getItemRec, getListName, getCatName,
   getParentListName, getParentCatName, getParentCatID, getAllCats };

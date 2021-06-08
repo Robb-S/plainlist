@@ -13,7 +13,7 @@ import '../css/lists.css';
 const AddCat = ({ props }) => {
   const { addMode, cancelAdd }  = props;
   const { state, dispatch } = useStore();
-  const [ catName, setCatName ] = useState('');
+  const [ categoryName, setCategoryName ] = useState('');
 
   /**
    * Form submit handler allows user to press RETURN as well as button to submit
@@ -23,15 +23,15 @@ const AddCat = ({ props }) => {
     onRequestAdd();
   }
   const onRequestAdd = async () => {
-    if (catName.length===0) {return;}
-    const newCategory = { categoryName: catName };
+    if (categoryName.length===0) {return;}
+    const newCategory = { categoryName: categoryName };
     const status = await handleAddCategory(newCategory, state, dispatch);
     // if (status===api.OK) { cancelAdd(); }
     if (status!==api.OK) {  }
     // TODO: maybe add additional message if API operation failed?
   }
   const cancelAddLocal = () => {
-    setCatName('');     // clear the input field for next time
+    setCategoryName('');     // clear the input field for next time
     cancelAdd();
   }
 
@@ -44,8 +44,8 @@ const AddCat = ({ props }) => {
             <span className='addAreaInput'>
               <div>Category name</div>
               <input
-                value={catName}
-                onChange={(e) => setCatName(e.target.value)}
+                value={categoryName}
+                onChange={(e) => setCategoryName(e.target.value)}
                 type="text"
               />
             </span>

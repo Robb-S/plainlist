@@ -143,7 +143,9 @@ const recTypeToAPIUrl = (recType) => {
  * API call to update a record. 
  * @returns object with updated record from API call, plus status flag
  */
- const updateRecAPI = async (updateRec, runMode, recType) => {
+const updateRecAPI = async (updateRec, runMode, recType) => {
+  console.log('** inside updateRecAPI')
+  console.log(updateRec)
   if (runMode===api.RUNMODE_DEMO) {
     const dbRec = {...updateRec};
     return {dbRec: dbRec, status: api.OK};

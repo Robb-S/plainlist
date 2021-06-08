@@ -264,8 +264,8 @@ const handleRemoveList = async (listID, state, dispatch) =>  {
  * Takes possibly updated name and checks to see if it has been updated.
  * If so, then calls API and replaces updated category in state
  */
- const handleUpdateCategory = async (categoryID, newCatName, state, dispatch) => {
-  const oldCat = getListRec(categoryID, state);
+const handleUpdateCategory = async (categoryID, newCatName, state, dispatch) => {
+  const oldCat = getCatRec(categoryID, state);
   const newCat = {...oldCat};
   newCat.categoryName = newCatName;
   const noChange = !AreObjectsDifferent(oldCat, newCat);
