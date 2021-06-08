@@ -1,7 +1,7 @@
 /**
  * Show edit form for changing name of a list.  
- * Handle the update, or toggle edit mode.
- * if cancel button is pressed.  Called by OneList.
+ * Handle the update, or toggle the edit mode if 
+ * cancel button is pressed.  Called by OneList.
  * Params: cancelEdit function (toggles state in parent component)
  * listRec: list record w/ list name and id
  */
