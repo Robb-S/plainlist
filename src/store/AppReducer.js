@@ -90,6 +90,40 @@ function AppReducer(state, action) {
         items: updatedItems,
       };
     }
+
+    case 'UPDATE_LIST': { // payload is updatedList object
+      console.log('*** updating list in reducer');
+      console.log(action.payload);
+      const updatedList = action.payload;
+      const updatedLists = state.lists.map((list) => {
+        if (list.id === updatedList.id) {
+          return updatedList;
+        }
+        return list;
+      });
+      return {
+        ...state,
+        lists: updatedLists,
+      };
+    }
+
+    case 'UPDATE_CAT': { // payload is updatedCat object
+      console.log('*** updating category in reducer');
+      console.log(action.payload);
+      const updatedCat = action.payload;
+      const updatedCats = state.categories.map((cat) => {
+        if (cat.id === updatedCat.id) {
+          return updatedCat;
+        }
+        return cat;
+      });
+      return {
+        ...state,
+        categories: updatedCats,
+      };
+    }
+
+
     case 'ADD_ITEM': { // payload is rec object
       console.log('*** adding item in reducer');
       // console.log(action.payload);

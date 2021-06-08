@@ -232,6 +232,37 @@ const handleRemoveList = async (listID, state, dispatch) =>  {
 
 
 /**
+ * Takes possibly updated field checks to see if it has been updated.
+ * If so, then calls API and replaces updated list in state
+ */
+ const handleUpdateList = async (listID, newListName, state, dispatch) => {
+  const oldList = getListRec(listID, state);
+  const newList = {...oldList};
+  newList.listName = newListName;
+  const noChange = !AreObjectsDifferent(oldList, newList);
+  if (noChange) return;
+  dispatch({
+    type: 'STARTED_LOADING',
+  });
+  const {dbRec, status} = await updateRecAPI(newList, state.runMode, 'list');
+  // console.log('handleUpdateList API call returns ' + status)
+  // console.log(dbRec);
+  if (status===api.OK) {
+    dispatch({
+      type: 'UPDATE_LIST',
+      payload: dbRec,
+    });
+  } else {
+    alert (api.MSG_FAILED);
+  }
+  dispatch({
+    type: 'FINISHED_LOADING',
+  });
+  return status;
+}
+
+
+/**
  * Takes two possibly updated fields and checks to see if at least one has been updated.
  * If so, then calls API and replaces updated item in state
  */
@@ -367,4 +398,5 @@ export {
   handleReg,
   handleAddList,
   handleRemoveList,
+  handleUpdateList,
 };

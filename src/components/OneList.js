@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import { Link, useLocation, Redirect } from 'react-router-dom';
 import '../css/lists.css';
 import { useStore } from '../store/StoreContext';
@@ -7,6 +7,7 @@ import { handleRemoveList } from '../store/handlers';
 import Loading from './Loading';
 import AddItem from './AddItem';
 import ItemsList from './ItemsList';
+import EditList from './EditList';
 import Login from './Login';
 import { FiTrash2, FiEdit, FiSettings } from 'react-icons/fi';
 
@@ -16,6 +17,7 @@ const OneList = () => {
   let needsRedirect = data.state ? false : true; // is it called from link or manual URL
   const listID = needsRedirect ? null : data.state.listID; 
   const { state, dispatch } = useStore();    // this must come before conditional render
+  const [editMode, setEditMode] = useState(false);  // set edit mode when button is pressed.
   const oneListRec = getListRec(listID, state);
   if (oneListRec===null) {needsRedirect=true;} // this will happen after record deletion
   if (needsRedirect) {return (<Redirect to="/" />);}  // back to main page if no ID
@@ -25,6 +27,12 @@ const OneList = () => {
   const parentCatName = getParentCatName(listID, state);
   const parentCatID = getParentCatID(listID, state);
 
+  const cancelEdit = () => { setEditMode(false); }
+  const setupEdit = () => { setEditMode(true); }
+
+  const removeList = async () => {
+    handleRemoveList(listID, state, dispatch);
+  }
 
   const crumbArea = () => {
     return (
@@ -57,25 +65,11 @@ const OneList = () => {
     )
   }
 
-  const editList = async () => {
-    console.log('* edit list called, nothing here yet.')
-    // handleRemoveCategory(id, state, dispatch);
-  }
-
-  const removeList = async () => {
-    // console.log('* remove list called, nothing here yet.')
-    handleRemoveList(listID, state, dispatch);
-  }
-
-  return (
-    <Fragment>
-      {showLoading && <Loading />}
-      {showLogin && <Login />}
-
-      {showMain && 
+  const mainDisplayOrEditForm = () => {
+    const editListProps = { cancelEdit: cancelEdit, listRec: oneListRec };
+    if (editMode) return (<EditList props={editListProps} />)
+    return (
       <Fragment>
-      <div className='mainContainer'>
-        { crumbArea() }
         <div className='heading'>
           <div className='headingNameDiv'>
             <span className='headingName'>
@@ -83,7 +77,7 @@ const OneList = () => {
             </span>
             <span className="spacer"> </span>
             <span className='iconEdit XiconBorder'>
-              <FiEdit onClick={() => editList()}
+              <FiEdit onClick={() => setupEdit()}
               title='edit list' className='iconBorder' size='24' color='#555555' />
             </span>
             <span className="spacer"> </span>
@@ -95,9 +89,23 @@ const OneList = () => {
         </div>
         <AddItem />
         <ItemsList />
+      </Fragment>
+    );
+  }
+
+  return (
+    <Fragment>
+      {showLoading && <Loading />}
+      {showLogin && <Login />}
+
+      {showMain && 
+      <Fragment>
+      <div className='mainContainer'>
+        { crumbArea() }
+        { mainDisplayOrEditForm() }
       </div>
       </Fragment>
-    }
+      }
     </Fragment>
   )
 }

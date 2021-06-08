@@ -14,8 +14,8 @@ import {handleSetRunModeAndInitLoad} from './store/handlers';
 import * as api from './util/constants';
 
 function App() {
-  // const runMode = api.RUNMODE_API;   // api.RUNMODE_API or api.RUNMODE_DEMO
-  const runMode = api.RUNMODE_DEMO;   // api.RUNMODE_API or api.RUNMODE_DEMO  
+  const runMode = api.RUNMODE_API;   // api.RUNMODE_API or api.RUNMODE_DEMO
+  // const runMode = api.RUNMODE_DEMO;   // api.RUNMODE_API or api.RUNMODE_DEMO  
   const testUserID = 1;     // 1 or 2 (when using testData)
   const store = useStore();
   const dispatch = store.dispatch;

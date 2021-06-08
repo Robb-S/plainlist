@@ -163,6 +163,10 @@ span.iconHandle {
   cursor: move;
 }
 
+span.sliver5 {
+  width: 5px;
+}
+
 span.spacer {
   width: 5px;
   padding-right: 12px;

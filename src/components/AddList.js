@@ -9,6 +9,8 @@ import { FcTodoList } from 'react-icons/fc';
 
 const AddList = () => {  
   const id = useLocation().state.catID; // or should this be passed by parameter? 
+  // console.log('** AddList useLocation().state: **');
+  // console.log(useLocation().state)
   const {state, dispatch} = useStore();
 
   const [addMode, setAddMode] = useState(false);  // set add mode when add button is pressed.

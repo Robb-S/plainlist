@@ -1,3 +1,8 @@
+/**
+ * Show one-line input form for adding name of new category.  
+ * Called by AddCats.  addMode (state in AddCats) and cancelAdd (function
+ * to change state in AddCats) are passed in as props.  
+ */
 import React, {Fragment, useState} from 'react';
 import {useStore} from '../store/StoreContext';
 import {handleAddCategory} from '../store/handlers';
@@ -11,7 +16,7 @@ const AddCat = ({ props }) => {
   const [catName, setCatName] = useState('');
 
   /**
-   * Form submit handler allows user to press RETURN rather than button to submit
+   * Form submit handler allows user to press RETURN as well as button to submit
    */
   const onSubmitAdd = (e) => {
     e.preventDefault();
