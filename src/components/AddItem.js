@@ -1,3 +1,7 @@
+/**
+ * Form for entry of one item.  The form needs a hidden submit button so that 
+ * the ENTER button can be used to submit the form's multiple input fields.
+ */
 import React, {Fragment, useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import '../css/lists.css';
@@ -14,13 +18,12 @@ const AddItem = () => {
   const [itemNote, setItemNote] = useState('');
 
   const onSubmitAdd = (e) => {
+    console.log('*** onSubmitAdd item called ***')
     e.preventDefault();
-    if (itemName.length===0) {return;}
-    const newItem = { itemName: itemName, itemNote: itemNote, listID: id};
-    handleAddItem(newItem, state, dispatch);
+    onRequestAdd()
   };
 
-  const onSubmitAdd2 = () => {
+  const onRequestAdd = () => {
     if (itemName.length===0) {return;}
     const newItem = { itemName: itemName, itemNote: itemNote, listID: id};
     handleAddItem(newItem, state, dispatch);
@@ -53,7 +56,7 @@ const AddItem = () => {
             />
             <span className='editButtonArea'>
               <span className='iconCheckmark iconNoBorder'>
-                <FiCheckSquare onClick={() => onSubmitAdd2()}
+                <FiCheckSquare onClick={() => onRequestAdd()}
                 title='add item' size='24' color='#555555' />
               </span>
               <span className='iconEdit iconNoBorder'>
@@ -61,6 +64,7 @@ const AddItem = () => {
                 title='cancel item' className='iconBorder' size='24' color='#555555' />
               </span>
             </span>
+            <input type="submit" className="hidden" />
           </form>
         </div>      
       </Fragment>

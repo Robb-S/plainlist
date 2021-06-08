@@ -5,6 +5,10 @@
   text-align: left;
 }
 
+.hidden {
+  display: none;
+}
+
 .heading {
   margin: 11px 11px 12px 0;
   font-size: 15px;

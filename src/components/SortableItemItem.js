@@ -13,6 +13,7 @@ import { MdDragHandle } from 'react-icons/md';
 import { FiTrash2, FiEdit, FiCheckSquare, FiXCircle } from 'react-icons/fi';
 
 export function SortableItemItem(props) {
+  const itemID = props.item.id;
   const {state, dispatch} = useStore();
   const [editMode, setEditMode] = useState(false);  // set edit mode when edit button is pressed.
   const [itemName, setItemName] = useState(props.item.itemName);
@@ -26,7 +27,7 @@ export function SortableItemItem(props) {
     transition,
   };
   
-  const removeItem = (itemID) => {
+  const removeItem = () => {
     handleRemoveItem(itemID, state, dispatch);
   }
 
@@ -34,7 +35,12 @@ export function SortableItemItem(props) {
     setEditMode(true);
   }
 
-  const updateItem = (itemID) => {
+  const submitUpdateItem = (e) => {
+    e.preventDefault();
+    updateItem();
+  }
+
+  const updateItem = () => {
     setEditMode(false);
     handleUpdateItem(itemID, itemName, itemNote, state, dispatch);
   }
@@ -69,7 +75,7 @@ export function SortableItemItem(props) {
             </span>
             <span className="spacer"> </span>
             <span className='iconDelete iconBorder'>
-              <FiTrash2 onClick={() => removeItem(props.item.id)}
+              <FiTrash2 onClick={() => removeItem()}
               title='delete item' className='iconBorder' size='24' color='#555555' />
             </span>
           </td>
@@ -82,7 +88,7 @@ export function SortableItemItem(props) {
         <tr>
           <td></td>
           <td colSpan="2" className='editFormTD'>
-            <form className='editFormForm'>
+            <form className='editFormForm' onSubmit={submitUpdateItem}>
               <span className='editInputArea'>
                 <input
                   value={itemName}
@@ -96,12 +102,13 @@ export function SortableItemItem(props) {
                   type="text"
                 />
               </span>
+              <input type="submit" className="hidden" />
             </form>
           </td>
           <td className='buttons editButtons'>
             <span className='editButtonArea'>
               <span className='iconCheckmark iconNoBorder'>
-                <FiCheckSquare onClick={() => updateItem(props.item.id)}
+                <FiCheckSquare onClick={() => updateItem()}
                 title='accept edit' size='24' color='#555555' />
               </span>
               <span className="sliver5"> </span>
