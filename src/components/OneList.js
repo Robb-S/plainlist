@@ -122,6 +122,7 @@ const OneList = () => {
       }
     </Fragment>
   )
+  
 }
 
 export default OneList;
