@@ -56,25 +56,34 @@ function AppReducer(state, action) {
       };
     }
     case 'DELETE_CAT': { // payload is category ID
-      console.log('*** deleting category in reducer');
-      // console.log(action.payload);
+      /* Also delete lists with this categoryID, so that they're not accidentally
+         accessed from browser forward or back button.  There's no need to delete
+         the items, as they are already removed from API DB and will disappear the
+         next time the store is refreshed. */
+      console.log('*** deleting category ' + action.payload + ' in reducer');
       return {
         ...state,
         categories: state.categories.filter(
           (category) => category.id !== action.payload
         ),
+        lists: state.lists.filter(
+          (list) => list.categoryID !== action.payload
+        ),
       };
     }
     case 'DELETE_LIST': { // payload is list ID
-      console.log('*** deleting list in reducer');
-      // console.log(action.payload);
+      // also delete items with this listID
+      console.log('*** deleting list ' + action.payload + ' in reducer');
       return {
         ...state,
         lists: state.lists.filter(
           (list) => list.id !== action.payload
         ),
+        items: state.items.filter(
+          (item) => item.listID !== action.payload
+        ),
       };
-    }
+    }    
     case 'UPDATE_ITEM': { // payload is updatedItem object
       console.log('*** updating item in reducer');
       // console.log(action.payload);

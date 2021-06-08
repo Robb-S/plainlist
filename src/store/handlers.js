@@ -176,6 +176,45 @@ const handleRemoveItem = async (itemID, state, dispatch) =>  {
   });
 }
 
+/**
+ * Remove list from API DB and local state, then remove all associated items
+ * from local state.  They are removed from the API DB automatically by Django.
+ * @returns status
+ */
+const handleRemoveList = async (listID, state, dispatch) =>  {
+  console.log('** remove list ' + listID + ' before **');
+  console.log(state.items);
+  const theList = getListRec(listID, state);
+  if (!theList) { // check that it still exists in state
+    alert("Sorry, that list can't be found.");
+    return;
+  }
+  const delConfirmMsg = 'Are you sure you wnat to delete list ' + theList.listName + '?';
+  const keepGoing = confirmQuest(delConfirmMsg);
+  if (!keepGoing) return;
+  dispatch({
+    type: 'STARTED_LOADING',
+  });
+  const status = await deleteRecAPI(theList.id, state.runMode, 'list');
+  console.log('status: ' + status)
+  if (status===api.OK) {
+    await dispatch({
+      type: 'DELETE_LIST',
+      payload: listID,
+    });
+  } else {
+    alert (api.MSG_FAILED);
+  }
+  dispatch({
+    type: 'FINISHED_LOADING',
+  });
+  console.log('** remove list after **');
+  console.log(state.items);
+  console.log(state.lists);
+  return status;
+}
+
+
 const handleRemoveCategory = async (catID, state, dispatch) =>  {
   const theCat = getCatRec(catID, state);
   if (!theCat) { // check that it still exists in state
@@ -202,32 +241,6 @@ const handleRemoveCategory = async (catID, state, dispatch) =>  {
   });
 }
 
-
-const handleRemoveList = async (listID, state, dispatch) =>  {
-  const theList = getListRec(listID, state);
-  if (!theList) { // check that it still exists in state
-    alert("Sorry, that list can't be found.");
-    return;
-  }
-  const delConfirmMsg = 'Are you sure you wnat to delete list ' + theList.listName + '?';
-  const keepGoing = confirmQuest(delConfirmMsg);
-  if (!keepGoing) return;
-  dispatch({
-    type: 'STARTED_LOADING',
-  });
-  const status = await deleteRecAPI(theList.id, state.runMode, 'list');
-  if (status===api.OK) {
-    dispatch({
-      type: 'DELETE_LIST',
-      payload: listID,
-    });
-  } else {
-    alert (api.MSG_FAILED);
-  }
-  dispatch({
-    type: 'FINISHED_LOADING',
-  });
-}
 
 
 /**
