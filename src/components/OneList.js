@@ -1,14 +1,20 @@
+/**
+ * Show a single list.  The list ID is passed from the LINK in the previous component 
+ * rather than as part of the URL.  If someone just types in the URL there won't be
+ * a list ID, and the URL will be rerouted to the home page.  This will also happen 
+ * after a list is deleted.
+ */
 import React, {Fragment, useState} from 'react';
 import { Link, useLocation, Redirect } from 'react-router-dom';
 import '../css/lists.css';
 import { useStore } from '../store/StoreContext';
 import { getListRec, getParentCatName, getParentCatID } from '../store/getData';
 import { handleRemoveList } from '../store/handlers';
-import Loading from './Loading';
-import AddItem from './AddItem';
-import ItemsList from './ItemsList';
-import EditList from './EditList';
 import Login from './Login';
+import Loading from './Loading';
+import EditList from './EditList';  // form to edit the list name
+import AddItem from './AddItem';    // form to add an item
+import ItemsList from './ItemsList';  // the actual list of items
 import { FiTrash2, FiEdit, FiSettings } from 'react-icons/fi';
 
 const OneList = () => {
@@ -27,8 +33,8 @@ const OneList = () => {
   const parentCatName = getParentCatName(listID, state);
   const parentCatID = getParentCatID(listID, state);
 
-  const cancelEdit = () => { setEditMode(false); }
   const setupEdit = () => { setEditMode(true); }
+  const cancelEdit = () => { setEditMode(false); }
 
   const removeList = async () => {
     handleRemoveList(listID, state, dispatch);
@@ -65,9 +71,17 @@ const OneList = () => {
     )
   }
 
+  /**
+   * The header area includes an edit button, and when this is pressed the edit form
+   * (to change the list name) will be shown, and the main list will disappear until
+   * the name is updated or cancelled.  While list-name updates are handled by
+   * the EditList component, deletions are handled here.
+   */
   const mainDisplayOrEditForm = () => {
-    const editListProps = { cancelEdit: cancelEdit, listRec: oneListRec };
-    if (editMode) return (<EditList props={editListProps} />)
+    if (editMode) {
+      const editListProps = { cancelEdit: cancelEdit, listRec: oneListRec };
+      return (<EditList props={editListProps} />)
+    }
     return (
       <Fragment>
         <div className='heading'>
@@ -76,12 +90,12 @@ const OneList = () => {
               {oneListRec.listName}
             </span>
             <span className="spacer"> </span>
-            <span className='iconEdit XiconBorder'>
+            <span className='iconEdit'>
               <FiEdit onClick={() => setupEdit()}
               title='edit list' className='iconBorder' size='24' color='#555555' />
             </span>
             <span className="spacer"> </span>
-            <span className='iconDelete XiconBorder'>
+            <span className='iconDelete'>
             <FiTrash2 onClick={() => removeList()}
               title='delete list' className='iconBorder' size='24' color='#555555' />
             </span>
@@ -100,10 +114,10 @@ const OneList = () => {
 
       {showMain && 
       <Fragment>
-      <div className='mainContainer'>
-        { crumbArea() }
-        { mainDisplayOrEditForm() }
-      </div>
+        <div className='mainContainer'>
+          { crumbArea() }
+          { mainDisplayOrEditForm() }
+        </div>
       </Fragment>
       }
     </Fragment>
