@@ -94,7 +94,7 @@ const AllCats = () => {
                 <Link className='linky3'
                   to={{
                     pathname: `/cat/`,
-                    state: { catID: cat.id }
+                    state: { categoryID: cat.id }
                   }}
                 >
                   {cat.categoryName}

@@ -13,7 +13,7 @@ import '../css/lists.css';
 const AddCat = ({ props }) => {
   const { addMode, cancelAdd }  = props;
   const { state, dispatch } = useStore();
-  const [catName, setCatName] = useState('');
+  const [ catName, setCatName ] = useState('');
 
   /**
    * Form submit handler allows user to press RETURN as well as button to submit

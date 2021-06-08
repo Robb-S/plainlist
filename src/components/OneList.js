@@ -35,7 +35,6 @@ const OneList = () => {
 
   const setupEdit = () => { setEditMode(true); }
   const cancelEdit = () => { setEditMode(false); }
-
   const removeList = async () => {
     handleRemoveList(listID, state, dispatch);
   }
@@ -122,7 +121,7 @@ const OneList = () => {
       }
     </Fragment>
   )
-  
+
 }
 
 export default OneList;

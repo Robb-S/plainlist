@@ -12,6 +12,7 @@ import Loading from './Loading';
 import EditCat from './EditCat';
 import AddList from './AddList';
 import { FiTrash2, FiEdit, FiSettings } from 'react-icons/fi';
+import { FcTodoList } from 'react-icons/fc';
 import { handleRemoveCategory  } from '../store/handlers';
 import '../css/lists.css';
 
@@ -19,23 +20,25 @@ const OneCat = () => {
   const data = useLocation(); // to retrieve params from data.state
   // data.state will only exist when set up in LINK, not if URL was entered manually
   let needsRedirect = data.state ? false : true; // is it called from link or manual URL
-  const catID = needsRedirect ? null : data.state.catID; 
+  const categoryID = needsRedirect ? null : data.state.categoryID; 
   const { state, dispatch } = useStore();  // this must come before conditional render
   const [editMode, setEditMode] = useState(false);  // set edit mode when button is pressed.
-  const oneCatRec = getCatRec(catID, state);
+  const [addMode, setAddMode] = useState(false);  // set add mode when add button is pressed.
+  const oneCatRec = getCatRec(categoryID, state);
   if (oneCatRec===null) {needsRedirect=true;} // this will happen after record deletion
   if (needsRedirect) {return (<Redirect to="/" />);}  // back to main page if no ID
   const showLogin = state.loading && !state.loggedIn;
   const showLoading = state.loading && state.loggedIn;
   const showMain = !state.loading;
-  const oneCatLists = getListsByCatID(catID, state);
+  const oneCatLists = getListsByCatID(categoryID, state);
   
   const setupEdit = () => { setEditMode(true); }
   const cancelEdit = () => { setEditMode(false); }
+  const setupAdd = () => { setAddMode(true); }
+  const cancelAdd = () => { setAddMode(false); }
   const removeCategory = async () => {
-    handleRemoveCategory(catID, state, dispatch);
+    handleRemoveCategory(categoryID, state, dispatch);
   }
-
 
   const crumbArea = () => {
     return (
@@ -136,7 +139,7 @@ const OneCat = () => {
             </span>
           </div>  
         </div>
-        <AddList />
+        { addListArea() }
         <table>
           {tableHead()}
           {tableBody()}
@@ -144,7 +147,26 @@ const OneCat = () => {
       </Fragment>
     );
   }
-  
+
+  const addListArea = () => {
+    if (addMode) { 
+      const addListProps = { cancelAdd: cancelAdd, categoryID: categoryID };
+      return (<AddList props={addListProps} />)
+    }
+    return (
+      <Fragment>
+      <div className="showAddArea">
+        <span className='iconBorder'>
+          <FcTodoList onClick={() => setupAdd()}
+            title='add new list' className='iconBorder' size='18' color='#555555' />
+          </span>
+        <span className="spacer"> </span>
+        <span className="headerAddLabel">Add new list</span>
+      </div>  
+      </Fragment>
+    )
+  }
+
   return (
     <Fragment>
       {showLoading && <Loading />}

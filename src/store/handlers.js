@@ -101,7 +101,6 @@ const handleLogout = async (dispatch) => {
 }
 
 const handleAddList = async (newList, state, dispatch) => {
-  console.log('* handleAddList called, nothing here yet. ');
   console.log(newList);
   const lists = state.lists;
   dispatch({
