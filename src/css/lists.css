@@ -201,7 +201,9 @@ div.settingsicon {
   padding: 12px 8px 8px 12px;
 }
 
-
+.cursorPointer {
+  cursor: pointer;
+}
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -212,3 +214,6 @@ div.settingsicon {
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
  }
+
+
+ 

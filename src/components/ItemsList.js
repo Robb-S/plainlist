@@ -43,11 +43,6 @@ const ItemsList = () => {
     }),
   );
 
-  // function handleDragStart(event) {
-  //   const {active} = event;
-  //   setActiveId(active.id);
-  // }
-
   const handleDragEnd = (event) => {
     const { active, over } = event;
     if (active.id !== over.id) {
@@ -56,11 +51,6 @@ const ItemsList = () => {
       const newItems = arrayMove(items, oldIndex, newIndex);
       setItems(newItems);
       handleUpdateItemsList(newItems, state, dispatch);
-      // setItems((items) => {
-      //   const oldIndex = findPosWithAttr(items, 'id', active.id);
-      //   const newIndex = findPosWithAttr(items, 'id', over.id);
-      //   return arrayMove(items, oldIndex, newIndex);
-      // });
     }
   };
 
@@ -69,7 +59,6 @@ const ItemsList = () => {
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
-        // onDragStart={handleDragStart}
         modifiers={[restrictToVerticalAxis, restrictToParentElement]}
         onDragEnd={handleDragEnd}
       >

@@ -376,7 +376,7 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
   /** We'll update state even if there were errors, as they may be corrected on the next 
   round of reordering, and the worst that can happen is the items will be slightly out
   of order.  Future enhancement: maybe show a message? */
-  console.log('# of updateErrors: '+ updateErrors);
+  if (updateErrors>0) { console.log('# of updateErrors: '+ updateErrors); }
   itemsToUpdate.forEach( async function(updateItem) {
     await dispatch({
       type: 'UPDATE_ITEM',

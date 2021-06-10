@@ -32,8 +32,8 @@ const AllCats = () => {
     return (
       <div className="showAddArea">
         <span className='iconBorder'>
-          <FcTodoList onClick={() => setupAdd()}
-            title='add new list' className='iconBorder' size='18' color='#555555' />
+          <FcTodoList onClick={() => setupAdd()} title='add new category'
+            className='cursorPointer' size='22' color='#555555' />
         </span>
         <span className="spacer"> </span>
         <span className="headerAddLabel">Add new category</span>

@@ -1,7 +1,7 @@
 /**
  * Display the lists in one category.  In order to hide the category ID from the URL,
  * the ID is passed in via data from a LINK statement.  If the URL was entered manually, 
- * this won't happen, so we need to redirect to the main page.
+ * this won't happen, in which case we redirect to the main page.
  */
 import React, { Fragment, useState } from 'react';
 import { Link, useLocation, Redirect } from 'react-router-dom';
@@ -18,8 +18,6 @@ import '../css/lists.css';
 
 const OneCat = () => {
   const data = useLocation(); // to retrieve params from data.state
-  // console.log('** OneCat **');
-  // console.log(data);
   // data.state will only exist when set up in LINK, not if URL was entered manually
   let needsRedirect = data.state ? false : true; // is it called from link or manual URL
   const categoryID = needsRedirect ? null : data.state.categoryID;
@@ -159,11 +157,11 @@ const OneCat = () => {
       <Fragment>
       <div className="showAddArea">
         <span className='iconBorder'>
-          <FcTodoList onClick={() => setupAdd()}
-            title='add new list' className='iconBorder' size='18' color='#555555' />
+          <FcTodoList onClick={() => setupAdd()} title='add new list'
+            className='cursorPointer' size='22' color='#555555' />
           </span>
         <span className="spacer"> </span>
-        <span className="headerAddLabel">Add new list</span>
+        <span className="headerAddLabel">Add new list to category</span>
       </div>
       </Fragment>
     );
