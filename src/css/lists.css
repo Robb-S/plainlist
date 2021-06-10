@@ -215,5 +215,12 @@ div.settingsicon {
                                   supported by Chrome and Opera */
  }
 
-
+@media only screen and (max-width: 600px) {
+  .breadcrumbs {
+    border: 2px solid #cc99cc;
+    padding: 12px 8px 8px 12px;
+    text-align: left;
+    font-size: 13px;
+  }
+}
  

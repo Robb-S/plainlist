@@ -6,10 +6,10 @@
 import React, { Fragment, useState } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import '../css/lists.css';
+import '../css/oneItem.css';
 import { useStore } from '../store/StoreContext';
 import { handleRemoveItem, handleUpdateItem } from '../store/handlers';
-import { MdDragHandle } from 'react-icons/md';
+import { GrDrag } from 'react-icons/gr';
 import { FiTrash2, FiEdit, FiCheckSquare, FiXCircle } from 'react-icons/fi';
 
 export function SortableItemItem(props) {
@@ -56,28 +56,33 @@ export function SortableItemItem(props) {
       { !editMode &&
       <Fragment>
         <tr ref={setNodeRef} style={style} className='oneItemLine noselect'>
-          <td className='dragHandle'>
-            <span className='iconBorderSmall iconHandle'>
-              <MdDragHandle {...listeners} {...attributes}
-              title='drag to change order' size='16' color='green' />
-            </span>
-          </td>
-          <td className='itemName'>
-            {props.item.itemName}
-          </td>
-          <td className='itemNote'>
-            {props.item.itemNote}
-          </td>
-          <td className='buttons'>
-            <span className='iconEdit iconBorder'>
-              <FiEdit onClick={() => setupEdit()}
-              title='edit item' className='iconBorder' size='24' color='#555555' />
-            </span>
-            <span className="spacer"> </span>
-            <span className='iconDelete iconBorder'>
-              <FiTrash2 onClick={() => removeItem()}
-              title='delete item' className='iconBorder' size='24' color='#555555' />
-            </span>
+          <td colSpan='4'>
+            <div className='itemOneRow'>
+              <div className='dragHandle itemPart1'>
+                <span className='XiconBorderSmall iconHandle'>
+                  <GrDrag {...listeners} {...attributes}
+                  title='drag to change order' size='20' color='green' />
+                </span>
+              </div>
+              <div className='itemName itemPart2'>
+                {props.item.itemName}
+              </div>
+              <div className='itemNote itemPart3'>
+                {props.item.itemNote}
+              </div>
+              <div className='buttons itemPart4'>
+                <span className='iconEdit XiconBorder'>
+                  <FiEdit onClick={() => setupEdit()}
+                  title='edit item' className='iconBorder' size='26' color='#555555' />
+                </span>
+              </div>
+              <div className='buttons itemPart5'>
+                <span className='iconDelete XiconBorder'>
+                  <FiTrash2 onClick={() => removeItem()}
+                  title='delete item' className='iconBorder' size='26' color='#555555' />
+                </span>
+              </div>
+            </div>
           </td>
         </tr>
       </Fragment>
