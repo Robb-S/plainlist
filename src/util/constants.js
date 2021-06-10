@@ -1,3 +1,4 @@
+/* eslint-disable */
 const API_BASE = 'http://127.0.0.1:8000';
 // const API_BASE = 'http://192.168.1.7:8000'; // access from LAN!
 export const API_AUTH = API_BASE + '/api-token-auth/';

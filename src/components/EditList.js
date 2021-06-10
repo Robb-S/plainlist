@@ -6,21 +6,21 @@
  * listRec: list record w/ list name and id
  */
 
-import React, {Fragment, useState} from 'react';
+import React, { Fragment, useState } from 'react';
 import '../css/lists.css';
 import * as api from '../util/constants';
-import {useStore} from '../store/StoreContext';
-import {handleUpdateList} from '../store/handlers';
+import { useStore } from '../store/StoreContext';
+import { handleUpdateList } from '../store/handlers';
 import { FiCheckSquare, FiXCircle } from 'react-icons/fi';
 
-const EditList = ({props}) => {  
+const EditList = ({ props }) => {
   const { cancelEdit, listRec }  = props;
   const { state, dispatch } = useStore();
   const [listName, setListName] = useState(listRec.listName);
 
   const onSubmitEdit = (e) => {
     e.preventDefault();
-    onRequestEdit()
+    onRequestEdit();
   };
 
   const onRequestEdit = async () => {
@@ -56,7 +56,7 @@ const EditList = ({props}) => {
           </span>
         </div>
       </Fragment>
-  )
-}
+  );
+};
 
 export default EditList;

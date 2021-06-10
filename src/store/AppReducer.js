@@ -23,13 +23,13 @@ function AppReducer(state, action) {
       return {
         ...state,
         loggedIn: true,
-      }
+      };
     }
     case 'USER_LOGOUT': {
       return {
         ...state,
         loggedIn: false,
-      }
+      };
     }
     case 'SET_USER': {
       return {
@@ -51,7 +51,7 @@ function AppReducer(state, action) {
       return {
         ...state,
         items: state.items.filter(
-          (item) => item.id !== action.payload
+          (item) => item.id !== action.payload,
         ),
       };
     }
@@ -64,10 +64,10 @@ function AppReducer(state, action) {
       return {
         ...state,
         categories: state.categories.filter(
-          (category) => category.id !== action.payload
+          (category) => category.id !== action.payload,
         ),
         lists: state.lists.filter(
-          (list) => list.categoryID !== action.payload
+          (list) => list.categoryID !== action.payload,
         ),
       };
     }
@@ -77,13 +77,13 @@ function AppReducer(state, action) {
       return {
         ...state,
         lists: state.lists.filter(
-          (list) => list.id !== action.payload
+          (list) => list.id !== action.payload,
         ),
         items: state.items.filter(
-          (item) => item.listID !== action.payload
+          (item) => item.listID !== action.payload,
         ),
       };
-    }    
+    }
     case 'UPDATE_ITEM': { // payload is updatedItem object
       console.log('*** updating item in reducer');
       // console.log(action.payload);
@@ -167,4 +167,4 @@ function AppReducer(state, action) {
   }
 }
 
-export {AppReducer} ; 
+export { AppReducer };

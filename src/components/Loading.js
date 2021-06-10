@@ -5,10 +5,10 @@ const Loading = () => {
 
   return (
     <div className="main-show">
-      ... Loading ... 
+      ... Loading ...
     </div>
-  )
+  );
 
-}
+};
 
 export default Loading;

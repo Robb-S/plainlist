@@ -3,10 +3,10 @@
  * the ID is passed in via data from a LINK statement.  If the URL was entered manually, 
  * this won't happen, so we need to redirect to the main page.
  */
-import React, {Fragment, useState} from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link, useLocation, Redirect } from 'react-router-dom';
-import {useStore} from '../store/StoreContext';
-import {getListsByCatID, getCatRec} from '../store/getData';
+import { useStore } from '../store/StoreContext';
+import { getListsByCatID, getCatRec } from '../store/getData';
 import Login from './Login';
 import Loading from './Loading';
 import EditCat from './EditCat';
@@ -18,9 +18,11 @@ import '../css/lists.css';
 
 const OneCat = () => {
   const data = useLocation(); // to retrieve params from data.state
+  // console.log('** OneCat **');
+  // console.log(data);
   // data.state will only exist when set up in LINK, not if URL was entered manually
   let needsRedirect = data.state ? false : true; // is it called from link or manual URL
-  const categoryID = needsRedirect ? null : data.state.categoryID; 
+  const categoryID = needsRedirect ? null : data.state.categoryID;
   const { state, dispatch } = useStore();  // this must come before conditional render
   const [editMode, setEditMode] = useState(false);  // set edit mode when button is pressed.
   const [addMode, setAddMode] = useState(false);  // set add mode when add button is pressed.
@@ -32,13 +34,13 @@ const OneCat = () => {
   const showMain = !state.loading;
   const oneCatLists = getListsByCatID(categoryID, state);
   
-  const setupEdit = () => { setEditMode(true); }
-  const cancelEdit = () => { setEditMode(false); }
-  const setupAdd = () => { setAddMode(true); }
-  const cancelAdd = () => { setAddMode(false); }
+  const setupEdit = () => { setEditMode(true); };
+  const cancelEdit = () => { setEditMode(false); };
+  const setupAdd = () => { setAddMode(true); };
+  const cancelAdd = () => { setAddMode(false); };
   const removeCategory = async () => {
     handleRemoveCategory(categoryID, state, dispatch);
-  }
+  };
 
   const crumbArea = () => {
     return (
@@ -46,33 +48,33 @@ const OneCat = () => {
         <div className='crumbsandsettings'>
           <div className='breadcrumbs'>
             <Link className='linky3 oneCrumb' to={`/`}>
-              All categories 
+              All categories
             </Link>
             <span className='oneCrumb'>:</span>
             <span className='oneCrumb'>
-              {oneCatRec.categoryName}  
+              {oneCatRec.categoryName}
             </span>
           </div>
           <div className='settingsicon'>
             <Link className='linky3 oneCrumb' to={`/set/`}>
-              <FiSettings 
+              <FiSettings
                 title='settings' className='iconBorder' size='24' color='#555555' />
             </Link>
           </div>
         </div>
       </Fragment>
-    )
-  }
+    );
+  };
 
   const tableHead = () => {
-    if (oneCatLists.length<1) { 
+    if (oneCatLists.length<1) {
       return (
         <thead>
           <tr>
             <th colSpan="2">No lists yet</th>
           </tr>
         </thead>
-      )
+      );
     }
     return(
       <thead>
@@ -81,8 +83,8 @@ const OneCat = () => {
           <th># of items</th>
         </tr>
       </thead>
-    )
-  }
+    );
+  };
 
   const tableBody = () => {
     return (
@@ -94,7 +96,7 @@ const OneCat = () => {
               title={list.listName}
               to={{
                 pathname: `/list/`,
-                state: { listID: list.id }
+                state: { listID: list.id },
               }}
             >
               {list.listName}
@@ -106,8 +108,8 @@ const OneCat = () => {
         </tr>
       ))}
     </tbody>
-    )
-  }
+    );
+  };
 
   /**
    * The header area includes an edit button, and when this is pressed the edit form
@@ -118,14 +120,14 @@ const OneCat = () => {
   const mainDisplayOrEditForm = () => {
     if (editMode) {
       const editCatProps = { cancelEdit: cancelEdit, categoryRec: oneCatRec };
-      return (<EditCat props={editCatProps} />)
+      return (<EditCat props={editCatProps} />);
     }
     return (
       <Fragment>
         <div className='heading'>
           <div className='headingNameDiv'>
             <span className='headingName'>
-              Category: {oneCatRec.categoryName}          
+              Category: {oneCatRec.categoryName}
             </span>
             <span className="spacer"> </span>
             <span className='iconEdit'>
@@ -137,7 +139,7 @@ const OneCat = () => {
             <FiTrash2 onClick={() => removeCategory()}
               title='delete category' className='iconBorder' size='24' color='#555555' />
             </span>
-          </div>  
+          </div>
         </div>
         { addListArea() }
         <table>
@@ -146,12 +148,12 @@ const OneCat = () => {
         </table>
       </Fragment>
     );
-  }
+  };
 
   const addListArea = () => {
-    if (addMode) { 
+    if (addMode) {
       const addListProps = { cancelAdd: cancelAdd, categoryID: categoryID };
-      return (<AddList props={addListProps} />)
+      return (<AddList props={addListProps} />);
     }
     return (
       <Fragment>
@@ -162,17 +164,17 @@ const OneCat = () => {
           </span>
         <span className="spacer"> </span>
         <span className="headerAddLabel">Add new list</span>
-      </div>  
+      </div>
       </Fragment>
-    )
-  }
+    );
+  };
 
   return (
     <Fragment>
       {showLoading && <Loading />}
       {showLogin && <Login />}
 
-      {showMain && 
+      {showMain &&
       <Fragment>
         <div className='mainContainer'>
           { crumbArea() }
@@ -181,8 +183,8 @@ const OneCat = () => {
       </Fragment>
     }
     </Fragment>
-  )
+  );
 
-}
+};
 
 export default OneCat;

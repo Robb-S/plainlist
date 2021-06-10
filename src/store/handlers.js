@@ -1,10 +1,10 @@
-import {confirmQuest, makeHighestNumericAttribute, AreObjectsDifferent } from '../util/helpers';
-import {getItemRec, getItemsByListID, getCatRec, getListRec} from './getData';
+import { confirmQuest, makeHighestNumericAttribute, AreObjectsDifferent } from '../util/helpers';
+import { getItemRec, getItemsByListID, getCatRec, getListRec } from './getData';
 // import axios from 'axios';
 import * as api from '../util/constants';
-import {addRecAPI, deleteRecAPI, updateRecAPI, getTokenFromAPI} from './apiCalls';
-import {handleGetUserAndData} from './fetchUserAndData';
-import {setAxiosAuthToken} from '../util/helpers';
+import { addRecAPI, deleteRecAPI, updateRecAPI, getTokenFromAPI } from './apiCalls';
+import { handleGetUserAndData } from './fetchUserAndData';
+import { setAxiosAuthToken } from '../util/helpers';
 
 /**
  * Take login info, get auth token from Django API call (if login info works).
@@ -29,7 +29,7 @@ import {setAxiosAuthToken} from '../util/helpers';
   } else {
     alert (api.MSG_LOGIN_FAILED);
   }
-}
+};
 
 /**
  * Reset state and delete from localStorage.
@@ -46,7 +46,7 @@ const handleLogout = async (dispatch) => {
   await dispatch({
     type: 'FINISHED_LOADING',
   });
-}
+};
 
 /**
  * Take new itemName and itemNote from input, then  add a
@@ -72,7 +72,7 @@ const handleLogout = async (dispatch) => {
   // } else {
   //   alert (api.MSG_LOGIN_FAILED);
   // }
-}
+};
 
 /**
  * Take new itemName and itemNote from input, then  add a
@@ -86,7 +86,7 @@ const handleLogout = async (dispatch) => {
   });
   // add high sortOrder to make it sort to beginning of list
   newItem.sortOrder = makeHighestNumericAttribute(items, 'sortOrder');
-  const {dbRec, status} = await addRecAPI(newItem, state.runMode, 'item');
+  const { dbRec, status } = await addRecAPI(newItem, state.runMode, 'item');
   if (status===api.OK) {
     dispatch({
       type: 'ADD_ITEM',
@@ -98,7 +98,7 @@ const handleLogout = async (dispatch) => {
   dispatch({
     type: 'FINISHED_LOADING',
   });
-}
+};
 
 const handleAddList = async (newList, state, dispatch) => {
   console.log(newList);
@@ -108,7 +108,7 @@ const handleAddList = async (newList, state, dispatch) => {
   });
   // add high sortOrder to make it sort to beginning of list
   newList.sortOrder = makeHighestNumericAttribute(lists, 'sortOrder');
-  const {dbRec, status} = await addRecAPI(newList, state.runMode, 'list');
+  const { dbRec, status } = await addRecAPI(newList, state.runMode, 'list');
   if (status===api.OK) {
     dispatch({
       type: 'ADD_LIST',
@@ -121,7 +121,7 @@ const handleAddList = async (newList, state, dispatch) => {
     type: 'FINISHED_LOADING',
   });
   return status;
-}
+};
 
 /**
  * Take new rec with categoryName from input, then add a
@@ -135,7 +135,7 @@ const handleAddCategory = async (newCategory, state, dispatch) => {
   });
   // add high sortOrder to make it sort to beginning of list
   newCategory.sortOrder = makeHighestNumericAttribute(categories, 'sortOrder');
-  const {dbRec, status} = await addRecAPI(newCategory, state.runMode, 'category');
+  const { dbRec, status } = await addRecAPI(newCategory, state.runMode, 'category');
   if (status===api.OK) {
     dispatch({
       type: 'ADD_CAT',
@@ -148,7 +148,7 @@ const handleAddCategory = async (newCategory, state, dispatch) => {
     type: 'FINISHED_LOADING',
   });
   return status;
-}
+};
 
 const handleRemoveItem = async (itemID, state, dispatch) =>  {
   const theItem = getItemRec(itemID, state);
@@ -174,7 +174,7 @@ const handleRemoveItem = async (itemID, state, dispatch) =>  {
   dispatch({
     type: 'FINISHED_LOADING',
   });
-}
+};
 
 /**
  * Remove list from API DB and local state, then remove all associated items
@@ -196,7 +196,7 @@ const handleRemoveList = async (listID, state, dispatch) =>  {
     type: 'STARTED_LOADING',
   });
   const status = await deleteRecAPI(theList.id, state.runMode, 'list');
-  console.log('status: ' + status)
+  console.log('status: ' + status);
   if (status===api.OK) {
     await dispatch({
       type: 'DELETE_LIST',
@@ -212,11 +212,11 @@ const handleRemoveList = async (listID, state, dispatch) =>  {
   console.log(state.items);
   console.log(state.lists);
   return status;
-}
+};
 
 
-const handleRemoveCategory = async (catID, state, dispatch) =>  {
-  const theCat = getCatRec(catID, state);
+const handleRemoveCategory = async (categoryID, state, dispatch) =>  {
+  const theCat = getCatRec(categoryID, state);
   if (!theCat) { // check that it still exists in state
     alert("Sorry, that category can't be found.");
     return;
@@ -231,7 +231,7 @@ const handleRemoveCategory = async (catID, state, dispatch) =>  {
   if (status===api.OK) {
     dispatch({
       type: 'DELETE_CAT',
-      payload: catID,
+      payload: categoryID,
     });
   } else {
     alert (api.MSG_FAILED);
@@ -239,7 +239,7 @@ const handleRemoveCategory = async (catID, state, dispatch) =>  {
   dispatch({
     type: 'FINISHED_LOADING',
   });
-}
+};
 
 
 
@@ -249,14 +249,14 @@ const handleRemoveCategory = async (catID, state, dispatch) =>  {
  */
  const handleUpdateList = async (listID, newListName, state, dispatch) => {
   const oldList = getListRec(listID, state);
-  const newList = {...oldList};
+  const newList = { ...oldList };
   newList.listName = newListName;
   const noChange = !AreObjectsDifferent(oldList, newList);
   if (noChange) return;
   dispatch({
     type: 'STARTED_LOADING',
   });
-  const {dbRec, status} = await updateRecAPI(newList, state.runMode, 'list');
+  const { dbRec, status } = await updateRecAPI(newList, state.runMode, 'list');
   // console.log('handleUpdateList API call returns ' + status)
   // console.log(dbRec);
   if (status===api.OK) {
@@ -271,7 +271,7 @@ const handleRemoveCategory = async (catID, state, dispatch) =>  {
     type: 'FINISHED_LOADING',
   });
   return status;
-}
+};
 
 /**
  * Takes possibly updated name and checks to see if it has been updated.
@@ -279,14 +279,14 @@ const handleRemoveCategory = async (catID, state, dispatch) =>  {
  */
 const handleUpdateCategory = async (categoryID, newCatName, state, dispatch) => {
   const oldCat = getCatRec(categoryID, state);
-  const newCat = {...oldCat};
+  const newCat = { ...oldCat };
   newCat.categoryName = newCatName;
   const noChange = !AreObjectsDifferent(oldCat, newCat);
   if (noChange) return;
   dispatch({
     type: 'STARTED_LOADING',
   });
-  const {dbRec, status} = await updateRecAPI(newCat, state.runMode, 'category');
+  const { dbRec, status } = await updateRecAPI(newCat, state.runMode, 'category');
   // console.log('handleUpdateList API call returns ' + status)
   // console.log(dbRec);
   if (status===api.OK) {
@@ -301,7 +301,7 @@ const handleUpdateCategory = async (categoryID, newCatName, state, dispatch) => 
     type: 'FINISHED_LOADING',
   });
   return status;
-}
+};
 
 
 /**
@@ -310,7 +310,7 @@ const handleUpdateCategory = async (categoryID, newCatName, state, dispatch) => 
  */
 const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatch) => {
   const oldItem = getItemRec(itemID, state);
-  const newItem = {...oldItem};
+  const newItem = { ...oldItem };
   newItem.itemName = newItemName;
   newItem.itemNote = newItemNote;
   const noChange = !AreObjectsDifferent(oldItem, newItem);
@@ -318,7 +318,7 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
   dispatch({
     type: 'STARTED_LOADING',
   });
-  const {dbRec, status} = await updateRecAPI(newItem, state.runMode, 'item');
+  const { dbRec, status } = await updateRecAPI(newItem, state.runMode, 'item');
   // console.log('handleUpdateItem API call returns ' + status)
   // console.log(dbRec);
   if (status===api.OK) {
@@ -332,7 +332,7 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
   dispatch({
     type: 'FINISHED_LOADING',
   });
-}
+};
 
 /**
  * handleUpdateItemsList - receives array of items from one list, with new sort order
@@ -370,9 +370,9 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
   });
   let updateErrors = 0;
   itemsToUpdate.forEach(async function(updateItem) {
-    const {status} = await updateRecAPI(updateItem, runMode, 'item');
-    if (status!==api.OK) {updateErrors += 1;} 
-  })
+    const { status } = await updateRecAPI(updateItem, runMode, 'item');
+    if (status!==api.OK) {updateErrors += 1;}
+  });
   /** We'll update state even if there were errors, as they may be corrected on the next 
   round of reordering, and the worst that can happen is the items will be slightly out
   of order.  Future enhancement: maybe show a message? */
@@ -381,12 +381,12 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
     await dispatch({
       type: 'UPDATE_ITEM',
       payload: updateItem,
-    }); 
-  })
+    });
+  });
   dispatch({
     type: 'FINISHED_LOADING',
   });
-}
+};
 
 /**
  * Set the runMode flag in store. Flag is used to skip API steps when using test data.
@@ -397,7 +397,7 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
   await dispatch({
     type: 'SET_RUNMODE',
     payload: runMode,
-  }) 
+  });
   if (runMode===api.RUNMODE_API) {
     // console.log('*** handleSetRunMode for API');
     let token = localStorage.getItem('token');
@@ -412,7 +412,7 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
       // console.log('***** loading init data with handleSetRunMode in handlers *****');
       await dispatch({
         type: 'FINISHED_LOADING',
-      }); 
+      });
     }
   }
   if (runMode===api.RUNMODE_DEMO) {
@@ -423,18 +423,18 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
     // console.log('***** loading init data with handleSetRunMode in handlers *****');
     await dispatch({
       type: 'FINISHED_LOADING',
-    }); 
+    });
   }
-}
+};
 
 export {
-  handleRemoveItem, 
+  handleRemoveItem,
   handleRemoveList,
-  handleRemoveCategory, 
+  handleRemoveCategory,
   handleAddItem,
   handleAddList,
-  handleAddCategory, 
-  handleUpdateItem, 
+  handleAddCategory,
+  handleUpdateItem,
   handleUpdateList,
   handleUpdateCategory,
   handleUpdateItemsList,

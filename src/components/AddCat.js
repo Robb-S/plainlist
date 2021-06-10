@@ -3,10 +3,10 @@
  * Called by AddCats.  addMode (state in AddCats) and cancelAdd (function
  * to change state in AddCats) are passed in as props.  
  */
-import React, {Fragment, useState} from 'react';
-import {useStore} from '../store/StoreContext';
-import {handleAddCategory} from '../store/handlers';
-import {FiCheckSquare, FiXCircle} from 'react-icons/fi';
+import React, { Fragment, useState } from 'react';
+import { useStore } from '../store/StoreContext';
+import { handleAddCategory } from '../store/handlers';
+import { FiCheckSquare, FiXCircle } from 'react-icons/fi';
 import * as api from '../util/constants';
 import '../css/lists.css';
 
@@ -21,7 +21,7 @@ const AddCat = ({ props }) => {
   const onSubmitAdd = (e) => {
     e.preventDefault();
     onRequestAdd();
-  }
+  };
   const onRequestAdd = async () => {
     if (categoryName.length===0) {return;}
     const newCategory = { categoryName: categoryName };
@@ -29,15 +29,15 @@ const AddCat = ({ props }) => {
     // if (status===api.OK) { cancelAdd(); }
     if (status!==api.OK) {  }
     // TODO: maybe add additional message if API operation failed?
-  }
+  };
   const cancelAddLocal = () => {
     setCategoryName('');     // clear the input field for next time
     cancelAdd();
-  }
+  };
 
   return (
     <Fragment>
-      {addMode && 
+      {addMode &&
       <Fragment>
         <div className='addArea'>
           <form className='addCategoryForm' onSubmit={onSubmitAdd}>
@@ -65,7 +65,7 @@ const AddCat = ({ props }) => {
       </Fragment>
       }
     </Fragment>
-  )
-}
+  );
+};
 
 export default AddCat;

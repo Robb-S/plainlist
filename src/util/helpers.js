@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 /**
  * Make unique string ID.  Currently using uuid.  Used to provide IDs in demo
@@ -8,7 +8,7 @@ import {useState, useEffect} from 'react';
  */
 const makeStringID = () => {
   return uuidv4();
-}
+};
 
 /**
  * Simple helper to return array position at which attribute is found.
@@ -25,7 +25,7 @@ const findPosWithAttr = (array, attr, value) => {
       }
   }
   return -1;
-}
+};
 
 /**
  * Find element with highest value of numericAttr (e.g. sortOrder) 
@@ -34,7 +34,7 @@ const findPosWithAttr = (array, attr, value) => {
  */
  const makeHighestNumericAttribute = (theArray, numericAttr) => {
   return Math.max(...theArray.map(o => o.sortOrder), 0) + 1;
-}
+};
 
 /**
  * Confirmation dialog - displays question, returns true or false. 
@@ -42,7 +42,7 @@ const findPosWithAttr = (array, attr, value) => {
  */
 const confirmQuest = (cQuestion) => {
   return window.confirm(cQuestion);
-}
+};
 
 /**
  * Compares two objects to see if they have same value via JSON.stringify.
@@ -51,17 +51,17 @@ const confirmQuest = (cQuestion) => {
  */
 const AreObjectsDifferent = (a, b) => {
   return JSON.stringify(a) !== JSON.stringify(b);
-}
+};
 
 /**
  * Sets the axios default header once an autorization token is available.
  */
 const setAxiosAuthToken = token => {
-  if (typeof token !== "undefined" && token) {
-    axios.defaults.headers.common["Authorization"] = "Token " + token;
+  if (typeof token !== 'undefined' && token) {
+    axios.defaults.headers.common['Authorization'] = 'Token ' + token;
     // axios.defaults.headers.common["Content-Type"] = 'application/json';
   } else { // Delete auth header    
-    delete axios.defaults.headers.common["Authorization"];
+    delete axios.defaults.headers.common['Authorization'];
   }
 };
 
@@ -83,15 +83,15 @@ function useDebounce(value, delay) {
         clearTimeout(handler);
       };
     },
-    [value, delay] // Only re-call effect if value or delay changes
+    [value, delay], // Only re-call effect if value or delay changes
   );
   return debouncedValue;
 }
 
 export {
-  makeStringID, 
-  findPosWithAttr, 
-  makeHighestNumericAttribute, 
+  makeStringID,
+  findPosWithAttr,
+  makeHighestNumericAttribute,
   confirmQuest,
   AreObjectsDifferent,
   setAxiosAuthToken,

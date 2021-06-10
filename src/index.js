@@ -3,17 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import { StoreProvider } from "./store/StoreContext";
+import { StoreProvider } from './store/StoreContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <StoreProvider>
         <App />
-      </StoreProvider>      
+      </StoreProvider>
     </BrowserRouter>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 

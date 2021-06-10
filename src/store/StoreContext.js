@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react';
 import { AppReducer } from './AppReducer';
 
 const initValues = {
@@ -13,9 +13,9 @@ const initValues = {
 
 const StoreContext = React.createContext();
 
-function StoreProvider({children}) {
+function StoreProvider({ children }) {
   const [state, dispatch] = React.useReducer(AppReducer, initValues);
-  const value = {state, dispatch};
+  const value = { state, dispatch };
   return (<StoreContext.Provider value={value}>{children}</StoreContext.Provider>);
 }
 
@@ -27,4 +27,4 @@ function useStore() {
   return context;
 }
 
-export {StoreProvider, useStore};
+export { StoreProvider, useStore };

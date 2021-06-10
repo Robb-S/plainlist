@@ -26,7 +26,7 @@ const allUsers = [
   flat: false,
   hideDone: true,
   lastList: 103,
-  }
+  },
 ];
 
 const allCategories = [
@@ -48,7 +48,7 @@ const allCategories = [
   lastUsed: 0,
   active: true,
 },
-{  
+{
   id: 3,
   userID: 2,
   categoryName: 'stuff to do',
@@ -80,7 +80,7 @@ const allLists = [
   lastUsed: 0,
   active: true,
 },
-{  
+{
   id: 102,
   categoryID: 2,
   sortOrder: 1,
@@ -91,7 +91,7 @@ const allLists = [
   lastUsed: 0,
   active: true,
 },
-{  
+{
   id: 103,
   categoryID: 3,
   sortOrder: 3,
@@ -102,7 +102,7 @@ const allLists = [
   lastUsed: 0,
   active: true,
 },
-{  
+{
   id: 104,
   categoryID: 4,
   sortOrder: 4,
@@ -116,7 +116,7 @@ const allLists = [
 ];
 
 const allItems = [
-{ 
+{
   id: 10001,
   sortOrder: 2,
   listID: 101,
@@ -129,7 +129,7 @@ const allItems = [
   active: true,
   done: false,
 },
-{   
+{
   id: 10002,
   sortOrder: 1,
   listID: 101,
@@ -142,7 +142,7 @@ const allItems = [
   active: true,
   done: false,
 },
-{   
+{
   id: 10003,
   sortOrder: 1,
   listID: 102,
@@ -155,7 +155,7 @@ const allItems = [
   active: true,
   done: false,
 },
-{   
+{
   id: 10004,
   sortOrder: 2,
   listID: 102,
@@ -168,7 +168,7 @@ const allItems = [
   active: true,
   done: false,
 },
-{   
+{
   id: 10005,
   sortOrder: 1,
   listID: 103,
@@ -181,7 +181,7 @@ const allItems = [
   active: true,
   done: false,
 },
-{   
+{
   id: 10006,
   sortOrder: 2,
   listID: 103,
@@ -194,7 +194,7 @@ const allItems = [
   active: true,
   done: false,
 },
-{   
+{
   id: 10007,
   sortOrder: 1,
   listID: 104,
@@ -207,7 +207,7 @@ const allItems = [
   active: true,
   done: false,
 },
-{   
+{
   id: 10008,
   sortOrder: 2,
   listID: 104,
@@ -220,7 +220,7 @@ const allItems = [
   active: true,
   done: false,
 },
-{   
+{
   id: 10009,
   sortOrder: 3,
   listID: 102,
@@ -233,7 +233,7 @@ const allItems = [
   active: true,
   done: false,
 },
-{   
+{
   id: 10010,
   sortOrder: 4,
   listID: 102,
@@ -246,7 +246,7 @@ const allItems = [
   active: true,
   done: false,
 },
-{   
+{
   id: 10011,
   sortOrder: 6,
   listID: 102,
@@ -259,7 +259,7 @@ const allItems = [
   active: true,
   done: false,
 },
-{   
+{
   id: 10012,
   sortOrder: 5,
   listID: 102,
@@ -276,4 +276,4 @@ const allItems = [
 ];
 
 
-export {allUsers, allCategories, allLists, allItems};  
+export { allUsers, allCategories, allLists, allItems };

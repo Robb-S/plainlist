@@ -1,0 +1,56 @@
+{
+    "plugins": ["react"],
+    "parser": "babel-eslint",
+
+    "settings": { "import/parser": "babel-eslint" },
+
+    "rules": {
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ],
+      "semi": [
+        "error",
+        "always"
+      ],
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "no-irregular-whitespace": [
+        "error",
+        {
+          "skipStrings": true,
+          "skipTemplates": true,
+          "skipRegExps": true,
+          "skipComments": true
+        }
+      ],
+      "no-trailing-spaces": [
+          "error",
+          {
+            "skipBlankLines": true,
+            "ignoreComments": true
+          }
+        ],
+      "quotes": [
+        "error",
+        "single",
+        {
+          "avoidEscape": true,
+          "allowTemplateLiterals": true
+        }
+      ]
+    },
+
+    "parserOptions": {
+        "ecmaVersion": 2017,
+        "sourceType": "module"
+    },
+
+    "env": {
+        "es6": true
+    }
+      
+
+  }

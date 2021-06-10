@@ -4,7 +4,7 @@
  * a list ID, and the URL will be rerouted to the home page.  This will also happen 
  * after a list is deleted.
  */
-import React, {Fragment, useState} from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link, useLocation, Redirect } from 'react-router-dom';
 import '../css/lists.css';
 import { useStore } from '../store/StoreContext';
@@ -21,7 +21,7 @@ const OneList = () => {
   const data = useLocation(); // to retrieve params from data.state
   // data.state will only exist when set up in LINK, not if URL was entered manually
   let needsRedirect = data.state ? false : true; // is it called from link or manual URL
-  const listID = needsRedirect ? null : data.state.listID; 
+  const listID = needsRedirect ? null : data.state.listID;
   const { state, dispatch } = useStore();    // this must come before conditional render
   const [editMode, setEditMode] = useState(false);  // set edit mode when button is pressed.
   const oneListRec = getListRec(listID, state);
@@ -33,11 +33,11 @@ const OneList = () => {
   const parentCatName = getParentCatName(listID, state);
   const parentCatID = getParentCatID(listID, state);
 
-  const setupEdit = () => { setEditMode(true); }
-  const cancelEdit = () => { setEditMode(false); }
+  const setupEdit = () => { setEditMode(true); };
+  const cancelEdit = () => { setEditMode(false); };
   const removeList = async () => {
     handleRemoveList(listID, state, dispatch);
-  }
+  };
 
   const crumbArea = () => {
     return (
@@ -45,13 +45,13 @@ const OneList = () => {
         <div className='crumbsandsettings'>
           <div className='breadcrumbs'>
             <Link className='linky3 oneCrumb' to={`/`}>
-              All categories 
+              All categories
             </Link>
             <span className='oneCrumb'>:</span>
-            <Link className='linky3 oneCrumb' 
+            <Link className='linky3 oneCrumb'
               to={{
                 pathname: `/cat/`,
-                state: { catID: parentCatID }
+                state: { categoryID: parentCatID },
               }}
             >{parentCatName} category</Link>
             <span className='oneCrumb'>:</span>
@@ -61,14 +61,14 @@ const OneList = () => {
           </div>
           <div className='settingsicon'>
             <Link className='linky3 oneCrumb' to={`/set/`}>
-              <FiSettings 
+              <FiSettings
                 title='settings' className='iconBorder' size='24' color='#555555' />
             </Link>
           </div>
         </div>
       </Fragment>
-    )
-  }
+    );
+  };
 
   /**
    * The header area includes an edit button, and when this is pressed the edit form
@@ -79,7 +79,7 @@ const OneList = () => {
   const mainDisplayOrEditForm = () => {
     if (editMode) {
       const editListProps = { cancelEdit: cancelEdit, listRec: oneListRec };
-      return (<EditList props={editListProps} />)
+      return (<EditList props={editListProps} />);
     }
     return (
       <Fragment>
@@ -104,14 +104,14 @@ const OneList = () => {
         <ItemsList />
       </Fragment>
     );
-  }
+  };
 
   return (
     <Fragment>
       {showLoading && <Loading />}
       {showLogin && <Login />}
 
-      {showMain && 
+      {showMain &&
       <Fragment>
         <div className='mainContainer'>
           { crumbArea() }
@@ -120,8 +120,8 @@ const OneList = () => {
       </Fragment>
       }
     </Fragment>
-  )
+  );
 
-}
+};
 
 export default OneList;

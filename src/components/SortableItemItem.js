@@ -3,24 +3,24 @@
  * handlers.  It is set up as a sortable list element (although it's currently a 
  * table row), working with a dnd-kit sortable list.
  */
-import React, {Fragment, useState} from 'react';
-import {useSortable} from '@dnd-kit/sortable';
-import {CSS} from '@dnd-kit/utilities';
+import React, { Fragment, useState } from 'react';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import '../css/lists.css';
-import {useStore} from '../store/StoreContext';
+import { useStore } from '../store/StoreContext';
 import { handleRemoveItem, handleUpdateItem } from '../store/handlers';
 import { MdDragHandle } from 'react-icons/md';
 import { FiTrash2, FiEdit, FiCheckSquare, FiXCircle } from 'react-icons/fi';
 
 export function SortableItemItem(props) {
   const itemID = props.item.id;
-  const {state, dispatch} = useStore();
+  const { state, dispatch } = useStore();
   const [editMode, setEditMode] = useState(false);  // set edit mode when edit button is pressed.
   const [itemName, setItemName] = useState(props.item.itemName);
   const [itemNote, setItemNote] = useState(props.item.itemNote);
 
-  const { attributes, listeners, setNodeRef, transform, transition } = 
-    useSortable({id: props.id});
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: props.id });
   
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -29,36 +29,36 @@ export function SortableItemItem(props) {
   
   const removeItem = () => {
     handleRemoveItem(itemID, state, dispatch);
-  }
+  };
 
   const setupEdit = () => {
     setEditMode(true);
-  }
+  };
 
   const submitUpdateItem = (e) => {
     e.preventDefault();
     updateItem();
-  }
+  };
 
   const updateItem = () => {
     setEditMode(false);
     handleUpdateItem(itemID, itemName, itemNote, state, dispatch);
-  }
+  };
 
   const cancelEdit = () => {
     setEditMode(false);
     setItemName(props.item.itemName);
     setItemNote(props.item.itemNote);
-  }
+  };
 
   return (
     <Fragment>
-      { !editMode && 
+      { !editMode &&
       <Fragment>
         <tr ref={setNodeRef} style={style} className='oneItemLine noselect'>
           <td className='dragHandle'>
             <span className='iconBorderSmall iconHandle'>
-              <MdDragHandle {...listeners} {...attributes} 
+              <MdDragHandle {...listeners} {...attributes}
               title='drag to change order' size='16' color='green' />
             </span>
           </td>
@@ -66,7 +66,7 @@ export function SortableItemItem(props) {
             {props.item.itemName}
           </td>
           <td className='itemNote'>
-            {props.item.itemNote}  
+            {props.item.itemNote}
           </td>
           <td className='buttons'>
             <span className='iconEdit iconBorder'>
@@ -83,7 +83,7 @@ export function SortableItemItem(props) {
       </Fragment>
       }
 
-      { editMode && 
+      { editMode &&
       <Fragment>
         <tr>
           <td></td>
@@ -119,7 +119,7 @@ export function SortableItemItem(props) {
             </span>
           </td>
         </tr>
-      </Fragment>  
+      </Fragment>
       }
 
     </Fragment>

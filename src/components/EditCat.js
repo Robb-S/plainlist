@@ -6,21 +6,21 @@
  * categoryRec: existing category record w/ category name and id
  */
 
-import React, {Fragment, useState} from 'react';
+import React, { Fragment, useState } from 'react';
 import '../css/lists.css';
 import * as api from '../util/constants';
-import {useStore} from '../store/StoreContext';
-import {handleUpdateCategory} from '../store/handlers';
+import { useStore } from '../store/StoreContext';
+import { handleUpdateCategory } from '../store/handlers';
 import { FiCheckSquare, FiXCircle } from 'react-icons/fi';
 
-const EditCat = ({props}) => {  
+const EditCat = ({ props }) => {
   const { cancelEdit, categoryRec }  = props;
   const { state, dispatch } = useStore();
   const [categoryName, setCategoryName] = useState(categoryRec.categoryName);
 
   const onSubmitEdit = (e) => {
     e.preventDefault();
-    onRequestEdit()
+    onRequestEdit();
   };
 
   const onRequestEdit = async () => {
@@ -56,7 +56,7 @@ const EditCat = ({props}) => {
           </span>
         </div>
       </Fragment>
-  )
-}
+  );
+};
 
 export default EditCat;

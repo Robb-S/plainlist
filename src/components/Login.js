@@ -1,11 +1,11 @@
-import React, {Fragment, useState} from 'react';
+import React, { Fragment, useState } from 'react';
 import '../css/lists.css';
-import {useStore} from '../store/StoreContext';
-import {handleLogin} from '../store/handlers';
+import { useStore } from '../store/StoreContext';
+import { handleLogin } from '../store/handlers';
 import { useHistory, Link } from 'react-router-dom';
 
-const Login = () => {  
-  const {state, dispatch} = useStore();
+const Login = () => {
+  const { state, dispatch } = useStore();
   const history = useHistory();
   // const isLoaded = !state.loading;  // maybe not needed, if handled by parent component
   // const userID = state.user.id;
@@ -16,7 +16,7 @@ const Login = () => {
   const onSubmitUser = (e) => {
     e.preventDefault();
     if ((userName.length===0) || (userPwd.length===0)) {return;}
-    const userInfo = { userName: userName, userPwd: userPwd};
+    const userInfo = { userName: userName, userPwd: userPwd };
     handleLogin(userInfo, state, dispatch);
     history.push('/');
   };
@@ -41,14 +41,14 @@ const Login = () => {
             />
             <button>Log in</button>
           </form>
-        </div> 
+        </div>
         <div className='redirectLink'>
           <Link to={{ pathname: '/reg/' }}>
             Register new user
           </Link>
-        </div>     
+        </div>
     </Fragment>
-  )
-}
+  );
+};
 
 export default Login;

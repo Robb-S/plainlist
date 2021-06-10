@@ -7,7 +7,7 @@
 import { makeStringID } from '../util/helpers';
 import axios from 'axios';
 import * as api from '../util/constants';
-import {setAxiosAuthToken} from '../util/helpers';
+import { setAxiosAuthToken } from '../util/helpers';
 
 /**
  * See if username is already used in Django database, to ensure uniqueness.
@@ -15,18 +15,18 @@ import {setAxiosAuthToken} from '../util/helpers';
  */
 const userExistsAPI = async (userName) => {
   const config = {
-    method: "get",
+    method: 'get',
     url: api.API_IS_USER + userName + '/',
-  }
-  try { 
+  };
+  try {
     const responseUserExists = await axios(config);
     // console.log(responseUserExists.data.userExists);
-    return {userExists: responseUserExists.data.userExists, status: api.OK };
+    return { userExists: responseUserExists.data.userExists, status: api.OK };
   } catch (error) {
     // console.log(error);
-    return {userExists: null, status: api.FAILED};
-  }  
-}
+    return { userExists: null, status: api.FAILED };
+  }
+};
 
 /**
  * Get the token to use for this user, use it to set axios header, and store it
@@ -34,7 +34,7 @@ const userExistsAPI = async (userName) => {
  */
  const getTokenFromAPI = async (userInfo) => {
   let token = '';
-  const loginData = {'username':userInfo.userName, 'password':userInfo.userPwd};
+  const loginData = { 'username':userInfo.userName, 'password':userInfo.userPwd };
   try {
     const responseToken = await axios.post(api.API_AUTH, loginData);
     token = responseToken.data.token;
@@ -44,7 +44,7 @@ const userExistsAPI = async (userName) => {
   } catch (error) {
     return api.FAILED;
   }
-}
+};
 
 /**
  * Get data from REST API for initial setup when app is started (or upon login).
@@ -67,7 +67,7 @@ const userExistsAPI = async (userName) => {
     console.log(error);
   }
   return { user: user, categories: uCats, lists: uLists, items: uItems };
-}
+};
 
 // Next come generic API calls to add, delete or update records.
 
@@ -81,12 +81,12 @@ const recTypeToAPIUrl = (recType) => {
   switch (recType) {
     case 'item': { return api.API_ITEMS; }
     case 'list': { return api.API_LISTS; }
-    case 'category': { return api.API_CATS; }    
+    case 'category': { return api.API_CATS; }
     default: {
       throw new Error(`Unhandled record type: ${recType}`);
-    } 
+    }
   }
-}
+};
 
 /**
  * Handle API call to add a record.  Also, add a unique ID if using test data. 
@@ -94,26 +94,26 @@ const recTypeToAPIUrl = (recType) => {
  */
  const addRecAPI = async (newRec, runMode, recType) => {
   if (runMode===api.RUNMODE_DEMO) {
-    const dbRec = {...newRec};
+    const dbRec = { ...newRec };
     dbRec.id = makeStringID();  // just add a temporary unique ID if test data
-    return {dbRec: dbRec, status: api.OK};
+    return { dbRec: dbRec, status: api.OK };
   } else {
     const newRecJSON = JSON.stringify(newRec);
     const config = {
-      method: "post",
+      method: 'post',
       url: recTypeToAPIUrl(recType),
       data: newRecJSON,
       headers: api.JSON_HEADER,
-    }; 
-    try { 
+    };
+    try {
       const response = await axios(config);
-      return {dbRec: response.data, status: api.OK };
+      return { dbRec: response.data, status: api.OK };
     } catch (error) {
       console.log(error);
-      return {dbRec: newRec, status: api.FAILED};
+      return { dbRec: newRec, status: api.FAILED };
     }
   }
-}
+};
 
 /**
  * Handle API call for record deletion. * 
@@ -124,19 +124,19 @@ const recTypeToAPIUrl = (recType) => {
     return (api.OK); // no API call, so no problem
   } else {
     const config = {
-      method: "delete",
+      method: 'delete',
       url: recTypeToAPIUrl(recType) + recID + '/',
-    }; 
-    try { 
+    };
+    try {
       const response = await axios(config);
-      console.log(response)
+      console.log(response);
       return (api.OK);
     } catch (error) {
       console.log(error);
       return (api.FAILED);
     }
   }
-}
+};
 
 
 /**
@@ -145,28 +145,28 @@ const recTypeToAPIUrl = (recType) => {
  */
 const updateRecAPI = async (updateRec, runMode, recType) => {
   if (runMode===api.RUNMODE_DEMO) {
-    const dbRec = {...updateRec};
-    return {dbRec: dbRec, status: api.OK};
+    const dbRec = { ...updateRec };
+    return { dbRec: dbRec, status: api.OK };
   } else {
     const recID = updateRec.id;
     const updateRecJSON = JSON.stringify(updateRec);
     const config = {
-      method: "put",
+      method: 'put',
       url: recTypeToAPIUrl(recType) + recID + '/',
       data: updateRecJSON,
       headers: api.JSON_HEADER,
-    }; 
-    try { 
+    };
+    try {
       const response = await axios(config);
-      return {dbRec: response.data, status: api.OK };
+      return { dbRec: response.data, status: api.OK };
     } catch (error) {
       console.log(error);
-      return {dbRec: updateRec, status: api.FAILED};
+      return { dbRec: updateRec, status: api.FAILED };
     }
   }
-}
+};
 
 export {
   getTokenFromAPI, userExistsAPI, getInitDataByToken,
-  addRecAPI, deleteRecAPI, updateRecAPI, 
+  addRecAPI, deleteRecAPI, updateRecAPI,
 };

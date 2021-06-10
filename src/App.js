@@ -9,8 +9,8 @@ import Login from './components/Login';
 import Registration from './components/Registration';
 import Settings from './components/Settings';
 
-import {useStore} from './store/StoreContext';
-import {handleSetRunModeAndInitLoad} from './store/handlers';
+import { useStore } from './store/StoreContext';
+import { handleSetRunModeAndInitLoad } from './store/handlers';
 import * as api from './util/constants';
 
 function App() {

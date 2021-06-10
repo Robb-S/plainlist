@@ -1,14 +1,14 @@
-import React, {Fragment, useState, useEffect} from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import '../css/lists.css';
-import {useStore} from '../store/StoreContext';
-import {handleReg} from '../store/handlers';
-import {useDebounce} from '../util/helpers';
+import { useStore } from '../store/StoreContext';
+import { handleReg } from '../store/handlers';
+import { useDebounce } from '../util/helpers';
 import { useHistory, Link } from 'react-router-dom';
-import {userExistsAPI} from '../store/apiCalls';
+import { userExistsAPI } from '../store/apiCalls';
 import * as api from '../util/constants';
 
-const Registration = () => {  
-  const {state, dispatch} = useStore();
+const Registration = () => {
+  const { state, dispatch } = useStore();
   const history = useHistory();
   // const isLoaded = !state.loading;  // maybe not needed, if handled by parent component
   // const userID = state.user.id;
@@ -25,12 +25,12 @@ const Registration = () => {
   useEffect(() => {
     checkUserName(debouncedUserName);
     },
-    [debouncedUserName] // Only call effect if debounced search term changes
+    [debouncedUserName], // Only call effect if debounced search term changes
   );
 
   async function checkUserName(debouncedUserName) {
     if (debouncedUserName.length>2) {
-      const {userExists, status} = await userExistsAPI(debouncedUserName);
+      const { userExists, status } = await userExistsAPI(debouncedUserName);
       console.log( 'userExists called');
       console.log('status: ' + status);
       console.log('userExists: ' + userExists);
@@ -47,8 +47,8 @@ const Registration = () => {
   const onSubmitReg = async (e) => {
     e.preventDefault();
     if ((userName.length===0) || (userPwd.length===0)) {return;}
-    const userInfo = { userName: userName, userPwd: userPwd, 
-      userPwd2: userPwd2, userEmail: userEmail};
+    const userInfo = { userName: userName, userPwd: userPwd,
+      userPwd2: userPwd2, userEmail: userEmail };
     const regResult = await handleReg(userInfo, state, dispatch);
     console.log(regResult);
     // handleReg(userInfo, state, dispatch);
@@ -61,7 +61,7 @@ const Registration = () => {
     const uName = e.target.value;
     console.log('length: ' + uName.length);
     setUserName(uName);
-  }
+  };
 
   return (
     <Fragment>
@@ -112,8 +112,8 @@ const Registration = () => {
           </Link>
         </div>
     </Fragment>
-  )
-}
+  );
+};
 
 
 

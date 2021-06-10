@@ -2,41 +2,41 @@
  * Form for entry of one item.  The form needs a hidden submit button so that 
  * the ENTER button can be used to submit the form's multiple input fields.
  */
-import React, {Fragment, useState} from 'react';
+import React, { Fragment, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../css/lists.css';
-import {useStore} from '../store/StoreContext';
-import {handleAddItem} from '../store/handlers';
+import { useStore } from '../store/StoreContext';
+import { handleAddItem } from '../store/handlers';
 import { FiCheckSquare, FiXCircle } from 'react-icons/fi';
 
-const AddItem = () => {  
+const AddItem = () => {
   const id = useLocation().state.listID; // or should this be passed by parameter? 
-  const {state, dispatch} = useStore();
+  const { state, dispatch } = useStore();
   const isLoaded = !state.loading;  // maybe not needed, if handled by parent component
 
   const [itemName, setItemName] = useState('');
   const [itemNote, setItemNote] = useState('');
 
   const onSubmitAdd = (e) => {
-    console.log('*** onSubmitAdd item called ***')
+    console.log('*** onSubmitAdd item called ***');
     e.preventDefault();
-    onRequestAdd()
+    onRequestAdd();
   };
 
   const onRequestAdd = () => {
     if (itemName.length===0) {return;}
-    const newItem = { itemName: itemName, itemNote: itemNote, listID: id};
+    const newItem = { itemName: itemName, itemNote: itemNote, listID: id };
     handleAddItem(newItem, state, dispatch);
   };
 
   const cancelAdd = () => {
-    setItemName('')
-    setItemNote('')
-  }
+    setItemName('');
+    setItemNote('');
+  };
 
   return (
     <Fragment>
-      {isLoaded && 
+      {isLoaded &&
       <Fragment>
         <div className='additem'>
           <form onSubmit={onSubmitAdd}>
@@ -66,11 +66,11 @@ const AddItem = () => {
             </span>
             <input type="submit" className="hidden" />
           </form>
-        </div>      
+        </div>
       </Fragment>
     }
     </Fragment>
-  )
-}
+  );
+};
 
 export default AddItem;

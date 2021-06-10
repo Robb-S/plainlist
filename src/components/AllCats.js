@@ -1,7 +1,7 @@
-import React, {Fragment, useState} from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {useStore} from '../store/StoreContext';
-import {getAllCats} from '../store/getData';
+import { useStore } from '../store/StoreContext';
+import { getAllCats } from '../store/getData';
 import Loading from './Loading';
 import Login from './Login';
 import AddCat from './AddCat';
@@ -19,16 +19,16 @@ const AllCats = () => {
 
   const setupAdd = () => {
     setAddMode(true);
-  }
+  };
   const cancelAdd = () => {
     setAddMode(false);
-  }
+  };
   /**
    * Show the "add category" button initially, but hide it once it's pressed, return
    * to view when edit is finished or cancelled. 
    */
   const displayAddButton = () => {
-    if (addMode) {return null};
+    if (addMode) {return null;};
     return (
       <div className="showAddArea">
         <span className='iconBorder'>
@@ -37,10 +37,10 @@ const AllCats = () => {
         </span>
         <span className="spacer"> </span>
         <span className="headerAddLabel">Add new category</span>
-      </div>  
-    )
-  }
-  const addCatProps = { addMode: addMode, cancelAdd: cancelAdd};
+      </div>
+    );
+  };
+  const addCatProps = { addMode: addMode, cancelAdd: cancelAdd };
 
   const crumbArea = () => {
     return (
@@ -48,38 +48,38 @@ const AllCats = () => {
         <div className='crumbsandsettings'>
           <div className='breadcrumbs'>
           <span className='oneCrumb'>
-              All categories 
+              All categories
             </span>
           </div>
           <div className='settingsicon'>
             <Link className='linky3 oneCrumb' to={`/set/`}>
-              <FiSettings 
+              <FiSettings
                 title='settings' className='iconBorder' size='24' color='#555555' />
             </Link>
           </div>
         </div>
       </Fragment>
-    )
-  }
+    );
+  };
 
   return (
     <Fragment>
       {showLoading && <Loading />}
       {showLogin && <Login />}
 
-      {showMain && 
+      {showMain &&
       <Fragment>
       <div className='mainContainer'>
         { crumbArea() }
         <div className='heading'>
           <div className='headingNameDiv'>
             <span className='headingName'>
-              All categories          
+              All categories
             </span>
           </div>
         </div>
         {displayAddButton()}
-        <AddCat props={addCatProps} />  
+        <AddCat props={addCatProps} />
         <table>
           <thead>
             <tr>
@@ -94,7 +94,7 @@ const AllCats = () => {
                 <Link className='linky3'
                   to={{
                     pathname: `/cat/`,
-                    state: { categoryID: category.id }
+                    state: { categoryID: category.id },
                   }}
                 >
                   {category.categoryName}
@@ -111,7 +111,7 @@ const AllCats = () => {
       </Fragment>
       }
     </Fragment>
-    )
-  }
+    );
+  };
 
 export default AllCats;

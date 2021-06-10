@@ -1,6 +1,6 @@
-import {allUsers, allCategories, allLists, allItems} from './testdata';
+import { allUsers, allCategories, allLists, allItems } from './testdata';
 import * as api from '../util/constants';
-import {getInitDataByToken} from './apiCalls';
+import { getInitDataByToken } from './apiCalls';
 
 /**
  * Fetch data objects and return them.
@@ -8,14 +8,14 @@ import {getInitDataByToken} from './apiCalls';
 const fetchListsByUserID = async (userID, runMode) => {
   if (runMode===api.RUNMODE_API) {
     // await getTokenFromAPI();
-    const {user, categories, lists, items} = await getInitDataByToken();
-    return {user, categories, lists, items};
+    const { user, categories, lists, items } = await getInitDataByToken();
+    return { user, categories, lists, items };
   }
   if (runMode===api.RUNMODE_DEMO) {
-    const {user, categories, lists, items} = await getListsByUserIDTestData(userID);
-    return {user, categories, lists, items};
+    const { user, categories, lists, items } = await getListsByUserIDTestData(userID);
+    return { user, categories, lists, items };
   }
-}
+};
 
 /**
  * Get user and list data from test data or real API, handle dispatch to store
@@ -24,14 +24,14 @@ const fetchListsByUserID = async (userID, runMode) => {
  */
 const handleGetUserAndData = async (userID, runMode, dispatch) =>  {
   // console.log('** handleGetUserAndData');
-  const {user, categories, lists, items} = await fetchListsByUserID(userID, runMode);
+  const { user, categories, lists, items } = await fetchListsByUserID(userID, runMode);
   dispatch({
     type: 'SET_USER',
-    payload: {user},
+    payload: { user },
   });
   dispatch({
     type: 'SET_LISTS',
-    payload: {        
+    payload: {
       categories: categories,
       lists: lists,
       items: items,
@@ -40,7 +40,7 @@ const handleGetUserAndData = async (userID, runMode, dispatch) =>  {
   dispatch({
     type: 'FINISHED_LOADING',
   });
-}  
+};
 
 /**
  * Test mode, with dummy data supplied and simulated delay.
@@ -50,8 +50,8 @@ const getListsByUserIDTestData = async (userID) => {
   const delay = ms => new Promise(res => setTimeout(res, ms));
   await delay(500);
   const matchingID = allUsers.filter(oneUser => {
-    return oneUser.id === userID
-  })
+    return oneUser.id === userID;
+  });
   const user = matchingID.length>0 ? matchingID[0] : null;
   const uCats = allCategories.filter(oneCategory => {
     return oneCategory.userID === userID;
@@ -61,8 +61,8 @@ const getListsByUserIDTestData = async (userID) => {
   });
   const uItems = allItems.filter(oneItem => {
     return oneItem.userID === userID;
-  }); 
+  });
   return { user: user, categories: uCats, lists: uLists, items: uItems };
-}
+};
 
-export {handleGetUserAndData};
+export { handleGetUserAndData };

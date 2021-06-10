@@ -1,24 +1,24 @@
-import React, {Fragment, useState} from 'react';
+import React, { Fragment, useState } from 'react';
 import '../css/lists.css';
 import * as api from '../util/constants';
-import {useStore} from '../store/StoreContext';
-import {handleAddList} from '../store/handlers';
+import { useStore } from '../store/StoreContext';
+import { handleAddList } from '../store/handlers';
 import { FiCheckSquare, FiXCircle } from 'react-icons/fi';
 
 
-const AddList = ({props}) => {  
-  const {cancelAdd, categoryID} = props;
-  const {state, dispatch} = useStore();
+const AddList = ({ props }) => {
+  const { cancelAdd, categoryID } = props;
+  const { state, dispatch } = useStore();
   const [listName, setListName] = useState('');
 
   const onSubmitAdd = (e) => {
     e.preventDefault();
-    onRequestAdd()
+    onRequestAdd();
   };
 
   const onRequestAdd = async () => {
     if (listName.length===0) {return;}
-    const newList = { listName: listName, categoryID: categoryID};
+    const newList = { listName: listName, categoryID: categoryID };
     const status = await handleAddList(newList, state, dispatch);
     if (status!==api.OK) {  }
     // TODO: maybe add additional message if API operation failed?
@@ -27,7 +27,7 @@ const AddList = ({props}) => {
   const cancelAddLocal = () => {
     setListName('');
     cancelAdd();
-  }
+  };
 
   return (
     <Fragment>
@@ -55,7 +55,7 @@ const AddList = ({props}) => {
           </span>
         </div>
     </Fragment>
-  )
-}
+  );
+};
 
 export default AddList;
