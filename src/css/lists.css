@@ -68,63 +68,22 @@ button {
   margin-bottom: 15px;
 }
 
-/* table {
-  border-collapse: collapse;
-} */
-
-table.itemsTable {
+div.itemsTable {
   border: 0px solid #999999;
   border-collapse: separate; 
   border-spacing: 0 16px;
+  margin: 30px 0 0 0;
 }
 
-
-table.itemsTable td.dragHandle {
-  border-style: solid;
-  border-color: #999999;
-  border-width: 1px 0 1px 1px;
-  padding: 12px 12px 8px 12px;
-  touch-action: none;
-}
-
-table.itemsTable td.itemName {
-  border-style: solid;
-  border-color: #999999;
-  border-width: 1px 0 1px 0px;
-  padding: 8px 12px 12px 12px;
-}
-
-
-table.itemsTable td.itemNote {
-  border-style: solid;
-  border-color: #999999;
-  border-width: 1px 0 1px 0;
-  padding: 10px 12px 10px 12px;
-  font-size: 75%;
-}
-
-table.itemsTable td.buttons {
-  border-style: solid;
-  border-color: #999999;
-  border-width: 1px 1px 1px 0;
-  padding: 12px 8px 8px 2px;
-}
-
-table.itemsTable td.editButtons {
-  border-style: solid;
-  border-color: #999999;
-  border-width: 0;
-  padding: 12px 12px 8px 12px;
+ul.itemsTableUL {
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .headerAddLabel {
   font-size: 14px;
   padding: 0 0 15px 0;
-}
-
-li.oneItemLine {
-  border: 1px solid #999999;
-  margin: 18px 0 18px 0;
 }
 
 span.itemName {
@@ -205,17 +164,12 @@ div.settingsicon {
   cursor: pointer;
 }
 
-.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
- }
-
 @media only screen and (max-width: 600px) {
+  div.crumbsandsettings {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 65px;
+  }
   .breadcrumbs {
     border: 2px solid #cc99cc;
     padding: 12px 8px 8px 12px;
@@ -223,4 +177,5 @@ div.settingsicon {
     font-size: 13px;
   }
 }
- 
+
+

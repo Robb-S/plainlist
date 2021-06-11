@@ -31,10 +31,10 @@ const ItemsList = () => {
 
   const sensors = useSensors(
     useSensor(TouchSensor, {
-      // Press delay of 250ms, with tolerance of 5px of movement
+      // Press delay of 50ms, with tolerance of 5px of movement
       activationConstraint: {
-        delay: 2,
-        tolerance: 3,
+        delay: 50,
+        tolerance: 5,
       },
     }),
     useSensor(PointerSensor),
@@ -66,12 +66,12 @@ const ItemsList = () => {
           items={items}
           strategy={verticalListSortingStrategy}
         >
-          <table className="itemsTable">
-          <tbody>
+          <div className='itemsTable'>
+          <ul className='itemsTableUL'>
           {items.map(item => <SortableItemItem key={item.id} id={item.id} item={item}
           />)}
-          </tbody>
-          </table>
+          </ul>
+          </div>
 
         </SortableContext>
         {/* <DragOverlay>

@@ -4,55 +4,15 @@
 }
 
 
-/* table {
-  border-collapse: collapse;
-} */
 
-table.itemsTable {
-  border: 0px solid #999999;
-  border-collapse: separate; 
-  border-spacing: 0 16px;
-}
-
-div.itemOneRow {
-  border: 1px solid #eebbee;
-  display: grid;
-  grid-template-columns: 28px 1fr 1fr 36px 36px;
-}
-
-div.dragHandle {
-  padding: 10px 4px 5px 4px;
-  touch-action: none;
-  align-self: center;
-  background-color: #f7f7f7;
-}
-
-div.itemPart2 {
-  padding: 12px 0px 12px 12px;
-}
-
-div.itemPart3 {
-  padding: 16px 6px 12px 10px;
-  font-size: 75%;
-}
-
-div.itemPart4 {
-  padding: 10px 0px 10px 2px;
-  align-self: center;
-}
-
-div.itemPart5 {
-  padding: 10px 2px 10px 0px;
-  align-self: center;
-}
 
 div.editButtons {
   padding: 12px 0px 8px 0px;
 }
 
 li.oneItemLine {
-  border: 1px solid #999999;
-  margin: 18px 0 18px 0;
+  border: 0px solid #999999;
+  margin: 0px 0 12px 0;
 }
 
 span.itemName {
@@ -86,13 +46,8 @@ span.iconBorderSmall {
   padding: 2px 4px 0px 4px;
 }
 
-
 span.iconEdit, span.iconCheckmark, span.iconDelete {
   cursor: pointer;
-}
-
-span.iconHandle {
-  cursor: move;
 }
 
 span.sliver5 {
@@ -118,45 +73,102 @@ span.spacer {
                                   supported by Chrome and Opera */
  }
 
-@media only screen and (max-width: 450px) {
+/* elements in standard list one item */
+
+div.itemOneRow {
+  border: 1px solid #eebbee;
+  display: grid;
+}
+div.dragHandle {
+  grid-area: p1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 4px 0px 4px;
+  touch-action: none;
+  cursor: move;
+  background-color: #f7f7f7;
+}
+div.dragHandleIcon {
+  touch-action: none; 
+}
+div.itemPart2 {
+  grid-area: p2;
+  padding: 12px 0px 12px 12px;
+}
+div.itemPart3 {
+  grid-area: p3;
+  padding: 16px 6px 12px 10px;
+  font-size: 75%;
+}
+div.itemPart4 {
+  grid-area: p4;
+  padding: 10px 0px 10px 2px;
+  align-self: center;
+}
+div.itemPart5 {
+  grid-area: p5;
+  padding: 10px 2px 10px 0px;
+  align-self: center;
+}
+
+@media (min-width: 451px) { /* desktop */
   div.itemOneRow {
-    border: 1px solid #ddaadd;
-    display: grid;
+    grid-template-columns: 28px 1fr 1fr 36px 36px;
+    grid-template-areas: 
+      "p1  p2  p3  p4  p5";
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 450px) and (min-width: 301px) {
+  div.itemOneRow {
+    border-width: 2px;
     grid-template-columns: 28px 1fr 34px 36px;
     grid-template-areas: 
-      "p1  p2  p4 p5"
-      "p1  p3  p4 p5";
-  }
-
-  div.dragHandle {
-    padding: 10px 4px 5px 4px;
-    touch-action: none;
-    grid-area: p1;
-    align-self: center;
-  }
-  
+      "p1  p2  p4  p5"
+      "p1  p3  p4  p5";
+  } 
   div.itemPart2 {
     padding: 12px 4px 0px 10px;
-    grid-area: p2;
   }
-  
   div.itemPart3 {
     padding: 0px 4px 12px 10px;
-    font-size: 75%;
-    grid-area: p3;
   }
-  
   div.itemPart4 {
     padding: 10px 0px 10px 0px;
-    grid-area: p4;
-    align-self: center;
-  }
-  
+  }  
   div.itemPart5 {
     padding: 10px 2px 10px 0px;
-    grid-area: p5;
-    align-self: center;
+  }
+}
+ 
+
+@media (max-width: 300px) {
+  div.itemOneRow {
+    border-width: 1px;
+    grid-template-columns: 28px 1fr 1fr;
+    grid-template-areas: 
+      "p1  p2  p2"
+      "p1  p3  p3"
+      "p1  p4  p5";
+  } 
+  div.itemPart2 {
+    padding: 12px 4px 0px 10px;
+  }
+  div.itemPart3 {
+    padding: 0px 4px 12px 10px;
+  }  
+  div.itemPart4 {
+    padding: 10px 0px 10px 0px;
+    justify-self: center;
+  }  
+  div.itemPart5 {
+    padding: 10px 2px 10px 0px;
+    justify-self: center;
   }
 
 }
  
+

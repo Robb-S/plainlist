@@ -55,14 +55,12 @@ export function SortableItemItem(props) {
     <Fragment>
       { !editMode &&
       <Fragment>
-        <tr ref={setNodeRef} style={style} className='oneItemLine noselect'>
-          <td colSpan='4'>
+        <li ref={setNodeRef} style={style} className='oneItemLine noselect'>
             <div className='itemOneRow'>
-              <div className='dragHandle itemPart1'>
-                <span className='XiconBorderSmall iconHandle'>
-                  <GrDrag {...listeners} {...attributes}
-                  title='drag to change order' size='20' color='green' />
-                </span>
+              <div className='dragHandle' {...listeners} {...attributes} >
+                <div className='dragHandleIcon'>
+                  <GrDrag title='drag to change order' size='20' color='green' />
+                </div>
               </div>
               <div className='itemName itemPart2'>
                 {props.item.itemName}
@@ -83,17 +81,15 @@ export function SortableItemItem(props) {
                 </span>
               </div>
             </div>
-          </td>
-        </tr>
+
+        </li>
       </Fragment>
       }
 
       { editMode &&
       <Fragment>
-        <tr>
-          <td></td>
-          <td colSpan="2" className='editFormTD'>
-            <form className='editFormForm' onSubmit={submitUpdateItem}>
+        <li className='editFormDiv'>
+          <form className='editFormForm' onSubmit={submitUpdateItem}>
               <span className='editInputArea'>
                 <input
                   value={itemName}
@@ -108,9 +104,9 @@ export function SortableItemItem(props) {
                 />
               </span>
               <input type="submit" className="hidden" />
-            </form>
-          </td>
-          <td className='buttons editButtons'>
+          </form>
+
+          <span className='buttons editButtons'>
             <span className='editButtonArea'>
               <span className='iconCheckmark iconNoBorder'>
                 <FiCheckSquare onClick={() => updateItem()}
@@ -122,8 +118,8 @@ export function SortableItemItem(props) {
                 title='cancel edit' className='iconBorder' size='24' color='#555555' />
               </span>
             </span>
-          </td>
-        </tr>
+          </span>
+        </li>
       </Fragment>
       }
 
