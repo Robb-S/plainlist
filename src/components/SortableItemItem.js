@@ -59,7 +59,7 @@ export function SortableItemItem(props) {
             <div className='itemOneRow'>
               <div className='dragHandle' {...listeners} {...attributes} >
                 <div className='dragHandleIcon'>
-                  <GrDrag title='drag to change order' size='20' color='green' />
+                  <GrDrag title='drag to change order' size='20' color='#ffffff' />
                 </div>
               </div>
               <div className='itemName itemPart2'>

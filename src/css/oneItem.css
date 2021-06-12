@@ -122,7 +122,7 @@ div.itemPart5 {
   }
 }
 
-@media (max-width: 450px) and (min-width: 301px) {
+@media (max-width: 450px) and (min-width: 301px) { /* bigger device */
   div.itemOneRow {
     border-width: 2px;
     grid-template-columns: 28px 1fr 34px 36px;
@@ -145,7 +145,7 @@ div.itemPart5 {
 }
  
 
-@media (max-width: 300px) {
+@media (max-width: 300px) { /* smaller device */
   div.itemOneRow {
     border-width: 1px;
     grid-template-columns: 28px 1fr 1fr;
