@@ -90,10 +90,10 @@ export function SortableItemItem(props) {
 
       { editMode &&
       <Fragment>
-        <li className='editFormLi'>
-          <div className='editFormDiv'>
-            <form className='editFormForm' onSubmit={submitUpdateItem}>
-              <span className='editInputArea'>
+        <li className='editItemFormLi'>
+          <div className='editItemDiv'>
+            <form className='editItemForm' onSubmit={submitUpdateItem}>
+              <span className='editItemInputArea'>
                 <TextField
                   label="Item name:" value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
