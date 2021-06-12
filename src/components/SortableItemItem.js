@@ -11,6 +11,7 @@ import { useStore } from '../store/StoreContext';
 import { handleRemoveItem, handleUpdateItem } from '../store/handlers';
 import { GrDrag } from 'react-icons/gr';
 import { FiTrash2, FiEdit, FiCheckSquare, FiXCircle } from 'react-icons/fi';
+import TextField from '@material-ui/core/TextField';
 
 export function SortableItemItem(props) {
   const itemID = props.item.id;
@@ -41,6 +42,7 @@ export function SortableItemItem(props) {
   };
 
   const updateItem = () => {
+    if (itemName.length<1) return;
     setEditMode(false);
     handleUpdateItem(itemID, itemName, itemNote, state, dispatch);
   };
@@ -88,37 +90,36 @@ export function SortableItemItem(props) {
 
       { editMode &&
       <Fragment>
-        <li className='editFormDiv'>
-          <form className='editFormForm' onSubmit={submitUpdateItem}>
+        <li className='editFormLi'>
+          <div className='editFormDiv'>
+            <form className='editFormForm' onSubmit={submitUpdateItem}>
               <span className='editInputArea'>
-                <input
-                  value={itemName}
+                <TextField
+                  label="Item name:" value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
-                  type="text"
+                  variant='outlined'
+                  margin='dense'
                 />
-                <span className="sliver5"> </span>
-                <input
-                  value={itemNote}
+                <TextField
+                  label="Note:" value={itemNote}
                   onChange={(e) => setItemNote(e.target.value)}
-                  type="text"
+                  variant='outlined'
+                  margin='dense'
                 />
               </span>
               <input type="submit" className="hidden" />
-          </form>
-
-          <span className='buttons editButtons'>
+            </form>
             <span className='editButtonArea'>
               <span className='iconCheckmark iconNoBorder'>
                 <FiCheckSquare onClick={() => updateItem()}
-                title='accept edit' size='24' color='#555555' />
+                  title='accept edit' size='24' color='green' />
               </span>
-              <span className="sliver5"> </span>
               <span className='iconEdit iconNoBorder'>
                 <FiXCircle onClick={() => cancelEdit()}
-                title='cancel edit' className='iconBorder' size='24' color='#555555' />
+                  title='cancel edit' className='iconBorder' size='24' color='red' />
               </span>
             </span>
-          </span>
+          </div>
         </li>
       </Fragment>
       }
