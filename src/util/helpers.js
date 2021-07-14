@@ -88,6 +88,14 @@ function useDebounce(value, delay) {
   return debouncedValue;
 }
 
+/**
+ * Helper to return properly formed number+noun.
+ */
+function pluralize(theAmt, singularNoun, pluralNoun) {
+  if (theAmt===1 || theAmt==='1') return theAmt + ' ' + singularNoun;
+  return theAmt + ' ' + pluralNoun;
+}
+
 export {
   makeStringID,
   findPosWithAttr,
@@ -96,4 +104,5 @@ export {
   AreObjectsDifferent,
   setAxiosAuthToken,
   useDebounce,
+  pluralize,
 };
