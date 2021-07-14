@@ -5,10 +5,9 @@
 import React, { Fragment, useState } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import '../css/oneItem.css';
+import '../css/oneList.css';
 import { useStore } from '../store/StoreContext';
 import { GrDrag } from 'react-icons/gr';
-import { FiTrash2, FiEdit } from 'react-icons/fi';
 
 export function SortableListUnit(props) {
   const listID = props.list.id;
@@ -26,7 +25,7 @@ export function SortableListUnit(props) {
     <Fragment>
       <Fragment>
         <li ref={setNodeRef} style={style} className='oneItemLine noselect'>
-            <div className='itemOneRow'>
+            <div className='listOneRow'>
               <div className='dragHandle' {...listeners} {...attributes} >
                 <div className='dragHandleIcon'>
                   <GrDrag title='drag to change order' size='20' color='#ffffff' />
@@ -36,19 +35,7 @@ export function SortableListUnit(props) {
                 {props.list.listName}
               </div>
               <div className='itemNote itemPart3'>
-                {props.list.listName}
-              </div>
-              <div className='buttons itemPart4'>
-                <span className='iconEdit XiconBorder'>
-                  <FiEdit
-                  title='edit item' className='iconBorder' size='26' color='#555555' />
-                </span>
-              </div>
-              <div className='buttons itemPart5'>
-                <span className='iconDelete XiconBorder'>
-                  <FiTrash2
-                  title='delete item' className='iconBorder' size='26' color='#555555' />
-                </span>
+                60 items
               </div>
             </div>
 

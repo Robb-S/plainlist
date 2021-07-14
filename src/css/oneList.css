@@ -1,0 +1,88 @@
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+ }
+
+/* elements in standard list one item */
+
+li.oneItemLine {
+  border: 0px solid #999999;
+  margin: 0px 0 12px 0;
+}
+
+div.listOneRow {
+  border: 1px solid #eebbee;
+  display: grid;
+}
+div.dragHandle {
+  grid-area: p1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 4px 0px 4px;
+  touch-action: none;
+  cursor: move;
+  background-color: #f7f7f7;
+}
+div.dragHandleIcon {
+  touch-action: none; 
+}
+div.itemPart2 {
+  grid-area: p2;
+  padding: 12px 0px 12px 12px;
+}
+div.itemPart3 {
+  grid-area: p3;
+  padding: 16px 6px 12px 10px;
+  font-size: 75%;
+}
+
+@media (min-width: 451px) { /* desktop */
+  div.listOneRow {
+    grid-template-columns: 28px 8fr 3fr;
+    grid-template-areas: 
+      "p1  p2  p3";
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 450px) and (min-width: 301px) { /* bigger device */
+  div.listOneRow {
+    border-width: 2px;
+    grid-template-columns: 28px 1fr;
+    grid-template-areas: 
+      "p1  p2"
+      "p1  p3";
+  } 
+  div.itemPart2 {
+    padding: 12px 4px 0px 10px;
+  }
+  div.itemPart3 {
+    padding: 0px 4px 12px 10px;
+  }
+}
+ 
+
+@media (max-width: 300px) { /* smaller device */
+  div.listOneRow {
+    border-width: 1px;
+    grid-template-columns: 28px 1fr;
+    grid-template-areas: 
+      "p1  p2"
+      "p1  p3";
+  } 
+  div.itemPart2 {
+    padding: 12px 4px 0px 10px;
+  }
+  div.itemPart3 {
+    padding: 0px 4px 12px 10px;
+  }  
+}
+ 
+
