@@ -81,6 +81,7 @@ const recTypeToAPIUrl = (recType) => {
   switch (recType) {
     case 'item': { return api.API_ITEMS; }
     case 'list': { return api.API_LISTS; }
+    case 'cat': { return api.API_CATS; }
     case 'category': { return api.API_CATS; }
     default: {
       throw new Error(`Unhandled record type: ${recType}`);

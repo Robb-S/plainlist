@@ -240,6 +240,35 @@ const handleRemoveCategory = async (categoryID, state, dispatch) =>  {
   });
 };
 
+/**
+ * Takes two possibly updated fields and checks to see if at least one has been updated.
+ * If so, then calls API and replaces updated item in state
+ */
+const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatch) => {
+  const oldItem = getItemRec(itemID, state);
+  const newItem = { ...oldItem };
+  newItem.itemName = newItemName;
+  newItem.itemNote = newItemNote;
+  const noChange = !AreObjectsDifferent(oldItem, newItem);
+  if (noChange) return;
+  dispatch({
+    type: 'STARTED_LOADING',
+  });
+  const { dbRec, status } = await updateRecAPI(newItem, state.runMode, 'item');
+  // console.log('handleUpdateItem API call returns ' + status)
+  // console.log(dbRec);
+  if (status===api.OK) {
+    dispatch({
+      type: 'UPDATE_ITEM',
+      payload: dbRec,
+    });
+  } else {
+    alert (api.MSG_FAILED);
+  }
+  dispatch({
+    type: 'FINISHED_LOADING',
+  });
+};
 
 
 /**
@@ -303,35 +332,6 @@ const handleUpdateCategory = async (categoryID, newCatName, state, dispatch) => 
 };
 
 
-/**
- * Takes two possibly updated fields and checks to see if at least one has been updated.
- * If so, then calls API and replaces updated item in state
- */
-const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatch) => {
-  const oldItem = getItemRec(itemID, state);
-  const newItem = { ...oldItem };
-  newItem.itemName = newItemName;
-  newItem.itemNote = newItemNote;
-  const noChange = !AreObjectsDifferent(oldItem, newItem);
-  if (noChange) return;
-  dispatch({
-    type: 'STARTED_LOADING',
-  });
-  const { dbRec, status } = await updateRecAPI(newItem, state.runMode, 'item');
-  // console.log('handleUpdateItem API call returns ' + status)
-  // console.log(dbRec);
-  if (status===api.OK) {
-    dispatch({
-      type: 'UPDATE_ITEM',
-      payload: dbRec,
-    });
-  } else {
-    alert (api.MSG_FAILED);
-  }
-  dispatch({
-    type: 'FINISHED_LOADING',
-  });
-};
 
 /**
  * handleUpdateItemsGroup - receives array of items from one list, with new sort order
@@ -444,6 +444,61 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
 };
 
 /**
+ * handleUpdateCategoriesGroup - receives array of categories, with new sort order
+ * to be determined by each category's position within the array.  
+ * NOTE: Sort order starts with 1.
+ * 1) find size of original array of categories from store.
+ *   compare array sizes.  if different, then abort.  (maybe data is out of sync)
+ * 2) loop through new array in reverse
+ * 3) for each category, see if it needs a new sortOrder number. 
+ * 4) if so, then update API and dispatch 'UPDATE_CAT' 
+ * Future enhancement - if any of the API operations fails, then abort and try to roll
+ * back.  Although the worst that will happen without this enhancement is that the sort
+ * order displayed may be slightly different from expectation in the event of multiple 
+ * API call failures.  
+ */
+ const handleUpdateCategoriesGroup = async (newCategories, state, dispatch) => {
+  const runMode = state.runMode;
+  console.log('*** handler called, returning now!'); // TODO: REMOVE THIS
+  if (newCategories.length>0) return; // TODO: REMOVE THIS
+  if (newCategories.length<1) return; // this should never happen
+  const expectedAllCatSize = getAllCats(state).length;
+  if (expectedAllCatSize!==newCategories.length) return; // something is out of sync
+  const newCatsReversed = [...newCategories]; // otherwise will affect current display.
+  newCatsReversed.reverse();
+  const catsToUpdate = [];  // collect altered lists first, then update them
+  for (const [index, oneCat] of newCatsReversed.entries()) {
+    if ((index+1)!==oneCat.sortOrder) {
+      oneCat.sortOrder = index+1;
+      catsToUpdate.push(oneCat);
+    }
+  }
+  // console.log( catsToUpdate.length + ' cats to update....');
+  if (catsToUpdate.length===0) return;
+  dispatch({
+    type: 'STARTED_LOADING',
+  });
+  let updateErrors = 0;
+  catsToUpdate.forEach(async function(updateCat) {
+    const { status } = await updateRecAPI(updateCat, runMode, 'category');
+    if (status!==api.OK) {updateErrors += 1;}
+  });
+  /** We'll update state even if there were errors, as they may be corrected on the next 
+  round of reordering, and the worst that can happen is the categories will be slightly out
+  of order.  Future enhancement: maybe show a message? */
+  if (updateErrors>0) { console.log('# of updateErrors: '+ updateErrors); }
+  catsToUpdate.forEach( async function(updateCat) {
+    await dispatch({
+      type: 'UPDATE_CAT',
+      payload: updateCat,
+    });
+  });
+  dispatch({
+    type: 'FINISHED_LOADING',
+  });
+};
+
+/**
  * Set the runMode flag in store. Flag is used to skip API steps when using test data.
  * 
  * @param runMode - api.RUNMODE_API or api.RUNMODE_DEMO from constants file
@@ -483,17 +538,18 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
 };
 
 export {
-  handleRemoveItem,
-  handleRemoveList,
-  handleRemoveCategory,
   handleAddItem,
   handleAddList,
   handleAddCategory,
+  handleRemoveItem,
+  handleRemoveList,
+  handleRemoveCategory,
   handleUpdateItem,
   handleUpdateList,
   handleUpdateCategory,
   handleUpdateItemsGroup,
   handleUpdateListsGroup,
+  handleUpdateCategoriesGroup,
   handleSetRunModeAndInitLoad,
   handleLogin,
   handleLogout,
