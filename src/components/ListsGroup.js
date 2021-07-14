@@ -1,5 +1,5 @@
 /**
- * ItemsList - show list of items as draggable elements.  Called by OneList.  
+ * ListsGroup - show group of lists as draggable elements.  Called by OneCat.  
  * Handles REORDER_LIST on dragEnd.
  */
 import React, { Fragment, useState } from 'react';
@@ -11,23 +11,24 @@ import { arrayMove, SortableContext, sortableKeyboardCoordinates,
 import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import '../css/lists.css';
 import { useStore } from '../store/StoreContext';
-import { getItemsByListID } from '../store/getData';
-import { SortableItemItem } from './SortableItemItem';
+import { getListsByCatID } from '../store/getData';
+import { SortableListUnit } from './SortableListUnit';
 import { findPosWithAttr } from '../util/helpers';
-import { handleUpdateItemsList } from '../store/handlers';
+import { handleUpdateListsGroup } from '../store/handlers';
 
-const ItemsList = () => {
+const ListsGroup = () => {
   const data = useLocation(); // to retrieve params from data.state
   // data.state will only exist when set up in LINK, not if URL was entered manually
   const needsRedirect = data.state ? false : true; // is it called from link or manual URL
-  const listID = needsRedirect ? null : data.state.listID;
+  const categoryID = needsRedirect ? null : data.state.categoryID;
+  // console.log('** categoryID found * ' + categoryID);
   const { state, dispatch } = useStore();  // this must come before conditional render
 
-  const oneListItems = getItemsByListID(listID, state);
+  const oneCatLists = getListsByCatID(categoryID, state);
   // const [activeId, setActiveId] = useState(null); // used with DragOverlay
   // set variable 'items' as local array, which can be reordered by dragging.
-  // not to be confused with 'items' in state.
-  const [items, setItems] = useState([...oneListItems]);
+  // not to be confused with 'items' in state.  It MUST be called 'items' apparently
+  const [items, setItems] = useState([...oneCatLists]);
 
   const sensors = useSensors(
     useSensor(TouchSensor, {
@@ -50,7 +51,7 @@ const ItemsList = () => {
       const newIndex = findPosWithAttr(items, 'id', over.id);
       const newItems = arrayMove(items, oldIndex, newIndex);
       setItems(newItems);
-      handleUpdateItemsList(newItems, state, dispatch);
+      handleUpdateListsGroup(newItems, state, dispatch);
     }
   };
 
@@ -68,7 +69,7 @@ const ItemsList = () => {
         >
           <div className='itemsTable'>
           <ul className='itemsTableUL'>
-          {items.map(item => <SortableItemItem key={item.id} id={item.id} item={item}
+          {items.map(item => <SortableListUnit key={item.id} id={item.id} list={item}
           />)}
           </ul>
           </div>
@@ -82,4 +83,4 @@ const ItemsList = () => {
   );
 };
 
-export default ItemsList;
+export default ListsGroup;

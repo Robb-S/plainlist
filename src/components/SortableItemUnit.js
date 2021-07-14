@@ -1,7 +1,6 @@
 /**
- * SortableItemItem component.  Display one item from list, with update and delete 
- * handlers.  It is set up as a sortable list element (although it's currently a 
- * table row), working with a dnd-kit sortable list.
+ * SortableItemUnit component.  Display one item from list, with update and delete 
+ * handlers.  It is set up as a sortable list element, working with a dnd-kit sortable list.
  */
 import React, { Fragment, useState } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
@@ -13,7 +12,7 @@ import { GrDrag } from 'react-icons/gr';
 import { FiTrash2, FiEdit, FiCheckSquare, FiXCircle } from 'react-icons/fi';
 import TextField from '@material-ui/core/TextField';
 
-export function SortableItemItem(props) {
+export function SortableItemUnit(props) {
   const itemID = props.item.id;
   const { state, dispatch } = useStore();
   const [editMode, setEditMode] = useState(false);  // set edit mode when edit button is pressed.

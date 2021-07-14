@@ -14,7 +14,7 @@ import Login from './Login';
 import Loading from './Loading';
 import EditList from './EditList';  // form to edit the list name
 import AddItem from './AddItem';    // form to add an item
-import ItemsList from './ItemsList';  // the actual list of items
+import ItemsGroup from './ItemsGroup';  // the actual group (list) of items
 import { FiTrash2, FiEdit, FiSettings } from 'react-icons/fi';
 
 const OneList = () => {
@@ -101,7 +101,7 @@ const OneList = () => {
           </div>
         </div>
         <AddItem />
-        <ItemsList />
+        <ItemsGroup />
       </Fragment>
     );
   };

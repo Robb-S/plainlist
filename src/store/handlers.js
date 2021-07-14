@@ -1,6 +1,5 @@
 import { confirmQuest, makeHighestNumericAttribute, AreObjectsDifferent } from '../util/helpers';
-import { getItemRec, getItemsByListID, getCatRec, getListRec } from './getData';
-// import axios from 'axios';
+import { getItemRec, getItemsByListID, getListsByCatID, getCatRec, getListRec } from './getData';
 import * as api from '../util/constants';
 import { addRecAPI, deleteRecAPI, updateRecAPI, getTokenFromAPI } from './apiCalls';
 import { handleGetUserAndData } from './fetchUserAndData';
@@ -335,8 +334,8 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
 };
 
 /**
- * handleUpdateItemsList - receives array of items from one list, with new sort order
- * to be determined by each item's position with the array.  
+ * handleUpdateItemsGroup - receives array of items from one list, with new sort order
+ * to be determined by each item's position within the array.  
  * NOTE: Sort order starts with 1.
  * 1) find size of original array of items for this listID from store.
  *   compare array sizes.  if different, then abort.  (maybe items out of sync)
@@ -348,7 +347,7 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
  * order displayed may be slightly different from expectation in the event of multiple 
  * API call failures.  
  */
-const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
+const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
   const runMode = state.runMode;
   if (newOneListItems.length<1) return; // this should never happen
   const listID = newOneListItems[0].listID;  // same for all, so just check first one.
@@ -381,6 +380,62 @@ const handleUpdateItemsList = async (newOneListItems, state, dispatch) => {
     await dispatch({
       type: 'UPDATE_ITEM',
       payload: updateItem,
+    });
+  });
+  dispatch({
+    type: 'FINISHED_LOADING',
+  });
+};
+
+/**
+ * handleUpdateListsGroup - receives array of lists from one category, with new sort order
+ * to be determined by each list's position within the array.  
+ * NOTE: Sort order starts with 1.
+ * 1) find size of original array of lists for this categoryID from store.
+ *   compare array sizes.  if different, then abort.  (maybe data is out of sync)
+ * 2) loop through new array in reverse
+ * 3) for each list, see if it needs a new sortOrder number. 
+ * 4) if so, then update API and dispatch 'UPDATE_LIST' 
+ * Future enhancement - if any of the API operations fails, then abort and try to roll
+ * back.  Although the worst that will happen without this enhancement is that the sort
+ * order displayed may be slightly different from expectation in the event of multiple 
+ * API call failures.  
+ */
+ const handleUpdateListsGroup = async (newOneCatLists, state, dispatch) => {
+  const runMode = state.runMode;
+  // console.log('*** handler called, returning now!'); // TODO: REMOVE THIS
+  // if (newOneCatLists.length>0) return; // TODO: REMOVE THIS
+  if (newOneCatLists.length<1) return; // this should never happen
+  const categoryID = newOneCatLists[0].categoryID;  // same for all, so just check first one.
+  const expectedCatSize = getListsByCatID(categoryID, state).length;
+  if (expectedCatSize!==newOneCatLists.length) return; // something is out of sync
+  const newListsReversed = [...newOneCatLists]; // otherwise will affect current display.
+  newListsReversed.reverse();
+  const listsToUpdate = [];  // collect altered lists first, then update them
+  for (const [index, oneList] of newListsReversed.entries()) {
+    if ((index+1)!==oneList.sortOrder) {
+      oneList.sortOrder = index+1;
+      listsToUpdate.push(oneList);
+    }
+  }
+  // console.log( listsToUpdate.length + ' lists to update....');
+  if (listsToUpdate.length===0) return;
+  dispatch({
+    type: 'STARTED_LOADING',
+  });
+  let updateErrors = 0;
+  listsToUpdate.forEach(async function(updateList) {
+    const { status } = await updateRecAPI(updateList, runMode, 'list');
+    if (status!==api.OK) {updateErrors += 1;}
+  });
+  /** We'll update state even if there were errors, as they may be corrected on the next 
+  round of reordering, and the worst that can happen is the items will be slightly out
+  of order.  Future enhancement: maybe show a message? */
+  if (updateErrors>0) { console.log('# of updateErrors: '+ updateErrors); }
+  listsToUpdate.forEach( async function(updateList) {
+    await dispatch({
+      type: 'UPDATE_LIST',
+      payload: updateList,
     });
   });
   dispatch({
@@ -437,7 +492,8 @@ export {
   handleUpdateItem,
   handleUpdateList,
   handleUpdateCategory,
-  handleUpdateItemsList,
+  handleUpdateItemsGroup,
+  handleUpdateListsGroup,
   handleSetRunModeAndInitLoad,
   handleLogin,
   handleLogout,

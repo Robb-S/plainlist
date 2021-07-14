@@ -11,6 +11,7 @@ import Login from './Login';
 import Loading from './Loading';
 import EditCat from './EditCat';
 import AddList from './AddList';
+import ListsGroup from './ListsGroup';  // the actual group (list) of lists
 import { FiTrash2, FiEdit, FiSettings } from 'react-icons/fi';
 import { FcTodoList } from 'react-icons/fc';
 import { handleRemoveCategory  } from '../store/handlers';
@@ -140,6 +141,7 @@ const OneCat = () => {
           </div>
         </div>
         { addListArea() }
+        <ListsGroup />
         <table>
           {tableHead()}
           {tableBody()}
