@@ -11,7 +11,8 @@ import '../css/lists.css';
 import * as api from '../util/constants';
 import { useStore } from '../store/StoreContext';
 import { handleUpdateCategory } from '../store/handlers';
-import { FiCheckSquare, FiXCircle } from 'react-icons/fi';
+import { FiCheckSquare } from 'react-icons/fi';
+import { TiCancelOutline } from 'react-icons/ti';
 
 const EditCat = ({ props }) => {
   const { cancelEdit, categoryRec }  = props;
@@ -50,7 +51,7 @@ const EditCat = ({ props }) => {
             </span>
             <span className="sliver5"> </span>
             <span className='iconEdit iconNoBorder'>
-              <FiXCircle onClick={() => cancelEdit()}
+              <TiCancelOutline onClick={() => cancelEdit()}
               title='cancel category edit' className='iconBorder' size='24' color='#555555' />
             </span>
           </span>

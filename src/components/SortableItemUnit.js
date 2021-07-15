@@ -9,7 +9,8 @@ import '../css/oneItem.css';
 import { useStore } from '../store/StoreContext';
 import { handleRemoveItem, handleUpdateItem } from '../store/handlers';
 import { GrDrag } from 'react-icons/gr';
-import { FiTrash2, FiEdit, FiCheckSquare, FiXCircle } from 'react-icons/fi';
+import { FiTrash2, FiEdit, FiCheckSquare } from 'react-icons/fi';
+import { TiCancelOutline } from 'react-icons/ti';
 import TextField from '@material-ui/core/TextField';
 
 export function SortableItemUnit(props) {
@@ -114,7 +115,7 @@ export function SortableItemUnit(props) {
                   title='accept edit' size='24' color='green' />
               </span>
               <span className='iconEdit iconNoBorder'>
-                <FiXCircle onClick={() => cancelEdit()}
+                <TiCancelOutline onClick={() => cancelEdit()}
                   title='cancel edit' className='iconBorder' size='24' color='red' />
               </span>
             </span>
