@@ -118,8 +118,7 @@ const OneCat = () => {
         <span className='iconBorder'>
           <FcTodoList onClick={() => setupAdd()} title='add new list'
             className='cursorPointer' size='22' color='#555555' />
-          </span>
-        <span className="spacer"> </span>
+        </span>
         <span className="headerAddLabel cursorPointer" onClick={() => setupAdd()} >
           Add new list to category
         </span>
@@ -130,13 +129,9 @@ const OneCat = () => {
 
   const groupOfLists = () => {
     if (oneCatLists.length<1) {
-      return (
-        <div>No lists yet</div>
-      );
+      return (<div>No lists yet</div>);
     }
-    return (
-      <ListsGroup categoryID={categoryID} />
-    );
+    return (<ListsGroup categoryID={categoryID} />);
   };
 
   return (

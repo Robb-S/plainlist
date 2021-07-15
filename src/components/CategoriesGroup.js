@@ -1,5 +1,5 @@
 /**
- * ListsGroup - show group of lists as draggable elements.  Called by OneCat.  
+ * CategoriesGroup - show group of categories as draggable elements.  Called by AllCats.  
  * Handles REORDER_LIST on dragEnd.
  */
 import React, { Fragment, useState } from 'react';
@@ -9,18 +9,18 @@ import { arrayMove, SortableContext, sortableKeyboardCoordinates,
   verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { useStore } from '../store/StoreContext';
-import { getListsByCatID } from '../store/getData';
-import { SortableListUnit } from './SortableListUnit';
+import { getAllCats } from '../store/getData';
+import { SortableCatUnit } from './SortableCatUnit';
 import { findPosWithAttr } from '../util/helpers';
-import { handleUpdateListsGroup } from '../store/handlers';
+import { handleUpdateCategoriesGroup } from '../store/handlers';
 
-const ListsGroup = ({ categoryID }) => {
+const CategoriesGroup = () => {
   const { state, dispatch } = useStore();  // this must come before conditional render
 
-  const oneCatLists = getListsByCatID(categoryID, state);
+  const allCats = getAllCats(state);
   // set variable 'items' as local array, which can be reordered by dragging.
   // not to be confused with 'items' in state.  It MUST be called 'items' apparently
-  const [items, setItems] = useState([...oneCatLists]);
+  const [items, setItems] = useState([...allCats]);
 
   const sensors = useSensors(
     useSensor(TouchSensor, {
@@ -43,10 +43,11 @@ const ListsGroup = ({ categoryID }) => {
       const newIndex = findPosWithAttr(items, 'id', over.id);
       const newItems = arrayMove(items, oldIndex, newIndex);
       setItems(newItems);
-      handleUpdateListsGroup(newItems, state, dispatch);
+      handleUpdateCategoriesGroup(newItems, state, dispatch);
     }
   };
 
+  if (allCats.length<1) { return (<div>No categories yet</div>); }
   return (
     <Fragment>
       <DndContext
@@ -61,7 +62,7 @@ const ListsGroup = ({ categoryID }) => {
         >
           <div className='itemsTable'>
           <ul className='itemsTableUL'>
-          {items.map(item => <SortableListUnit key={item.id} id={item.id} list={item}
+          {items.map(item => <SortableCatUnit key={item.id} id={item.id} category={item}
           />)}
           </ul>
           </div>
@@ -74,4 +75,4 @@ const ListsGroup = ({ categoryID }) => {
   );
 };
 
-export default ListsGroup;
+export default CategoriesGroup;

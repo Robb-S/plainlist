@@ -1,5 +1,6 @@
 import { confirmQuest, makeHighestNumericAttribute, AreObjectsDifferent } from '../util/helpers';
-import { getItemRec, getItemsByListID, getListsByCatID, getCatRec, getListRec } from './getData';
+import { getItemRec, getItemsByListID, getListsByCatID, getCatRec, getListRec, getAllCats }
+  from './getData';
 import * as api from '../util/constants';
 import { addRecAPI, deleteRecAPI, updateRecAPI, getTokenFromAPI } from './apiCalls';
 import { handleGetUserAndData } from './fetchUserAndData';
@@ -459,8 +460,6 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
  */
  const handleUpdateCategoriesGroup = async (newCategories, state, dispatch) => {
   const runMode = state.runMode;
-  console.log('*** handler called, returning now!'); // TODO: REMOVE THIS
-  if (newCategories.length>0) return; // TODO: REMOVE THIS
   if (newCategories.length<1) return; // this should never happen
   const expectedAllCatSize = getAllCats(state).length;
   if (expectedAllCatSize!==newCategories.length) return; // something is out of sync
@@ -473,7 +472,7 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
       catsToUpdate.push(oneCat);
     }
   }
-  // console.log( catsToUpdate.length + ' cats to update....');
+  // console.log( catsToUpdate.length + ' categories to update....');
   if (catsToUpdate.length===0) return;
   dispatch({
     type: 'STARTED_LOADING',
@@ -512,7 +511,6 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
     // console.log('*** handleSetRunMode for API');
     let token = localStorage.getItem('token');
     console.log('token: ' + token);
-    // token = '7e206beb2140d19d8745fed18a5e0e5326e83c0e';
     if (token!==null) { // if found, then set logged in = true
       setAxiosAuthToken(token);
       await dispatch({
