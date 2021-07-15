@@ -9,8 +9,9 @@ import '../css/oneItem.css';
 import { useStore } from '../store/StoreContext';
 import { handleRemoveItem, handleUpdateItem } from '../store/handlers';
 import { GrDrag } from 'react-icons/gr';
-import { FiTrash2, FiEdit, FiCheckSquare } from 'react-icons/fi';
-import { TiCancelOutline } from 'react-icons/ti';
+// import { FiTrash2, FiEdit, FiCheckSquare } from 'react-icons/fi';
+// import { TiCancelOutline } from 'react-icons/ti';
+import { VscCircleSlash, VscCheck, VscEdit, VscTrash } from 'react-icons/vsc';
 import TextField from '@material-ui/core/TextField';
 
 export function SortableItemUnit(props) {
@@ -72,13 +73,13 @@ export function SortableItemUnit(props) {
               </div>
               <div className='buttons itemPart4'>
                 <span className='iconEdit XiconBorder'>
-                  <FiEdit onClick={() => setupEdit()}
+                  <VscEdit onClick={() => setupEdit()}
                   title='edit item' className='iconBorder' size='26' color='#555555' />
                 </span>
               </div>
               <div className='buttons itemPart5'>
                 <span className='iconDelete XiconBorder'>
-                  <FiTrash2 onClick={() => removeItem()}
+                  <VscTrash onClick={() => removeItem()}
                   title='delete item' className='iconBorder' size='26' color='#555555' />
                 </span>
               </div>
@@ -111,11 +112,11 @@ export function SortableItemUnit(props) {
             </form>
             <span className='editButtonArea'>
               <span className='iconCheckmark iconNoBorder'>
-                <FiCheckSquare onClick={() => updateItem()}
+                <VscCheck onClick={() => updateItem()}
                   title='accept edit' size='24' color='green' />
               </span>
               <span className='iconEdit iconNoBorder'>
-                <TiCancelOutline onClick={() => cancelEdit()}
+                <VscCircleSlash onClick={() => cancelEdit()}
                   title='cancel edit' className='iconBorder' size='24' color='red' />
               </span>
             </span>

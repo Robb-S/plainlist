@@ -5,8 +5,7 @@ import Loading from './Loading';
 import Login from './Login';
 import AddCat from './AddCat';
 import CategoriesGroup from './CategoriesGroup';
-import { FiSettings } from 'react-icons/fi';
-import { FcTodoList } from 'react-icons/fc';
+import { VscSettingsGear, VscEmptyWindow } from 'react-icons/vsc';
 import '../css/lists.css';
 
 const AllCats = () => {
@@ -30,7 +29,7 @@ const AllCats = () => {
           </div>
           <div className='settingsicon'>
             <Link className='linky3 oneCrumb' to={`/set/`}>
-              <FiSettings
+              <VscSettingsGear
                 title='settings' className='iconBorder' size='24' color='#555555' />
             </Link>
           </div>
@@ -64,7 +63,7 @@ const AllCats = () => {
     return (
       <div className="showAddArea">
         <span className='iconBorder'>
-          <FcTodoList onClick={() => setupAdd()} title='add new category'
+          <VscEmptyWindow onClick={() => setupAdd()} title='add new category'
             className='cursorPointer' size='22' color='#555555' />
         </span>
         <span className="headerAddLabel cursorPointer"  onClick={() => setupAdd()} >Add new category</span>

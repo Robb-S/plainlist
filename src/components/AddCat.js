@@ -6,8 +6,9 @@
 import React, { Fragment, useState } from 'react';
 import { useStore } from '../store/StoreContext';
 import { handleAddCategory } from '../store/handlers';
-import { FiCheckSquare, FiXCircle } from 'react-icons/fi';
-import { TiCancelOutline } from 'react-icons/ti';
+// import { FiCheckSquare } from 'react-icons/fi';
+// import { TiCancelOutline } from 'react-icons/ti';
+import { VscCheck, VscCircleSlash } from 'react-icons/vsc';
 import * as api from '../util/constants';
 import '../css/lists.css';
 
@@ -53,12 +54,12 @@ const AddCat = ({ props }) => {
           </form>
           <span className='editButtonArea'>
             <span className='iconCheckmark iconNoBorder'>
-              <FiCheckSquare onClick={() => onRequestAdd()}
+              <VscCheck onClick={() => onRequestAdd()}
               title='accept add' size='24' color='#555555' />
             </span>
             <span className="sliver5"> </span>
             <span className='iconEdit iconNoBorder'>
-              <TiCancelOutline onClick={() => cancelAddLocal()}
+              <VscCircleSlash onClick={() => cancelAddLocal()}
               title='cancel add' className='iconBorder' size='24' color='#555555' />
             </span>
           </span>

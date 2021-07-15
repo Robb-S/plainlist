@@ -15,7 +15,8 @@ import Loading from './Loading';
 import EditList from './EditList';  // form to edit the list name
 import AddItem from './AddItem';    // form to add an item
 import ItemsGroup from './ItemsGroup';  // the actual group (list) of items
-import { FiTrash2, FiEdit, FiSettings } from 'react-icons/fi';
+// import { FiTrash2, FiEdit } from 'react-icons/fi';
+import { VscSettingsGear, VscEdit, VscTrash } from 'react-icons/vsc';
 
 const OneList = () => {
   const data = useLocation(); // to retrieve params from data.state
@@ -61,7 +62,7 @@ const OneList = () => {
           </div>
           <div className='settingsicon'>
             <Link className='linky3 oneCrumb' to={`/set/`}>
-              <FiSettings
+              <VscSettingsGear
                 title='settings' className='iconBorder' size='24' color='#555555' />
             </Link>
           </div>
@@ -90,12 +91,12 @@ const OneList = () => {
             </span>
             <span className="spacer"> </span>
             <span className='iconEdit'>
-              <FiEdit onClick={() => setupEdit()}
+              <VscEdit onClick={() => setupEdit()}
               title='edit list' className='iconBorder' size='24' color='#555555' />
             </span>
             <span className="spacer"> </span>
             <span className='iconDelete'>
-            <FiTrash2 onClick={() => removeList()}
+            <VscTrash onClick={() => removeList()}
               title='delete list' className='iconBorder' size='24' color='#555555' />
             </span>
           </div>

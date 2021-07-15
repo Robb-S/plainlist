@@ -3,8 +3,9 @@ import '../css/lists.css';
 import * as api from '../util/constants';
 import { useStore } from '../store/StoreContext';
 import { handleAddList } from '../store/handlers';
-import { FiCheckSquare } from 'react-icons/fi';
-import { TiCancelOutline } from 'react-icons/ti';
+// import { FiCheckSquare } from 'react-icons/fi';
+// import { TiCancelOutline } from 'react-icons/ti';
+import { VscCheck, VscCircleSlash } from 'react-icons/vsc';
 
 const AddList = ({ props }) => {
   const { cancelAdd, categoryID } = props;
@@ -44,12 +45,12 @@ const AddList = ({ props }) => {
           </form>
           <span className='editButtonArea'>
             <span className='iconCheckmark iconNoBorder'>
-              <FiCheckSquare onClick={() => onRequestAdd()}
+              <VscCheck onClick={() => onRequestAdd()}
               title='add list' size='24' color='#555555' />
             </span>
             <span className="sliver5"> </span>
             <span className='iconEdit iconNoBorder'>
-              <TiCancelOutline onClick={() => cancelAddLocal()}
+              <VscCircleSlash onClick={() => cancelAddLocal()}
               title='cancel new list' className='iconBorder' size='24' color='#555555' />
             </span>
           </span>
