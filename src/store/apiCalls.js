@@ -81,7 +81,6 @@ const recTypeToAPIUrl = (recType) => {
   switch (recType) {
     case 'item': { return api.API_ITEMS; }
     case 'list': { return api.API_LISTS; }
-    case 'cat': { return api.API_CATS; }
     case 'category': { return api.API_CATS; }
     default: {
       throw new Error(`Unhandled record type: ${recType}`);
@@ -130,7 +129,7 @@ const recTypeToAPIUrl = (recType) => {
     };
     try {
       const response = await axios(config);
-      console.log(response);
+      // console.log(response);
       return (api.OK);
     } catch (error) {
       console.log(error);

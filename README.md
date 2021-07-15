@@ -7,7 +7,7 @@ The app is built in React with a web interface, using a REST API built with Djan
 Some features and how they are implemented:
 
 By default there are three levels of lists - broad categories (e.g. shopping, to-do), groups of specific lists (e.g. groceries, garden supplies), and individual lists of items.  
-This structure can be "flattened" to two levels for users who just want to see an uncategorized listing of all their lists.
+This structure can be "flattened" to two levels for users who just want to see an uncategorized display of all their lists.
 
 Items within each list can be reordered using drag and drop.  I used a package called react-dnd-kit for this.
 

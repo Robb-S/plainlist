@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../store/StoreContext';
-import { getAllCats } from '../store/getData';
 import Loading from './Loading';
 import Login from './Login';
 import AddCat from './AddCat';
@@ -13,7 +12,6 @@ import '../css/lists.css';
 const AllCats = () => {
   const { state } =  useStore();
   const [addMode, setAddMode] = useState(false);  // set add mode when add button is pressed.
-  const allCats = getAllCats(state);
   let showLogin = state.loading && !state.loggedIn;
   let showLoading = state.loading && state.loggedIn;
   let showMain = !state.loading;
