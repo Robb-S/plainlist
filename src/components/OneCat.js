@@ -120,7 +120,9 @@ const OneCat = () => {
             className='cursorPointer' size='22' color='#555555' />
           </span>
         <span className="spacer"> </span>
-        <span className="headerAddLabel">Add new list to category</span>
+        <span className="headerAddLabel cursorPointer" onClick={() => setupAdd()} >
+          Add new list to category
+        </span>
       </div>
       </Fragment>
     );
