@@ -47,7 +47,7 @@ const CategoriesGroup = () => {
     }
   };
 
-  if (allCats.length<1) { return (<div>No categories yet</div>); }
+  if (allCats.length<1) { return (<div>(no categories yet)</div>); }
   return (
     <Fragment>
       <DndContext

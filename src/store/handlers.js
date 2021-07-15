@@ -101,7 +101,7 @@ const handleLogout = async (dispatch) => {
 };
 
 const handleAddList = async (newList, state, dispatch) => {
-  console.log(newList);
+  // console.log(newList);
   const lists = state.lists;
   dispatch({
     type: 'STARTED_LOADING',
@@ -214,7 +214,6 @@ const handleRemoveList = async (listID, state, dispatch) =>  {
   return status;
 };
 
-
 const handleRemoveCategory = async (categoryID, state, dispatch) =>  {
   const theCat = getCatRec(categoryID, state);
   if (!theCat) { // check that it still exists in state
@@ -270,7 +269,6 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
     type: 'FINISHED_LOADING',
   });
 };
-
 
 /**
  * Takes possibly updated name and checks to see if it has been updated.
@@ -331,7 +329,6 @@ const handleUpdateCategory = async (categoryID, newCatName, state, dispatch) => 
   });
   return status;
 };
-
 
 
 /**

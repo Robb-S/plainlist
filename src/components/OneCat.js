@@ -80,7 +80,7 @@ const OneCat = () => {
       <Fragment>
         { headingArea() }
         { addListArea() }
-        { groupOfLists() }
+        <ListsGroup categoryID={categoryID} />
       </Fragment>
     );
   };
@@ -125,13 +125,6 @@ const OneCat = () => {
       </div>
       </Fragment>
     );
-  };
-
-  const groupOfLists = () => {
-    if (oneCatLists.length<1) {
-      return (<div>No lists yet</div>);
-    }
-    return (<ListsGroup categoryID={categoryID} />);
   };
 
   return (

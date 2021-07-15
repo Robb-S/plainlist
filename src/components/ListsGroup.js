@@ -47,6 +47,7 @@ const ListsGroup = ({ categoryID }) => {
     }
   };
 
+  if (oneCatLists.length<1) { return (<div>(no lists yet)</div>); }
   return (
     <Fragment>
       <DndContext
