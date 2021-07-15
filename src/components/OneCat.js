@@ -65,51 +65,6 @@ const OneCat = () => {
     );
   };
 
-  const tableHead = () => {
-    if (oneCatLists.length<1) {
-      return (
-        <thead>
-          <tr>
-            <th colSpan="2">No lists yet</th>
-          </tr>
-        </thead>
-      );
-    }
-    return(
-      <thead>
-        <tr>
-          <th>List</th>
-          <th># of items</th>
-        </tr>
-      </thead>
-    );
-  };
-
-  const tableBody = () => {
-    return (
-      <tbody>
-      { oneCatLists.map((list) => (
-        <tr key={list.id}>
-          <td>
-            <Link className='linky3'
-              title={list.listName}
-              to={{
-                pathname: `/list/`,
-                state: { listID: list.id },
-              }}
-            >
-              {list.listName}
-            </Link>
-          </td>
-          <td>
-            {list.childCount} item(s)
-          </td>
-        </tr>
-      ))}
-    </tbody>
-    );
-  };
-
   /**
    * The header area includes an edit button, and when this is pressed the edit form
    * (to change the category name) will be shown, and the main category will disappear 
@@ -123,30 +78,32 @@ const OneCat = () => {
     }
     return (
       <Fragment>
-        <div className='heading'>
-          <div className='headingNameDiv'>
-            <span className='headingName'>
-              Category: {oneCatRec.categoryName}
-            </span>
-            <span className="spacer"> </span>
-            <span className='iconEdit'>
-            <FiEdit onClick={() => setupEdit()}
-              title='edit category' className='iconBorder' size='24' color='#555555' />
-            </span>
-            <span className="spacer"> </span>
-            <span className='iconDelete'>
-            <FiTrash2 onClick={() => removeCategory()}
-              title='delete category' className='iconBorder' size='24' color='#555555' />
-            </span>
-          </div>
-        </div>
+        { headingArea() }
         { addListArea() }
-        <ListsGroup />
-        <table>
-          {tableHead()}
-          {tableBody()}
-        </table>
+        { groupOfLists() }
       </Fragment>
+    );
+  };
+
+  const headingArea = () => {
+    return (
+      <div className='heading'>
+        <div className='headingNameDiv'>
+          <span className='headingName'>
+            Category: {oneCatRec.categoryName}
+          </span>
+          <span className="spacer"> </span>
+          <span className='iconEdit'>
+          <FiEdit onClick={() => setupEdit()}
+            title='edit category' className='iconBorder' size='24' color='#555555' />
+          </span>
+          <span className="spacer"> </span>
+          <span className='iconDelete'>
+          <FiTrash2 onClick={() => removeCategory()}
+            title='delete category' className='iconBorder' size='24' color='#555555' />
+          </span>
+        </div>
+      </div>
     );
   };
 
@@ -166,6 +123,17 @@ const OneCat = () => {
         <span className="headerAddLabel">Add new list to category</span>
       </div>
       </Fragment>
+    );
+  };
+
+  const groupOfLists = () => {
+    if (oneCatLists.length<1) {
+      return (
+        <div>No lists yet</div>
+      );
+    }
+    return (
+      <ListsGroup categoryID={categoryID} />
     );
   };
 

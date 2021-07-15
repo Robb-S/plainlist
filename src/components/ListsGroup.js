@@ -3,29 +3,22 @@
  * Handles REORDER_LIST on dragEnd.
  */
 import React, { Fragment, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor,
   useSensors, TouchSensor } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates,
   verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers';
-import '../css/lists.css';
 import { useStore } from '../store/StoreContext';
 import { getListsByCatID } from '../store/getData';
 import { SortableListUnit } from './SortableListUnit';
 import { findPosWithAttr } from '../util/helpers';
 import { handleUpdateListsGroup } from '../store/handlers';
 
-const ListsGroup = () => {
-  const data = useLocation(); // to retrieve params from data.state
-  // data.state will only exist when set up in LINK, not if URL was entered manually
-  const needsRedirect = data.state ? false : true; // is it called from link or manual URL
-  const categoryID = needsRedirect ? null : data.state.categoryID;
-  // console.log('** categoryID found * ' + categoryID);
+const ListsGroup = ({ categoryID }) => {
   const { state, dispatch } = useStore();  // this must come before conditional render
 
   const oneCatLists = getListsByCatID(categoryID, state);
-  // const [activeId, setActiveId] = useState(null); // used with DragOverlay
+  console.log('oneCatLists: ' + oneCatLists.length);
   // set variable 'items' as local array, which can be reordered by dragging.
   // not to be confused with 'items' in state.  It MUST be called 'items' apparently
   const [items, setItems] = useState([...oneCatLists]);
@@ -73,7 +66,6 @@ const ListsGroup = () => {
           />)}
           </ul>
           </div>
-
         </SortableContext>
         {/* <DragOverlay>
           {activeId ? <Item id={activeId} item={items[0]} /> : null}
