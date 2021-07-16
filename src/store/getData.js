@@ -59,6 +59,14 @@ const getAllCats = (state) => {
   return matchItems.sort(sortOrderRevSort);
 };
 
+const getUncategorizedCategory = (state) => {
+  const matchItems = state.categories.filter(oneCat => {
+    return oneCat.uncategorized === true;
+  });
+  if (matchItems.length>0) { return matchItems[0]; }
+  return null;
+};
+
 /**
  * Return array of all lists (in all categories), in reverse order of sortOrderFlat field
  */
@@ -105,5 +113,6 @@ const getItemsByListID = (listID, state) => {
   return (a.sortOrderFlat > b.sortOrderFlat) ? -1 : 1;
 };
 
-export { getItemsByListID, getListsByCatID, getListRec, getCatRec, getItemRec, getListName, getCatName,
-  getParentListName, getParentCatName, getParentCatID, getAllCats, getAllLists };
+export { getItemsByListID, getListsByCatID, getListRec, getCatRec, getItemRec, getListName,
+  getCatName, getParentListName, getParentCatName, getParentCatID, getAllCats, getAllLists,
+  getUncategorizedCategory };
