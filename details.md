@@ -29,5 +29,17 @@ When you add a new list in hierarchical mode, it will be added to the category t
 
 If you switch from flat mode to hierarchical mode after adding new lists, those lists will appear in the "uncategorized" category, although they can be easily moved to other categories.  The uncategorized category will always appear at the bottom of the list of categories, so its sort order will never change.
 
+## To-do
 
+- flat list display
+- redo category display with uncategorized at bottom
+- move list to different category
+- expand user profile
+- set up django server
+- improve desktop layout
+- input validation
+- error handling for no internet and initial fetch
+- authentication w/ third party
+- track and show last list used
+- initial setup for new user
 
