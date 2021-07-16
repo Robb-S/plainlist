@@ -90,7 +90,7 @@ const Settings = () => {
         <div className='crumbsandsettings'>
           <div className='breadcrumbs'>
             <Link className='linky3 oneCrumb' to={`/`}>
-              All categories 
+              Back to top 
             </Link>
           </div>
           <div className='settingsicon'> 

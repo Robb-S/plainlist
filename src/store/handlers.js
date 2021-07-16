@@ -120,13 +120,13 @@ const handleLogout = async (dispatch) => {
 };
 
 const handleAddList = async (newList, state, dispatch) => {
-  // console.log(newList);
   const lists = state.lists;
   dispatch({
     type: 'STARTED_LOADING',
   });
   // add high sortOrder to make it sort to beginning of list
   newList.sortOrder = makeHighestNumericAttribute(lists, 'sortOrder');
+  newList.sortOrderFlat = makeHighestNumericAttribute(lists, 'sortOrderFlat');
   const { dbRec, status } = await addRecAPI(newList, state.runMode, 'list');
   if (status===api.OK) {
     dispatch({
