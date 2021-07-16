@@ -1,6 +1,8 @@
 /**
- * ListsGroup - show group of lists as draggable elements.  Called by OneCat.  
- * Handles REORDER_LIST on dragEnd.
+ * ListsGroup - show group of lists as draggable elements.  Called by OneCat and AllLists.
+ * If categoryID===null then show a group of all (uncategorized) lists, otherwise just
+ * show the ones for this category.
+ * Handles one of two REORDER_LIST handlers on dragEnd.
  */
 import React, { Fragment, useState } from 'react';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor,
@@ -9,18 +11,20 @@ import { arrayMove, SortableContext, sortableKeyboardCoordinates,
   verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { useStore } from '../store/StoreContext';
-import { getListsByCatID } from '../store/getData';
+import { getAllLists, getListsByCatID } from '../store/getData';
 import { SortableListUnit } from './SortableListUnit';
 import { findPosWithAttr } from '../util/helpers';
 import { handleUpdateListsGroup } from '../store/handlers';
 
 const ListsGroup = ({ categoryID }) => {
+  const isAllLists = categoryID===null;
   const { state, dispatch } = useStore();  // this must come before conditional render
 
-  const oneCatLists = getListsByCatID(categoryID, state);
+  const listsToShow = isAllLists ? getAllLists(state) :
+    getListsByCatID(categoryID, state);
   // set variable 'items' as local array, which can be reordered by dragging.
   // not to be confused with 'items' in state.  It MUST be called 'items' apparently
-  const [items, setItems] = useState([...oneCatLists]);
+  const [items, setItems] = useState([...listsToShow]);
 
   const sensors = useSensors(
     useSensor(TouchSensor, {
@@ -43,11 +47,13 @@ const ListsGroup = ({ categoryID }) => {
       const newIndex = findPosWithAttr(items, 'id', over.id);
       const newItems = arrayMove(items, oldIndex, newIndex);
       setItems(newItems);
-      handleUpdateListsGroup(newItems, state, dispatch);
+      // choose from separate handlers for lists within category or all lists
+      if (isAllLists) { handleUpdateFlatListsGroup(newItems, state, dispatch); }
+      else { handleUpdateListsGroup(newItems, state, dispatch); }
     }
   };
 
-  if (oneCatLists.length<1) { return (<div>(no lists yet)</div>); }
+  if (listsToShow.length<1) { return (<div>(no lists yet)</div>); }
   return (
     <Fragment>
       <DndContext

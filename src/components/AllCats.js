@@ -44,7 +44,10 @@ const AllCats = () => {
       <div className='heading'>
         <div className='headingNameDiv'>
           <span className='headingName'>
-            All categories
+            All categories | .
+            <Link className='linky3 oneCrumb' to={`/alllists/`}>
+              All lists
+            </Link>
           </span>
         </div>
       </div>

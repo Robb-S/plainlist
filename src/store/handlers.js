@@ -472,8 +472,8 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
  */
  const handleUpdateFlatListsGroup = async (newAllLists, state, dispatch) => {
   const runMode = state.runMode;
-  console.log('*** handleUpdateListsGroupFlat called, returning now!'); // TODO: REMOVE THIS
-  if (newAllLists.length>0) return; // TODO: REMOVE THIS
+  // console.log('*** handleUpdateListsGroupFlat called, returning now!'); // TODO: REMOVE THIS
+  // if (newAllLists.length>0) return; // TODO: REMOVE THIS
   if (newAllLists.length<1) return; // this should never happen
   const expectedGroupSize = getAllLists(state).length;
   if (expectedGroupSize!==newAllLists.length) return; // something is out of sync
