@@ -8,7 +8,7 @@ import { getAllLists } from '../store/getData';
 import Login from './Login';
 import Loading from './Loading';
 import AddList from './AddList';
-import ListsGroup from './ListsGroupFlat';  // the actual group (list) of lists
+import ListsGroup from './ListsGroup';  // the actual group (list) of lists
 import { VscSettingsGear, VscEmptyWindow, VscEdit, VscTrash } from 'react-icons/vsc';
 import '../css/lists.css';
 

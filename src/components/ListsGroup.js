@@ -14,7 +14,7 @@ import { useStore } from '../store/StoreContext';
 import { getAllLists, getListsByCatID } from '../store/getData';
 import { SortableListUnit } from './SortableListUnit';
 import { findPosWithAttr } from '../util/helpers';
-import { handleUpdateListsGroup } from '../store/handlers';
+import { handleUpdateListsGroup, handleUpdateFlatListsGroup } from '../store/handlers';
 
 const ListsGroup = ({ categoryID }) => {
   const isAllLists = categoryID===null;
