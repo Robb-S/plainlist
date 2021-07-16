@@ -1,18 +1,18 @@
-/* eslint-disable */
-import React, {Fragment, useState, useEffect} from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import '../css/lists.css';
-import {useStore} from '../store/StoreContext';
-import {handleReg, handleFlatnessToggle} from '../store/handlers';
-import {useDebounce} from '../util/helpers';
+import { useStore } from '../store/StoreContext';
+import { handleReg, handleFlatnessToggle } from '../store/handlers';
+import { useDebounce } from '../util/helpers';
 import { useHistory, Link } from 'react-router-dom';
-import {userExistsAPI} from '../store/apiCalls';
-import {handleLogout} from '../store/handlers';
+import { userExistsAPI } from '../store/apiCalls';
+import { handleLogout } from '../store/handlers';
+import { getUncategorizedCategory } from '../store/getData';
 import Loading from './Loading';
 import Login from './Login';
 import * as api from '../util/constants';
 
-const Settings = () => {  
-  const {state, dispatch} = useStore();
+const Settings = () => {
+  const { state, dispatch } = useStore();
   const history = useHistory();
   // const isLoaded = !state.loading;  // maybe not needed, if handled by parent component
   // const userID = state.user.id;
@@ -35,22 +35,27 @@ const Settings = () => {
   const onLogout = async () => {
     await handleLogout(dispatch);
     history.push('/login/');
-  }
+  };
 
   const onFlatToggle = async () => {
-    await handleFlatnessToggle(state, dispatch);    
-  }
+    await handleFlatnessToggle(state, dispatch);
+  };
+
+  const onTestButton = async () => {
+    const uncatCat = await getUncategorizedCategory(state);
+    console.log('getUncategorizedCategory: ' + uncatCat.id);
+  };
 
   // Effect for API call
   useEffect(() => {
     checkUserName(debouncedUserName);
     },
-    [debouncedUserName] // Only call effect if debounced search term changes
+    [debouncedUserName], // Only call effect if debounced search term changes
   );
 
   async function checkUserName(debouncedUserName) {
     if (debouncedUserName.length>2) {
-      const {userExists, status} = await userExistsAPI(debouncedUserName);
+      const { userExists, status } = await userExistsAPI(debouncedUserName);
       console.log( 'userExists called');
       console.log('status: ' + status);
       console.log('userExists: ' + userExists);
@@ -62,13 +67,13 @@ const Settings = () => {
     } else {
       setUNameMsg(' ');
     }
-  }
+  };
 
   const onSubmitReg = async (e) => {
     e.preventDefault();
     if ((userName.length===0) || (userPwd.length===0)) {return;}
-    const userInfo = { userName: userName, userPwd: userPwd, 
-      userPwd2: userPwd2, userEmail: userEmail};
+    const userInfo = { userName: userName, userPwd: userPwd,
+      userPwd2: userPwd2, userEmail: userEmail };
     const regResult = await handleReg(userInfo, state, dispatch);
     console.log(regResult);
     // handleReg(userInfo, state, dispatch);
@@ -81,7 +86,7 @@ const Settings = () => {
     const uName = e.target.value;
     console.log('length: ' + uName.length);
     setUserName(uName);
-  }
+  };
 
 
   const crumbArea = () => {
@@ -90,22 +95,22 @@ const Settings = () => {
         <div className='crumbsandsettings'>
           <div className='breadcrumbs'>
             <Link className='linky3 oneCrumb' to={`/`}>
-              Back to top 
+              Back to top
             </Link>
           </div>
-          <div className='settingsicon'> 
+          <div className='settingsicon'>
           </div>
         </div>
       </Fragment>
-    )
-  }
+    );
+  };
 
   return (
     <Fragment>
       {showLoading && <Loading />}
       {showLogin && <Login />}
 
-      {showMain && 
+      {showMain &&
       <Fragment>
         <div className='mainContainer'>
           <div>{ crumbArea() }</div>
@@ -117,7 +122,7 @@ const Settings = () => {
               className="btn default-btn"
               onClick={() => onLogout()}
             >
-              Log out 
+              Log out
           </button>
           <br /><br />
           <button
@@ -126,12 +131,19 @@ const Settings = () => {
             >
               { flatButtonMsg }
           </button>
+          <br /><br />
+          <button
+              className="btn default-btn"
+              onClick={() => onTestButton()}
+            >
+              Test Button
+          </button>
         </div>
       </Fragment>
       }
     </Fragment>
-  )
-}
+  );
+};
 
 
 
