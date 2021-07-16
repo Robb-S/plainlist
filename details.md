@@ -38,6 +38,7 @@ If you switch from flat mode to hierarchical mode after adding new lists, those 
 - set up django server (external)
 - improve desktop layout
 - input validation
+- add labels to icons
 - error handling for no internet and initial fetch
 - authentication w/ third party
 - track and show last list used
