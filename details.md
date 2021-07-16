@@ -35,7 +35,7 @@ If you switch from flat mode to hierarchical mode after adding new lists, those 
 - redo category display with uncategorized at bottom
 - move list to different category
 - expand user profile
-- set up django server
+- set up django server (external)
 - improve desktop layout
 - input validation
 - error handling for no internet and initial fetch
