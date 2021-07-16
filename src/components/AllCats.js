@@ -1,3 +1,6 @@
+/**
+ * Display all categories.
+ */
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../store/StoreContext';
@@ -23,8 +26,8 @@ const AllCats = () => {
       <Fragment>
         <div className='crumbsandsettings'>
           <div className='breadcrumbs'>
-          <span className='oneCrumb'>
-              All categories
+            <span className='oneCrumb'>
+              Welcome
             </span>
           </div>
           <div className='settingsicon'>
@@ -44,7 +47,7 @@ const AllCats = () => {
       <div className='heading'>
         <div className='headingNameDiv'>
           <span className='headingName'>
-            All categories | .
+            All categories | { }
             <Link className='linky3 oneCrumb' to={`/alllists/`}>
               All lists
             </Link>

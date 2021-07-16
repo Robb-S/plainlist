@@ -4,7 +4,7 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../store/StoreContext';
-import { getAllLists } from '../store/getData';
+import { getAllLists, getUncategorizedCategory } from '../store/getData';
 import Login from './Login';
 import Loading from './Loading';
 import AddList from './AddList';
@@ -15,12 +15,19 @@ import '../css/lists.css';
 const AllLists = () => {
   const { state, dispatch } = useStore();  // this must come before conditional render
   const [addMode, setAddMode] = useState(false);  // set add mode when add button is pressed.
+  const uncatCat = getUncategorizedCategory(state); // used when adding a new list
   const allLists = getAllLists(state);
   const showLogin = state.loading && !state.loggedIn;
   const showLoading = state.loading && state.loggedIn;
   const showMain = !state.loading;
 
-  const setupAdd = () => { setAddMode(true); };
+  const setupAdd = () => {
+    if (uncatCat!==null) {
+      setAddMode(true);
+    } else { // can't find uncategorized category; this shouldn't ever happen though
+      alert ('Sorry, cannot add uncategorized list; please switch to category mode.');
+    }
+  };
   const cancelAdd = () => { setAddMode(false); };
 
   const crumbArea = () => {
@@ -29,7 +36,7 @@ const AllLists = () => {
         <div className='crumbsandsettings'>
           <div className='breadcrumbs'>
             <span className='oneCrumb'>
-              All lists (flat)
+              Welcome
             </span>
           </div>
           <div className='settingsicon'>
@@ -43,12 +50,7 @@ const AllLists = () => {
     );
   };
 
-  /**
-   * The header area includes an edit button, and when this is pressed the edit form
-   * (to change the category name) will be shown, and the main category will disappear 
-   * until the name is updated or cancelled.  While category-name updates are handled by
-   * the EditCat component, deletions are handled here.
-   */
+  // TODO: merge this
   const mainDisplayOrEditForm = () => {
     return (
       <Fragment>
@@ -64,16 +66,19 @@ const AllLists = () => {
       <div className='heading'>
         <div className='headingNameDiv'>
           <span className='headingName'>
-            All Lists (flat)
+            All Lists
           </span>
         </div>
       </div>
     );
   };
 
+  /**
+   * Swap in the component to add a list.
+   */
   const addListArea = () => {
-    if (addMode) {
-      const addListProps = { cancelAdd: cancelAdd, categoryID: categoryID };
+    if (addMode && uncatCat!==null) {
+      const addListProps = { cancelAdd: cancelAdd, categoryID: uncatCat.id };
       return (<AddList props={addListProps} />);
     }
     return (
