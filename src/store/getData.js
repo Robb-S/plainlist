@@ -59,6 +59,17 @@ const getAllCats = (state) => {
   return matchItems.sort(sortOrderRevSort);
 };
 
+/**
+ * Return array of all lists (in all categories), in reverse order of sortOrderFlat field
+ */
+const getAllLists = (state) => {
+  const matchItems = state.lists;
+  matchItems.forEach(list => {
+    list.childCount = getItemsByListID(list.id, state).length;
+  });
+  return matchItems.sort(sortOrderFlatRevSort);
+};
+
 const getListsByCatID = (categoryID, state) => {
   const matchItems = state.lists.filter(oneList => {
     return oneList.categoryID === categoryID;
@@ -86,5 +97,13 @@ const getItemsByListID = (listID, state) => {
   return (a.sortOrder > b.sortOrder) ? -1 : 1;
 };
 
+/**
+ * Comparison function for ordering arrays by reverse sortOrder.
+ * Used by getItemsByListID, getListsByCatID, getAllCats.
+ */
+ const sortOrderFlatRevSort = (a, b) => {
+  return (a.sortOrderFlat > b.sortOrderFlat) ? -1 : 1;
+};
+
 export { getItemsByListID, getListsByCatID, getListRec, getCatRec, getItemRec, getListName, getCatName,
-  getParentListName, getParentCatName, getParentCatID, getAllCats };
+  getParentListName, getParentCatName, getParentCatID, getAllCats, getAllLists };
