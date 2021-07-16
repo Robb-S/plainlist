@@ -4,6 +4,7 @@ import { AppReducer } from './AppReducer';
 const initValues = {
   loading: true,
   loggedIn: false,
+  flat: false,
   runMode: 'API',
   user: {},
   categories: [],

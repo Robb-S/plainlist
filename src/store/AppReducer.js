@@ -31,6 +31,12 @@ function AppReducer(state, action) {
         loggedIn: false,
       };
     }
+    case 'SET_FLAT': {
+      return {
+        ...state,
+        flat: action.payload,
+      };
+    }
     case 'SET_USER': {
       return {
         ...state,

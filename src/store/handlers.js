@@ -32,6 +32,25 @@ import { setAxiosAuthToken } from '../util/helpers';
 };
 
 /**
+ * Reset state and localStorage for flat list hierarchy.
+ */
+const handleFlatnessToggle = async (state, dispatch) => {
+  const newFlatness = !(state.flat);
+  console.log('* handleFlatnessToggle change to ' + newFlatness);
+  await dispatch({
+    type: 'STARTED_LOADING',
+  });
+  await dispatch({
+    type: 'SET_FLAT',
+    payload: newFlatness,
+  });
+  localStorage.setItem('flat', newFlatness);
+  await dispatch({
+    type: 'FINISHED_LOADING',
+  });
+};
+
+/**
  * Reset state and delete from localStorage.
  */
 const handleLogout = async (dispatch) => {
@@ -515,6 +534,13 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
       });
       await handleGetUserAndData(testUserId, runMode, dispatch);
       // console.log('***** loading init data with handleSetRunMode in handlers *****');
+      const flatCookie = localStorage.getItem('flat');
+      if (flatCookie!==null) { // now set it in state (TEMP)
+        await dispatch({
+          type: 'SET_FLAT',
+          payload: flatCookie,
+        });
+      }
       await dispatch({
         type: 'FINISHED_LOADING',
       });
@@ -549,4 +575,5 @@ export {
   handleLogin,
   handleLogout,
   handleReg,
+  handleFlatnessToggle,
 };

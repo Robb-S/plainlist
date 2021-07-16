@@ -2,7 +2,7 @@
 import React, {Fragment, useState, useEffect} from 'react';
 import '../css/lists.css';
 import {useStore} from '../store/StoreContext';
-import {handleReg} from '../store/handlers';
+import {handleReg, handleFlatnessToggle} from '../store/handlers';
 import {useDebounce} from '../util/helpers';
 import { useHistory, Link } from 'react-router-dom';
 import {userExistsAPI} from '../store/apiCalls';
@@ -24,6 +24,9 @@ const Settings = () => {
   const [regMsg, setRegMsg] = useState('Please fill out the fields below.');
   const [uNameMsg, setUNameMsg] = useState('');
   const debouncedUserName = useDebounce(userName, 300);
+  const isFlat = state.flat;
+  const flatButtonMsg = isFlat ? 'Show lists with categories' :
+    'Show just lists, no categories';
 
   let showLogin = state.loading && !state.loggedIn;
   let showLoading = state.loading && state.loggedIn;
@@ -32,6 +35,10 @@ const Settings = () => {
   const onLogout = async () => {
     await handleLogout(dispatch);
     history.push('/login/');
+  }
+
+  const onFlatToggle = async () => {
+    await handleFlatnessToggle(state, dispatch);    
   }
 
   // Effect for API call
@@ -105,11 +112,19 @@ const Settings = () => {
           <div className='headingNameDiv'><span className='headingName'>
             Settings
           </span></div>
+          <br />
           <button
               className="btn default-btn"
               onClick={() => onLogout()}
             >
               Log out 
+          </button>
+          <br /><br />
+          <button
+              className="btn default-btn"
+              onClick={() => onFlatToggle()}
+            >
+              { flatButtonMsg }
           </button>
         </div>
       </Fragment>
