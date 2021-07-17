@@ -59,6 +59,20 @@ const getAllCats = (state) => {
   return matchItems.sort(sortOrderRevSort);
 };
 
+/**
+ * Return an array of categories other than the one with categoryID, to be
+ * used when moving a list to a different category.
+ */
+const getOtherCats = (categoryID, state) => {
+  const matchItems = state.categories.filter(oneCat => {
+    return oneCat.id !== categoryID;
+  });
+  return matchItems.sort(sortOrderFlatRevSort);
+};
+
+/**
+ * Return the uncategorized category for this user.  We assume there is only one.
+ */
 const getUncategorizedCategory = (state) => {
   const matchItems = state.categories.filter(oneCat => {
     return oneCat.uncategorized === true;
@@ -115,4 +129,4 @@ const getItemsByListID = (listID, state) => {
 
 export { getItemsByListID, getListsByCatID, getListRec, getCatRec, getItemRec, getListName,
   getCatName, getParentListName, getParentCatName, getParentCatID, getAllCats, getAllLists,
-  getUncategorizedCategory };
+  getUncategorizedCategory, getOtherCats };

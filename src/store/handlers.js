@@ -319,6 +319,38 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
   return status;
 };
 
+
+/**
+ * Takes possibly updated categoryID and checks to see if it has been updated.
+ * If so, then calls API and replaces updated list in state
+ */
+ const handleMoveList = async (listID, newCategoryID, state, dispatch) => {
+  const oldList = getListRec(listID, state);
+  const newList = { ...oldList };
+  newList.categoryID = newCategoryID;
+  const noChange = !AreObjectsDifferent(oldList, newList);
+  if (noChange) return;
+  dispatch({
+    type: 'STARTED_LOADING',
+  });
+  const { dbRec, status } = await updateRecAPI(newList, state.runMode, 'list');
+  // console.log('handleMoveList API call returns ' + status)
+  // console.log(dbRec);
+  if (status===api.OK) {
+    dispatch({
+      type: 'UPDATE_LIST',
+      payload: dbRec,
+    });
+  } else {
+    alert (api.MSG_FAILED);
+  }
+  dispatch({
+    type: 'FINISHED_LOADING',
+  });
+  return status;
+};
+
+
 /**
  * Takes possibly updated name and checks to see if it has been updated.
  * If so, then calls API and replaces updated category in state
@@ -619,6 +651,7 @@ export {
   handleRemoveCategory,
   handleUpdateItem,
   handleUpdateList,
+  handleMoveList,
   handleUpdateCategory,
   handleUpdateItemsGroup,
   handleUpdateListsGroup,
