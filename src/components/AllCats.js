@@ -44,10 +44,7 @@ const AllCats = () => {
       <div className='heading'>
         <div className='headingNameDiv'>
           <span className='headingName'>
-            All categories | { }
-            <Link className='linky3 oneCrumb' to={`/alllists/`}>
-              All lists
-            </Link>
+            All categories
           </span>
           { showAddIcon &&
             <IconButton config={ { title:'add a new category', caption:'add a category',

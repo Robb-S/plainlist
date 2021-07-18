@@ -2,9 +2,8 @@ import './App.css';
 
 import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import AllCats from './components/AllCats';
-import AllLists from './components/AllLists';
 import OneCat from './components/OneCat';
+import TopPage from './components/TopPage';
 import OneList from './components/OneList';
 import Login from './components/Login';
 import Registration from './components/Registration';
@@ -20,7 +19,7 @@ function App() {
   const testUserID = parseInt(process.env.REACT_APP_TEST_USER);   // 1 or 2 (when in DEMO mode)
   const store = useStore();
   const dispatch = store.dispatch;
-  // console.log('*** starting app ***');
+  // console.log('*** starting app ***');  
 
   useEffect(() => {
     handleSetRunModeAndInitLoad(testUserID, runMode, dispatch);
@@ -29,8 +28,7 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route path="/" component={AllCats} exact />
-        <Route path="/alllists/" component={AllLists} exact />
+        <Route path="/" component={TopPage} exact />
         <Route path="/cat/" component={OneCat} exact />
         <Route path="/list/" component={OneList} exact />
         <Route path='/login/' component={Login} exact />
