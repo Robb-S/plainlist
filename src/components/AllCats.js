@@ -38,15 +38,8 @@ const AllCats = () => {
     );
   };
 
-  const showAddIcon = () => {
-    if (addMode) {return null;}
-    return (
-      <IconButton config={ { title:'add a new category', caption:'add a category',
-       iconType:'add', callProc:setupAdd } } />
-    );
-  };
-
   const headingArea = () => {
+    const showAddIcon = !addMode; // hide icon when already in add mode
     return (
       <div className='heading'>
         <div className='headingNameDiv'>
@@ -56,7 +49,10 @@ const AllCats = () => {
               All lists
             </Link>
           </span>
-          { showAddIcon() }
+          { showAddIcon &&
+            <IconButton config={ { title:'add a new category', caption:'add a category',
+              iconType:'add', callProc:setupAdd } } />
+          }
         </div>
       </div>
     );

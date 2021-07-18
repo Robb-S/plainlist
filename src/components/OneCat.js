@@ -80,13 +80,6 @@ const OneCat = () => {
     );
   };
 
-  const showAddIcon2 = () => {
-    if (addMode) {return null;}
-    return (
-      <IconButton config={ { title:'add a new list', caption:'add a list',
-        iconType:'add', callProc:setupAdd } } />
-    );
-  };
   const headingArea = () => {
     const showAddIcon = !addMode; // hide icon when already in add mode
     // don't allow delete or renaming of uncategorized category

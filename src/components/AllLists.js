@@ -14,7 +14,7 @@ import '../css/lists.css';
 const AllLists = () => {
   const { state } = useStore();  // this must come before conditional render
   const [addMode, setAddMode] = useState(false);  // set add mode when add button is pressed.
-  const uncatCat = getUncategorizedCategory(state); // used when adding a new list
+  const uncatCat = getUncategorizedCategory(state); // used when adding a new list here
   const showLogin = state.loading && !state.loggedIn;
   const showLoading = state.loading && state.loggedIn;
   const showMain = !state.loading;
@@ -45,33 +45,19 @@ const AllLists = () => {
     );
   };
 
-  // TODO: merge this
-  const mainDisplayOrEditForm = () => {
-    return (
-      <Fragment>
-        { headingArea() }
-        { addListArea() }
-        <ListsGroup categoryID={null} />
-      </Fragment>
-    );
-  };
-
-  const showAddIcon = () => {
-    if (addMode && uncatCat!==null) {return null;}
-    return (
-      <IconButton config={ { title:'add a new list', caption:'add a list',
-        iconType:'add', callProc:setupAdd } } />
-    );
-  };
-
   const headingArea = () => {
+     // hide add icon in add mode, or when there's no uncategorized category to add to
+    const showAddIcon = ((!addMode) && (uncatCat!=null));
     return (
       <div className='heading'>
         <div className='headingNameDiv'>
           <span className='headingName'>
             All Lists
           </span>
-          { showAddIcon() }
+          { showAddIcon &&
+            <IconButton config={ { title:'add a new list', caption:'add a list',
+              iconType:'add', callProc:setupAdd } } />
+          }
         </div>
       </div>
     );
@@ -96,7 +82,9 @@ const AllLists = () => {
       <Fragment>
         <div className='mainContainer'>
           { crumbArea() }
-          { mainDisplayOrEditForm() }
+          { headingArea() }
+          { addListArea() }
+          <ListsGroup categoryID={null} />
         </div>
       </Fragment>
     }
