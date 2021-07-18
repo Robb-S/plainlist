@@ -80,7 +80,7 @@ const OneCat = () => {
     );
   };
 
-  const showAddIcon = () => {
+  const showAddIcon2 = () => {
     if (addMode) {return null;}
     return (
       <IconButton config={ { title:'add a new list', caption:'add a list',
@@ -88,17 +88,27 @@ const OneCat = () => {
     );
   };
   const headingArea = () => {
+    const showAddIcon = !addMode; // hide icon when already in add mode
+    // don't allow delete or renaming of uncategorized category
+    const showEditAndDelete = oneCatRec.uncategorized !== true;
     return (
       <div className='heading'>
         <div className='headingNameDiv'>
           <span className='headingName'>
             Category: {oneCatRec.categoryName}
           </span>
-          <IconButton config={ { title:'rename category', caption:'rename category',
-            iconType:'edit', callProc:setupEdit } } />
-          <IconButton config={ { title:'delete category', caption:'delete category',
-            iconType:'delete', callProc:removeCategory } } />
-          { showAddIcon() }
+          { showEditAndDelete &&
+            <Fragment>
+              <IconButton config={ { title:'rename category', caption:'rename category',
+                iconType:'edit', callProc:setupEdit } } />
+              <IconButton config={ { title:'delete category', caption:'delete category',
+                iconType:'delete', callProc:removeCategory } } />
+            </Fragment>
+          }
+          { showAddIcon &&
+            <IconButton config={ { title:'add a new list', caption:'add a list',
+              iconType:'add', callProc:setupAdd } } />
+          }
         </div>
       </div>
     );
