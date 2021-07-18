@@ -8,10 +8,7 @@ import { CSS } from '@dnd-kit/utilities';
 import '../css/oneItem.css';
 import { useStore } from '../store/StoreContext';
 import { handleRemoveItem, handleUpdateItem } from '../store/handlers';
-import { GrDrag } from 'react-icons/gr';
-// import { FiTrash2, FiEdit, FiCheckSquare } from 'react-icons/fi';
-// import { TiCancelOutline } from 'react-icons/ti';
-import { VscCircleSlash, VscCheck, VscEdit, VscTrash } from 'react-icons/vsc';
+import { IconButton, MakeDragIcon } from './IconButton';
 import TextField from '@material-ui/core/TextField';
 
 export function SortableItemUnit(props) {
@@ -61,9 +58,7 @@ export function SortableItemUnit(props) {
         <li ref={setNodeRef} style={style} className='oneItemLine noselect'>
             <div className='itemOneRow'>
               <div className='dragHandle' {...listeners} {...attributes} >
-                <div className='dragHandleIcon'>
-                  <GrDrag title='drag to change order' size='20' color='#ffffff' />
-                </div>
+                <div className='dragHandleIcon'>{ MakeDragIcon() }</div>
               </div>
               <div className='itemName itemPart2'>
                 {props.item.itemName}
@@ -72,19 +67,14 @@ export function SortableItemUnit(props) {
                 {props.item.itemNote}
               </div>
               <div className='buttons itemPart4'>
-                <span className='iconEdit XiconBorder'>
-                  <VscEdit onClick={() => setupEdit()}
-                  title='edit item' className='iconBorder' size='26' color='#555555' />
-                </span>
+                <IconButton config={ { title:'edit item',
+                  iconType:'edit', callProc:setupEdit }} />
               </div>
               <div className='buttons itemPart5'>
-                <span className='iconDelete XiconBorder'>
-                  <VscTrash onClick={() => removeItem()}
-                  title='delete item' className='iconBorder' size='26' color='#555555' />
-                </span>
+                <IconButton config={ { title:'delete item',
+                  iconType:'delete', callProc:removeItem }} />
               </div>
             </div>
-
         </li>
       </Fragment>
       }
@@ -111,14 +101,10 @@ export function SortableItemUnit(props) {
               <input type="submit" className="hidden" />
             </form>
             <span className='editButtonArea'>
-              <span className='iconCheckmark iconNoBorder'>
-                <VscCheck onClick={() => updateItem()}
-                  title='accept edit' size='24' color='green' />
-              </span>
-              <span className='iconEdit iconNoBorder'>
-                <VscCircleSlash onClick={() => cancelEdit()}
-                  title='cancel edit' className='iconBorder' size='24' color='red' />
-              </span>
+              <IconButton config={ { title:'accept edit',
+                iconType:'confirm', callProc:updateItem }} />
+              <IconButton config={ { title:'cancel edit',
+                iconType:'cancel', callProc:cancelEdit }} />
             </span>
           </div>
         </li>

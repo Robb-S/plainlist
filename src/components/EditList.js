@@ -11,9 +11,7 @@ import '../css/lists.css';
 import * as api from '../util/constants';
 import { useStore } from '../store/StoreContext';
 import { handleUpdateList } from '../store/handlers';
-// import { FiCheckSquare } from 'react-icons/fi';
-// import { TiCancelOutline } from 'react-icons/ti';
-import { VscCheck, VscCircleSlash } from 'react-icons/vsc';
+import { IconButton } from './IconButton';
 
 const EditList = ({ props }) => {
   const { cancelEdit, listRec }  = props;
@@ -46,15 +44,10 @@ const EditList = ({ props }) => {
             </span>
           </form>
           <span className='editButtonArea'>
-            <span className='iconCheckmark iconNoBorder'>
-              <VscCheck onClick={() => onRequestEdit()}
-              title='edit list' size='24' color='#555555' />
-            </span>
-            <span className="sliver5"> </span>
-            <span className='iconEdit iconNoBorder'>
-              <VscCircleSlash onClick={() => cancelEdit()}
-              title='cancel list edit' className='iconBorder' size='24' color='#555555' />
-            </span>
+            <IconButton config={ { title:'accept list edit',
+              iconType:'confirm', callProc:onRequestEdit }} />
+            <IconButton config={ { title:'cancel list edit',
+              iconType:'cancel', callProc:cancelEdit }} />
           </span>
         </div>
       </Fragment>

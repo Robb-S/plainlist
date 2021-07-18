@@ -7,9 +7,7 @@ import { useLocation } from 'react-router-dom';
 import '../css/oneItem.css';
 import { useStore } from '../store/StoreContext';
 import { handleAddItem } from '../store/handlers';
-// import { FiCheckSquare } from 'react-icons/fi';
-// import { TiCancelOutline } from 'react-icons/ti';
-import { VscCheck, VscCircleSlash } from 'react-icons/vsc';
+import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
 
 const AddItem = () => {
@@ -62,14 +60,10 @@ const AddItem = () => {
               <input type="submit" className="hidden" />
             </form>
             <span className='editButtonArea'>
-              <span className='iconCheckmark iconNoBorder'>
-                <VscCheck onClick={() => onRequestAdd()}
-                  title='add item' size='24' color='#555555' />
-              </span>
-              <span className='iconEdit iconNoBorder'>
-                <VscCircleSlash onClick={() => cancelAdd()}
-                  title='cancel item' className='iconBorder' size='24' color='#555555' />
-              </span>
+              <IconButton config={ { title:'add item',
+                iconType:'confirm', callProc:onRequestAdd }} />
+              <IconButton config={ { title:'cancel item',
+                iconType:'cancel', callProc:cancelAdd }} />
             </span>
           </div>
         </div>

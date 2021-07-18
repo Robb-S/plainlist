@@ -21,7 +21,7 @@ import EditList from './EditList';  // form to edit the list name
 import MoveList from './MoveList';  // form to move the list to another category
 import AddItem from './AddItem';    // form to add an item
 import ItemsGroup from './ItemsGroup';  // the actual group (list) of items
-import { VscSettingsGear, VscEdit, VscTrash, VscReferences } from 'react-icons/vsc';
+import { IconButton, MakeSettingsButton } from './IconButton';
 
 const OneList = () => {
   const data = useLocation(); // to retrieve params from data.state
@@ -71,10 +71,7 @@ const OneList = () => {
             </span>
           </div>
           <div className='settingsicon'>
-            <Link className='linky3 oneCrumb' to={`/set/`}>
-              <VscSettingsGear
-                title='settings' className='iconBorder' size='24' color='#555555' />
-            </Link>
+            { MakeSettingsButton() }
           </div>
         </div>
       </Fragment>
@@ -88,13 +85,25 @@ const OneList = () => {
   const showOrHideMoveIcon = () => {
     if (!areThereOtherCats) {return null;}
     return (
-      <Fragment>
-        <span className="spacer"> </span>
-        <span className='iconMove'>
-        <VscReferences onClick={() => setupMove()}
-          title='change category' className='iconBorder' size='24' color='#555555' />
-        </span>
-      </Fragment>
+      <IconButton config={ { title:'change category for this list', caption:'change category',
+        iconType:'move', callProc:setupMove } } />
+    );
+  };
+
+  const headingArea = () => {
+    return (
+      <div className='heading'>
+        <div className='headingNameDiv'>
+          <span className='headingName'>
+            {oneListRec.listName}
+          </span>
+          <IconButton config={ { title:'rename list', caption:'rename list',
+            iconType:'edit', callProc:setupEdit } } />
+          { showOrHideMoveIcon() }
+          <IconButton config={ { title:'delete list', caption:'delete list',
+            iconType:'delete', callProc:removeList } } />
+        </div>
+      </div>
     );
   };
 
@@ -115,24 +124,7 @@ const OneList = () => {
     }
     return (
       <Fragment>
-        <div className='heading'>
-          <div className='headingNameDiv'>
-            <span className='headingName'>
-              {oneListRec.listName}
-            </span>
-            <span className="spacer"> </span>
-            <span className='iconEdit'>
-              <VscEdit onClick={() => setupEdit()}
-              title='edit list' className='iconBorder' size='24' color='#555555' />
-            </span>
-            { showOrHideMoveIcon() }
-            <span className="spacer"> </span>
-            <span className='iconDelete'>
-            <VscTrash onClick={() => removeList()}
-              title='delete list' className='iconBorder' size='24' color='#555555' />
-            </span>
-          </div>
-        </div>
+        { headingArea() }
         <AddItem />
         <ItemsGroup />
       </Fragment>

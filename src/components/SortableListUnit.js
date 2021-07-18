@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import '../css/oneList.css';
-import { GrDrag } from 'react-icons/gr';
+import { MakeDragIcon } from './IconButton';
 import { pluralize } from '../util/helpers';
 
 export function SortableListUnit(props) {
@@ -27,9 +27,7 @@ export function SortableListUnit(props) {
       <li ref={setNodeRef} style={style} className='oneItemLine noselect'>
         <div className='listOneRow'>
           <div className='dragHandle' {...listeners} {...attributes} >
-            <div className='dragHandleIcon'>
-              <GrDrag title='drag to change order' size='20' color='#ffffff' />
-            </div>
+            <div className='dragHandleIcon'>{ MakeDragIcon() }</div>
           </div>
           <div className='itemName itemPart2'>
             <Link className='linky3'

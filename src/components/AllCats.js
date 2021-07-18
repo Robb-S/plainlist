@@ -8,9 +8,8 @@ import Loading from './Loading';
 import Login from './Login';
 import AddCat from './AddCat';
 import CategoriesGroup from './CategoriesGroup';
-import { VscSettingsGear, VscEmptyWindow } from 'react-icons/vsc';
 import '../css/lists.css';
-import IconButton from './IconButton';
+import { IconButton, MakeSettingsButton } from './IconButton';
 
 const AllCats = () => {
   const { state } =  useStore();
@@ -21,19 +20,6 @@ const AllCats = () => {
 
   const setupAdd = () => { setAddMode(true); };
   const cancelAdd = () => { setAddMode(false); };
-  const testButtonConfig1 = {
-    caption: 'settings',
-    title: 'go to settings page',
-    iconType: 'settings',
-    buttonLink: `/set/`,
-  };
-  const testButtonConfig2 = {
-    caption: 'add category',
-    title: 'add a new category',
-    iconType: 'add',
-    callProc: setupAdd,
-  };
-
 
   const crumbArea = () => {
     return (
@@ -45,17 +31,20 @@ const AllCats = () => {
             </span>
           </div>
           <div className='settingsicon'>
-            <Link className='linky3 oneCrumb' to={`/set/`}>
-              <VscSettingsGear
-                title='settings' className='iconBorder' size='24' color='#555555' />
-            </Link>
+            { MakeSettingsButton() }
           </div>
         </div>
       </Fragment>
     );
   };
 
-
+  const showAddIcon = () => {
+    if (addMode) {return null;}
+    return (
+      <IconButton config={ { title:'add a new category', caption:'add a category',
+       iconType:'add', callProc:setupAdd } } />
+    );
+  };
 
   const headingArea = () => {
     return (
@@ -67,8 +56,7 @@ const AllCats = () => {
               All lists
             </Link>
           </span>
-          <IconButton config={testButtonConfig1} />
-          <IconButton config={testButtonConfig2} />
+          { showAddIcon() }
         </div>
       </div>
     );
@@ -83,15 +71,6 @@ const AllCats = () => {
       const addCatProps = { addMode: addMode, cancelAdd: cancelAdd };
       return (<AddCat props={ addCatProps } />);
     }
-    return (
-      <div className="showAddArea">
-        <span className='iconBorder'>
-          <VscEmptyWindow onClick={() => setupAdd()} title='add new category'
-            className='cursorPointer' size='22' color='#555555' />
-        </span>
-        <span className="headerAddLabel cursorPointer"  onClick={() => setupAdd()} >Add new category</span>
-      </div>
-    );
   };
 
   return (

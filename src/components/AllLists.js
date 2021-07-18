@@ -2,21 +2,19 @@
  * Display all lists, without categories.
  */
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useStore } from '../store/StoreContext';
-import { getAllLists, getUncategorizedCategory } from '../store/getData';
+import { getUncategorizedCategory } from '../store/getData';
 import Login from './Login';
 import Loading from './Loading';
 import AddList from './AddList';
 import ListsGroup from './ListsGroup';  // the actual group (list) of lists
-import { VscSettingsGear, VscEmptyWindow, VscEdit, VscTrash } from 'react-icons/vsc';
+import { IconButton, MakeSettingsButton } from './IconButton';
 import '../css/lists.css';
 
 const AllLists = () => {
-  const { state, dispatch } = useStore();  // this must come before conditional render
+  const { state } = useStore();  // this must come before conditional render
   const [addMode, setAddMode] = useState(false);  // set add mode when add button is pressed.
   const uncatCat = getUncategorizedCategory(state); // used when adding a new list
-  const allLists = getAllLists(state);
   const showLogin = state.loading && !state.loggedIn;
   const showLoading = state.loading && state.loggedIn;
   const showMain = !state.loading;
@@ -40,10 +38,7 @@ const AllLists = () => {
             </span>
           </div>
           <div className='settingsicon'>
-            <Link className='linky3 oneCrumb' to={`/set/`}>
-              <VscSettingsGear
-                title='settings' className='iconBorder' size='24' color='#555555' />
-            </Link>
+            { MakeSettingsButton() }
           </div>
         </div>
       </Fragment>
@@ -61,6 +56,14 @@ const AllLists = () => {
     );
   };
 
+  const showAddIcon = () => {
+    if (addMode && uncatCat!==null) {return null;}
+    return (
+      <IconButton config={ { title:'add a new list', caption:'add a list',
+        iconType:'add', callProc:setupAdd } } />
+    );
+  };
+
   const headingArea = () => {
     return (
       <div className='heading'>
@@ -68,6 +71,7 @@ const AllLists = () => {
           <span className='headingName'>
             All Lists
           </span>
+          { showAddIcon() }
         </div>
       </div>
     );
@@ -81,19 +85,6 @@ const AllLists = () => {
       const addListProps = { cancelAdd: cancelAdd, categoryID: uncatCat.id };
       return (<AddList props={addListProps} />);
     }
-    return (
-      <Fragment>
-      <div className="showAddArea">
-        <span className='iconBorder'>
-          <VscEmptyWindow onClick={() => setupAdd()} title='add new list'
-            className='cursorPointer' size='22' color='#555555' />
-        </span>
-        <span className="headerAddLabel cursorPointer" onClick={() => setupAdd()} >
-          Add new list
-        </span>
-      </div>
-      </Fragment>
-    );
   };
 
   return (

@@ -12,7 +12,7 @@ import Loading from './Loading';
 import EditCat from './EditCat';
 import AddList from './AddList';
 import ListsGroup from './ListsGroup';  // the actual group (list) of lists
-import { VscSettingsGear, VscEmptyWindow, VscEdit, VscTrash } from 'react-icons/vsc';
+import { IconButton, MakeSettingsButton } from './IconButton';
 import { handleRemoveCategory  } from '../store/handlers';
 import '../css/lists.css';
 
@@ -53,10 +53,7 @@ const OneCat = () => {
             </span>
           </div>
           <div className='settingsicon'>
-            <Link className='linky3 oneCrumb' to={`/set/`}>
-              <VscSettingsGear
-                title='settings' className='iconBorder' size='24' color='#555555' />
-            </Link>
+            { MakeSettingsButton() }
           </div>
         </div>
       </Fragment>
@@ -83,6 +80,13 @@ const OneCat = () => {
     );
   };
 
+  const showAddIcon = () => {
+    if (addMode) {return null;}
+    return (
+      <IconButton config={ { title:'add a new list', caption:'add a list',
+        iconType:'add', callProc:setupAdd } } />
+    );
+  };
   const headingArea = () => {
     return (
       <div className='heading'>
@@ -90,16 +94,11 @@ const OneCat = () => {
           <span className='headingName'>
             Category: {oneCatRec.categoryName}
           </span>
-          <span className="spacer"> </span>
-          <span className='iconEdit'>
-          <VscEdit onClick={() => setupEdit()}
-            title='edit category' className='iconBorder' size='24' color='#555555' />
-          </span>
-          <span className="spacer"> </span>
-          <span className='iconDelete'>
-          <VscTrash onClick={() => removeCategory()}
-            title='delete category' className='iconBorder' size='24' color='#555555' />
-          </span>
+          <IconButton config={ { title:'rename category', caption:'rename category',
+            iconType:'edit', callProc:setupEdit } } />
+          <IconButton config={ { title:'delete category', caption:'delete category',
+            iconType:'delete', callProc:removeCategory } } />
+          { showAddIcon() }
         </div>
       </div>
     );
@@ -110,19 +109,6 @@ const OneCat = () => {
       const addListProps = { cancelAdd: cancelAdd, categoryID: categoryID };
       return (<AddList props={addListProps} />);
     }
-    return (
-      <Fragment>
-      <div className="showAddArea">
-        <span className='iconBorder'>
-          <VscEmptyWindow onClick={() => setupAdd()} title='add new list'
-            className='cursorPointer' size='22' color='#555555' />
-        </span>
-        <span className="headerAddLabel cursorPointer" onClick={() => setupAdd()} >
-          Add new list to category
-        </span>
-      </div>
-      </Fragment>
-    );
   };
 
   return (

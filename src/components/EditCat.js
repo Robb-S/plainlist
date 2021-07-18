@@ -11,9 +11,7 @@ import '../css/lists.css';
 import * as api from '../util/constants';
 import { useStore } from '../store/StoreContext';
 import { handleUpdateCategory } from '../store/handlers';
-// import { FiCheckSquare } from 'react-icons/fi';
-// import { TiCancelOutline } from 'react-icons/ti';
-import { VscCheck, VscCircleSlash } from 'react-icons/vsc';
+import { IconButton } from './IconButton';
 
 const EditCat = ({ props }) => {
   const { cancelEdit, categoryRec }  = props;
@@ -46,15 +44,10 @@ const EditCat = ({ props }) => {
             </span>
           </form>
           <span className='editButtonArea'>
-            <span className='iconCheckmark iconNoBorder'>
-              <VscCheck onClick={() => onRequestEdit()}
-              title='edit category' size='24' color='#555555' />
-            </span>
-            <span className="sliver5"> </span>
-            <span className='iconEdit iconNoBorder'>
-              <VscCircleSlash onClick={() => cancelEdit()}
-              title='cancel category edit' className='iconBorder' size='24' color='#555555' />
-            </span>
+            <IconButton config={ { title:'accept category edit',
+              iconType:'confirm', callProc:onRequestEdit }} />
+            <IconButton config={ { title:'cancel category edit',
+              iconType:'cancel', callProc:cancelEdit }} />
           </span>
         </div>
       </Fragment>

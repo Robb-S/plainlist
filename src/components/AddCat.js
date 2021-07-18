@@ -6,9 +6,7 @@
 import React, { Fragment, useState } from 'react';
 import { useStore } from '../store/StoreContext';
 import { handleAddCategory } from '../store/handlers';
-// import { FiCheckSquare } from 'react-icons/fi';
-// import { TiCancelOutline } from 'react-icons/ti';
-import { VscCheck, VscCircleSlash } from 'react-icons/vsc';
+import { IconButton } from './IconButton';
 import * as api from '../util/constants';
 import '../css/lists.css';
 
@@ -44,7 +42,7 @@ const AddCat = ({ props }) => {
         <div className='addArea'>
           <form className='addCategoryForm' onSubmit={onSubmitAdd}>
             <span className='addAreaInput'>
-              <div>Category name</div>
+              <div>New category name</div>
               <input
                 value={categoryName}
                 onChange={(e) => setCategoryName(e.target.value)}
@@ -53,15 +51,10 @@ const AddCat = ({ props }) => {
             </span>
           </form>
           <span className='editButtonArea'>
-            <span className='iconCheckmark iconNoBorder'>
-              <VscCheck onClick={() => onRequestAdd()}
-              title='accept add' size='24' color='#555555' />
-            </span>
-            <span className="sliver5"> </span>
-            <span className='iconEdit iconNoBorder'>
-              <VscCircleSlash onClick={() => cancelAddLocal()}
-              title='cancel add' className='iconBorder' size='24' color='#555555' />
-            </span>
+            <IconButton config={ { title:'accept add',
+              iconType:'confirm', callProc:onRequestAdd }} />
+            <IconButton config={ { title:'cancel add',
+              iconType:'cancel', callProc:cancelAddLocal }} />
           </span>
         </div>
       </Fragment>

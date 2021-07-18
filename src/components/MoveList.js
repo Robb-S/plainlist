@@ -4,7 +4,7 @@ import * as api from '../util/constants';
 import { useStore } from '../store/StoreContext';
 import { handleMoveList } from '../store/handlers';
 import { getOtherCats, getCatRec } from '../store/getData';
-import { VscCheck, VscCircleSlash } from 'react-icons/vsc';
+import { IconButton } from './IconButton';
 import { FormControl, FormControlLabel, Radio, RadioGroup }
   from '@material-ui/core';
 
@@ -43,12 +43,6 @@ const MoveList = ({ props }) => {
     setCatValue(e.target.value);
   };
   const error = true;
-  const helperText = 'this is helper text';
-  const makeOneButton = (oneCat) => {
-    return (
-      <FormControlLabel key={oneCat.id} value={oneCat.id} control={<Radio />} label={oneCat.id} />
-    );
-  };
   return (
     <Fragment>
       <div className='moveArea'>
@@ -67,15 +61,10 @@ const MoveList = ({ props }) => {
           </FormControl>
         </form>
         <span className='editButtonArea'>
-          <span className='iconCheckmark iconNoBorder'>
-            <VscCheck onClick={() => onRequestMove()}
-            title='change category' size='24' color='#555555' />
-          </span>
-          <span className="sliver5"> </span>
-          <span className='iconEdit iconNoBorder'>
-            <VscCircleSlash onClick={() => cancelMoveLocal()}
-            title='cancel change category' className='iconBorder' size='24' color='#555555' />
-          </span>
+          <IconButton config={ { title:'change category',
+            iconType:'confirm', callProc:onRequestMove }} />
+          <IconButton config={ { title:'cancel category change',
+            iconType:'cancel', callProc:cancelMoveLocal }} />
         </span>
       </div>
     </Fragment>

@@ -19,13 +19,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/iconButton.css';
-import { VscSettingsGear, VscEmptyWindow } from 'react-icons/vsc';
+import { GrDrag } from 'react-icons/gr';
+import { VscCheck, VscCircleSlash, VscSettingsGear, VscEmptyWindow, VscEdit, VscReferences,
+  VscTrash } from 'react-icons/vsc';
 
 const IconButton = ({ config }) => {
   const { caption, title, iconType, buttonLink, callProc } = config;
   const iconCaption = caption==null ? '' : caption;
   const iconTitle = title==null ? caption : title;
   const isLinkButton = buttonLink!=null; // catches null or undefined
+  const ibClass = iconCaption==='' ? 'iconButtonNarrow' : 'iconButton';
 
   let TheIcon;
   switch (iconType) {
@@ -35,13 +38,28 @@ const IconButton = ({ config }) => {
     case 'add':
       TheIcon=VscEmptyWindow;
       break;
+    case 'edit':
+      TheIcon=VscEdit;
+      break;
+    case 'move':
+      TheIcon=VscReferences;
+      break;
+    case 'confirm':
+      TheIcon=VscCheck;
+      break;
+    case 'cancel':
+      TheIcon=VscCircleSlash;
+      break;
+    case 'delete':
+      TheIcon=VscTrash;
+      break;
     default:
       throw 'bad call to IconButton';
   }
 
   if (isLinkButton) {
     return (
-      <div className='iconButton' title={ iconTitle }>
+      <div className={ ibClass } title={ iconTitle }>
       <Link className='iconButtonLink' to={ buttonLink }>
         <TheIcon size='24' color='#555555' />
       </Link>
@@ -52,11 +70,29 @@ const IconButton = ({ config }) => {
     );
   }
   return (
-    <div className='iconButton'  onClick={ () => callProc() } title={ iconTitle } >
-      <TheIcon size='24' color='#555555' />
+    <div className={ ibClass }  onClick={ () => callProc() } title={ iconTitle } >
+      <div className='theIcon'><TheIcon size='24' color='#555555' /></div>
       <div className='iconCaption'> {iconCaption} </div>
     </div>
   );
 };
 
-export default IconButton;
+const MakeSettingsButton = ( caption='' ) => {
+  const settingsConfig = {
+    caption: caption,
+    title: 'go to settings page',
+    iconType: 'settings',
+    buttonLink: `/set/`,
+  };
+  return (
+    <IconButton config={ settingsConfig } />
+  );
+};
+
+const MakeDragIcon = () => {
+  return (
+    <GrDrag title='drag to change order' size='20' color='#ffffff' />
+  );
+};
+
+export { IconButton, MakeSettingsButton, MakeDragIcon };

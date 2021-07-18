@@ -102,12 +102,12 @@ div.itemPart3 {
 }
 div.itemPart4 {
   grid-area: p4;
-  padding: 10px 0px 10px 2px;
+  padding: 0px 0px 0px 0px;
   align-self: center;
 }
 div.itemPart5 {
   grid-area: p5;
-  padding: 10px 2px 10px 0px;
+  padding: 0px 0px 0px 0px;
   align-self: center;
 }
 
