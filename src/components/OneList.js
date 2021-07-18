@@ -13,7 +13,8 @@ import React, { Fragment, useState } from 'react';
 import { Link, useLocation, Redirect } from 'react-router-dom';
 import '../css/lists.css';
 import { useStore } from '../store/StoreContext';
-import { getListRec, getParentCatName, getParentCatID, getOtherCats } from '../store/getData';
+import { getListRec, getParentCatName, getParentCatID, getOtherCats, getFlatMode }
+  from '../store/getData';
 import { handleRemoveList } from '../store/handlers';
 import Login from './Login';
 import Loading from './Loading';
@@ -50,21 +51,38 @@ const OneList = () => {
     handleRemoveList(listID, state, dispatch);
   };
 
+  /**
+   * Breadcrumb area will show different structure depending on whether user is in
+   * flat mode or category mode. 
+   */
   const crumbArea = () => {
+    const isFlatMode = getFlatMode(state);
+    console.log('isFlatMode: ' + isFlatMode);
     return (
       <Fragment>
         <div className='crumbsandsettings'>
           <div className='breadcrumbs'>
-            <Link className='linky3 oneCrumb' to={`/`}>
-              [All categories]
-            </Link>
-            <span className='oneCrumb'>:</span>
-            <Link className='linky3 oneCrumb'
-              to={{
-                pathname: `/cat/`,
-                state: { categoryID: parentCatID },
-              }}
-            >[{parentCatName}] category</Link>
+            { isFlatMode &&
+              <Fragment>
+                <Link className='linky3 oneCrumb' to={`/`}>
+                  [All lists]
+                </Link>
+              </Fragment>
+            }
+            { !isFlatMode &&
+              <Fragment>
+                <Link className='linky3 oneCrumb' to={`/`}>
+                  [All categories]
+                </Link>
+                <span className='oneCrumb'>:</span>
+                <Link className='linky3 oneCrumb'
+                  to={{
+                    pathname: `/cat/`,
+                    state: { categoryID: parentCatID },
+                  }}
+                >[{parentCatName}] category</Link>
+              </Fragment>
+            }
             <span className='oneCrumb'>:</span>
             <span className='oneCrumb'>
               [{oneListRec.listName}] list

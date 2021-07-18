@@ -112,10 +112,19 @@ const getItemsByListID = (listID, state) => {
 };
 
 /**
+ * Return state of flatness.
+ */
+const getFlatMode = (state) => {
+  console.log('getflatmode');
+  console.log(state);
+  return state.flat;
+};
+
+/**
  * Comparison function for ordering arrays by reverse sortOrder.
  * Used by getItemsByListID, getListsByCatID, getAllCats.
  */
- const sortOrderRevSort = (a, b) => {
+const sortOrderRevSort = (a, b) => {
   return (a.sortOrder > b.sortOrder) ? -1 : 1;
 };
 
@@ -123,10 +132,10 @@ const getItemsByListID = (listID, state) => {
  * Comparison function for ordering arrays by reverse sortOrder.
  * Used by getItemsByListID, getListsByCatID, getAllCats.
  */
- const sortOrderFlatRevSort = (a, b) => {
+const sortOrderFlatRevSort = (a, b) => {
   return (a.sortOrderFlat > b.sortOrderFlat) ? -1 : 1;
 };
 
 export { getItemsByListID, getListsByCatID, getListRec, getCatRec, getItemRec, getListName,
   getCatName, getParentListName, getParentCatName, getParentCatID, getAllCats, getAllLists,
-  getUncategorizedCategory, getOtherCats };
+  getUncategorizedCategory, getOtherCats, getFlatMode };

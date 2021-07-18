@@ -25,8 +25,8 @@ const Settings = () => {
   const [uNameMsg, setUNameMsg] = useState('');
   const debouncedUserName = useDebounce(userName, 300);
   const isFlat = state.flat;
-  const flatButtonMsg = isFlat ? 'Show lists with categories' :
-    'Show just lists, no categories';
+  const flatButtonMsg = isFlat ? 'Show lists with categories (hierarchical structure)' :
+    'Show just lists, no categories (flat structure)';
 
   let showLogin = state.loading && !state.loggedIn;
   let showLoading = state.loading && state.loggedIn;
