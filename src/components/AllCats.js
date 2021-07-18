@@ -10,6 +10,7 @@ import AddCat from './AddCat';
 import CategoriesGroup from './CategoriesGroup';
 import { VscSettingsGear, VscEmptyWindow } from 'react-icons/vsc';
 import '../css/lists.css';
+import IconButton from './IconButton';
 
 const AllCats = () => {
   const { state } =  useStore();
@@ -20,6 +21,19 @@ const AllCats = () => {
 
   const setupAdd = () => { setAddMode(true); };
   const cancelAdd = () => { setAddMode(false); };
+  const testButtonConfig1 = {
+    caption: 'settings',
+    title: 'go to settings page',
+    iconType: 'settings',
+    buttonLink: `/set/`,
+  };
+  const testButtonConfig2 = {
+    caption: 'add category',
+    title: 'add a new category',
+    iconType: 'add',
+    callProc: setupAdd,
+  };
+
 
   const crumbArea = () => {
     return (
@@ -42,6 +56,7 @@ const AllCats = () => {
   };
 
 
+
   const headingArea = () => {
     return (
       <div className='heading'>
@@ -52,6 +67,8 @@ const AllCats = () => {
               All lists
             </Link>
           </span>
+          <IconButton config={testButtonConfig1} />
+          <IconButton config={testButtonConfig2} />
         </div>
       </div>
     );

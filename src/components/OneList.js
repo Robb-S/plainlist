@@ -21,7 +21,6 @@ import EditList from './EditList';  // form to edit the list name
 import MoveList from './MoveList';  // form to move the list to another category
 import AddItem from './AddItem';    // form to add an item
 import ItemsGroup from './ItemsGroup';  // the actual group (list) of items
-// import { FiTrash2, FiEdit } from 'react-icons/fi';
 import { VscSettingsGear, VscEdit, VscTrash, VscReferences } from 'react-icons/vsc';
 
 const OneList = () => {

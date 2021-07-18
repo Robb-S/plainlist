@@ -1,0 +1,34 @@
+div.iconButton {
+  border: 0px solid #bbbbbb;
+  background-color: #ffffff;
+  padding: 8px 0px 6px 0px;
+  width: 65px;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-items: center;
+  cursor: pointer;
+}
+
+div.iconCaption, div.iconLinkCaption {
+  padding: 4px 6px 0px 6px;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.iconButton a:hover, .iconButton a:visited, .iconButton a:link, .iconButton a:active {
+  text-decoration: none;
+  color: black;
+}
+
+@media only screen and (max-width: 600px) {
+
+  div.iconCaption {
+    font-size: 10px;
+  }
+
+}
+
+
