@@ -29,18 +29,25 @@ When you add a new list in hierarchical mode, it will be added to the category t
 
 If you switch from flat mode to hierarchical mode after adding new lists, those lists will appear in the "uncategorized" category, although they can be easily moved to other categories.  The uncategorized category will always appear at the bottom of the list of categories, so its sort order will never change.
 
+## UI - icon buttons
+
+Coding for icons was getting messy, especially when I wanted to change an icon, so I made an IconButton component to centralize all icon construction tasks and standardize their appearance.  There are options for icons with and without labels.
+
+
 ## To-do
 
 - flat list display
 - redo category display with uncategorized at bottom
-- move list to different category
-- initial setup for new user
+- create initial default records for new user
 - expand user profile
 - set up external django server
 - improve desktop layout
-- input validation
-- add labels to icons
+- validate input
 - error handling for no internet and initial fetch
-- authentication w/ third party
+- authentication w/ third party service
 - track and show last list used
 
+## Done
+
+- add optional labels to icons
+- move list to different category
