@@ -51,6 +51,25 @@ const handleFlatnessToggle = async (state, dispatch) => {
 };
 
 /**
+ * Reset state and localStorage for flat list hierarchy.
+ */
+ const handleFlatnessSetting = async (newFlatness, state, dispatch) => {
+  console.log('* handleFlatnessSetting change to ' + newFlatness);
+  await dispatch({
+    type: 'STARTED_LOADING',
+  });
+  await dispatch({
+    type: 'SET_FLAT',
+    payload: newFlatness,
+  });
+  localStorage.setItem('flat', newFlatness);
+  await dispatch({
+    type: 'FINISHED_LOADING',
+  });
+};
+
+
+/**
  * Reset state and delete from localStorage.
  */
 const handleLogout = async (dispatch) => {
@@ -662,4 +681,5 @@ export {
   handleLogout,
   handleReg,
   handleFlatnessToggle,
+  handleFlatnessSetting,
 };

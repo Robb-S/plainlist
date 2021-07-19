@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import '../css/lists.css';
 import { useStore } from '../store/StoreContext';
-import { handleReg, handleFlatnessToggle } from '../store/handlers';
-import { useDebounce } from '../util/helpers';
+import { handleReg, handleFlatnessToggle, handleFlatnessSetting } from '../store/handlers';
+import { useDebounce, sleepy } from '../util/helpers';
 import { useHistory, Link } from 'react-router-dom';
 import { userExistsAPI } from '../store/apiCalls';
 import { handleLogout } from '../store/handlers';
@@ -10,6 +10,12 @@ import { getUncategorizedCategory } from '../store/getData';
 import Loading from './Loading';
 import Login from './Login';
 import * as api from '../util/constants';
+import { FormControl, FormLabel, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
+
+const flatBoolToText = (flatBool) => {
+  const flatText = flatBool ? 'flat' : 'hier';
+  return flatText;
+};
 
 const Settings = () => {
   const { state, dispatch } = useStore();
@@ -18,6 +24,7 @@ const Settings = () => {
   // const userID = state.user.id;
 
   const [userName, setUserName] = useState('');
+  const [flatValue, setFlatValue] = useState( flatBoolToText(state.flat) );
   const [userPwd, setUserPwd] = useState('');
   const [userPwd2, setUserPwd2] = useState('');
   const [userEmail, setUserEmail] = useState('');
@@ -25,8 +32,14 @@ const Settings = () => {
   const [uNameMsg, setUNameMsg] = useState('');
   const debouncedUserName = useDebounce(userName, 300);
   const isFlat = state.flat;
-  const flatButtonMsg = isFlat ? 'Show lists with categories (hierarchical structure)' :
-    'Show just lists, no categories (flat structure)';
+
+  const flatTextToBool = (flatText) => {
+    const flatBool = flatText==='flat' ? true : false;
+    return flatBool;
+  };
+
+  let flatTextButtonMsg = isFlat ? 'Hierarchical structure (show lists + categories)' :
+    'Flat structure (show just lists, no categories)';
 
   let showLogin = state.loading && !state.loggedIn;
   let showLoading = state.loading && state.loggedIn;
@@ -38,6 +51,7 @@ const Settings = () => {
   };
 
   const onFlatToggle = async () => {
+    setFlatValue(flatBoolToText(!state.flat));
     await handleFlatnessToggle(state, dispatch);
   };
 
@@ -88,7 +102,6 @@ const Settings = () => {
     setUserName(uName);
   };
 
-
   const crumbArea = () => {
     return (
       <Fragment>
@@ -101,6 +114,36 @@ const Settings = () => {
           <div className='settingsicon'>
           </div>
         </div>
+      </Fragment>
+    );
+  };
+
+  const handleFlatRadioChange = async (e) => {
+    console.log('handleFlatRadioChange');
+    console.log(e.target.value);
+    const newFlatness = flatTextToBool(e.target.value);
+    setFlatValue(e.target.value);
+    await handleFlatnessSetting(newFlatness, state, dispatch);
+  };
+
+  const flatForm = () => {
+    const flatText = 'Flat structure (show just lists, no categories)';
+    const hierText = 'Hierarchical structure (show categories + lists)';
+    const error = true;
+    return (
+      <Fragment>
+        <form className='chooseFlatnessForm' >
+          <FormLabel component="legend">Choose category structure</FormLabel>
+          <FormControl component="fieldset" error={error} >
+            <RadioGroup aria-label="choose flatness mode" name="chooseFlat"
+              value={flatValue} onChange={handleFlatRadioChange}>
+              <FormControlLabel value={'hier'}
+                control={<Radio />} label={ hierText } />
+              <FormControlLabel value={'flat'}
+                control={<Radio />} label={ flatText } />
+            </RadioGroup>
+          </FormControl>
+        </form>
       </Fragment>
     );
   };
@@ -129,9 +172,13 @@ const Settings = () => {
               className="btn default-btn"
               onClick={() => onFlatToggle()}
             >
-              { flatButtonMsg }
+              { flatTextButtonMsg }
           </button>
           <br /><br />
+            flatvalue: {flatValue}<br />
+            flatness: { state.flat.toString() }
+          <br /><br />
+          { flatForm() }
           <button
               className="btn default-btn"
               onClick={() => onTestButton()}

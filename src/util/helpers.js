@@ -96,6 +96,31 @@ function pluralize(theAmt, singularNoun, pluralNoun) {
   return theAmt + ' ' + pluralNoun;
 }
 
+/**
+ * Allow escape key to trigger cancel (and other) functions.
+ * Usage: useEscape(() => setIsOpen(false));
+ */
+const useEscape = (onEscape) => {
+  useEffect(() => {
+      const handleEsc = (event) => {
+          if (event.keyCode === 27)
+              onEscape();
+      };
+      window.addEventListener('keydown', handleEsc);
+      return () => {
+          window.removeEventListener('keydown', handleEsc);
+      };
+  }, []);
+};
+
+/**
+ * Simple sleep function for testing async problems
+ */
+function sleepy(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
 export {
   makeStringID,
   findPosWithAttr,
@@ -105,4 +130,6 @@ export {
   setAxiosAuthToken,
   useDebounce,
   pluralize,
+  useEscape,
+  sleepy,
 };
