@@ -162,6 +162,10 @@ span.spacer {
   font-size: 16px;
 }
 
+.breadcrumbs a:hover, .breadcrumbs a:visited, .breadcrumbs a:link, .breadcrumbs a:active {
+  color: #aa4444;
+}
+
 .oneCrumb {
   padding: 0 8px 0 0;
 }
@@ -178,6 +182,12 @@ div.settingsicon {
 
 .cursorPointer {
   cursor: pointer;
+}
+
+.chooseFlatnessForm {
+  border: 1px #aaaaaa solid;
+  padding: 14px 8px 14px 22px;
+  margin-bottom: 15px;
 }
 
 @media only screen and (max-width: 600px) {

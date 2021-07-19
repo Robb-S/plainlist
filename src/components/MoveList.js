@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import '../css/lists.css';
 import * as api from '../util/constants';
+import { useEscape } from '../util/helpers';
 import { useStore } from '../store/StoreContext';
 import { handleMoveList } from '../store/handlers';
 import { getOtherCats, getCatRec } from '../store/getData';
 import { IconButton } from './IconButton';
-import { FormControl, FormControlLabel, Radio, RadioGroup }
-  from '@material-ui/core';
+import { FormControl, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 
 const MoveList = ({ props }) => {
   const { cancelMove, listRec } = props;
@@ -22,7 +22,6 @@ const MoveList = ({ props }) => {
     e.preventDefault();
     onRequestMove();
   };
-
   const onRequestMove = async () => {
     console.log('onRequestMove');
     console.log('new cat ID: ' + catValue);
@@ -42,7 +41,9 @@ const MoveList = ({ props }) => {
     console.log(e.target.value);
     setCatValue(e.target.value);
   };
+
   const error = true;
+  useEscape(() => cancelMoveLocal());
   return (
     <Fragment>
       <div className='moveArea'>
@@ -51,7 +52,8 @@ const MoveList = ({ props }) => {
         </div>
         <form className='moveCategoryForm' onSubmit={onSubmitMove}>
           <FormControl component="fieldset" error={error} >
-            <RadioGroup aria-label="quiz" name="quiz" value={catValue} onChange={handleRadioChange}>
+            <RadioGroup aria-label="choose category" name="chooseCat"
+              value={catValue} onChange={handleRadioChange}>
               { otherCats.map(oneCat =>
                 <FormControlLabel key={oneCat.id} value={oneCat.id.toString()}
                   control={<Radio />} label={oneCat.categoryName} />,

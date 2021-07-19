@@ -49,5 +49,6 @@ Coding for icons was getting messy, especially when I wanted to change an icon, 
 ## Done
 
 - flat list display
-- add optional labels to icons
+- make component for icons with labels
 - move list to different category
+- material UI text input w/ autofocus, escape key to cancel

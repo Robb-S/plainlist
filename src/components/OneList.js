@@ -57,7 +57,7 @@ const OneList = () => {
    */
   const crumbArea = () => {
     const isFlatMode = getFlatMode(state);
-    console.log('isFlatMode: ' + isFlatMode);
+    // console.log('isFlatMode: ' + isFlatMode);
     return (
       <Fragment>
         <div className='crumbsandsettings'>

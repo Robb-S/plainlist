@@ -49,6 +49,7 @@ const AddItem = () => {
                   onChange={(e) => setItemName(e.target.value)}
                   variant='outlined'
                   margin='dense'
+                  autoFocus={true}
                 />
                 <TextField
                   label="Note:" value={itemNote}

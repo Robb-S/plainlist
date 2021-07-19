@@ -10,8 +10,10 @@ import React, { Fragment, useState } from 'react';
 import '../css/lists.css';
 import * as api from '../util/constants';
 import { useStore } from '../store/StoreContext';
+import { useEscape } from '../util/helpers'; // hook to capture escape key
 import { handleUpdateCategory } from '../store/handlers';
 import { IconButton } from './IconButton';
+import TextField from '@material-ui/core/TextField';
 
 const EditCat = ({ props }) => {
   const { cancelEdit, categoryRec }  = props;
@@ -30,16 +32,18 @@ const EditCat = ({ props }) => {
     // TODO: maybe add additional message if API operation failed?
   };
 
+  useEscape(() => cancelEdit());
   return (
       <Fragment>
         <div className='addArea'>
           <form className='addCategoryForm' onSubmit={onSubmitEdit}>
             <span className='addAreaInput'>
-              <div>Edit category name:</div>
-              <input
-                value={categoryName}
+              <TextField
+                label="Edit category name:" value={categoryName}
                 onChange={(e) => setCategoryName(e.target.value)}
-                type="text"
+                variant='outlined'
+                margin='dense'
+                autoFocus={true}
               />
             </span>
           </form>

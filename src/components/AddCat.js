@@ -5,8 +5,10 @@
  */
 import React, { Fragment, useState } from 'react';
 import { useStore } from '../store/StoreContext';
+import { useEscape } from '../util/helpers'; // hook to capture escape key
 import { handleAddCategory } from '../store/handlers';
 import { IconButton } from './IconButton';
+import TextField from '@material-ui/core/TextField';
 import * as api from '../util/constants';
 import '../css/lists.css';
 
@@ -35,6 +37,7 @@ const AddCat = ({ props }) => {
     cancelAdd();
   };
 
+  useEscape(() => cancelAddLocal());
   return (
     <Fragment>
       {addMode &&
@@ -42,11 +45,12 @@ const AddCat = ({ props }) => {
         <div className='addArea'>
           <form className='addCategoryForm' onSubmit={onSubmitAdd}>
             <span className='addAreaInput'>
-              <div>New category name</div>
-              <input
-                value={categoryName}
+              <TextField
+                label="New category name:" value={categoryName}
                 onChange={(e) => setCategoryName(e.target.value)}
-                type="text"
+                variant='outlined'
+                margin='dense'
+                autoFocus={true}
               />
             </span>
           </form>

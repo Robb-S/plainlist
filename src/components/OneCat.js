@@ -90,17 +90,17 @@ const OneCat = () => {
           <span className='headingName'>
             Category: {oneCatRec.categoryName}
           </span>
-          { showEditAndDelete &&
-            <Fragment>
-              <IconButton config={ { title:'rename category', caption:'rename category',
-                iconType:'edit', callProc:setupEdit } } />
-              <IconButton config={ { title:'delete category', caption:'delete category',
-                iconType:'delete', callProc:removeCategory } } />
-            </Fragment>
-          }
           { showAddIcon &&
             <IconButton config={ { title:'add a new list', caption:'add a list',
               iconType:'add', callProc:setupAdd } } />
+          }
+          { showEditAndDelete &&
+            <IconButton config={ { title:'rename category', caption:'rename category',
+              iconType:'edit', callProc:setupEdit } } />
+          }
+          { showEditAndDelete &&
+            <IconButton config={ { title:'delete category', caption:'delete category',
+              iconType:'delete', callProc:removeCategory } } />
           }
         </div>
       </div>

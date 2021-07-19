@@ -115,8 +115,8 @@ const getItemsByListID = (listID, state) => {
  * Return state of flatness.
  */
 const getFlatMode = (state) => {
-  console.log('getflatmode');
-  console.log(state);
+  // console.log('getflatmode');
+  // console.log(state);
   return state.flat;
 };
 
