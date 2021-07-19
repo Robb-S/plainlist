@@ -10,13 +10,13 @@
 
 /* elements in standard list one item */
 
-li.oneItemLine {
-  border: 0px solid #999999;
-  margin: 0px 0 12px 0;
+li.oneListLine {
+  margin: 0px 0 10px 0;
 }
 
 div.listOneRow {
   border: 1px solid #eebbee;
+  border-width: 0px 0px 1px 0px;
   display: grid;
 }
 div.dragHandle {
@@ -33,13 +33,13 @@ div.dragHandle {
 div.dragHandleIcon {
   touch-action: none; 
 }
-div.itemPart2 {
+div.listPart2 {
   grid-area: p2;
-  padding: 12px 0px 12px 12px;
+  padding: 4px 0px 8px 12px;
 }
-div.itemPart3 {
+div.listPart3 {
   grid-area: p3;
-  padding: 16px 6px 12px 10px;
+  padding: 8px 6px 8px 10px;
   font-size: 75%;
 }
 
@@ -60,11 +60,11 @@ div.itemPart3 {
       "p1  p2"
       "p1  p3";
   } 
-  div.itemPart2 {
-    padding: 12px 4px 0px 10px;
+  div.listPart2 {
+    padding: 6px 4px 0px 10px;
   }
-  div.itemPart3 {
-    padding: 0px 4px 12px 10px;
+  div.listPart3 {
+    padding: 2px 4px 8px 10px;
   }
 }
  
@@ -77,11 +77,11 @@ div.itemPart3 {
       "p1  p2"
       "p1  p3";
   } 
-  div.itemPart2 {
-    padding: 12px 4px 0px 10px;
+  div.listPart2 {
+    padding: 6px 4px 0px 10px;
   }
-  div.itemPart3 {
-    padding: 0px 4px 12px 10px;
+  div.listPart3 {
+    padding: 2px 4px 8px 10px;
   }  
 }
  

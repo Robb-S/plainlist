@@ -24,12 +24,12 @@ export function SortableListUnit(props) {
 
   return (
     <Fragment>
-      <li ref={setNodeRef} style={style} className='oneItemLine noselect'>
+      <li ref={setNodeRef} style={style} className='oneListLine noselect'>
         <div className='listOneRow'>
           <div className='dragHandle' {...listeners} {...attributes} >
             <div className='dragHandleIcon'>{ MakeDragIcon() }</div>
           </div>
-          <div className='itemName itemPart2'>
+          <div className='itemName listPart2'>
             <Link className='linky3'
               title={listName}
               to={{
@@ -40,7 +40,7 @@ export function SortableListUnit(props) {
               {listName}
             </Link>
           </div>
-          <div className='itemNote itemPart3'>
+          <div className='itemNote listPart3'>
             {itemCountTxt}
           </div>
         </div>

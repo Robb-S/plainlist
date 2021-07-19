@@ -16,7 +16,7 @@ div.addNewShell {
 }
 
 li.editItemFormLi {
-  padding: 0 0 12px 0;
+  margin: 0px 0 8px 0;
 }
 
 div.editItemDiv {
@@ -51,8 +51,9 @@ span.iconEdit, span.iconCheckmark, span.iconDelete {
 }
 
 .editButtonArea {
-  align-self: center;
+  align-self: start;
   display: flex;
+  padding-top: 12px;
 }
 
 .noselect {
@@ -68,12 +69,12 @@ span.iconEdit, span.iconCheckmark, span.iconDelete {
 /* elements in standard list one item */
 
 li.oneItemLine {
-  border: 0px solid #999999;
-  margin: 0px 0 12px 0;
+  margin: 0px 0 10px 0;
 }
 
 div.itemOneRow {
   border: 1px solid #eebbee;
+  border-width: 0 0 1px 0;
   display: grid;
 }
 div.dragHandle {
@@ -91,22 +92,24 @@ div.dragHandleIcon {
   touch-action: none; 
 }
 div.itemPart2 {
+  border: 0px solid #00bbbb;
   grid-area: p2;
-  padding: 12px 0px 12px 12px;
+  padding: 6px 0px 8px 12px;
 }
 div.itemPart3 {
+  border: 0px solid #00bbbb;
   grid-area: p3;
-  padding: 16px 6px 12px 10px;
+  padding: 8px 6px 8px 10px;
   font-size: 75%;
 }
 div.itemPart4 {
   grid-area: p4;
-  padding: 0px 0px 0px 0px;
+  padding: 4px 0px 0px 0px;
   align-self: center;
 }
 div.itemPart5 {
   grid-area: p5;
-  padding: 0px 0px 0px 0px;
+  padding: 4px 0px 0px 0px;
   align-self: center;
 }
 
@@ -152,25 +155,26 @@ div.itemPart5 {
 @media (max-width: 300px) { /* smaller device */
   div.itemOneRow {
     border-width: 1px;
-    grid-template-columns: 28px 1fr 1fr;
+    grid-template-columns: 28px 1fr 1fr 1fr 1fr;
     grid-template-areas: 
-      "p1  p2  p2"
-      "p1  p3  p3"
-      "p1  p4  p5";
+      "p1  p2  p2 p2 p2"
+      "p1  p3  p3 p3 p3"
+      "p1  p4  p5 . . ";
   } 
   div.itemPart2 {
-    padding: 12px 4px 0px 10px;
+    font-size: 85%;
+    padding: 6px 8px 0px 10px;
   }
   div.itemPart3 {
-    padding: 0px 4px 12px 10px;
+    padding: 1px 8px 4px 10px;
   }  
   div.itemPart4 {
-    padding: 10px 0px 10px 0px;
-    justify-self: center;
+    padding: 4px 0px 5px 0px;
+    justify-self: start;
   }  
   div.itemPart5 {
-    padding: 10px 2px 10px 0px;
-    justify-self: center;
+    padding: 4px 2px 5px 0px;
+    justify-self: start;
   }
   div.editItemDiv {
     grid-template-columns: 1fr;
