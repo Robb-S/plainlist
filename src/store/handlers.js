@@ -35,7 +35,7 @@ import { setAxiosAuthToken } from '../util/helpers';
  * Reset state and localStorage for flat list hierarchy.
  */
 const handleFlatnessToggle = async (state, dispatch) => {
-  const newFlatness = !(state.flat);
+  const newFlatness = !(state.flatMode);
   console.log('* handleFlatnessToggle change to ' + newFlatness);
   await dispatch({
     type: 'STARTED_LOADING',
@@ -44,7 +44,7 @@ const handleFlatnessToggle = async (state, dispatch) => {
     type: 'SET_FLAT',
     payload: newFlatness,
   });
-  localStorage.setItem('flat', newFlatness);
+  localStorage.setItem('flatMode', newFlatness.toString());
   await dispatch({
     type: 'FINISHED_LOADING',
   });
@@ -62,7 +62,7 @@ const handleFlatnessToggle = async (state, dispatch) => {
     type: 'SET_FLAT',
     payload: newFlatness,
   });
-  localStorage.setItem('flat', newFlatness);
+  localStorage.setItem('flatMode', newFlatness.toString());
   await dispatch({
     type: 'FINISHED_LOADING',
   });
@@ -639,9 +639,10 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
       // console.log('***** loading init data with handleSetRunMode in handlers *****');
       const flatCookie = localStorage.getItem('flat');
       if (flatCookie!==null) { // now set it in state (TEMP)
+        const flatBool = flatCookie==='true';
         await dispatch({
           type: 'SET_FLAT',
-          payload: flatCookie,
+          payload: flatBool,
         });
       }
       await dispatch({

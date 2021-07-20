@@ -6,7 +6,7 @@ const allUsers = [
   email: 'user1@crossitoffthelist.com',
   active: true,
   admin: 3,
-  flat: false,
+  flatMode: false,
   lastList: 102,
   },
   {
@@ -16,7 +16,7 @@ const allUsers = [
   email: 'user2@crossitoffthelist.com',
   active: true,
   admin: 1,
-  flat: false,
+  flatMode: false,
   lastList: 103,
   },
 ];

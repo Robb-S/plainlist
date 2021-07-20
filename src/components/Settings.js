@@ -31,7 +31,7 @@ const Settings = () => {
   const [regMsg, setRegMsg] = useState('Please fill out the fields below.');
   const [uNameMsg, setUNameMsg] = useState('');
   const debouncedUserName = useDebounce(userName, 300);
-  const isFlat = state.flat;
+  const isFlat = state.flatMode;
 
   const flatTextToBool = (flatText) => {
     const flatBool = flatText==='flat' ? true : false;
@@ -51,7 +51,7 @@ const Settings = () => {
   };
 
   const onFlatToggle = async () => {
-    setFlatValue(flatBoolToText(!state.flat));
+    setFlatValue(flatBoolToText(!state.flatMode));
     await handleFlatnessToggle(state, dispatch);
   };
 
@@ -176,7 +176,7 @@ const Settings = () => {
           </button>
           <br /><br />
             flatvalue: {flatValue}<br />
-            flatness: { state.flat.toString() }
+            flatness: { state.flatMode.toString() }
           <br /><br />
           { flatForm() }
           <button

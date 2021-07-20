@@ -59,6 +59,16 @@ const getAllCats = (state) => {
   return matchItems.sort(sortOrderRevSort);
 };
 
+const getRegularCats = (state) => {
+  const matchItems = state.categories.filter(oneCat => {
+    return oneCat.uncategorized == false;
+  });
+  matchItems.forEach(cat => {
+    cat.childCount = getListsByCatID(cat.id, state).length;
+  });
+  return matchItems.sort(sortOrderRevSort);
+};
+
 /**
  * Return an array of categories other than the one with categoryID, to be
  * used when moving a list to a different category.
@@ -76,6 +86,9 @@ const getOtherCats = (categoryID, state) => {
 const getUncategorizedCategory = (state) => {
   const matchItems = state.categories.filter(oneCat => {
     return oneCat.uncategorized === true;
+  });
+  matchItems.forEach(cat => {
+    cat.childCount = getListsByCatID(cat.id, state).length;
   });
   if (matchItems.length>0) { return matchItems[0]; }
   return null;
@@ -117,7 +130,7 @@ const getItemsByListID = (listID, state) => {
 const getFlatMode = (state) => {
   // console.log('getflatmode');
   // console.log(state);
-  return state.flat;
+  return state.flatMode;
 };
 
 /**
@@ -138,4 +151,4 @@ const sortOrderFlatRevSort = (a, b) => {
 
 export { getItemsByListID, getListsByCatID, getListRec, getCatRec, getItemRec, getListName,
   getCatName, getParentListName, getParentCatName, getParentCatID, getAllCats, getAllLists,
-  getUncategorizedCategory, getOtherCats, getFlatMode };
+  getUncategorizedCategory, getOtherCats, getRegularCats, getFlatMode };

@@ -1,5 +1,5 @@
 /**
- * Display all categories or all lists, depending on flat mode.
+ * Display all categories or all lists, depending on flatMode.
  */
 import React, { Fragment } from 'react';
 import { useStore } from '../store/StoreContext';
@@ -13,16 +13,16 @@ const TopPage = () => {
   let showLogin = state.loading && !state.loggedIn;
   let showLoading = state.loading && state.loggedIn;
   let showMain = !state.loading;
-  let flatMode = state.flat;
+  let showFlat = state.flatMode;
   return (
     <Fragment>
       {showLoading && <Loading />}
       {showLogin && <Login />}
 
-      {showMain && flatMode &&
+      {showMain && showFlat &&
         <AllLists />
       }
-      {showMain && !flatMode &&
+      {showMain && !showFlat &&
         <AllCats />
       }
     </Fragment>

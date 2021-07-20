@@ -34,7 +34,7 @@ function AppReducer(state, action) {
     case 'SET_FLAT': {
       return {
         ...state,
-        flat: action.payload,
+        flatMode: action.payload,
       };
     }
     case 'SET_USER': {
