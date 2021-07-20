@@ -1,13 +1,16 @@
 /**
- * Display all categories.
+ * Display all categories.  Should be shown as top page when in Hierarchical mode
+ * (i.e. state.flatMode is false).  Special uncategorized category will be shown at the bottom,
+ * or hidden if it's empty.  It will not be sortable with the other categories, and should
+ * always have a sortOrder property of zero.
  */
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useStore } from '../store/StoreContext';
 import Loading from './Loading';
 import Login from './Login';
 import AddCat from './AddCat';
 import CategoriesGroup from './CategoriesGroup';
+import ShowUncatCat from './ShowUncatCat';
 import '../css/lists.css';
 import { IconButton, MakeSettingsButton } from './IconButton';
 
@@ -78,6 +81,7 @@ const AllCats = () => {
         { headingArea() }
         { addCatArea() }
         <CategoriesGroup />
+        <ShowUncatCat />
       </div>
       </Fragment>
       }

@@ -36,18 +36,18 @@ Coding for icons was getting messy, especially when I wanted to change an icon, 
 
 ## To-do
 
-- redo category display with uncategorized always at bottom
 - create initial default records for new user
 - expand user profile
 - set up external django server
 - improve desktop layout
 - validate input
-- handle errors for no internet and initial fetch
+- handle condition for no internet during initial fetch
 - authenticate w/ third party service
 - track and show last list used
 
 ## Done
 
+- category display with uncategorized always at bottom, hidden when empty
 - flat list display
 - make component for icons with labels
 - move list to different category

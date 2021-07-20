@@ -9,7 +9,7 @@ import { arrayMove, SortableContext, sortableKeyboardCoordinates,
   verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { useStore } from '../store/StoreContext';
-import { getAllCats } from '../store/getData';
+import { getRegularCats } from '../store/getData';
 import { SortableCatUnit } from './SortableCatUnit';
 import { findPosWithAttr } from '../util/helpers';
 import { handleUpdateCategoriesGroup } from '../store/handlers';
@@ -17,7 +17,7 @@ import { handleUpdateCategoriesGroup } from '../store/handlers';
 const CategoriesGroup = () => {
   const { state, dispatch } = useStore();  // this must come before conditional render
 
-  const allCats = getAllCats(state);
+  const allCats = getRegularCats(state);
   // set variable 'items' as local array, which can be reordered by dragging.
   // not to be confused with 'items' in state.  It MUST be called 'items' apparently
   const [items, setItems] = useState([...allCats]);
