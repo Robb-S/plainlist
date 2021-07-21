@@ -10,7 +10,7 @@ import Registration from './components/Registration';
 import Settings from './components/Settings';
 
 import { useStore } from './store/StoreContext';
-import { handleSetRunModeAndInitLoad } from './store/handlers';
+import { handleSetRunModeAndInitLoad } from './store/fetchUserAndData';
 // import * as api from './util/constants';
 
 function App() {

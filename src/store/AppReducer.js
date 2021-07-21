@@ -37,6 +37,12 @@ function AppReducer(state, action) {
         flatMode: action.payload,
       };
     }
+    case 'SET_IS_MOBILE': {
+      return {
+        ...state,
+        isMobile: action.payload,
+      };
+    }
     case 'SET_USER': {
       return {
         ...state,

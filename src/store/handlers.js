@@ -4,7 +4,6 @@ import { getItemRec, getItemsByListID, getListsByCatID, getCatRec, getListRec, g
 import * as api from '../util/constants';
 import { addRecAPI, deleteRecAPI, updateRecAPI, getTokenFromAPI } from './apiCalls';
 import { handleGetUserAndData } from './fetchUserAndData';
-import { setAxiosAuthToken } from '../util/helpers';
 
 /**
  * Take login info, get auth token from Django API call (if login info works).
@@ -616,52 +615,6 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
   });
 };
 
-/**
- * Set the runMode flag in store. Flag is used to skip API steps when using test data.
- * 
- * @param runMode - api.RUNMODE_API or api.RUNMODE_DEMO from constants file
- */
- const handleSetRunModeAndInitLoad = async (testUserId, runMode, dispatch) => {
-  await dispatch({
-    type: 'SET_RUNMODE',
-    payload: runMode,
-  });
-  if (runMode===api.RUNMODE_API) {
-    // console.log('*** handleSetRunMode for API');
-    let token = localStorage.getItem('token');
-    console.log('token: ' + token);
-    if (token!==null) { // if found, then set logged in = true
-      setAxiosAuthToken(token);
-      await dispatch({
-        type: 'USER_LOGIN',
-      });
-      await handleGetUserAndData(testUserId, runMode, dispatch);
-      // console.log('***** loading init data with handleSetRunMode in handlers *****');
-      const flatCookie = localStorage.getItem('flat');
-      if (flatCookie!==null) { // now set it in state (TEMP)
-        const flatBool = flatCookie==='true';
-        await dispatch({
-          type: 'SET_FLAT',
-          payload: flatBool,
-        });
-      }
-      await dispatch({
-        type: 'FINISHED_LOADING',
-      });
-    }
-  }
-  if (runMode===api.RUNMODE_DEMO) {
-    await dispatch({
-      type: 'USER_LOGIN',
-    });
-    await handleGetUserAndData(testUserId, runMode, dispatch); // load from data file
-    // console.log('***** loading init data with handleSetRunMode in handlers *****');
-    await dispatch({
-      type: 'FINISHED_LOADING',
-    });
-  }
-};
-
 export {
   handleAddItem,
   handleAddList,
@@ -677,7 +630,6 @@ export {
   handleUpdateListsGroup,
   handleUpdateFlatListsGroup,
   handleUpdateCategoriesGroup,
-  handleSetRunModeAndInitLoad,
   handleLogin,
   handleLogout,
   handleReg,
