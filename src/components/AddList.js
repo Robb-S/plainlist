@@ -36,6 +36,7 @@ const AddList = ({ props }) => {
           <form className='addCategoryForm' onSubmit={onSubmitAdd}>
             <span className='addAreaInput'>
               <TextField
+                required
                 label="List name:" value={listName}
                 onChange={(e) => setListName(e.target.value)}
                 variant='outlined'

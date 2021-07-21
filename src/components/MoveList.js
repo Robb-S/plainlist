@@ -42,7 +42,7 @@ const MoveList = ({ props }) => {
     setCatValue(e.target.value);
   };
 
-  const error = true;
+  const error = false;
   useEscape(() => cancelMoveLocal());
   return (
     <Fragment>

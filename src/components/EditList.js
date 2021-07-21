@@ -38,6 +38,7 @@ const EditList = ({ props }) => {
           <form className='addCategoryForm' onSubmit={onSubmitEdit}>
             <span className='addAreaInput'>
               <TextField
+                required
                 label="Edit list name:" value={listName}
                 onChange={(e) => setListName(e.target.value)}
                 variant='outlined'

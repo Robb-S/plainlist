@@ -46,6 +46,7 @@ const AddCat = ({ props }) => {
           <form className='addCategoryForm' onSubmit={onSubmitAdd}>
             <span className='addAreaInput'>
               <TextField
+                required
                 label="New category name:" value={categoryName}
                 onChange={(e) => setCategoryName(e.target.value)}
                 variant='outlined'
