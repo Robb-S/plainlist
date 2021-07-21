@@ -5,6 +5,7 @@ const initValues = {
   loading: true,
   loggedIn: false,
   flatMode: false,
+  isMobile: false,
   runMode: 'API',
   user: {},
   categories: [],

@@ -45,11 +45,12 @@ const AddItem = () => {
             <form className='editItemForm' onSubmit={onSubmitAdd}>
               <span className='editItemInputArea'>
                 <TextField
+                  required
                   label="Item name:" value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
                   variant='outlined'
                   margin='dense'
-                  autoFocus={true}
+                  autoFocus={!state.isMobile}
                 />
                 <TextField
                   label="Note:" value={itemNote}
