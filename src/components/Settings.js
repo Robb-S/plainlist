@@ -17,14 +17,17 @@ const flatBoolToText = (flatBool) => {
   return flatText;
 };
 
+const flatTextToBool = (flatText) => {
+  const flatBool = flatText==='flat' ? true : false;
+  return flatBool;
+};
+
 const Settings = () => {
   const { state, dispatch } = useStore();
   const history = useHistory();
-  // const isLoaded = !state.loading;  // maybe not needed, if handled by parent component
-  // const userID = state.user.id;
 
   const [userName, setUserName] = useState('');
-  const [flatValue, setFlatValue] = useState( flatBoolToText(state.flat) );
+  const [flatValue, setFlatValue] = useState( flatBoolToText(state.flatMode) );
   const [userPwd, setUserPwd] = useState('');
   const [userPwd2, setUserPwd2] = useState('');
   const [userEmail, setUserEmail] = useState('');
@@ -32,11 +35,6 @@ const Settings = () => {
   const [uNameMsg, setUNameMsg] = useState('');
   const debouncedUserName = useDebounce(userName, 300);
   const isFlat = state.flatMode;
-
-  const flatTextToBool = (flatText) => {
-    const flatBool = flatText==='flat' ? true : false;
-    return flatBool;
-  };
 
   let flatTextButtonMsg = isFlat ? 'Hierarchical structure (show lists + categories)' :
     'Flat structure (show just lists, no categories)';
