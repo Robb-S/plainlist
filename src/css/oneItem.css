@@ -86,20 +86,27 @@ div.dragHandle {
   padding: 0px 4px 0px 4px;
   touch-action: none;
   cursor: move;
-  background-color: #f7f7f7;
+  background-color: #eaeaea;
 }
 div.dragHandleIcon {
   touch-action: none; 
 }
+div.itemPart23 {
+  border: 0px solid #00bbbb;
+  grid-area: p23;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 4px 6px 10px 12px;
+}
 div.itemPart2 {
   border: 0px solid #00bbbb;
-  grid-area: p2;
-  padding: 6px 0px 8px 12px;
+  padding: 0;
+  margin: 0;
 }
 div.itemPart3 {
   border: 0px solid #00bbbb;
-  grid-area: p3;
-  padding: 8px 6px 8px 10px;
+  padding: 0;
+  margin: 0;
   font-size: 75%;
 }
 div.itemPart4 {
@@ -115,9 +122,10 @@ div.itemPart5 {
 
 @media (min-width: 451px) { /* desktop */
   div.itemOneRow {
-    grid-template-columns: 28px 1fr 1fr 36px 36px;
+    grid-template-columns: 28px 1fr 36px 36px;
     grid-template-areas: 
-      "p1  p2  p3  p4  p5";
+      "p1  p23  p4  p5"
+      "p1  p23  p4  p5";
     max-width: 600px;
   }
   div.editItemDiv, div.addNewShell {
@@ -128,16 +136,21 @@ div.itemPart5 {
 @media (max-width: 450px) and (min-width: 301px) { /* bigger device */
   div.itemOneRow {
     border-width: 2px;
+    border-width: 0 0 1px 0;
     grid-template-columns: 28px 1fr 34px 36px;
     grid-template-areas: 
-      "p1  p2  p4  p5"
-      "p1  p3  p4  p5";
-  } 
+      "p1  p23  p4  p5"
+  }
+  div.itemPart23 {
+    padding: 6px 6px 4px 12px;
+  }
   div.itemPart2 {
-    padding: 12px 4px 0px 10px;
+    padding: 4px 0 0 0;
+    margin: 0;
   }
   div.itemPart3 {
-    padding: 0px 4px 12px 10px;
+    padding: 0 0 8px 0;
+    margin: 0;
   }
   div.itemPart4 {
     padding: 10px 0px 10px 0px;
@@ -157,19 +170,14 @@ div.itemPart5 {
     border-width: 1px;
     grid-template-columns: 28px 1fr 1fr 1fr 1fr;
     grid-template-areas: 
-      "p1  p2  p2 p2 p2"
-      "p1  p3  p3 p3 p3"
+      "p1  p23  p23  p23  p23"
       "p1  p4  p5 . . ";
   } 
   div.itemPart2 {
     font-size: 85%;
-    padding: 6px 8px 0px 10px;
   }
-  div.itemPart3 {
-    padding: 1px 8px 4px 10px;
-  }  
   div.itemPart4 {
-    padding: 4px 0px 5px 0px;
+    padding: 4px 0px 5px 12px;
     justify-self: start;
   }  
   div.itemPart5 {

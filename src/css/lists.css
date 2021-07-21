@@ -90,15 +90,6 @@ ul.itemsTableUL {
   padding: 0 0 15px 15px;
 }
 
-span.itemName {
-  padding: 8px 12px 12px 12px; 
-}
-
-span.itemNote {
-  padding: 10px 12px 10px 12px;
-  font-size: 75%;
-}
-
 span.iconBorder {
   border-width: 1px;
   border-style: solid;

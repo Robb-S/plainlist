@@ -60,11 +60,13 @@ export function SortableItemUnit(props) {
               <div className='dragHandle' {...listeners} {...attributes} >
                 <div className='dragHandleIcon'>{ MakeDragIcon() }</div>
               </div>
-              <div className='itemName itemPart2'>
-                {props.item.itemName}
-              </div>
-              <div className='itemNote itemPart3'>
-                {props.item.itemNote}
+              <div className='itemPart23'>
+                <div className='itemPart2'>
+                  {props.item.itemName}
+                </div>
+                <div className='itemPart3 xhidden'>
+                  {props.item.itemNote}
+                </div>
               </div>
               <div className='buttons itemPart4'>
                 <IconButton config={ { title:'edit item',
@@ -86,6 +88,7 @@ export function SortableItemUnit(props) {
             <form className='editItemForm' onSubmit={submitUpdateItem}>
               <span className='editItemInputArea'>
                 <TextField
+                  required
                   label="Item name:" value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
                   variant='outlined'
