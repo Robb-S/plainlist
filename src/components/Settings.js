@@ -11,6 +11,7 @@ import Loading from './Loading';
 import Login from './Login';
 import * as api from '../util/constants';
 import { FormControl, FormLabel, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
+import axios from 'axios';
 
 const flatBoolToText = (flatBool) => {
   const flatText = flatBool ? 'flat' : 'hier';
@@ -54,9 +55,37 @@ const Settings = () => {
   };
 
   const onTestButton = async () => {
-    const uncatCat = await getUncategorizedCategory(state);
-    console.log('getUncategorizedCategory: ' + uncatCat.id);
+    console.log('test button pressed. ');
+    let testuser = 'user2';
+    testuser = 'user3';
+    // testuser = 'admin';
+    const testURL = api.API_GET_USER_ID + testuser;
+    
+    try {
+      const responseUserID = await axios.get(testURL);
+      console.log(responseUserID.data);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log('test button end. ');
   };
+
+  const onTestButton2 = async () => {
+    console.log('test button 2 pressed. ');
+    let testuserid = '1';
+    testuserid = '2';
+    testuserid = '4';
+    const testURL = api.API_ITEMS_ID + testuserid;
+    
+    try {
+      const responseUserID = await axios.get(testURL);
+      console.log(responseUserID.data);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log('test button 2 end. ');
+  };
+
 
   // Effect for API call
   useEffect(() => {
@@ -182,6 +211,12 @@ const Settings = () => {
               onClick={() => onTestButton()}
             >
               Test Button
+          </button>
+          <button
+              className="btn default-btn"
+              onClick={() => onTestButton2()}
+            >
+              Test Button 2
           </button>
         </div>
       </Fragment>
