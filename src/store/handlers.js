@@ -2,7 +2,7 @@ import { confirmQuest, makeHighestNumericAttribute, AreObjectsDifferent } from '
 import { getItemRec, getItemsByListID, getListsByCatID, getCatRec, getListRec, getAllCats,
   getAllLists } from './getData';
 import * as api from '../util/constants';
-import { addRecAPI, deleteRecAPI, updateRecAPI, getTokenFromAPI } from './apiCalls';
+import { addRecAPI, deleteRecAPI, updateRecAPI, getTokenFromAPI, getUserID } from './apiCalls';
 import { handleGetUserAndData } from './fetchUserAndData';
 
 /**
@@ -11,17 +11,20 @@ import { handleGetUserAndData } from './fetchUserAndData';
  * Then set login flag to true, get initial data from API, set loading flag to false.
  * If login fails, keep logged in flag false, loading flag true, and show error message.
  */
- const handleLogin = async (userInfo, state, dispatch) => {
+const handleLogin = async (userInfo, state, dispatch) => {
+  const loginName = userInfo.userName;
   dispatch({
     type: 'STARTED_LOADING',
   });
   const status = await getTokenFromAPI(userInfo);
   if (status===api.OK) {
+    const userID = await getUserID(loginName);
     dispatch({
       type: 'USER_LOGIN',
+      payload: loginName,
     });
-    await handleGetUserAndData(null, api.RUNMODE_API, dispatch);
-    // console.log('***** loading init data with handleLogin in handlers *****');
+    console.log('***** loading init data with handleLogin in handlers *****');
+    await handleGetUserAndData(userID, api.RUNMODE_API, dispatch);
     dispatch({
       type: 'FINISHED_LOADING',
     });

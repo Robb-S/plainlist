@@ -4,7 +4,7 @@
  * and an OK status, to keep things simple in the calling functions. 
  */
 
-import { makeStringID } from '../util/helpers';
+import { makeStringID, sleepy } from '../util/helpers';
 import axios from 'axios';
 import * as api from '../util/constants';
 import { setAxiosAuthToken } from '../util/helpers';
@@ -35,6 +35,7 @@ const userExistsAPI = async (userName) => {
  const getTokenFromAPI = async (userInfo) => {
   let token = '';
   const loginData = { 'username':userInfo.userName, 'password':userInfo.userPwd };
+  console.log('** getting token **');
   try {
     const responseToken = await axios.post(api.API_AUTH, loginData);
     token = responseToken.data.token;
@@ -47,20 +48,42 @@ const userExistsAPI = async (userName) => {
 };
 
 /**
+ * get user id based on userName, because fetching data via token was returning wrong
+ * user's data.
+ */
+const getUserID = async (loginName) => {
+  console.log('** getUserID');
+  const getURL = api.API_GET_USER_ID + loginName;
+  try {
+    const responseUserID = await axios.get(getURL);
+    console.log('** fetched userid: ' + responseUserID.data.userID);
+    return responseUserID.data.userID;
+  } catch (error) {
+    console.log(error);
+    return api.FAILED;
+  }
+};
+/**
  * Get data from REST API for initial setup when app is started (or upon login).
  * TODO: error handling.
  */
- const getInitDataByToken = async () => {
+const getInitDataByToken = async () => {
+  console.log('** getInitDataByToken');
   let user = {};
   let uCats, uLists, uItems = [];
   try {
+    await sleepy(500);
     const responseUsers = await axios.get(api.API_USER_BASIC);
     const userArray = responseUsers.data;
+    console.log('*** users found: ' + userArray.length);
     user = userArray.length>0 ? userArray[0] : []; // or throw an error
+    console.log('name: ' + user.username);
+    await sleepy(500);
     const responseCats = await axios.get(api.API_CATS);
     uCats = responseCats.data;
     const responseLists = await axios.get(api.API_LISTS);
     uLists = responseLists.data;
+    console.log('Lists: ' + uLists.length);
     const responseItems = await axios.get(api.API_ITEMS);
     uItems = responseItems.data;
   } catch (error) {
@@ -168,5 +191,5 @@ const updateRecAPI = async (updateRec, runMode, recType) => {
 
 export {
   getTokenFromAPI, userExistsAPI, getInitDataByToken,
-  addRecAPI, deleteRecAPI, updateRecAPI,
+  addRecAPI, deleteRecAPI, updateRecAPI, getUserID,
 };

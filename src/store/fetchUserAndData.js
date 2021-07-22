@@ -2,14 +2,13 @@ import { allUsers, allCategories, allLists, allItems } from './testdata';
 import * as api from '../util/constants';
 import { getInitDataByToken } from './apiCalls';
 import { isMobile } from 'react-device-detect';
-import { setAxiosAuthToken } from '../util/helpers';
+import { setAxiosAuthToken, sleepy } from '../util/helpers';
 
 /**
  * Fetch data objects and return them.
  */
 const fetchListsByUserID = async (userID, runMode) => {
   if (runMode===api.RUNMODE_API) {
-    // await getTokenFromAPI();
     const { user, categories, lists, items } = await getInitDataByToken();
     return { user, categories, lists, items };
   }
@@ -25,8 +24,9 @@ const fetchListsByUserID = async (userID, runMode) => {
  * @param {*} runMode 'testData' or 'API'
  */
 const handleGetUserAndData = async (userID, runMode, dispatch) =>  {
-  // console.log('** handleGetUserAndData');
+  // console.log('** handleGetUserAndData userID' + userID);
   const { user, categories, lists, items } = await fetchListsByUserID(userID, runMode);
+  await sleepy(500);
   dispatch({
     type: 'SET_USER',
     payload: { user },
