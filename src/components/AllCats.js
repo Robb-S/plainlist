@@ -30,7 +30,7 @@ const AllCats = () => {
         <div className='crumbsandsettings'>
           <div className='breadcrumbs'>
             <span className='oneCrumb'>
-              Welcome
+              Welcome { state.user.username }
             </span>
           </div>
           <div className='settingsicon'>
