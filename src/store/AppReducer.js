@@ -23,12 +23,14 @@ function AppReducer(state, action) {
       return {
         ...state,
         loggedIn: true,
+        loginName: action.payload,
       };
     }
     case 'USER_LOGOUT': {
       return {
         ...state,
         loggedIn: false,
+        loginName: '',
       };
     }
     case 'SET_FLAT': {

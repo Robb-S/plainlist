@@ -7,6 +7,7 @@ const initValues = {
   flatMode: false,
   isMobile: false,
   runMode: 'API',
+  loginName: '',
   user: {},
   categories: [],
   lists: [],
