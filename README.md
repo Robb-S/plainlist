@@ -28,7 +28,7 @@ For new user registration, I've implemented a feature to check whether a request
 
 This repository is the code for a web-based front end, built in React.
 
-Since I started out the React side of the project using internal sample data, I've kept it and set up a "demo" option, in case anyone wanted to play with the code without the bother of setting up a back-end API server.
+Since I started out the React side of the project using internal sample data, I've kept it and set up a "demo" option, in case the server is offline for maintenance.  Adjust variables in the .env file accordingly.
 
 - Copy file .env.template to file .env
 

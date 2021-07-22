@@ -38,7 +38,6 @@ Coding for icons was getting messy, especially when I wanted to change an icon, 
 
 - create initial default records for new user
 - expand user profile
-- set up external django server
 - improve desktop layout
 - validate input
 - handle condition for no internet during initial fetch
@@ -47,6 +46,7 @@ Coding for icons was getting messy, especially when I wanted to change an icon, 
 
 ## Done
 
+- set up external django server
 - category display with uncategorized always at bottom, hidden when empty
 - flat list display
 - make component for icons with labels
