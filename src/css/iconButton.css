@@ -2,7 +2,7 @@ div.iconButton, div.iconButtonNarrow {
   border: 0px solid #bbbbbb;
   background-color: #ffffff;
   padding: 2px 0px 0px 0px;
-  width: 65px;
+  width: 60px;
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
@@ -36,6 +36,9 @@ div.iconCaption, div.iconLinkCaption {
 
   div.iconCaption {
     font-size: 10px;
+  }
+  div.iconButton {
+    width: 58px;
   }
 
 }

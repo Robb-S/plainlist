@@ -9,23 +9,28 @@
   display: none;
 }
 
-.heading {
-  margin: 11px 11px 12px 0;
-  font-size: 15px;
+.headingZone {
+  padding: 25px 0 15px 0;
+  display: grid;
+  grid-template-columns: 1fr 170px;
+  max-width: 600px;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: #bbbbbb;
 }
 
-.headingName {
-  margin: 0px 11px 15px 0;
+.headingNameArea {
+  border: 0px solid black;
   font-size: 24px;
   font-weight: bold;
+  padding: 0px 0 0 10px;
 }
 
-span.headingName {
-  padding: 0 15px 0 0;
-}
-
-div.headingNameDiv {
-  padding: 20px 0 0px 0;
+.headingIcons {
+  border: 0px solid black;
+  padding: 2px 0px 0px 0px;
+  justify-self: end;
+  align-self: start;
   display: flex;
   align-items: flex-start;
 }
@@ -90,45 +95,6 @@ ul.itemsTableUL {
   padding: 0 0 15px 15px;
 }
 
-span.iconBorder {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #99cccc;
-  padding: 8px 4px 0px 4px;
-}
-
-span.iconNoBorder {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ffffff;
-  padding: 8px 4px 0px 4px;
-}
-
-
-span.iconBorderSmall {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #99cccc;
-  padding: 2px 4px 0px 4px;
-}
-
-
-span.iconEdit, span.iconCheckmark, span.iconDelete {
-  cursor: pointer;
-}
-
-span.iconHandle {
-  cursor: move;
-}
-
-span.sliver5 {
-  width: 5px;
-}
-
-span.spacer {
-  width: 5px;
-  padding-right: 12px;
-}
 
 .editButtonArea {
   align-self: end;
@@ -136,7 +102,7 @@ span.spacer {
 
 .breadcrumbs {
   border: 1px solid #99cccc;
-  padding: 12px 8px 8px 12px;
+  padding: 12px 8px 12px 12px;
   text-align: left;
   font-size: 16px;
 }
@@ -150,13 +116,15 @@ span.spacer {
 }
 
 div.crumbsandsettings {
-  width: 500px;
+  max-width: 600px;
   display: grid;
-  grid-template-columns: 1fr 65px;
+  grid-template-columns: 1fr 38px;
+  gap: 10px;
 }
 div.settingsicon {
-  text-align: right;
-  padding: 5px 0px 0px 12px;
+  padding: 5px 5px 0px 0px;
+  justify-self: end;
+  align-self: center;
 }
 
 .cursorPointer {
@@ -169,18 +137,24 @@ div.settingsicon {
   margin-bottom: 15px;
 }
 
-@media only screen and (max-width: 600px) {
+@media (min-width: 451px) { /* desktop */
   div.crumbsandsettings {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 65px;
+    max-width: 600px;
   }
   .breadcrumbs {
-    border: 2px solid #cc99cc;
-    padding: 12px 8px 8px 12px;
-    text-align: left;
-    font-size: 13px;
+    font-size: 15px;
   }
 }
 
+@media (max-width: 450px) { /*  device */
+  div.crumbsandsettings {
+    width: 100%;
+  }
+  div.itemsTable {
+    margin: 0px 0 0 0;
+  }
+  .headingNameArea {
+    font-size: 20px;
+  }
 
+}

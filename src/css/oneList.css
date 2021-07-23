@@ -52,9 +52,8 @@ div.listPart3 {
   }
 }
 
-@media (max-width: 450px) and (min-width: 301px) { /* bigger device */
+@media (max-width: 450px) and (min-width: 320px) { /* bigger device */
   div.listOneRow {
-    border-width: 2px;
     grid-template-columns: 28px 1fr;
     grid-template-areas: 
       "p1  p2"
@@ -69,9 +68,8 @@ div.listPart3 {
 }
  
 
-@media (max-width: 300px) { /* smaller device */
+@media (max-width: 319px) { /* smaller device */
   div.listOneRow {
-    border-width: 1px;
     grid-template-columns: 28px 1fr;
     grid-template-areas: 
       "p1  p2"

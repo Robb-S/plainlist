@@ -44,11 +44,11 @@ const AllCats = () => {
   const headingArea = () => {
     const showAddIcon = !addMode; // hide icon when already in add mode
     return (
-      <div className='heading'>
-        <div className='headingNameDiv'>
-          <span className='headingName'>
-            All categories
-          </span>
+      <div className='headingZone'>
+        <div className='headingNameArea'>
+          All categories
+        </div>
+        <div className='headingIcons'>
           { showAddIcon &&
             <IconButton config={ { title:'add a new category', caption:'add a category',
               iconType:'add', callProc:setupAdd } } />

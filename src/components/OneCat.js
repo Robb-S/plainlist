@@ -85,11 +85,11 @@ const OneCat = () => {
     // don't allow delete or renaming of uncategorized category
     const showEditAndDelete = oneCatRec.uncategorized !== true;
     return (
-      <div className='heading'>
-        <div className='headingNameDiv'>
-          <span className='headingName'>
-            Category: {oneCatRec.categoryName}
-          </span>
+      <div className='headingZone'>
+        <div className='headingNameArea'>
+          Category: {oneCatRec.categoryName}
+        </div>
+        <div className='headingIcons'>
           { showAddIcon &&
             <IconButton config={ { title:'add a new list', caption:'add a list',
               iconType:'add', callProc:setupAdd } } />

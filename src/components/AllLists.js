@@ -49,11 +49,11 @@ const AllLists = () => {
      // hide add icon in add mode, or when there's no uncategorized category to add to
     const showAddIcon = ((!addMode) && (uncatCat!=null));
     return (
-      <div className='heading'>
-        <div className='headingNameDiv'>
-          <span className='headingName'>
-            All Lists
-          </span>
+      <div className='headingZone'>
+        <div className='headingNameArea'>
+          All Lists
+        </div>
+        <div className='headingIcons'>
           { showAddIcon &&
             <IconButton config={ { title:'add a new list', caption:'add a list',
               iconType:'add', callProc:setupAdd } } />

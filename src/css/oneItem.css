@@ -139,7 +139,6 @@ div.itemPart5 {
     margin: 0px 0 6px 0;
   }
   div.itemOneRow {
-    border-width: 2px;
     border-width: 0 0 1px 0;
     grid-template-columns: 28px 1fr 34px 36px;
     grid-template-areas: 
@@ -171,7 +170,7 @@ div.itemPart5 {
 
 @media (max-width: 319px) { /* tiny device */
   div.itemOneRow {
-    border-width: 1px;
+    border-width: 0 0 1px 0;
     grid-template-columns: 28px 1fr 1fr 1fr 1fr;
     grid-template-areas: 
       "p1  p23  p23  p23  p23"

@@ -57,7 +57,6 @@ const OneList = () => {
    */
   const crumbArea = () => {
     const isFlatMode = getFlatMode(state);
-    // console.log('isFlatMode: ' + isFlatMode);
     return (
       <Fragment>
         <div className='crumbsandsettings'>
@@ -72,20 +71,21 @@ const OneList = () => {
             { !isFlatMode &&
               <Fragment>
                 <Link className='linky3 oneCrumb' to={`/`}>
-                  [All categories]
+                  [All]
                 </Link>
                 <span className='oneCrumb'>:</span>
+                Category &nbsp;
                 <Link className='linky3 oneCrumb'
                   to={{
                     pathname: `/cat/`,
                     state: { categoryID: parentCatID },
                   }}
-                >[{parentCatName}] category</Link>
+                >[{parentCatName}]</Link>
               </Fragment>
             }
             <span className='oneCrumb'>:</span>
             <span className='oneCrumb'>
-              [{oneListRec.listName}] list
+              {oneListRec.listName}
             </span>
           </div>
           <div className='settingsicon'>
@@ -110,11 +110,11 @@ const OneList = () => {
 
   const headingArea = () => {
     return (
-      <div className='heading'>
-        <div className='headingNameDiv'>
-          <span className='headingName'>
-            {oneListRec.listName}
-          </span>
+      <div className='headingZone'>
+        <div className='headingNameArea'>
+          {oneListRec.listName}
+        </div>
+        <div className='headingIcons'>
           <IconButton config={ { title:'rename list', caption:'rename list',
             iconType:'edit', callProc:setupEdit } } />
           { showOrHideMoveIcon() }
