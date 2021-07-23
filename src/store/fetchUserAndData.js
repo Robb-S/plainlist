@@ -26,7 +26,7 @@ const fetchListsByUserID = async (userID, loginName, runMode) => {
 const handleGetUserAndData = async (userID, loginName, runMode, dispatch) =>  {
   console.log('** handleGetUserAndData userID ' + userID);
   const { user, categories, lists, items } = await fetchListsByUserID(userID, loginName, runMode);
-  await sleepy(500);
+  // await sleepy(500);
   dispatch({
     type: 'SET_USER',
     payload: { user },

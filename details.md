@@ -33,6 +33,10 @@ If you switch from flat mode to hierarchical mode after adding new lists, those 
 
 Coding for icons was getting messy, especially when I wanted to change an icon, so I made an IconButton component to centralize all icon construction tasks and standardize their appearance.  There are options for icons with and without labels.
 
+## UI - mobile devices
+
+I use ordinary CSS media queries to determine screen layout.  In addition, I use the autofocus param to set the focus on input text boxes where appropriate, but this was distracting on mobile platforms (it would open the keyboard as soon as the screen appeared), so I use the 'react-device-detect' package to detect mobile devices.
+
 
 ## To-do
 

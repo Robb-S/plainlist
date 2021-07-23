@@ -94,10 +94,13 @@ const Settings = () => {
   
   const onTestButton3 = async () => {
     console.log('test button 3 pressed. ');
-    const testURL = api.API_USER_UN + state.loginName;
+    const testURL = api.API_CATS_UN + state.loginName;
     let tempvar;
     try {
+      axios.defaults.headers.get['Cache-Control'] = 'no-cache';
       const responseUserID = await axios.get(testURL);
+      // axios.defaults.headers.get['Pragma'] = 'no-cache';
+      // axios.defaults.headers.get['Expires'] = '0';
       console.log(responseUserID.data);
       // tempvar = responseUserID.data[0].owner;
       // console.log(tempvar);

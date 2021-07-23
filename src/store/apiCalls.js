@@ -76,7 +76,8 @@ const getInitDataByToken = async (loginName) => {
   let user = {};
   let uCats, uLists, uItems = [];
   try {
-    await sleepy(500);
+    // await sleepy(500);
+    axios.defaults.headers.get['Cache-Control'] = 'no-cache';
     const responseUsers = await axios.get(api.API_USER_UN+un);
     const userArray = responseUsers.data;
     console.log('*** users found: ' + userArray.length);

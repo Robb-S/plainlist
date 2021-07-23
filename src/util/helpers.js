@@ -57,6 +57,8 @@ const AreObjectsDifferent = (a, b) => {
  * Sets the axios default header once an autorization token is available.
  */
 const setAxiosAuthToken = token => {
+  // setAxiosCache();
+  // axios.defaults.headers.get['Cache-Control'] = 'no-cache';
   if (typeof token !== 'undefined' && token) {
     axios.defaults.headers.common['Authorization'] = 'Token ' + token;
     // axios.defaults.headers.common["Content-Type"] = 'application/json';
@@ -64,6 +66,12 @@ const setAxiosAuthToken = token => {
     delete axios.defaults.headers.common['Authorization'];
   }
 };
+
+// const setAxiosCache = () => {
+//   axios.defaults.headers.get['Cache-Control'] = 'no-cache';
+//   axios.defaults.headers.get['Pragma'] = 'no-cache';
+//   axios.defaults.headers.get['Expires'] = '0';
+// };
 
 /**
  * Helper to debounce input from text fields before using it.  Use with UseEffect.

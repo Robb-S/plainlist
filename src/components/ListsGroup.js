@@ -41,7 +41,6 @@ const ListsGroup = ({ categoryID }) => {
   );
 
   const handleDragEnd = (event) => {
-    console.log('** handleDragEnd started for list.');
     const { active, over } = event;
     if (active.id !== over.id) {
       const oldIndex = findPosWithAttr(items, 'id', active.id);

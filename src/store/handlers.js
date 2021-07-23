@@ -26,7 +26,7 @@ const handleLogin = async (userInfo, state, dispatch) => {
       type: 'USER_LOGIN',
       payload: { loginName: loginName },
     });
-    console.log('***** loading init data with handleLogin in handlers *****');
+    // console.log('***** loading init data with handleLogin in handlers *****');
     // TODO: maybe userID is no longer used in this case
     await handleGetUserAndData(null, loginName, api.RUNMODE_API, dispatch);
     dispatch({
@@ -584,11 +584,9 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
  * API call failures.  
  */
 const handleUpdateCategoriesGroup = async (newCategories, state, dispatch) => {
-  console.log('** handleUpdateCategoriesGroup');
-  console.log(newCategories);
   const runMode = state.runMode;
   if (newCategories.length<1) return; // this should never happen
-  const expectedAllCatSize = getRegularCats(state).length; // just count non-special cats
+  const expectedAllCatSize = getRegularCats(state).length; // don't count "Uncategorized"
   if (expectedAllCatSize!==newCategories.length) return; // something is out of sync
   const newCatsReversed = [...newCategories]; // otherwise will affect current display.
   newCatsReversed.reverse();

@@ -37,7 +37,6 @@ const CategoriesGroup = () => {
   );
 
   const handleDragEnd = (event) => {
-    console.log('** handleDragEnd started.');
     const { active, over } = event;
     if (active.id !== over.id) {
       const oldIndex = findPosWithAttr(items, 'id', active.id);
@@ -45,8 +44,6 @@ const CategoriesGroup = () => {
       const newItems = arrayMove(items, oldIndex, newIndex);
       setItems(newItems);
       handleUpdateCategoriesGroup(newItems, state, dispatch);
-    } else {
-      console.log('** handleDragEnd aborted.');
     }
   };
 
