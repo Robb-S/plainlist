@@ -54,7 +54,7 @@ const AddItem = ({ listID }) => {
                   onChange={(e) => setItemName(e.target.value)}
                   variant='outlined'
                   margin='dense'
-                  autoFocus={!state.isMobile}
+                  autoFocus={true}
                   inputProps={{ autoCapitalize: 'off' }}
                 />
                 <TextField

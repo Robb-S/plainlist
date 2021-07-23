@@ -85,7 +85,7 @@ const OneCat = () => {
     // don't allow delete or renaming of uncategorized category
     const showEditAndDelete = oneCatRec.uncategorized !== true;
     return (
-      <div className='headingZone'>
+      <div className='headingZone catHeading'>
         <div className='headingNameArea'>
           Category: {oneCatRec.categoryName}
         </div>

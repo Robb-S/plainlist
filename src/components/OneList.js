@@ -110,7 +110,7 @@ const OneList = () => {
 
   const headingArea = () => {
     return (
-      <div className='headingZone'>
+      <div className='headingZone listHeading'>
         <div className='headingNameArea'>
           {oneListRec.listName}
         </div>

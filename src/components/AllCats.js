@@ -44,7 +44,7 @@ const AllCats = () => {
   const headingArea = () => {
     const showAddIcon = !addMode; // hide icon when already in add mode
     return (
-      <div className='headingZone'>
+      <div className='headingZone topHeading'>
         <div className='headingNameArea'>
           All categories
         </div>

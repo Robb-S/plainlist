@@ -1,6 +1,6 @@
 .mainContainer {
-  padding: 14px;
-  margin-top: 20px;
+  padding: 4px 0 14px 0;
+  margin-top: 10px;
   font-size: 18px;
   text-align: left;
 }
@@ -10,13 +10,25 @@
 }
 
 .headingZone {
-  padding: 25px 0 15px 0;
+  padding: 18px 7px 15px 3px;
   display: grid;
   grid-template-columns: 1fr 170px;
   max-width: 600px;
-  border-width: 0 0 1px 0;
+  border-width: 1px 0 1px 0;
   border-style: solid;
   border-color: #bbbbbb;
+}
+
+.catHeading {
+  background-color: #fce4ec;
+}
+
+.topHeading {
+  background-color: #b2ebf2;
+}
+
+.listHeading {
+  background-color: #dcedc8;
 }
 
 .headingNameArea {
@@ -85,7 +97,7 @@ div.itemsTable {
 }
 
 ul.itemsTableUL {
-  padding: 0;
+  padding: 0 10px 0 10px;
   margin: 0;
   list-style: none;
 }
@@ -101,8 +113,8 @@ ul.itemsTableUL {
 }
 
 .breadcrumbs {
-  border: 1px solid #99cccc;
-  padding: 12px 8px 12px 12px;
+  border: 0px solid #99cccc;
+  padding: 12px 8px 15px 12px;
   text-align: left;
   font-size: 16px;
 }
@@ -120,6 +132,7 @@ div.crumbsandsettings {
   display: grid;
   grid-template-columns: 1fr 38px;
   gap: 10px;
+
 }
 
 div.settingsicon {
@@ -152,7 +165,7 @@ div.settingsicon {
     width: 100%;
   }
   div.itemsTable {
-    margin: 0px 0 0 0;
+    margin: 10px 0 0 0;
   }
   .headingNameArea {
     font-size: 20px;

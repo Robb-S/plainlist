@@ -8,6 +8,7 @@ div.iconButton, div.iconButtonNarrow {
   align-items: center;
   justify-items: center;
   cursor: pointer;
+  background-color: transparent;
 }
 
 div.theIcon {
