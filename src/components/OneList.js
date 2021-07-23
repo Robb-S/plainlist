@@ -143,7 +143,7 @@ const OneList = () => {
     return (
       <Fragment>
         { headingArea() }
-        <AddItem />
+        <AddItem listID={listID} />
         <ItemsGroup />
       </Fragment>
     );

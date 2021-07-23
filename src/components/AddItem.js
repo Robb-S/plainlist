@@ -1,25 +1,23 @@
 /**
  * Form for entry of one item.  The form needs a hidden submit button so that 
- * the ENTER button can be used to submit the form's multiple input fields.
+ * the ENTER button can be used to submit the form's multiple input fields.  (It wouldn't 
+ * be necessary for only one input field.)
  */
 import React, { Fragment, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import '../css/oneItem.css';
 import { useStore } from '../store/StoreContext';
+import { useEscape } from '../util/helpers'; // hook to capture escape key
 import { handleAddItem } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
 
-const AddItem = () => {
-  const listID = useLocation().state.listID; // or should this be passed by parameter? 
+const AddItem = ({ listID }) => {
   const { state, dispatch } = useStore();
-  const isLoaded = !state.loading;  // maybe not needed, if handled by parent component
-
+  const [addMode, setAddMode] = useState(!state.isMobile); // if mobile, show only button
   const [itemName, setItemName] = useState('');
   const [itemNote, setItemNote] = useState('');
 
-  const onSubmitAdd = (e) => {
-    // console.log('*** onSubmitAdd item called ***');
+  const onSubmitAdd = (e) => { // allow pressing ENTER to submit
     e.preventDefault();
     onRequestAdd();
   };
@@ -33,11 +31,17 @@ const AddItem = () => {
   const cancelAdd = () => {
     setItemName('');
     setItemNote('');
+    setAddMode(false);
   };
 
+  const setupAdd = () => {
+    setAddMode(true);
+  };
+
+  useEscape(() => cancelAdd());
   return (
     <Fragment>
-      {isLoaded &&
+    {addMode &&
       <Fragment>
         <div className='addNewShell'>
           <div className='addThisLabel'>Add new item:</div>
@@ -51,12 +55,14 @@ const AddItem = () => {
                   variant='outlined'
                   margin='dense'
                   autoFocus={!state.isMobile}
+                  inputProps={{ autoCapitalize: 'off' }}
                 />
                 <TextField
                   label="Note:" value={itemNote}
                   onChange={(e) => setItemNote(e.target.value)}
                   variant='outlined'
                   margin='dense'
+                  inputProps={{ autoCapitalize: 'off' }}
                 />
               </span>
               <input type="submit" className="hidden" />
@@ -67,6 +73,16 @@ const AddItem = () => {
               <IconButton config={ { title:'cancel item',
                 iconType:'cancel', callProc:cancelAdd }} />
             </span>
+          </div>
+        </div>
+      </Fragment>
+    }
+    {!addMode &&
+      <Fragment>
+        <div className='addItemIconContainer'>
+          <div className='addItemIcon'>
+            <IconButton config={ { title:'add a new item', caption:'add item',
+              iconType:'add', callProc:setupAdd } } />
           </div>
         </div>
       </Fragment>

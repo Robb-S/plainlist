@@ -2,6 +2,16 @@
   display: none;
 }
 
+div.addItemIconContainer {
+  max-width: 600px;
+  display: grid;
+  padding-top: 12px;
+}
+
+div.addItemIcon {
+  justify-self: end;
+}
+
 div.addThisLabel {
   font-size: 60%;
   font-weight: normal;
@@ -9,10 +19,9 @@ div.addThisLabel {
 }
 
 div.addNewShell {
-  border: 1px solid #c2c2c2;
-  border-width: 1px 0 0px 0;
+  border: 0px solid #c2c2c2;
   padding: 5px 0 5px 0;
-  margin: 25px 0 21px 0;
+  margin: 10px 0 21px 0;
 }
 
 li.editItemFormLi {
@@ -164,6 +173,10 @@ div.itemPart5 {
   .editItemInputArea {
     grid-template-columns: 1fr;
     grid-row-gap: 0px;
+  }
+  div.addItemIcon {
+    padding-bottom: 15px;
+    justify-self: center;
   }
 }
  

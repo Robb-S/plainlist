@@ -52,6 +52,7 @@ const AddCat = ({ props }) => {
                 variant='outlined'
                 margin='dense'
                 autoFocus={true}
+                inputProps={{ autoCapitalize: 'off' }}
               />
             </span>
           </form>
