@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import '../css/lists.css';
+import '../css/settings.css';
 import { useStore } from '../store/StoreContext';
 import { handleReg, handleFlatnessToggle, handleFlatnessSetting } from '../store/handlers';
 import { useDebounce, sleepy } from '../util/helpers';
@@ -233,7 +234,9 @@ const Settings = () => {
             localUserID: [{ localUserID }]<br />
             oneItemOwner: [{ oneItemOwner }]<br />
           <br /><br />
+          <div className='flatnessFormDiv'>
           { flatForm() }
+          </div>
           <button
               className="btn default-btn"
               onClick={() => onTestButton()}

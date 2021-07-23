@@ -1,0 +1,18 @@
+.hidden {
+  display: none;
+}
+
+.flatnessFormDiv {
+  max-width: 600px;
+}
+
+@media (min-width: 450px) { /* desktop */
+
+}
+
+@media (max-width: 449px) { /* device */
+
+}
+ 
+
+
