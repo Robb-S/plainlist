@@ -23,7 +23,8 @@ function AppReducer(state, action) {
       return {
         ...state,
         loggedIn: true,
-        loginName: action.payload,
+        loginName: action.payload.loginName,
+        // userID: action.payload.userID,
       };
     }
     case 'USER_LOGOUT': {

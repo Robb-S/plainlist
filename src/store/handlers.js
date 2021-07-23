@@ -2,7 +2,7 @@ import { confirmQuest, makeHighestNumericAttribute, AreObjectsDifferent } from '
 import { getItemRec, getItemsByListID, getListsByCatID, getCatRec, getListRec, getAllCats,
   getAllLists } from './getData';
 import * as api from '../util/constants';
-import { addRecAPI, deleteRecAPI, updateRecAPI, getTokenFromAPI, getUserID } from './apiCalls';
+import { addRecAPI, deleteRecAPI, updateRecAPI, getTokenFromAPI } from './apiCalls';
 import { handleGetUserAndData } from './fetchUserAndData';
 
 /**
@@ -18,13 +18,17 @@ const handleLogin = async (userInfo, state, dispatch) => {
   });
   const status = await getTokenFromAPI(userInfo);
   if (status===api.OK) {
-    const userID = await getUserID(loginName);
+    localStorage.setItem('loginName', loginName); // name gets token, so it's working
+    // const userID = await getUserID(loginName);
+    // console.log('type of userID: ' + typeof(userID));
+    // TODO: maybe userID is no longer used in this case
     dispatch({
       type: 'USER_LOGIN',
-      payload: loginName,
+      payload: { loginName: loginName },
     });
     console.log('***** loading init data with handleLogin in handlers *****');
-    await handleGetUserAndData(userID, api.RUNMODE_API, dispatch);
+    // TODO: maybe userID is no longer used in this case
+    await handleGetUserAndData(null, loginName, api.RUNMODE_API, dispatch);
     dispatch({
       type: 'FINISHED_LOADING',
     });

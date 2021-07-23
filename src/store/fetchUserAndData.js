@@ -7,9 +7,9 @@ import { setAxiosAuthToken, sleepy } from '../util/helpers';
 /**
  * Fetch data objects and return them.
  */
-const fetchListsByUserID = async (userID, runMode) => {
+const fetchListsByUserID = async (userID, loginName, runMode) => {
   if (runMode===api.RUNMODE_API) {
-    const { user, categories, lists, items } = await getInitDataByToken();
+    const { user, categories, lists, items } = await getInitDataByToken(loginName);
     return { user, categories, lists, items };
   }
   if (runMode===api.RUNMODE_DEMO) {
@@ -23,9 +23,9 @@ const fetchListsByUserID = async (userID, runMode) => {
  * 
  * @param {*} runMode 'testData' or 'API'
  */
-const handleGetUserAndData = async (userID, runMode, dispatch) =>  {
-  // console.log('** handleGetUserAndData userID' + userID);
-  const { user, categories, lists, items } = await fetchListsByUserID(userID, runMode);
+const handleGetUserAndData = async (userID, loginName, runMode, dispatch) =>  {
+  console.log('** handleGetUserAndData userID ' + userID);
+  const { user, categories, lists, items } = await fetchListsByUserID(userID, loginName, runMode);
   await sleepy(500);
   dispatch({
     type: 'SET_USER',
@@ -80,13 +80,16 @@ const getListsByUserIDTestData = async (userID) => {
   if (runMode===api.RUNMODE_API) {
     // console.log('*** handleSetRunMode for API');
     let token = localStorage.getItem('token');
+    let loginName = localStorage.getItem('loginName');
     console.log('token: ' + token);
+    console.log('loginName: ' + loginName);
     if (token!==null) { // if found, then set logged in = true
       setAxiosAuthToken(token);
       await dispatch({
         type: 'USER_LOGIN',
+        payload: { loginName: loginName },
       });
-      await handleGetUserAndData(testUserId, runMode, dispatch);
+      await handleGetUserAndData(testUserId, loginName, runMode, dispatch);
       // console.log('***** loading init data with handleSetRunMode in handlers *****');
       const flatCookie = localStorage.getItem('flat');
       if (flatCookie!==null) { // now set it in state (TEMP)
@@ -106,14 +109,16 @@ const getListsByUserIDTestData = async (userID) => {
     });
   }
   if (runMode===api.RUNMODE_DEMO) {
+    const loginName = '';
     await dispatch({
       type: 'USER_LOGIN',
+      payload: { loginName: '' },
     });
     await dispatch({
       type: 'SET_IS_MOBILE',
       payload: isMobile,
     });
-    await handleGetUserAndData(testUserId, runMode, dispatch); // load from data file
+    await handleGetUserAndData(testUserId, loginName, runMode, dispatch); // load from data file
     // console.log('***** loading init data with handleSetRunMode in handlers *****');
     await dispatch({
       type: 'FINISHED_LOADING',

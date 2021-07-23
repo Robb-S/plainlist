@@ -8,6 +8,7 @@ const initValues = {
   isMobile: false,
   runMode: 'API',
   loginName: '',
+  userID: null,
   user: {},
   categories: [],
   lists: [],

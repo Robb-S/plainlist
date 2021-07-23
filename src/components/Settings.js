@@ -6,7 +6,6 @@ import { useDebounce, sleepy } from '../util/helpers';
 import { useHistory, Link } from 'react-router-dom';
 import { userExistsAPI } from '../store/apiCalls';
 import { handleLogout } from '../store/handlers';
-import { getUncategorizedCategory } from '../store/getData';
 import Loading from './Loading';
 import Login from './Login';
 import * as api from '../util/constants';
@@ -34,6 +33,8 @@ const Settings = () => {
   const [userEmail, setUserEmail] = useState('');
   const [regMsg, setRegMsg] = useState('Please fill out the fields below.');
   const [uNameMsg, setUNameMsg] = useState('');
+  const [localUserID, setLocalUserID] = useState('444');
+  const [oneItemOwner, setOneItemOwner] = useState('not yet');
   const debouncedUserName = useDebounce(userName, 300);
   const isFlat = state.flatMode;
 
@@ -56,14 +57,15 @@ const Settings = () => {
 
   const onTestButton = async () => {
     console.log('test button pressed. ');
-    let testuser = 'user2';
-    testuser = 'user3';
+    let testuser = state.loginName;
+    // testuser = 'user3';
     // testuser = 'admin';
     const testURL = api.API_GET_USER_ID + testuser;
     
     try {
       const responseUserID = await axios.get(testURL);
       console.log(responseUserID.data);
+      setLocalUserID(responseUserID.data.userID);
     } catch (error) {
       console.log(error);
     }
@@ -75,17 +77,36 @@ const Settings = () => {
     let testuserid = '1';
     testuserid = '2';
     testuserid = '4';
-    const testURL = api.API_ITEMS_ID + testuserid;
-    
+    const testURL = api.API_ITEMS_ID + localUserID;
+    let tempvar;
     try {
       const responseUserID = await axios.get(testURL);
       console.log(responseUserID.data);
+      tempvar = responseUserID.data[0].owner;
+      console.log(tempvar);
+      setOneItemOwner(tempvar);
     } catch (error) {
       console.log(error);
     }
     console.log('test button 2 end. ');
   };
 
+  
+  const onTestButton3 = async () => {
+    console.log('test button 3 pressed. ');
+    const testURL = api.API_USER_UN + state.loginName;
+    let tempvar;
+    try {
+      const responseUserID = await axios.get(testURL);
+      console.log(responseUserID.data);
+      // tempvar = responseUserID.data[0].owner;
+      // console.log(tempvar);
+      // setOneItemOwner(tempvar);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log('test button 3 end. ');
+  };
 
   // Effect for API call
   useEffect(() => {
@@ -203,7 +224,11 @@ const Settings = () => {
           </button>
           <br /><br />
             flatvalue: {flatValue}<br />
-            flatness: { state.flatMode.toString() }
+            flatness: { state.flatMode.toString() }<br />
+            loginName: [{ state.loginName }]<br />
+            userID: [{ state.userID }]<br />
+            localUserID: [{ localUserID }]<br />
+            oneItemOwner: [{ oneItemOwner }]<br />
           <br /><br />
           { flatForm() }
           <button
@@ -211,13 +236,19 @@ const Settings = () => {
               onClick={() => onTestButton()}
             >
               Test Button
-          </button>
+          </button><br />
           <button
               className="btn default-btn"
               onClick={() => onTestButton2()}
             >
               Test Button 2
-          </button>
+          </button><br />
+          <button
+              className="btn default-btn"
+              onClick={() => onTestButton3()}
+            >
+              Test Button 3
+          </button><br />
         </div>
       </Fragment>
       }

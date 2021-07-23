@@ -22,6 +22,7 @@ function App() {
   // console.log('*** starting app ***');  
 
   useEffect(() => {
+    console.log('** starting up **');
     handleSetRunModeAndInitLoad(testUserID, runMode, dispatch);
   }, [dispatch, runMode]);
   
