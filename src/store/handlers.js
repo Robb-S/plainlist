@@ -1,5 +1,5 @@
 import { confirmQuest, makeHighestNumericAttribute, AreObjectsDifferent } from '../util/helpers';
-import { getItemRec, getItemsByListID, getListsByCatID, getCatRec, getListRec, getAllCats,
+import { getItemRec, getItemsByListID, getListsByCatID, getCatRec, getListRec, getRegularCats,
   getAllLists } from './getData';
 import * as api from '../util/constants';
 import { addRecAPI, deleteRecAPI, updateRecAPI, getTokenFromAPI } from './apiCalls';
@@ -583,10 +583,12 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
  * order displayed may be slightly different from expectation in the event of multiple 
  * API call failures.  
  */
- const handleUpdateCategoriesGroup = async (newCategories, state, dispatch) => {
+const handleUpdateCategoriesGroup = async (newCategories, state, dispatch) => {
+  console.log('** handleUpdateCategoriesGroup');
+  console.log(newCategories);
   const runMode = state.runMode;
   if (newCategories.length<1) return; // this should never happen
-  const expectedAllCatSize = getAllCats(state).length;
+  const expectedAllCatSize = getRegularCats(state).length; // just count non-special cats
   if (expectedAllCatSize!==newCategories.length) return; // something is out of sync
   const newCatsReversed = [...newCategories]; // otherwise will affect current display.
   newCatsReversed.reverse();
