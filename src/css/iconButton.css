@@ -1,4 +1,4 @@
-div.iconButton, div.iconButtonNarrow {
+div.iconButton, div.iconButtonNarrow, div.iconButtonWide {
   border: 0px solid #bbbbbb;
   background-color: #ffffff;
   padding: 2px 0px 0px 0px;
@@ -19,6 +19,10 @@ div.iconButtonNarrow {
   width: 36px;
 }
 
+div.iconButtonWide {
+  width: 80px;
+}
+
 div.iconCaption, div.iconLinkCaption {
   border: 0px solid #00bbbb;
   padding: 4px 6px 0px 6px;
@@ -26,6 +30,13 @@ div.iconCaption, div.iconLinkCaption {
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
+}
+
+div.iconButtonWide div.iconCaption {
+  display: flex;
+  flex-wrap: no-wrap;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 .iconButton a:hover, .iconButton a:visited, .iconButton a:link, .iconButton a:active {

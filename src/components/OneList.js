@@ -83,8 +83,8 @@ const OneList = () => {
                 >[{parentCatName}]</Link>
               </Fragment>
             }
-            <span className='oneCrumb'>:</span>
-            <span className='oneCrumb'>
+            <span className='oneCrumb hiddenOnDevice'>:</span>
+            <span className='oneCrumb hiddenOnDevice'>
               {oneListRec.listName}
             </span>
           </div>

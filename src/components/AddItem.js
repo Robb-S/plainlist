@@ -82,7 +82,7 @@ const AddItem = ({ listID }) => {
         <div className='addItemIconContainer'>
           <div className='addItemIcon'>
             <IconButton config={ { title:'add a new item', caption:'add item',
-              iconType:'add', callProc:setupAdd } } />
+              iconType:'add', width:'wide', callProc:setupAdd } } />
           </div>
         </div>
       </Fragment>

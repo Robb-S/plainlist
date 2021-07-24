@@ -1,6 +1,7 @@
+
 .mainContainer {
   padding: 4px 0 14px 0;
-  margin-top: 10px;
+  margin: 10px 0 10px 0;
   font-size: 18px;
   text-align: left;
 }
@@ -10,11 +11,11 @@
 }
 
 .headingZone {
-  padding: 18px 7px 15px 3px;
+  padding: 7px 5px 12px 3px;
   display: grid;
   grid-template-columns: 1fr 170px;
   max-width: 600px;
-  border-width: 1px 0 1px 0;
+  border-width: 1px 1px 1px 1px;
   border-style: solid;
   border-color: #bbbbbb;
 }
@@ -152,6 +153,13 @@ div.settingsicon {
 }
 
 @media (min-width: 451px) { /* desktop */
+  .App {
+    display: flex;
+    justify-content: center;
+  }
+  .mainContainer {
+    width: 600px;
+  }
   div.crumbsandsettings {
     max-width: 600px;
   }
@@ -161,6 +169,12 @@ div.settingsicon {
 }
 
 @media (max-width: 450px) { /*  device */
+  .hiddenOnDevice {
+    display: none;
+  }
+  .mainContainer {
+    margin-top: 0;
+  }
   div.crumbsandsettings {
     width: 100%;
   }

@@ -24,11 +24,12 @@ import { VscCheck, VscCircleSlash, VscSettingsGear, VscEmptyWindow, VscEdit, Vsc
   VscTrash } from 'react-icons/vsc';
 
 const IconButton = ({ config }) => {
-  const { caption, title, iconType, buttonLink, callProc } = config;
+  const { caption, title, iconType, buttonLink, callProc, width } = config;
   const iconCaption = caption==null ? '' : caption;
   const iconTitle = title==null ? caption : title;
   const isLinkButton = buttonLink!=null; // catches null or undefined
-  const ibClass = iconCaption==='' ? 'iconButtonNarrow' : 'iconButton';
+  let ibClass = iconCaption==='' ? 'iconButtonNarrow' : 'iconButton';
+  if (width==='wide') { ibClass='iconButtonWide'; }
 
   let TheIcon;
   switch (iconType) {
@@ -91,7 +92,7 @@ const MakeSettingsButton = ( caption='' ) => {
 
 const MakeDragIcon = () => {
   return (
-    <GrDrag title='drag to change order' size='20' color='#ffffff' />
+    <GrDrag title='drag to change order' size='18' />
   );
 };
 
