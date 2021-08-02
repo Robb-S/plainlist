@@ -6,6 +6,8 @@ import React, { Fragment, useState } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import '../css/oneItem.css';
+import '../css/oneList.css';
+
 import { useStore } from '../store/StoreContext';
 import { handleRemoveItem, handleUpdateItem } from '../store/handlers';
 import { IconButton, MakeDragIcon } from './IconButton';

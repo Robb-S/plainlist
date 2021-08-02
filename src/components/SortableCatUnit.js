@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import '../css/oneList.css';
+import '../css/oneItem.css';
 import { MakeDragIcon } from './IconButton';
 import { pluralize } from '../util/helpers';
 

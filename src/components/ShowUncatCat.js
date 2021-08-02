@@ -9,6 +9,7 @@ import { useStore } from '../store/StoreContext';
 import { getUncategorizedCategory } from '../store/getData';
 import { pluralize } from '../util/helpers';
 import '../css/oneList.css';
+import '../css/oneItem.css';
 
 const ShowUncatCat = () => {
   const { state } = useStore();  // this must come before conditional render
@@ -21,8 +22,10 @@ const ShowUncatCat = () => {
 
   return (
     <Fragment>
-      <div className='listOneRow'>
-        <div className='notDragHandle'> </div>
+      <div className='listOneRow listOneRowUncat'>
+        <div className='notDragHandle'>
+          <div className='noDragHandleIcon'></div>
+        </div>
         <div className='itemName listPart2'>
           <Link className='linky3'
             title={categoryName}

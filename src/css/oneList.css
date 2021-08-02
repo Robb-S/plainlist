@@ -19,6 +19,9 @@ div.listOneRow {
   border-width: 0px 0px 0px 0px;
   display: grid;
 }
+div.listOneRowUncat {
+  padding: 0 10px 0 10px;
+}
 div.listPart2 {
   grid-area: p2;
   padding: 4px 0px 8px 12px;

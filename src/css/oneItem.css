@@ -77,8 +77,10 @@ span.iconEdit, span.iconCheckmark, span.iconDelete {
 
 /* elements in standard list one item */
 
+
 li.oneItemLine {
   margin: 0px 0 4px 0;
+  padding: 0;
 }
 
 div.itemOneRow {
@@ -86,7 +88,7 @@ div.itemOneRow {
   border-width: 0 0 0px 0;
   display: grid;
 }
-div.dragHandle {
+div.dragHandle, div.notDragHandle {
   grid-area: p1;
   height: 100%;
   display: flex;
@@ -96,11 +98,20 @@ div.dragHandle {
   touch-action: none;
   cursor: move;
 }
+div.notDragHandle {
+  cursor: default;
+}
 div.dragHandleIcon {
   touch-action: none; 
   padding-top: 4px;
   background-color: #bbbbbb;
 }
+div.noDragHandleIcon {
+  width: 22px;
+  height: 30px;
+  background-color: #bbbbbb;
+}
+
 div.itemPart23 {
   border: 0px solid #00bbbb;
   grid-area: p23;
