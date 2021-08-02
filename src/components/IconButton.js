@@ -92,7 +92,7 @@ const MakeSettingsButton = ( caption='' ) => {
 
 const MakeDragIcon = () => {
   return (
-    <GrDrag title='drag to change order' size='18' />
+    <GrDrag title='drag to change order' size='20' />
   );
 };
 

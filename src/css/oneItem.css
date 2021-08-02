@@ -78,12 +78,12 @@ span.iconEdit, span.iconCheckmark, span.iconDelete {
 /* elements in standard list one item */
 
 li.oneItemLine {
-  margin: 0px 0 10px 0;
+  margin: 0px 0 4px 0;
 }
 
 div.itemOneRow {
   border: 1px solid #eebbee;
-  border-width: 0 0 1px 0;
+  border-width: 0 0 0px 0;
   display: grid;
 }
 div.dragHandle {
@@ -95,10 +95,11 @@ div.dragHandle {
   padding: 0px 4px 0px 4px;
   touch-action: none;
   cursor: move;
-  background-color: #eaeaea;
 }
 div.dragHandleIcon {
   touch-action: none; 
+  padding-top: 4px;
+  background-color: #eaeaea;
 }
 div.itemPart23 {
   border: 0px solid #00bbbb;
@@ -106,7 +107,7 @@ div.itemPart23 {
   display: grid;
   grid-template-columns: 1fr;
   grid-row-gap: 0px;
-  padding: 4px 6px 10px 12px;
+  padding: 8px 6px 0px 12px;
 }
 div.itemPart2 {
   border: 0px solid #00bbbb;
@@ -121,7 +122,7 @@ div.itemPart3 {
 }
 div.itemPart4 {
   grid-area: p4;
-  padding: 4px 0px 0px 0px;
+  padding:  4px 0px 0px 0px;
   align-self: center;
 }
 div.itemPart5 {
@@ -148,7 +149,7 @@ div.itemPart5 {
     margin: 0px 0 6px 0;
   }
   div.itemOneRow {
-    border-width: 0 0 1px 0;
+    border-width: 0 0 0px 0;
     grid-template-columns: 28px 1fr 34px 36px;
     grid-template-areas: 
       "p1  p23  p4  p5"
@@ -157,18 +158,18 @@ div.itemPart5 {
     padding: 2px 6px 0px 12px;
   }
   div.itemPart2 {
-    padding: 12px 0 0 0;
+    padding: 4px 0 0 0;
     margin: 0;
   }
   div.itemPart3 {
-    padding: 0 0 12px 0;
+    padding: 0 0 4px 0;
     margin: 0;
   }
   div.itemPart4 {
-    padding: 10px 0px 10px 0px;
+    padding: 4px 0px 0px 0px;
   }  
   div.itemPart5 {
-    padding: 10px 2px 10px 0px;
+    padding: 4px 2px 0px 0px;
   }
   .editItemInputArea {
     grid-template-columns: 1fr;

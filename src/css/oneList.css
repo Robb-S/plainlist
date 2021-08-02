@@ -16,23 +16,8 @@ li.oneListLine {
 
 div.listOneRow {
   border: 1px solid #eebbee;
-  border-width: 0px 0px 1px 0px;
+  border-width: 0px 0px 0px 0px;
   display: grid;
-}
-div.dragHandle {
-  grid-area: p1;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 4px 0px 4px;
-  touch-action: none;
-  cursor: move;
-  background-color: #f7f7f7;
-}
-div.dragHandleIcon {
-  touch-action: none;
-  padding-top: 4px;
 }
 div.listPart2 {
   grid-area: p2;

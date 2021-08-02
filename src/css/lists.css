@@ -10,6 +10,19 @@
   display: none;
 }
 
+.topLogo {
+  height: 16px;
+  padding: 8px 0px 12px 0px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #33691e;
+  color: #eeeeee;
+  width: 100%;
+  text-align: center;
+  font-variant-caps: all-petite-caps;
+
+}
+
 .headingZone {
   padding: 7px 5px 12px 3px;
   display: grid;
@@ -36,7 +49,7 @@
   border: 0px solid black;
   font-size: 24px;
   font-weight: bold;
-  padding: 0px 0 0 10px;
+  padding: 5px 0 0 10px;
 }
 
 .headingIcons {
@@ -152,7 +165,7 @@ div.settingsicon {
   margin-bottom: 15px;
 }
 
-@media (min-width: 451px) { /* desktop */
+@media (min-width: 600px) { /* desktop */
   .App {
     display: flex;
     justify-content: center;
@@ -168,7 +181,23 @@ div.settingsicon {
   }
 }
 
-@media (max-width: 450px) { /*  device */
+@media (min-width: 450px) and (max-width: 599px) { /* narrow desktop */
+  .App {
+    display: flex;
+    justify-content: center;
+  }
+  .mainContainer {
+    width: 100%;
+  }
+  div.crumbsandsettings {
+    width: 100%;
+  }
+  .breadcrumbs {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 449px) { /*  device */
   .hiddenOnDevice {
     display: none;
   }

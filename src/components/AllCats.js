@@ -25,12 +25,14 @@ const AllCats = () => {
   const cancelAdd = () => { setAddMode(false); };
 
   const crumbArea = () => {
+    const nickname = state.user.first_name;
+    const dispName = nickname==null ? state.user.username : nickname;
     return (
       <Fragment>
         <div className='crumbsandsettings'>
           <div className='breadcrumbs'>
             <span className='oneCrumb'>
-              Welcome { state.user.username }
+              Welcome { dispName }
             </span>
           </div>
           <div className='settingsicon'>
@@ -50,8 +52,8 @@ const AllCats = () => {
         </div>
         <div className='headingIcons'>
           { showAddIcon &&
-            <IconButton config={ { title:'add a new category', caption:'add a category',
-              iconType:'add', callProc:setupAdd } } />
+            <IconButton config={ { title:'add a new category', caption:'add category',
+              iconType:'add', callProc:setupAdd, width:'wide' } } />
           }
         </div>
       </div>
@@ -77,6 +79,7 @@ const AllCats = () => {
       {showMain &&
       <Fragment>
       <div className='mainContainer'>
+        <div className='topLogo'>- Cross It Off the List -</div>
         { crumbArea() }
         { headingArea() }
         { addCatArea() }
