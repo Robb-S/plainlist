@@ -12,6 +12,7 @@ const MoveList = ({ props }) => {
   const { cancelMove, listRec } = props;
   const { state, dispatch } = useStore();
   const [catValue, setCatValue] = useState('');
+  const [moveButtonDisabled, setmoveButtonDisabled] = useState(true);
   const currentCategoryID = listRec.categoryID;
   const currentCategoryName = getCatRec(currentCategoryID, state).categoryName;
   console.log('category name: ' + currentCategoryName);
@@ -37,9 +38,10 @@ const MoveList = ({ props }) => {
     cancelMove();
   };
   const handleRadioChange = (e) => {
-    console.log('handleRadioChange');
+    // console.log('handleRadioChange');
     console.log(e.target.value);
     setCatValue(e.target.value);
+    setmoveButtonDisabled(false);
   };
 
   const error = false;
@@ -62,12 +64,12 @@ const MoveList = ({ props }) => {
             </RadioGroup>
           </FormControl>
         </form>
-        <span className='editButtonArea'>
-          <IconButton config={ { title:'change category',
-            iconType:'confirm', callProc:onRequestMove }} />
-          <IconButton config={ { title:'cancel category change',
+        <div className='moveButtonArea'>
+          <IconButton config={ { title:'change category', caption:'change category',
+            iconType:'confirm', callProc:onRequestMove, disabled:moveButtonDisabled }} />
+          <IconButton config={ { title:'cancel category change', caption: 'cancel',
             iconType:'cancel', callProc:cancelMoveLocal }} />
-        </span>
+        </div>
       </div>
     </Fragment>
   );

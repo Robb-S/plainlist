@@ -11,6 +11,10 @@ div.iconButton, div.iconButtonNarrow, div.iconButtonWide {
   background-color: transparent;
 }
 
+div.iconButtonDisabled {
+  cursor: not-allowed;
+}
+
 div.theIcon {
   border: 0px solid #00bbbb;
 }
@@ -30,6 +34,10 @@ div.iconCaption, div.iconLinkCaption {
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
+}
+
+div.iconCaptionDisabled {
+  color: #bbbbbb;
 }
 
 div.iconButtonWide div.iconCaption {

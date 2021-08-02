@@ -10,7 +10,7 @@ import { handleLogout } from '../store/handlers';
 import Loading from './Loading';
 import Login from './Login';
 import * as api from '../util/constants';
-import { IconButton, MakeTopButton } from './IconButton';
+import { IconButton, MakeHomeButton } from './IconButton';
 import { FormControl, FormLabel, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 import axios from 'axios';
 
@@ -106,7 +106,7 @@ const Settings = () => {
             </span>
           </div>
           <div className='settingsicon'>
-            { MakeTopButton() }
+            { MakeHomeButton() }
           </div>
         </div>
       </Fragment>

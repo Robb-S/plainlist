@@ -1,35 +1,58 @@
 /**
  * Render an icon with a caption.  Call with a config object containing either a link
- * or a procudure to call.  Set caption='' to show only icon.  Examples of config object:
+ * or a procudure to call.  Set caption='' to show only icon.  
+ * 
+ * For non-link icons, set width='wide' to produce an extra-wide icon with caption
+ * all on one line, to save vertical space. Set disabled=true to display a greyed-out
+ * version with onClick disabled.
+ * 
+ * Examples of config object:
  * 
  * const linkConfig1 = {
- *  caption: 'settings',
- *  title: 'go to settings page',
- *  iconType: 'settings',
- *  buttonLink: `/set/`,
+ *   caption: 'settings',
+ *   title: 'go to settings page',
+ *   iconType: 'settings',
+ *   buttonLink: `/set/`,
  * };
  * const procConfig2 = {
  *   caption: 'add category',
  *   title: 'add a new category',
  *   iconType: 'add',
  *   callProc: setupAdd,
+ *   disabled: false,
+ *   width: 'wide',
  * };
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/iconButton.css';
 // import { GrDrag } from 'react-icons/gr';
 import { VscCheck, VscCircleSlash, VscSettingsGear, VscEmptyWindow, VscEdit, VscReferences,
   VscTrash, VscHome, VscGripper } from 'react-icons/vsc';
 import { FiLogIn, FiLogOut } from 'react-icons/fi';
+
 const IconButton = ({ config }) => {
-  const { caption, title, iconType, buttonLink, callProc, width } = config;
+  const { caption, title, iconType, buttonLink, callProc, width, disabled } = config;
   const iconCaption = caption==null ? '' : caption;
   const iconTitle = title==null ? caption : title;
+  const iconDisabled = disabled==null ? false : disabled;
   const isLinkButton = buttonLink!=null; // catches null or undefined
-  let ibClass = iconCaption==='' ? 'iconButtonNarrow' : 'iconButton';
-  if (width==='wide') { ibClass='iconButtonWide'; }
+
+  const getIbClass = () => {
+    let ibClass;
+    if (width==='wide') {
+      ibClass='iconButtonWide';
+    } else if (iconCaption==='') {
+      ibClass='iconButtonNarrow';
+    } else {
+      ibClass='iconButton';
+    }
+    if (iconDisabled) {
+      ibClass = ibClass + ' iconButtonDisabled';
+    }
+    return ibClass;
+  };
 
   let TheIcon;
   switch (iconType) {
@@ -67,9 +90,30 @@ const IconButton = ({ config }) => {
       throw 'bad call to IconButton';
   }
 
-  if (isLinkButton) {
+  /**
+   * show button in lighter grey, leave out title and onClick(), cursor='not-allowed'
+   */
+  const makeDisabledButton = () => {
     return (
-      <div className={ ibClass } title={ iconTitle }>
+      <div className={ getIbClass() } >
+        <div className='theIcon'><TheIcon size='24' color='#bbbbbb' /></div>
+        <div className='iconCaption iconCaptionDisabled'> {iconCaption} </div>
+      </div>
+    );
+  };
+
+  const makeEnabledButton = () => {
+    return (
+      <div className={ getIbClass() }  onClick={ () => callProc() } title={ iconTitle } >
+        <div className='theIcon'><TheIcon size='24' color='#555555' /></div>
+        <div className='iconCaption'> {iconCaption} </div>
+      </div>
+    );
+  };
+
+  const makeLinkButton = () => {
+    return (
+      <div className={ getIbClass() } title={ iconTitle }>
       <Link className='iconButtonLink' to={ buttonLink }>
         <TheIcon size='24' color='#555555' />
       </Link>
@@ -78,12 +122,14 @@ const IconButton = ({ config }) => {
       </Link>
     </div>
     );
-  }
+  };
+
   return (
-    <div className={ ibClass }  onClick={ () => callProc() } title={ iconTitle } >
-      <div className='theIcon'><TheIcon size='24' color='#555555' /></div>
-      <div className='iconCaption'> {iconCaption} </div>
-    </div>
+    <Fragment>
+      { isLinkButton && makeLinkButton() }
+      { !isLinkButton && iconDisabled && makeDisabledButton() }
+      { !isLinkButton && !iconDisabled && makeEnabledButton() }
+    </Fragment>
   );
 };
 
@@ -99,7 +145,7 @@ const MakeSettingsButton = ( caption='' ) => {
   );
 };
 
-const MakeTopButton = ( caption='' ) => {
+const MakeHomeButton = ( caption='' ) => {
   const topConfig = {
     caption: caption,
     title: 'go to top page',
@@ -117,4 +163,4 @@ const MakeDragIcon = () => {
   );
 };
 
-export { IconButton, MakeSettingsButton, MakeTopButton, MakeDragIcon };
+export { IconButton, MakeSettingsButton, MakeHomeButton, MakeDragIcon };

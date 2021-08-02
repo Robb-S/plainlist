@@ -36,12 +36,12 @@ body {
   border-color: #bbbbbb;
 }
 
-.catHeading {
-  background-color: #fce4ec;
+.topHeading {
+  background-color: #ffecb3;
 }
 
-.topHeading {
-  background-color: #b2ebf2;
+.catHeading {
+  background-color: #c8e6c9;
 }
 
 .listHeading {
@@ -51,7 +51,7 @@ body {
 .loginHeading {
   margin-top: 15px;
   margin-bottom: 15px;
-  background-color: #fff3e0;
+  background-color: #e3f2fd;
 }
 
 .headingNameArea {
@@ -70,18 +70,31 @@ body {
   align-items: flex-start;
 }
 
+div.moveArea {
+  border: 1px solid #99cccc;
+  padding: 0px 12px 14px 12px;
+  width: 410px;
+  margin: 0px 0 16px 0;
+  background-color: #f6f6f6;  
+}
+
 div.moveHeader {
-  padding: 30px 12px 14px 12px;
+  padding: 15px 12px 14px 12px;
   font-size: 17px;
   font-weight: bold;
 }
 
-div.moveArea {
-  border: 1px solid #99cccc;
-  padding: 10px 12px 14px 12px;
-  width: 410px;
-  margin: 0px 0 16px 0;
-  background-color: #f6f6f6;  
+form.moveCategoryForm {
+  padding: 0 0 15px 32px;
+}
+
+div.moveButtonArea {
+  border-width: 1px 0 0 0;
+  border-style: solid;
+  border-color: #aaaaaa;
+  display: grid;
+  padding: 20px 10px 10px 18px;
+  grid-template-columns: 100px 1fr;  
 }
 
 div.addArea {
