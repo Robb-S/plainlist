@@ -1,9 +1,14 @@
-.hidden {
-  display: none;
+
+.chooseFlatnessForm {
+  margin-top: 20px;
 }
 
-.flatnessFormDiv {
-  max-width: 600px;
+.loginButtonArea {
+  padding-top: 15px;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: end;
+  justify-items: start;
 }
 
 @media (min-width: 450px) { /* desktop */

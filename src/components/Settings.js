@@ -10,6 +10,7 @@ import { handleLogout } from '../store/handlers';
 import Loading from './Loading';
 import Login from './Login';
 import * as api from '../util/constants';
+import { IconButton, MakeTopButton } from './IconButton';
 import { FormControl, FormLabel, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 import axios from 'axios';
 
@@ -51,10 +52,114 @@ const Settings = () => {
     history.push('/login/');
   };
 
-  const onFlatToggle = async () => {
-    setFlatValue(flatBoolToText(!state.flatMode));
-    await handleFlatnessToggle(state, dispatch);
+  // Effect for API call
+  useEffect(() => {
+    checkUserName(debouncedUserName);
+    },
+    [debouncedUserName], // Only call effect if debounced search term changes
+  );
+
+  async function checkUserName(debouncedUserName) {
+    if (debouncedUserName.length>2) {
+      const { userExists, status } = await userExistsAPI(debouncedUserName);
+      console.log( 'userExists called');
+      console.log('status: ' + status);
+      console.log('userExists: ' + userExists);
+      if (status===api.OK && userExists) {
+        setUNameMsg('* ' + api.WARN_USER_EXISTS + ' *');
+      } else {
+        setUNameMsg(api.MSG_USER_AVAILABLE);
+      }
+    } else {
+      setUNameMsg(' ');
+    }
   };
+
+  const onSubmitReg = async (e) => {
+    e.preventDefault();
+    if ((userName.length===0) || (userPwd.length===0)) {return;}
+    const userInfo = { userName: userName, userPwd: userPwd,
+      userPwd2: userPwd2, userEmail: userEmail };
+    const regResult = await handleReg(userInfo, state, dispatch);
+    console.log(regResult);
+    // handleReg(userInfo, state, dispatch);
+    if (regResult==='success') { history.push('/'); }
+    else setRegMsg(regResult);
+  };
+
+  // # BASE_URL/isuser/admin/ pattern
+  const onChangeUserName = async (e) => {
+    const uName = e.target.value;
+    console.log('length: ' + uName.length);
+    setUserName(uName);
+  };
+
+  const crumbArea = () => {
+    const nickname = state.user.first_name;
+    const dispName = nickname==null ? state.user.username : nickname;
+    return (
+      <Fragment>
+        <div className='crumbsandsettings'>
+          <div className='breadcrumbs'>
+            <span className='oneCrumb'>
+              Welcome { dispName }
+            </span>
+          </div>
+          <div className='settingsicon'>
+            { MakeTopButton() }
+          </div>
+        </div>
+      </Fragment>
+    );
+  };
+
+  const headingArea = () => {
+    const logoutConfig = {
+      caption:'log out', title:'log out', iconType:'logout', callProc:onLogout,
+    };
+    return (
+      <div className='headingZone topHeading'>
+        <div className='headingNameArea'>
+          Settings
+        </div>
+        <div className='headingIcons'>
+          <IconButton config={ logoutConfig } />
+        </div>
+      </div>
+    );
+  };
+
+
+  const handleFlatRadioChange = async (e) => {
+    console.log('handleFlatRadioChange');
+    console.log(e.target.value);
+    const newFlatness = flatTextToBool(e.target.value);
+    setFlatValue(e.target.value);
+    await handleFlatnessSetting(newFlatness, state, dispatch);
+  };
+
+  const flatForm = () => {
+    const flatText = 'Flat structure (show just lists, no categories)';
+    const hierText = 'Hierarchical structure (show categories + lists)';
+    const error = true;
+    return (
+      <Fragment>
+        <form className='chooseFlatnessForm' >
+          <FormLabel component="legend">Choose category structure</FormLabel>
+          <FormControl component="fieldset" error={error} >
+            <RadioGroup aria-label="choose flatness mode" name="chooseFlat"
+              value={flatValue} onChange={handleFlatRadioChange}>
+              <FormControlLabel value={'hier'}
+                control={<Radio />} label={ hierText } />
+              <FormControlLabel value={'flat'}
+                control={<Radio />} label={ flatText } />
+            </RadioGroup>
+          </FormControl>
+        </form>
+      </Fragment>
+    );
+  };
+
 
   const onTestButton = async () => {
     console.log('test button pressed. ');
@@ -112,94 +217,6 @@ const Settings = () => {
     console.log('test button 3 end. ');
   };
 
-  // Effect for API call
-  useEffect(() => {
-    checkUserName(debouncedUserName);
-    },
-    [debouncedUserName], // Only call effect if debounced search term changes
-  );
-
-  async function checkUserName(debouncedUserName) {
-    if (debouncedUserName.length>2) {
-      const { userExists, status } = await userExistsAPI(debouncedUserName);
-      console.log( 'userExists called');
-      console.log('status: ' + status);
-      console.log('userExists: ' + userExists);
-      if (status===api.OK && userExists) {
-        setUNameMsg('* ' + api.WARN_USER_EXISTS + ' *');
-      } else {
-        setUNameMsg(api.MSG_USER_AVAILABLE);
-      }
-    } else {
-      setUNameMsg(' ');
-    }
-  };
-
-  const onSubmitReg = async (e) => {
-    e.preventDefault();
-    if ((userName.length===0) || (userPwd.length===0)) {return;}
-    const userInfo = { userName: userName, userPwd: userPwd,
-      userPwd2: userPwd2, userEmail: userEmail };
-    const regResult = await handleReg(userInfo, state, dispatch);
-    console.log(regResult);
-    // handleReg(userInfo, state, dispatch);
-    if (regResult==='success') { history.push('/'); }
-    else setRegMsg(regResult);
-  };
-
-  // # BASE_URL/isuser/admin/ pattern
-  const onChangeUserName = async (e) => {
-    const uName = e.target.value;
-    console.log('length: ' + uName.length);
-    setUserName(uName);
-  };
-
-  const crumbArea = () => {
-    return (
-      <Fragment>
-        <div className='crumbsandsettings'>
-          <div className='breadcrumbs'>
-            <Link className='linky3 oneCrumb' to={`/`}>
-              Back to top
-            </Link>
-          </div>
-          <div className='settingsicon'>
-          </div>
-        </div>
-      </Fragment>
-    );
-  };
-
-  const handleFlatRadioChange = async (e) => {
-    console.log('handleFlatRadioChange');
-    console.log(e.target.value);
-    const newFlatness = flatTextToBool(e.target.value);
-    setFlatValue(e.target.value);
-    await handleFlatnessSetting(newFlatness, state, dispatch);
-  };
-
-  const flatForm = () => {
-    const flatText = 'Flat structure (show just lists, no categories)';
-    const hierText = 'Hierarchical structure (show categories + lists)';
-    const error = true;
-    return (
-      <Fragment>
-        <form className='chooseFlatnessForm' >
-          <FormLabel component="legend">Choose category structure</FormLabel>
-          <FormControl component="fieldset" error={error} >
-            <RadioGroup aria-label="choose flatness mode" name="chooseFlat"
-              value={flatValue} onChange={handleFlatRadioChange}>
-              <FormControlLabel value={'hier'}
-                control={<Radio />} label={ hierText } />
-              <FormControlLabel value={'flat'}
-                control={<Radio />} label={ flatText } />
-            </RadioGroup>
-          </FormControl>
-        </form>
-      </Fragment>
-    );
-  };
-
   return (
     <Fragment>
       {showLoading && <Loading />}
@@ -208,25 +225,14 @@ const Settings = () => {
       {showMain &&
       <Fragment>
         <div className='mainContainer'>
+          <div className='topLogo'>- Cross It Off the List -</div>
           <div>{ crumbArea() }</div>
-          <div className='headingNameDiv'><span className='headingName'>
-            Settings
-          </span></div>
-          <br />
-          <button
-              className="btn default-btn"
-              onClick={() => onLogout()}
-            >
-              Log out
-          </button>
+          { headingArea() }
+          { flatForm() }
+
           <br /><br />
-          <button
-              className="btn default-btn"
-              onClick={() => onFlatToggle()}
-            >
-              { flatTextButtonMsg }
-          </button>
           <br /><br />
+          Test area:<br /><br />
             flatvalue: {flatValue}<br />
             flatness: { state.flatMode.toString() }<br />
             loginName: [{ state.loginName }]<br />
@@ -234,9 +240,7 @@ const Settings = () => {
             localUserID: [{ localUserID }]<br />
             oneItemOwner: [{ oneItemOwner }]<br />
           <br /><br />
-          <div className='flatnessFormDiv'>
-          { flatForm() }
-          </div>
+
           <button
               className="btn default-btn"
               onClick={() => onTestButton()}

@@ -92,14 +92,14 @@ div.dragHandle {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0px 4px 0px 4px;
+  padding: 0px 2px 0px 2px;
   touch-action: none;
   cursor: move;
 }
 div.dragHandleIcon {
   touch-action: none; 
   padding-top: 4px;
-  background-color: #eaeaea;
+  background-color: #bbbbbb;
 }
 div.itemPart23 {
   border: 0px solid #00bbbb;

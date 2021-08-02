@@ -19,10 +19,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/iconButton.css';
-import { GrDrag } from 'react-icons/gr';
+// import { GrDrag } from 'react-icons/gr';
 import { VscCheck, VscCircleSlash, VscSettingsGear, VscEmptyWindow, VscEdit, VscReferences,
-  VscTrash } from 'react-icons/vsc';
-
+  VscTrash, VscHome, VscGripper } from 'react-icons/vsc';
+import { FiLogIn, FiLogOut } from 'react-icons/fi';
 const IconButton = ({ config }) => {
   const { caption, title, iconType, buttonLink, callProc, width } = config;
   const iconCaption = caption==null ? '' : caption;
@@ -35,6 +35,9 @@ const IconButton = ({ config }) => {
   switch (iconType) {
     case 'settings':
       TheIcon=VscSettingsGear;
+      break;
+    case 'top':
+      TheIcon=VscHome;
       break;
     case 'add':
       TheIcon=VscEmptyWindow;
@@ -53,6 +56,12 @@ const IconButton = ({ config }) => {
       break;
     case 'delete':
       TheIcon=VscTrash;
+      break;
+    case 'login':
+      TheIcon=FiLogIn;
+      break;
+    case 'logout':
+      TheIcon=FiLogOut;
       break;
     default:
       throw 'bad call to IconButton';
@@ -90,10 +99,22 @@ const MakeSettingsButton = ( caption='' ) => {
   );
 };
 
-const MakeDragIcon = () => {
+const MakeTopButton = ( caption='' ) => {
+  const topConfig = {
+    caption: caption,
+    title: 'go to top page',
+    iconType: 'top',
+    buttonLink: `/`,
+  };
   return (
-    <GrDrag title='drag to change order' size='20' />
+    <IconButton config={ topConfig } />
   );
 };
 
-export { IconButton, MakeSettingsButton, MakeDragIcon };
+const MakeDragIcon = () => {
+  return (
+    <VscGripper title='drag to change order' size='22' color='#ffffff' />
+  );
+};
+
+export { IconButton, MakeSettingsButton, MakeTopButton, MakeDragIcon };

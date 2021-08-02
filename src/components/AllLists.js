@@ -81,6 +81,7 @@ const AllLists = () => {
       {showMain &&
       <Fragment>
         <div className='mainContainer'>
+          <div className='topLogo'>- Cross It Off the List -</div>
           { crumbArea() }
           { headingArea() }
           { addListArea() }
