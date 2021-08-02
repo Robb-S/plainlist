@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import '../css/lists.css';
 import '../css/settings.css';
 import { useStore } from '../store/StoreContext';
-import { handleReg, handleFlatnessToggle, handleFlatnessSetting } from '../store/handlers';
+import { handleReg, handleFlatnessSetting } from '../store/handlers';
 import { useDebounce, sleepy } from '../util/helpers';
 import { useHistory, Link } from 'react-router-dom';
 import { userExistsAPI } from '../store/apiCalls';
@@ -131,11 +131,12 @@ const Settings = () => {
 
 
   const handleFlatRadioChange = async (e) => {
-    console.log('handleFlatRadioChange');
-    console.log(e.target.value);
+    // console.log('handleFlatRadioChange');
+    // console.log(e.target.value);
     const newFlatness = flatTextToBool(e.target.value);
     setFlatValue(e.target.value);
-    await handleFlatnessSetting(newFlatness, state, dispatch);
+    await handleFlatnessSetting(newFlatness, dispatch);
+    history.push('/');
   };
 
   const flatForm = () => {
@@ -159,7 +160,6 @@ const Settings = () => {
       </Fragment>
     );
   };
-
 
   const onTestButton = async () => {
     console.log('test button pressed. ');
