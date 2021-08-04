@@ -13,6 +13,7 @@ import { handleGetUserAndData } from './fetchUserAndData';
  */
 const handleLogin = async (userInfo, state, dispatch) => {
   const loginName = userInfo.userName;
+  console.log('username:' + loginName);
   dispatch({
     type: 'STARTED_LOADING',
   });

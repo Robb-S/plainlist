@@ -157,10 +157,16 @@ const MakeHomeButton = ( caption='' ) => {
   );
 };
 
-const MakeDragIcon = () => {
+const MakeDragIcon2 = () => {
   return (
     <VscGripper title='drag to change order' size='22' color='#ffffff' />
   );
 };
 
-export { IconButton, MakeSettingsButton, MakeHomeButton, MakeDragIcon };
+const MakeDragIcon = () => {
+  return (
+    <VscGripper title='drag to change order' size='16' color='#888888' />
+  );
+};
+
+export { IconButton, MakeSettingsButton, MakeHomeButton, MakeDragIcon, MakeDragIcon2 };

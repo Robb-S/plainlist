@@ -15,17 +15,17 @@ const MoveList = ({ props }) => {
   const [moveButtonDisabled, setmoveButtonDisabled] = useState(true);
   const currentCategoryID = listRec.categoryID;
   const currentCategoryName = getCatRec(currentCategoryID, state).categoryName;
-  console.log('category name: ' + currentCategoryName);
+  // console.log('category name: ' + currentCategoryName);
   const otherCats = getOtherCats(currentCategoryID, state);
-  console.log(otherCats);
+  // console.log(otherCats);
 
   const onSubmitMove = (e) => {
     e.preventDefault();
     onRequestMove();
   };
   const onRequestMove = async () => {
-    console.log('onRequestMove');
-    console.log('new cat ID: ' + catValue);
+    // console.log('onRequestMove');
+    // console.log('new cat ID: ' + catValue);
     if (catValue.length===0)  {return;}
     const newCategoryID = parseInt(catValue);
     const status = await handleMoveList(listRec.id, newCategoryID, state, dispatch);
@@ -38,8 +38,7 @@ const MoveList = ({ props }) => {
     cancelMove();
   };
   const handleRadioChange = (e) => {
-    // console.log('handleRadioChange');
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setCatValue(e.target.value);
     setmoveButtonDisabled(false);
   };

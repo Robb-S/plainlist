@@ -33,12 +33,17 @@ const userExistsAPI = async (userName) => {
  * in localStorage for future use.
  */
  const getTokenFromAPI = async (userInfo) => {
+  axios.defaults.headers['Cache-Control'] = 'no-cache';
   let token = '';
   const loginData = { 'username':userInfo.userName, 'password':userInfo.userPwd };
   console.log('** getting token **');
+  console.log(loginData);
+  console.log('trying response token');
   try {
     const responseToken = await axios.post(api.API_AUTH, loginData);
+    console.log('response token received');
     token = responseToken.data.token;
+    console.log(token);
     setAxiosAuthToken(token);
     localStorage.setItem('token', token);
     return api.OK;

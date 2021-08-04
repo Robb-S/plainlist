@@ -11,6 +11,11 @@
   justify-items: start;
 }
 
+div.testArea {
+  border: 1px solid #44ccaa;
+  padding: 20px;
+}
+
 @media (min-width: 450px) { /* desktop */
 
 }

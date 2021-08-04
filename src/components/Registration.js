@@ -10,9 +10,6 @@ import * as api from '../util/constants';
 const Registration = () => {
   const { state, dispatch } = useStore();
   const history = useHistory();
-  // const isLoaded = !state.loading;  // maybe not needed, if handled by parent component
-  // const userID = state.user.id;
-
   const [userName, setUserName] = useState('');
   const [userPwd, setUserPwd] = useState('');
   const [userPwd2, setUserPwd2] = useState('');
