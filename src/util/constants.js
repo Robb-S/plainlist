@@ -18,6 +18,7 @@ export const OK = 'OK';
 export const FAILED = 'FAILED';
 export const MSG_FAILED = 'Sorry, database item operation failed. Please check your internet connection or try again.';
 export const MSG_LOGIN_FAILED = 'Sorry, user login failed.';
+export const MSG_REG_FAILED = 'Sorry, user registration failed.';
 export const WARN_USER_EXISTS = 'Username not available.';
 export const MSG_USER_AVAILABLE = 'Username is available';
 export const JSON_HEADER = { "Content-Type": "application/json" };

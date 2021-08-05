@@ -26,8 +26,6 @@ const AllCats = () => {
   const cancelAdd = () => { setAddMode(false); };
 
   const crumbArea = () => {
-    const nickname = state.user.first_name;
-    const dispName = nickname==null ? state.user.username : nickname;
     return (
       <Fragment>
         <div className='crumbsandsettings'>

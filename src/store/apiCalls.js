@@ -226,7 +226,30 @@ const makeNewUserAPI = async (newUserRec) => {
   }
 };
 
+/**
+ * API call for new profile record.  
+ */
+const makeNewProfileAPI = async (newProfileRec) => {
+  console.log('makeNewProfileAPI');
+  console.log(newProfileRec);
+  const config = {
+    method: 'post',
+    url: api.API_PROF,
+    data: JSON.stringify(newProfileRec),
+    headers: api.JSON_HEADER,
+  };
+  try {
+    const response = await axios(config);
+    console.log(response);
+    return api.OK;
+  } catch (error) {
+    console.log(error);
+    return api.FAILED;
+  }
+};
+
+
 export {
   getTokenFromAPI, userExistsAPI, getInitDataByToken,
-  addRecAPI, deleteRecAPI, updateRecAPI, makeNewUserAPI,
+  addRecAPI, deleteRecAPI, updateRecAPI, makeNewUserAPI, makeNewProfileAPI,
 };

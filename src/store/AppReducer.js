@@ -32,6 +32,11 @@ function AppReducer(state, action) {
         ...state,
         loggedIn: false,
         loginName: '',
+        user: {},
+        profile: {},
+        categories: [],
+        lists: [],
+        items: [],
       };
     }
     case 'SET_FLAT': {
@@ -148,7 +153,6 @@ function AppReducer(state, action) {
       };
     }
 
-
     case 'ADD_ITEM': { // payload is rec object
       console.log('*** adding item in reducer');
       // console.log(action.payload);
@@ -174,6 +178,7 @@ function AppReducer(state, action) {
         lists: [...state.lists, action.payload],
       };
     }
+    
     case 'DO_NOTHING': {
       return state;
     }

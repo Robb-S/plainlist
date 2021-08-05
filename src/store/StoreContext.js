@@ -32,4 +32,4 @@ function useStore() {
   return context;
 }
 
-export { StoreProvider, useStore };
+export { StoreProvider, useStore, initValues };

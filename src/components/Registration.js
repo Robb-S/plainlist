@@ -16,8 +16,11 @@ const Registration = () => {
   const [userEmail, setUserEmail] = useState('');
   const [regMsg, setRegMsg] = useState('Please fill out the fields below.');
   const [uNameMsg, setUNameMsg] = useState('');
+  const [userNickname, setUserNickname] = useState('');
+  const [userFirstName, setUserFirstName] = useState('');
+  const [userLastName, setUserLastName] = useState('');
   const debouncedUserName = useDebounce(userName, 300);
-
+  
   // Effect for API call
   useEffect(() => {
     checkUserName(debouncedUserName);
@@ -43,27 +46,29 @@ const Registration = () => {
 
   const onTestButton = async () => {
     console.log('test button pressed. ');
-    const newUserInfo = {
-      username:'user18',
-      password:'zdj1superuser',
-      email:'nomail@no.com',
-      firstName: 'myfirst18',
-      lastName: 'mylast',
-      nickname: 'nickname',
-    };
-    await handleReg(newUserInfo, dispatch);
+    // unsetAxiosAuthToken();
+    // const newUserInfo = {
+    //   username:'user18',
+    //   password:'zdj1superuser',
+    //   email:'nomail@no.com',
+    //   firstName: 'myfirst18',
+    //   lastName: 'mylast',
+    //   nickname: 'nickname',
+    // };
+    // await handleReg(newUserInfo, dispatch);
     console.log('test button end. ');
   };
 
   const onSubmitReg = async (e) => {
     e.preventDefault();
     if ((userName.length===0) || (userPwd.length===0)) {return;}
-    const userInfo = { userName: userName, userPwd: userPwd,
-      userPwd2: userPwd2, userEmail: userEmail };
-    const regResult = await handleReg(userInfo, state, dispatch);
+    const userInfo = { username: userName, password: userPwd,
+      password2: userPwd2, email: userEmail, first_name: userFirstName,
+      last_name: userLastName, nickname: userNickname };
+    const regResult = await handleReg(userInfo, dispatch);
     console.log(regResult);
-    // handleReg(userInfo, state, dispatch);
-    if (regResult==='success') { history.push('/'); }
+    // handleReg(userInfo, dispatch);
+    if (regResult===api.OK) { history.push('/'); }
     else setRegMsg(regResult);
   };
 
@@ -105,6 +110,34 @@ const Registration = () => {
               type="text"
               placeholder="repeat password"
             />
+
+            <br /><br />
+            <label> First name: </label>
+            <input
+              value={userFirstName}
+              onChange={(e) => setUserFirstName(e.target.value)}
+              type="text"
+              placeholder="first name"
+            />
+
+            <br /><br />
+            <label> Last name: </label>
+            <input
+              value={userLastName}
+              onChange={(e) => setUserLastName(e.target.value)}
+              type="text"
+              placeholder="last name"
+            />
+
+            <br /><br />
+            <label> Nickname: </label>
+            <input
+              value={userNickname}
+              onChange={(e) => setUserNickname(e.target.value)}
+              type="text"
+              placeholder="nickname"
+            />
+
             <br /><br />
             <label> Email: </label>
             <input

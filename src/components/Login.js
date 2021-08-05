@@ -25,7 +25,7 @@ const Login = () => {
     setDoAutoFocus(false);
     if ((userName.length===0) || (userPwd.length===0)) {return;}
     const userInfo = { userName: userName, userPwd: userPwd };
-    handleLogin(userInfo, state, dispatch);
+    handleLogin(userInfo, dispatch);
     history.push('/');
   };
 

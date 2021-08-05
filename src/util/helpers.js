@@ -67,6 +67,14 @@ const setAxiosAuthToken = token => {
   }
 };
 
+
+/**
+ * Unsets the axios default header.
+ */
+ const unsetAxiosAuthToken = () => {
+  delete axios.defaults.headers.common['Authorization'];
+};
+
 // const setAxiosCache = () => {
 //   axios.defaults.headers.get['Cache-Control'] = 'no-cache';
 //   axios.defaults.headers.get['Pragma'] = 'no-cache';
@@ -140,4 +148,5 @@ export {
   pluralize,
   useEscape,
   sleepy,
+  unsetAxiosAuthToken,
 };
