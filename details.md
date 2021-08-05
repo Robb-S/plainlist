@@ -39,8 +39,10 @@ I use ordinary CSS media queries to determine screen layout.  In addition, I use
 
 ## To-do
 
+- move flatMode to user Profile
 - validate input more thoroughly
 - track and show last list used
+- copy list
 - handle conditions for internet outage
 - authenticate w/ third party service
 - make a manual update button to resynchronize with API database
