@@ -10,6 +10,7 @@ import * as api from '../util/constants';
 import { IconButton, MakeHomeButton } from './IconButton';
 import { FormControl, FormLabel, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 import axios from 'axios';
+import { getGreeting } from '../store/getData';
 
 const flatBoolToText = (flatBool) => {
   const flatText = flatBool ? 'flat' : 'hier';
@@ -36,14 +37,12 @@ const Settings = () => {
   };
 
   const crumbArea = () => {
-    const nickname = state.user.first_name;
-    const dispName = nickname==null ? state.user.username : nickname;
     return (
       <Fragment>
         <div className='crumbsandsettings'>
           <div className='breadcrumbs'>
             <span className='oneCrumb'>
-              Welcome { dispName }
+              Welcome { getGreeting(state) }
             </span>
           </div>
           <div className='settingsicon'>

@@ -125,7 +125,7 @@ const getItemsByListID = (listID, state) => {
 };
 
 /**
- * Return state of flatness.
+ * Return state of flatness.  // TODO change to profile.flatMode
  */
 const getFlatMode = (state) => {
   // console.log('getflatmode');
@@ -149,6 +149,16 @@ const sortOrderFlatRevSort = (a, b) => {
   return (a.sortOrderFlat > b.sortOrderFlat) ? -1 : 1;
 };
 
+/**
+ * Make a greeting name based on availability of optional nickname and first_name fields;
+ * use login name if those are unavailable.
+ */
+const getGreeting = (state) => {
+  if (state.profile.nickname != null) return state.profile.nickname;
+  if (state.user.first_name != null) return state.user.first_name;
+  return state.loginName;
+};
+
 export { getItemsByListID, getListsByCatID, getListRec, getCatRec, getItemRec, getListName,
   getCatName, getParentListName, getParentCatName, getParentCatID, getAllCats, getAllLists,
-  getUncategorizedCategory, getOtherCats, getRegularCats, getFlatMode };
+  getUncategorizedCategory, getOtherCats, getRegularCats, getFlatMode, getGreeting };

@@ -13,13 +13,16 @@ const Login = () => {
   const history = useHistory();
   const [userName, setUserName] = useState('');
   const [userPwd, setUserPwd] = useState('');
+  const [doAutoFocus, setDoAutoFocus] = useState(false); // tried to solve Firefox issue
+  // with login helper box that keeps reappearing
 
   const onSubmitForm = (e) => { // called when you press Enter after typing
     e.preventDefault();
     onSubmitButton();
   };
 
-  const onSubmitButton = () => { // called when you press button
+  const onSubmitButton = async () => { // called when you press button
+    setDoAutoFocus(false);
     if ((userName.length===0) || (userPwd.length===0)) {return;}
     const userInfo = { userName: userName, userPwd: userPwd };
     handleLogin(userInfo, state, dispatch);
@@ -32,16 +35,21 @@ const Login = () => {
     };
     return (
       <Fragment>
-        <form onSubmit={onSubmitForm}>
-          <FormLabel component="legend">Please enter user name and password</FormLabel>
-          <span className='editItemInputArea'>
+        <form className='loginForm' onSubmit={onSubmitForm}>
+          <FormLabel component="legend"><div className='formlabel'>
+          Please enter user name and password
+            or <Link to={{ pathname: '/reg/' }}>register new user</Link>
+          </div>
+          </FormLabel>
+          <div className='loginLine'>
+          <span className='editItemInputArea loginLine1'>
             <TextField
               required
               label="User name:" value={userName}
               onChange={(e) => setUserName(e.target.value)}
               variant='outlined'
               margin='dense'
-              autoFocus={true}
+              autoFocus={doAutoFocus}
               inputProps={{ autoCapitalize: 'off' }}
             />
             <TextField
@@ -55,15 +63,9 @@ const Login = () => {
               inputProps={{ autoCapitalize: 'off' }}
             />
           </span>
-          <input type="submit" className="hidden" />
-          <div className='loginButtonArea'>
-            <IconButton config={ loginConfig } />
-            <span className='redirectLink'>
-              <Link to={{ pathname: '/reg/' }}>
-                Register new user
-              </Link>
-            </span>
+          <span className='loginLine2'><IconButton config={ loginConfig } /></span>
           </div>
+          <input type="submit" className="hidden" />
         </form>
       </Fragment>
     );

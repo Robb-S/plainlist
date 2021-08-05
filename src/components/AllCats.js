@@ -13,6 +13,7 @@ import CategoriesGroup from './CategoriesGroup';
 import ShowUncatCat from './ShowUncatCat';
 import '../css/lists.css';
 import { IconButton, MakeSettingsButton } from './IconButton';
+import { getGreeting } from '../store/getData';
 
 const AllCats = () => {
   const { state } =  useStore();
@@ -32,7 +33,7 @@ const AllCats = () => {
         <div className='crumbsandsettings'>
           <div className='breadcrumbs'>
             <span className='oneCrumb'>
-              Welcome { dispName }
+              Welcome { getGreeting(state) }
             </span>
           </div>
           <div className='settingsicon'>

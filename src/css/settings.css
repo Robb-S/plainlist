@@ -3,6 +3,26 @@
   margin-top: 20px;
 }
 
+.loginForm {
+  padding: 0 5px 0 10px;
+}
+
+div.formlabel {
+  margin: 25px 0 7px 0;
+  line-height: 25px;
+  padding: 0 8px 0 10px;
+}
+div.loginLine {
+  display: grid;
+  grid-template-columns: 1fr 54px;
+}
+
+.loginLine2 {
+  justify-self: start;
+  align-self: start;
+  padding: 10px 6px 0 0;
+}
+
 .loginButtonArea {
   padding-top: 15px;
   display: grid;

@@ -3,7 +3,7 @@
  */
 import React, { Fragment, useState } from 'react';
 import { useStore } from '../store/StoreContext';
-import { getUncategorizedCategory } from '../store/getData';
+import { getUncategorizedCategory, getGreeting } from '../store/getData';
 import Login from './Login';
 import Loading from './Loading';
 import AddList from './AddList';
@@ -34,7 +34,7 @@ const AllLists = () => {
         <div className='crumbsandsettings'>
           <div className='breadcrumbs'>
             <span className='oneCrumb'>
-              Welcome
+              Welcome { getGreeting(state) }
             </span>
           </div>
           <div className='settingsicon'>
