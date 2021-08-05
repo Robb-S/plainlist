@@ -10,7 +10,7 @@ const initValues = {
   runMode: 'API',
   user: {},
   profile: {},            // contains { flatMode, nickname, lastList }
-  userID: null,           // not currently used
+  // userID: null,           // not currently used
   categories: [],
   lists: [],
   items: [],
@@ -32,4 +32,4 @@ function useStore() {
   return context;
 }
 
-export { StoreProvider, useStore, initValues };
+export { StoreProvider, useStore };
