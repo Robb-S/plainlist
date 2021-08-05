@@ -145,7 +145,7 @@ const Settings = () => {
           { headingArea() }
           { flatForm() }
 
-          <div className='testArea xhidden'>
+          <div className='testArea hidden'>
             Test area:<br /><br />
               flatvalue: {flatValue}<br />
               flatness: { state.flatMode.toString() }<br />
