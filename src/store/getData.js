@@ -154,8 +154,8 @@ const sortOrderFlatRevSort = (a, b) => {
  * use login name if those are unavailable.
  */
 const getGreeting = (state) => {
-  if (state.profile.nickname != null) return state.profile.nickname + ' ' + state.loginName;
-  if (state.user.first_name != null) return state.user.first_name + ' ' + state.loginName;
+  if (state.profile.nickname != null) return state.profile.nickname;
+  if (state.user.first_name != null) return state.user.first_name;
   return state.loginName;
 };
 
