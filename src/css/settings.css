@@ -31,6 +31,25 @@ div.loginLine {
   justify-items: start;
 }
 
+.regbox {
+  margin: 0 0 2px 0;
+}
+
+.regButton {
+  margin: 20px 0 0px 0;
+  border: 1px #bbbbbb solid;
+  width: 70px;
+  padding: 16px 4px 16px 4px;
+  background-color: #eeeeee;
+}
+
+div.userNameMessage {
+  border: 0px #bbbbbb solid;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 0 12px 12px;
+}
+
 div.testArea {
   border: 1px solid #44ccaa;
   padding: 20px;
