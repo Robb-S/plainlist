@@ -9,8 +9,8 @@ import { setAxiosAuthToken, sleepy } from '../util/helpers';
  */
 const fetchListsByUserID = async (userID, loginName, runMode) => {
   if (runMode===api.RUNMODE_API) {
-    const { user, categories, lists, items } = await getInitDataByToken(loginName);
-    return { user, categories, lists, items };
+    const { user, profile, categories, lists, items } = await getInitDataByToken(loginName);
+    return { user, profile, categories, lists, items };
   }
   if (runMode===api.RUNMODE_DEMO) {
     const { user, categories, lists, items } = await getListsByUserIDTestData(userID);
@@ -25,11 +25,11 @@ const fetchListsByUserID = async (userID, loginName, runMode) => {
  */
 const handleGetUserAndData = async (userID, loginName, runMode, dispatch) =>  {
   console.log('** handleGetUserAndData userID ' + userID);
-  const { user, categories, lists, items } = await fetchListsByUserID(userID, loginName, runMode);
+  const { user, profile, categories, lists, items } = await fetchListsByUserID(userID, loginName, runMode);
   // await sleepy(500);
   dispatch({
     type: 'SET_USER',
-    payload: { user },
+    payload: { user:user, profile:profile },
   });
   dispatch({
     type: 'SET_LISTS',

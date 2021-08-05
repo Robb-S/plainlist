@@ -50,6 +50,7 @@ function AppReducer(state, action) {
       return {
         ...state,
         user: action.payload.user,
+        profile: action.payload.profile,
       };
     }
     case 'SET_LISTS': {

@@ -53,8 +53,7 @@ const userExistsAPI = async (userName) => {
 };
 
 // /**
-//  * get user id based on userName, because fetching data via token was sometimes 
-//  * returning wrong user's data.
+//  * Get user id based on userName. (No longer used, now we fetch by username.)
 //  */
 // const getUserID = async (loginName) => {
 //   console.log('** getUserID');
@@ -80,6 +79,7 @@ const getInitDataByToken = async (loginName) => {
   const un = loginName;
   let user = {};
   let uCats, uLists, uItems = [];
+  let uProf = {};
   try {
     // await sleepy(500);
     axios.defaults.headers.get['Cache-Control'] = 'no-cache';
@@ -89,6 +89,10 @@ const getInitDataByToken = async (loginName) => {
     user = userArray.length>0 ? userArray[0] : []; // or throw an error
     // console.log('name: ' + user.username);
     // await sleepy(500);
+    const responseProf = await axios.get(api.API_PROF_UN+un);
+    if (responseProf.data[0]!=null) {
+      uProf = responseProf.data[0];
+    }
     const responseCats = await axios.get(api.API_CATS_UN+un);
     uCats = responseCats.data;
     const responseLists = await axios.get(api.API_LISTS_UN+un);
@@ -99,7 +103,7 @@ const getInitDataByToken = async (loginName) => {
   } catch (error) {
     console.log(error);
   }
-  return { user: user, categories: uCats, lists: uLists, items: uItems };
+  return { user: user, profile: uProf, categories: uCats, lists: uLists, items: uItems };
 };
 
 // Next come generic API calls to add, delete or update records.
