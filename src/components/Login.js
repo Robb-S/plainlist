@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import '../css/lists.css';
 import '../css/settings.css';
 import { useStore } from '../store/StoreContext';
-import { handleLogin } from '../store/handlers';
+import { handleLogin } from '../store/handlersUser';
 import { useHistory, Link } from 'react-router-dom';
 import { FormLabel } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';

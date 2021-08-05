@@ -2,14 +2,15 @@ import React, { useContext } from 'react';
 import { AppReducer } from './AppReducer';
 
 const initValues = {
-  loading: true,
-  loggedIn: false,
   flatMode: false,
   isMobile: false,
-  runMode: 'API',
+  lastlist: 0,            // not currently used
+  loading: true,
+  loggedIn: false,
   loginName: '',
-  userID: null,
+  runMode: 'API',
   user: {},
+  userID: null,           // not currently used
   categories: [],
   lists: [],
   items: [],

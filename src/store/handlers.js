@@ -2,102 +2,7 @@ import { confirmQuest, makeHighestNumericAttribute, AreObjectsDifferent } from '
 import { getItemRec, getItemsByListID, getListsByCatID, getCatRec, getListRec, getRegularCats,
   getAllLists } from './getData';
 import * as api from '../util/constants';
-import { addRecAPI, deleteRecAPI, updateRecAPI, getTokenFromAPI } from './apiCalls';
-import { handleGetUserAndData } from './fetchUserAndData';
-
-/**
- * Take login info, get auth token from Django API call (if login info works).
- * (That API caller function will also set axios header and local storage.)
- * Then set login flag to true, get initial data from API, set loading flag to false.
- * If login fails, keep logged in flag false, loading flag true, and show error message.
- */
-const handleLogin = async (userInfo, state, dispatch) => {
-  const loginName = userInfo.userName;
-  console.log('username:' + loginName);
-  dispatch({
-    type: 'STARTED_LOADING',
-  });
-  const status = await getTokenFromAPI(userInfo);
-  if (status===api.OK) {
-    localStorage.setItem('loginName', loginName); // name gets token, so it's working
-    // const userID = await getUserID(loginName);
-    // console.log('type of userID: ' + typeof(userID));
-    // TODO: maybe userID is no longer used in this case
-    dispatch({
-      type: 'USER_LOGIN',
-      payload: { loginName: loginName },
-    });
-    // console.log('***** loading init data with handleLogin in handlers *****');
-    // TODO: maybe userID is no longer used in this case
-    await handleGetUserAndData(null, loginName, api.RUNMODE_API, dispatch);
-    dispatch({
-      type: 'FINISHED_LOADING',
-    });
-  } else {
-    alert (api.MSG_LOGIN_FAILED);
-  }
-};
-
-/**
- * Reset state and localStorage for flat list hierarchy.
- */
-const handleFlatnessSetting = async (newFlatness, dispatch) => {
-  // console.log('* handleFlatnessSetting change to ' + newFlatness);
-  await dispatch({
-    type: 'STARTED_LOADING',
-  });
-  await dispatch({
-    type: 'SET_FLAT',
-    payload: newFlatness,
-  });
-  localStorage.setItem('flatMode', newFlatness.toString());
-  await dispatch({
-    type: 'FINISHED_LOADING',
-  });
-};
-
-/**
- * Reset state and delete from localStorage.
- */
-const handleLogout = async (dispatch) => {
-  // console.log('* handleLogout');
-  await dispatch({
-    type: 'STARTED_LOADING',
-  });
-  await dispatch({
-    type: 'USER_LOGOUT',
-  });
-  localStorage.removeItem('token');
-  await dispatch({
-    type: 'FINISHED_LOADING',
-  });
-};
-
-/**
- * Take new itemName and itemNote from input, then  add a
- * high sortOder attribute so it sorts to the top of the list.
- * ID and other attributes will be taken care of by REST API.
- */
- const handleReg = async (userInfo, state, dispatch) => {
-   console.log('**handleReg called');
-   console.log(userInfo);
-   return ('success2');
-  // dispatch({
-  //   type: 'STARTED_LOADING',
-  // });
-  // const status = await getToken2(userInfo);
-  // if (status===api.OK) {
-  //   dispatch({
-  //     type: 'USER_LOGIN',
-  //   });
-  //   await handleGetUserAndData(null, api.RUNMODE_API, dispatch);
-  //   dispatch({
-  //     type: 'FINISHED_LOADING',
-  //   });
-  // } else {
-  //   alert (api.MSG_LOGIN_FAILED);
-  // }
-};
+import { addRecAPI, deleteRecAPI, updateRecAPI } from './apiCalls';
 
 /**
  * Take new itemName and itemNote from input, then  add a
@@ -618,8 +523,4 @@ export {
   handleUpdateListsGroup,
   handleUpdateFlatListsGroup,
   handleUpdateCategoriesGroup,
-  handleLogin,
-  handleLogout,
-  handleReg,
-  handleFlatnessSetting,
 };

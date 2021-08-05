@@ -2,9 +2,8 @@ import React, { Fragment, useState } from 'react';
 import '../css/lists.css';
 import '../css/settings.css';
 import { useStore } from '../store/StoreContext';
-import { handleFlatnessSetting } from '../store/handlers';
+import { handleFlatnessSetting, handleReg, handleLogout } from '../store/handlersUser';
 import { useHistory } from 'react-router-dom';
-import { handleLogout } from '../store/handlers';
 import Loading from './Loading';
 import Login from './Login';
 import * as api from '../util/constants';
@@ -102,6 +101,15 @@ const Settings = () => {
 
   const onTestButton = async () => {
     console.log('test button pressed. ');
+    const newUserInfo = {
+      username:'user17',
+      password:'zdj1superuser',
+      email:'nomail@no.com',
+      firstName: 'myfirst',
+      lastName: 'mylast',
+      nickname: 'nickname',
+    };
+    await handleReg(newUserInfo, dispatch);
     console.log('test button end. ');
   };
 
@@ -138,7 +146,7 @@ const Settings = () => {
           { headingArea() }
           { flatForm() }
 
-          <div className='testArea hidden'>
+          <div className='testArea xhidden'>
             Test area:<br /><br />
               flatvalue: {flatValue}<br />
               flatness: { state.flatMode.toString() }<br />

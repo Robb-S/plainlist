@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import '../css/lists.css';
 import { useStore } from '../store/StoreContext';
-import { handleReg } from '../store/handlers';
+import { handleReg } from '../store/handlersUser';
 import { useDebounce } from '../util/helpers';
 import { useHistory, Link } from 'react-router-dom';
 import { userExistsAPI } from '../store/apiCalls';
@@ -40,6 +40,20 @@ const Registration = () => {
       setUNameMsg(' ');
     }
   }
+
+  const onTestButton = async () => {
+    console.log('test button pressed. ');
+    const newUserInfo = {
+      username:'user18',
+      password:'zdj1superuser',
+      email:'nomail@no.com',
+      firstName: 'myfirst18',
+      lastName: 'mylast',
+      nickname: 'nickname',
+    };
+    await handleReg(newUserInfo, dispatch);
+    console.log('test button end. ');
+  };
 
   const onSubmitReg = async (e) => {
     e.preventDefault();
@@ -103,6 +117,13 @@ const Registration = () => {
             <button>Register</button>
           </form>
         </div>
+        <button
+          className="btn default-btn hidden"
+           onClick={() => onTestButton()}
+        >
+          Test Button
+        </button><br />
+
         <div className='redirectLink'>
           <Link to={{ pathname: '/login/' }}>
             Or log in (for existing users)

@@ -85,10 +85,10 @@ const getInitDataByToken = async (loginName) => {
     axios.defaults.headers.get['Cache-Control'] = 'no-cache';
     const responseUsers = await axios.get(api.API_USER_UN+un);
     const userArray = responseUsers.data;
-    console.log('*** users found: ' + userArray.length);
+    // console.log('*** users found: ' + userArray.length);
     user = userArray.length>0 ? userArray[0] : []; // or throw an error
-    console.log('name: ' + user.username);
-    await sleepy(500);
+    // console.log('name: ' + user.username);
+    // await sleepy(500);
     const responseCats = await axios.get(api.API_CATS_UN+un);
     uCats = responseCats.data;
     const responseLists = await axios.get(api.API_LISTS_UN+un);
@@ -199,7 +199,30 @@ const updateRecAPI = async (updateRec, runMode, recType) => {
   }
 };
 
+/**
+ * API call to set up new record.
+ */
+const makeNewUserAPI = async (newUserRec) => {
+  console.log('makeNewUserAPI');
+  console.log(newUserRec);
+  const config = {
+    method: 'post',
+    url: api.API_REG,
+    data: JSON.stringify(newUserRec),
+    headers: api.JSON_HEADER,
+  };
+  try {
+    const response = await axios(config);
+    // console.log(responseUserExists.data.userExists);
+    console.log(response);
+    return api.OK;
+  } catch (error) {
+    console.log(error);
+    return api.FAILED;
+  }
+};
+
 export {
   getTokenFromAPI, userExistsAPI, getInitDataByToken,
-  addRecAPI, deleteRecAPI, updateRecAPI,
+  addRecAPI, deleteRecAPI, updateRecAPI, makeNewUserAPI,
 };
