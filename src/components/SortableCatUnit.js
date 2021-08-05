@@ -14,7 +14,7 @@ import { pluralize } from '../util/helpers';
 export function SortableCatUnit(props) {
   const categoryID = props.category.id;
   const categoryName = props.category.categoryName;
-  const itemCountTxt = pluralize(props.category.childCount, 'item', 'items');
+  const itemCountTxt = pluralize(props.category.childCount, 'list', 'lists');
 
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: props.id });
