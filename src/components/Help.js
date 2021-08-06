@@ -27,7 +27,7 @@ const Help = () => {
           You can organize your lists in two different ways - either by category ("hierarchical") or with no categories ("flat").  For example you might find it useful to have separate categories such as "to do" for multiple to-do lists, "shopping" for multiple shopping lists and "books" for lists of books you want to read in different genres.  Or, if you have only a few lists you may find it easier to use a flat layout, with all your lists visible at once.
         </div>
         <div className='helpPara'>
-          When you first start using the app you will have two categories ("shopping" and "to do") with one list in each category.  You can rename these, and add or delete categories and lists as you wish.
+          When you first start using the app your lists will be organized in Hierarchical mode, with two starter categories ("Shopping" and "To do") and one starter list in each category.  You can rename any of these, and add or delete categories and lists as you wish.
         </div>
         <div className='helpHeader'>
           Switching between Hierarchical and Flat modes

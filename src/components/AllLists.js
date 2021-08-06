@@ -52,7 +52,7 @@ const AllLists = () => {
      // hide add icon in add mode, or when there's no uncategorized category to add to
     const showAddIcon = ((!addMode) && (uncatCat!=null));
     return (
-      <div className='headingZone'>
+      <div className='headingZone topHeading'>
         <div className='headingNameArea'>
           All Lists
         </div>

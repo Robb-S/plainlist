@@ -48,7 +48,6 @@ I use ordinary CSS media queries to determine screen layout.  In addition, I use
 - make a manual update button to resynchronize with API database
 - handle recovery for other connectivity issues
 - expand wide-desktop layout
-- help page
 
 ## Done
 
@@ -61,3 +60,4 @@ I use ordinary CSS media queries to determine screen layout.  In addition, I use
 - create initial default records for new user
 - create user profile
 - make favicons
+- help page
