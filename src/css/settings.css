@@ -31,6 +31,10 @@ div.loginLine {
   justify-items: start;
 }
 
+form.regForm {
+  max-width: 400px;
+}
+
 .regbox {
   margin: 0 0 2px 0;
 }
@@ -43,11 +47,12 @@ div.loginLine {
   background-color: #eeeeee;
 }
 
-div.userNameMessage {
+div.regFormMessage {
   border: 0px #bbbbbb solid;
   font-size: 12px;
   font-weight: bold;
-  padding: 4px 0 12px 12px;
+  padding: 11px 0 12px 12px;
+  background-color: #ffffff;
 }
 
 div.testArea {
@@ -74,7 +79,9 @@ div.helpPara {
 }
 
 @media (max-width: 449px) { /* device */
-
+  form.regForm {
+    padding: 0 12px 0 12px;
+  }
 }
  
 
