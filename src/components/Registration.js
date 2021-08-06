@@ -20,8 +20,6 @@ const Registration = () => {
   const [regMsg, setRegMsg] = useState('Please fill out the fields below.');
   const [uNameMsg, setUNameMsg] = useState('');
   const [userNickname, setUserNickname] = useState('');
-  const [userFirstName, setUserFirstName] = useState('');
-  const [userLastName, setUserLastName] = useState('');
   const debouncedUserName = useDebounce(userName, 300);
   
   // Effect for API call
@@ -47,22 +45,6 @@ const Registration = () => {
     }
   }
 
-  const onTestButton = async () => {
-    console.log('test button pressed. ');
-    // unsetAxiosAuthToken();
-    // const newUserInfo = {
-    //   username:'user18',
-    //   password:'zdj1superuser',
-    //   email:'nomail@no.com',
-    //   firstName: 'myfirst18',
-    //   lastName: 'mylast',
-    //   nickname: 'nickname',
-    // };
-    // await handleReg(newUserInfo, dispatch);
-    console.log('test button end. ');
-  };
-
-
   const onSubmitForm = (e) => { // called when you press Enter after typing
     e.preventDefault();
     onSubmitButton();
@@ -75,34 +57,12 @@ const Registration = () => {
   const onSubmitButton = async () => { // called when you press button
     if ((userName.length===0) || (userPwd.length===0)) {return;}
     const userInfo = { username: userName, password: userPwd,
-      password2: userPwd2, email: userEmail, first_name: userFirstName,
-      last_name: userLastName, nickname: userNickname };
+      password2: userPwd2, email: userEmail, nickname: userNickname };
     const regResult = await handleReg(userInfo, dispatch);
     console.log(regResult);
-    // handleReg(userInfo, dispatch);
     if (regResult===api.OK) { history.push('/'); }
     else setRegMsg(regResult);
   };
-
-  // const onSubmitReg = async (e) => {
-  //   e.preventDefault();
-  //   if ((userName.length===0) || (userPwd.length===0)) {return;}
-  //   const userInfo = { username: userName, password: userPwd,
-  //     password2: userPwd2, email: userEmail, first_name: userFirstName,
-  //     last_name: userLastName, nickname: userNickname };
-  //   const regResult = await handleReg(userInfo, dispatch);
-  //   console.log(regResult);
-  //   // handleReg(userInfo, dispatch);
-  //   if (regResult===api.OK) { history.push('/'); }
-  //   else setRegMsg(regResult);
-  // };
-
-  // // # BASE_URL/isuser/admin/ pattern
-  // const onChangeUserName = async (e) => {
-  //   const uName = e.target.value;
-  //   console.log('length: ' + uName.length);
-  //   setUserName(uName);
-  // };
 
   const headingArea = () => {
     return (
@@ -129,7 +89,7 @@ const Registration = () => {
             or <Link to={{ pathname: '/login/' }}>log in (for existing users)</Link>
           </div>
           </FormLabel>
-          <div className='reg1 regbox'>
+          <div className='regbox'>
             <TextField
               required
               label="User name:" value={userName}
@@ -142,7 +102,7 @@ const Registration = () => {
           <div className='userNameMessage'>
             {uNameMsg}
           </div>
-          <div className='reg2 regbox'>
+          <div className='regbox'>
             <TextField
               required
               label='Password:' value={userPwd}
@@ -152,7 +112,7 @@ const Registration = () => {
               inputProps={{ autoCapitalize: 'off', autoComplete:'off' }}
             />
           </div>
-          <div className='reg3 regbox'>
+          <div className='regbox'>
             <TextField
               required
               label='Repeat password:' value={userPwd2}
@@ -162,7 +122,7 @@ const Registration = () => {
               inputProps={{ autoCapitalize: 'off', autoComplete:'off' }}
             />
           </div>
-          <div className='reg4 regbox'>
+          <div className='regbox'>
             <TextField
               required
               label='Email:' value={userEmail}
@@ -172,27 +132,9 @@ const Registration = () => {
               inputProps={{ autoCapitalize: 'off' }}
             />
           </div>
-          <div className='reg5 regbox'>
+          <div className='reg regbox'>
             <TextField
-              label='First name:' value={userFirstName}
-              onChange={(e) => setUserFirstName(e.target.value)}
-              variant='outlined'
-              margin='dense'
-              inputProps={{ autoCapitalize: 'off' }}
-            />
-          </div>
-          <div className='reg6 regbox'>
-            <TextField
-              label='Last name:' value={userLastName}
-              onChange={(e) => setUserLastName(e.target.value)}
-              variant='outlined'
-              margin='dense'
-              inputProps={{ autoCapitalize: 'off' }}
-            />
-          </div>
-          <div className='reg7 regbox'>
-            <TextField
-              label='Nickname:' value={userNickname}
+              label='Nickname (optional):' value={userNickname}
               onChange={(e) => setUserNickname(e.target.value)}
               variant='outlined'
               margin='dense'

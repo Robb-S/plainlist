@@ -85,7 +85,7 @@ const handleLogout = async (dispatch) => {
 const handleReg = async (newUserInfo, dispatch) => {
   console.log('** handleReg called');
   console.log(newUserInfo);
-  const { username, password, password2, email, first_name, last_name, nickname } = newUserInfo;
+  const { username, password, password2, email, nickname } = newUserInfo;
   const loginName = username;
   await dispatch({
     type: 'STARTED_LOADING',
@@ -94,8 +94,8 @@ const handleReg = async (newUserInfo, dispatch) => {
     username: username,
     password: password,
     email: email,
-    first_name: first_name,
-    last_name: last_name,
+    first_name: '',
+    last_name: '',
   };
   const profileObj = { nickname: nickname, flatMode: false, lastList: 0 }; // write to API
   const userInfo = { userName: username, userPwd: password };     // to get initial token
