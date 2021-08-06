@@ -3,13 +3,15 @@ import '../css/lists.css';
 import '../css/settings.css';
 import { useStore } from '../store/StoreContext';
 import { IconButton, MakeHomeButton } from './IconButton';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { handleLogout } from '../store/handlersUser';
 
 const NotFound = () => {
-  const { state } = useStore();
+  const { state, dispatch } = useStore();
+  const history = useHistory();
   const isLoggedIn = state.loggedIn;
 
-  const helpBody = () => {
+  const textBody = () => {
     return (
       <Fragment>
         <div className='helpPara'>
@@ -20,12 +22,20 @@ const NotFound = () => {
     );
   };
 
+  const onLogout = async () => {
+    await handleLogout(dispatch);
+    history.push('/login/');
+  };
+
   const headingArea = () => {
     const loginConfig = {
       caption: 'log in',
       title: 'go to login page',
       iconType: 'login',
       buttonLink: `/login/`,
+    };
+    const logoutConfig = {
+      caption:'log out', title:'log out', iconType:'logout', callProc:onLogout,
     };
     return (
       <div className='headingZone helpHeading'>
@@ -35,6 +45,9 @@ const NotFound = () => {
         <div className='headingIcons'>
         {isLoggedIn &&
           MakeHomeButton('home')
+        }
+        {isLoggedIn &&
+          <IconButton config={ logoutConfig } />
         }
         {!isLoggedIn &&
           <IconButton config={ loginConfig } />
@@ -49,7 +62,7 @@ const NotFound = () => {
       <div className='mainContainer'>
         <div className='topLogo'>- Cross It Off the List -</div>
         { headingArea() }
-        { helpBody() }
+        { textBody() }
       </div>
     </Fragment>
   );
