@@ -8,7 +8,7 @@ import Login from './Login';
 import Loading from './Loading';
 import AddList from './AddList';
 import ListsGroup from './ListsGroup';  // the actual group (list) of lists
-import { IconButton, MakeSettingsButton } from './IconButton';
+import { IconButton, MakeSettingsButton, MakeHelpButton } from './IconButton';
 import '../css/lists.css';
 
 const AllLists = () => {
@@ -31,7 +31,7 @@ const AllLists = () => {
   const crumbArea = () => {
     return (
       <Fragment>
-        <div className='crumbsandsettings'>
+        <div className='crumbsandsettingsandhelp'>
           <div className='breadcrumbs'>
             <span className='oneCrumb'>
               Welcome { getGreeting(state) }
@@ -39,6 +39,9 @@ const AllLists = () => {
           </div>
           <div className='settingsicon'>
             { MakeSettingsButton() }
+          </div>
+          <div className='helpicon'>
+          { MakeHelpButton() }
           </div>
         </div>
       </Fragment>

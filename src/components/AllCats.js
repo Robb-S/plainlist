@@ -12,7 +12,7 @@ import AddCat from './AddCat';
 import CategoriesGroup from './CategoriesGroup';
 import ShowUncatCat from './ShowUncatCat';
 import '../css/lists.css';
-import { IconButton, MakeSettingsButton } from './IconButton';
+import { IconButton, MakeSettingsButton, MakeHelpButton } from './IconButton';
 import { getGreeting } from '../store/getData';
 
 const AllCats = () => {
@@ -28,14 +28,17 @@ const AllCats = () => {
   const crumbArea = () => {
     return (
       <Fragment>
-        <div className='crumbsandsettings'>
+        <div className='crumbsandsettingsandhelp'>
           <div className='breadcrumbs'>
             <span className='oneCrumb'>
               Welcome { getGreeting(state) }
             </span>
           </div>
           <div className='settingsicon'>
-            { MakeSettingsButton() }
+          { MakeSettingsButton() }
+          </div>
+          <div className='helpicon'>
+          { MakeHelpButton() }
           </div>
         </div>
       </Fragment>

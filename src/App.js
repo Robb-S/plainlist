@@ -6,6 +6,7 @@ import OneCat from './components/OneCat';
 import TopPage from './components/TopPage';
 import OneList from './components/OneList';
 import Login from './components/Login';
+import Help from './components/Help';
 import Registration from './components/Registration';
 import Settings from './components/Settings';
 
@@ -35,6 +36,7 @@ function App() {
         <Route path='/login/' component={Login} exact />
         <Route path='/reg/' component={Registration} exact />
         <Route path='/set/' component={Settings} exact />
+        <Route path='/about/' component={Help} exact />
       </Switch>
     </div>
   );

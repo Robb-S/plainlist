@@ -60,3 +60,4 @@ I use ordinary CSS media queries to determine screen layout.  In addition, I use
 - material UI text input w/ autofocus, escape key to cancel
 - create initial default records for new user
 - create user profile
+- make favicons

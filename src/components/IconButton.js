@@ -22,6 +22,7 @@
  *   disabled: false,
  *   width: 'wide',
  * };
+ * <IconButton config={ myconfig } />
  */
 
 import React, { Fragment } from 'react';
@@ -29,8 +30,8 @@ import { Link } from 'react-router-dom';
 import '../css/iconButton.css';
 // import { GrDrag } from 'react-icons/gr';
 import { VscCheck, VscCircleSlash, VscSettingsGear, VscEmptyWindow, VscEdit, VscReferences,
-  VscTrash, VscHome, VscGripper } from 'react-icons/vsc';
-import { FiLogIn, FiLogOut } from 'react-icons/fi';
+  VscTrash, VscHome, VscGripper, VscQuestion } from 'react-icons/vsc';
+import { FiLogIn, FiLogOut, FiUserPlus } from 'react-icons/fi';
 
 const IconButton = ({ config }) => {
   const { caption, title, iconType, buttonLink, callProc, width, disabled } = config;
@@ -85,6 +86,12 @@ const IconButton = ({ config }) => {
       break;
     case 'logout':
       TheIcon=FiLogOut;
+      break;
+    case 'logout':
+      TheIcon=FiUserPlus;
+      break;
+    case 'help':
+      TheIcon=VscQuestion;
       break;
     default:
       throw 'bad call to IconButton';
@@ -157,9 +164,15 @@ const MakeHomeButton = ( caption='' ) => {
   );
 };
 
-const MakeDragIcon2 = () => {
+const MakeHelpButton = ( caption='' ) => {
+  const helpConfig = {
+    caption: caption,
+    title: 'about',
+    iconType: 'help',
+    buttonLink: `/about/`,
+  };
   return (
-    <VscGripper title='drag to change order' size='22' color='#ffffff' />
+    <IconButton config={ helpConfig } />
   );
 };
 
@@ -169,4 +182,5 @@ const MakeDragIcon = () => {
   );
 };
 
-export { IconButton, MakeSettingsButton, MakeHomeButton, MakeDragIcon, MakeDragIcon2 };
+export { IconButton, MakeSettingsButton, MakeHomeButton, MakeDragIcon,
+  MakeHelpButton };

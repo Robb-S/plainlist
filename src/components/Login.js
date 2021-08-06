@@ -6,7 +6,7 @@ import { handleLogin } from '../store/handlersUser';
 import { useHistory, Link } from 'react-router-dom';
 import { FormLabel } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import { IconButton } from './IconButton';
+import { IconButton, MakeHelpButton } from './IconButton';
 
 const Login = () => {
   const { state, dispatch } = useStore();
@@ -78,8 +78,8 @@ const Login = () => {
         <div className='headingNameArea'>
           Log in
         </div>
-        <div className='headingIcons'>
-
+        <div className='headingIcons headingIconsSmaller'>
+          { MakeHelpButton() }
         </div>
       </div>
     );

@@ -22,7 +22,7 @@ import EditList from './EditList';  // form to edit the list name
 import MoveList from './MoveList';  // form to move the list to another category
 import AddItem from './AddItem';    // form to add an item
 import ItemsGroup from './ItemsGroup';  // the actual group (list) of items
-import { IconButton, MakeSettingsButton } from './IconButton';
+import { IconButton, MakeSettingsButton, MakeHelpButton } from './IconButton';
 
 const OneList = () => {
   const data = useLocation(); // to retrieve params from data.state
@@ -59,7 +59,7 @@ const OneList = () => {
     const isFlatMode = getFlatMode(state);
     return (
       <Fragment>
-        <div className='crumbsandsettings'>
+        <div className='crumbsandsettingsandhelp'>
           <div className='breadcrumbs'>
             { isFlatMode &&
               <Fragment>
@@ -90,6 +90,9 @@ const OneList = () => {
           </div>
           <div className='settingsicon'>
             { MakeSettingsButton() }
+          </div>
+          <div className='helpicon'>
+          { MakeHelpButton() }
           </div>
         </div>
       </Fragment>

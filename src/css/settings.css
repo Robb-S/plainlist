@@ -55,6 +55,20 @@ div.testArea {
   padding: 20px;
 }
 
+div.helpHeader {
+  font-size: 20px;
+  line-height: 175%;
+  font-weight: bold; 
+  padding: 10px 10px 10px 12px;
+}
+
+div.helpPara {
+  font-size: 16px;
+  line-height: 175%;
+  padding: 10px 10px 10px 12px;
+  margin-bottom: 15px;
+}
+
 @media (min-width: 450px) { /* desktop */
 
 }

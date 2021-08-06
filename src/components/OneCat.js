@@ -12,7 +12,7 @@ import Loading from './Loading';
 import EditCat from './EditCat';
 import AddList from './AddList';
 import ListsGroup from './ListsGroup';  // the actual group (list) of lists
-import { IconButton, MakeSettingsButton } from './IconButton';
+import { IconButton, MakeSettingsButton, MakeHelpButton } from './IconButton';
 import { handleRemoveCategory  } from '../store/handlers';
 import '../css/lists.css';
 
@@ -42,7 +42,7 @@ const OneCat = () => {
   const crumbArea = () => {
     return (
       <Fragment>
-        <div className='crumbsandsettings'>
+        <div className='crumbsandsettingsandhelp'>
           <div className='breadcrumbs'>
             <Link className='linky3 oneCrumb' to={`/`}>
               All categories
@@ -54,6 +54,9 @@ const OneCat = () => {
           </div>
           <div className='settingsicon'>
             { MakeSettingsButton() }
+          </div>
+          <div className='helpicon'>
+            { MakeHelpButton() }
           </div>
         </div>
       </Fragment>

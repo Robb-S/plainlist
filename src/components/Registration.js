@@ -8,7 +8,7 @@ import { userExistsAPI } from '../store/apiCalls';
 import * as api from '../util/constants';
 import { FormLabel } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import { IconButton } from './IconButton';
+import { IconButton, MakeHelpButton } from './IconButton';
 
 const Registration = () => {
   const { state, dispatch } = useStore();
@@ -70,8 +70,8 @@ const Registration = () => {
         <div className='headingNameArea'>
           Register new user
         </div>
-        <div className='headingIcons'>
-
+        <div className='headingIcons headingIconsSmaller'>
+          { MakeHelpButton() }
         </div>
       </div>
     );

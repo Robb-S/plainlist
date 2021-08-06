@@ -1,5 +1,5 @@
 body {
-  font-family: Tahoma, Verdana, Segoe, sans-serif;
+  font-family: Roboto, Verdana, Segoe, sans-serif;
   background-color: #ffffff;
   }
 
@@ -48,6 +48,12 @@ body {
   background-color: #dcedc8;
 }
 
+.helpHeading {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: #ffe0b2;
+}
+
 .loginHeading {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -68,6 +74,10 @@ body {
   align-self: start;
   display: flex;
   align-items: flex-start;
+}
+
+.headingIconsSmaller {
+  padding-top: 7px;
 }
 
 div.moveArea {
@@ -172,11 +182,23 @@ div.crumbsandsettings {
   display: grid;
   grid-template-columns: 1fr 38px;
   gap: 10px;
+}
 
+div.crumbsandsettingsandhelp {
+  max-width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 38px 38px;
+  gap: 4px;
 }
 
 div.settingsicon {
   padding: 5px 5px 0px 0px;
+  justify-self: end;
+  align-self: center;
+}
+
+div.helpicon {
+  padding: 7px 5px 0px 0px;
   justify-self: end;
   align-self: center;
 }
