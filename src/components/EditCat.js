@@ -47,6 +47,7 @@ const EditCat = ({ props }) => {
                 variant='outlined'
                 margin='dense'
                 autoFocus={true}
+                inputProps={{ autoCapitalize: 'off' }}
               />
             </span>
           </form>

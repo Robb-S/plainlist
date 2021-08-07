@@ -99,12 +99,14 @@ export function SortableItemUnit(props) {
                   onChange={(e) => setItemName(e.target.value)}
                   variant='outlined'
                   margin='dense'
+                  inputProps={{ autoCapitalize: 'off' }}
                 />
                 <TextField
                   label="Note:" value={itemNote}
                   onChange={(e) => setItemNote(e.target.value)}
                   variant='outlined'
                   margin='dense'
+                  inputProps={{ autoCapitalize: 'off' }}
                 />
               </span>
               <input type="submit" className="hidden" />

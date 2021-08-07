@@ -243,7 +243,8 @@ const Registration2 = () => {
               fullWidth
               id='userEmail'
               name='userEmail'
-              label='Email:'
+              type='email'
+              label='Email'
               value={formik.values.userEmail}
               onChange={formik.handleChange}
               error={formik.touched.userEmail && Boolean(formik.errors.userEmail)}
