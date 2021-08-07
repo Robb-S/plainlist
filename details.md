@@ -37,6 +37,10 @@ Coding for icons was getting messy, especially when I wanted to change an icon, 
 
 I use ordinary CSS media queries to determine screen layout.  In addition, I use the autofocus param to set the focus on input text boxes where appropriate, but this was distracting on mobile platforms (it would open the keyboard as soon as the screen appeared), so I use the 'react-device-detect' package to detect mobile devices.  I used inputProps in all TextFields to turn off autocapitalization.  
 
+## UX - registration
+
+I have set up an API endpoint to report whether a username already exists, and I check for existing usernames as the registering user is typing in their potential username, rather than waiting for them to submit the registration form.  (I debounce the input value of the Textfield and use useEffect to check the API when the debounced value changes.)
+
 ## To-do
 
 - move flatMode to user Profile

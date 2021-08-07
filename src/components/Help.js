@@ -24,7 +24,7 @@ const Help = () => {
           How lists are organized
         </div>
         <div className='helpPara'>
-          You can organize your lists in two different ways - either by category ("hierarchical") or with no categories ("flat").  For example you might find it useful to have separate categories such as "to do" for multiple to-do lists, "shopping" for multiple shopping lists and "books" for lists of books you want to read in different genres.  Or, if you have only a few lists you may find it easier to use a flat layout, with all your lists visible at once.
+          You can organize your lists in two different ways - either by category ("Hierarchical") or with no categories ("Flat").  For example you might find it useful to have separate categories such as "To do" for multiple to-do lists, "Shopping" for multiple shopping lists and "Books" for lists of books you want to read in different genres.  Or, if you have only a few lists you may find it easier to use a flat layout, with all your lists visible at once.
         </div>
         <div className='helpPara'>
           When you first start using the app your lists will be organized in Hierarchical mode, with two starter categories ("Shopping" and "To do") and one starter list in each category.  You can rename any of these, and add or delete categories and lists as you wish.
@@ -33,13 +33,13 @@ const Help = () => {
           Switching between Hierarchical and Flat modes
         </div>
         <div className='helpPara'>
-          You can switch between Hierarchical and Flat modes at any time by going to the Settings page.  (Press the "cog" icon from any other page to reach the Settings page.)
+          You can switch between Hierarchical and Flat modes at any time by going to the Settings page.  (Press the cog icon from any page to reach the Settings page.)
         </div>
         <div className='helpHeader'>
-          Reordering collections of categories, collections of lists and lists of items
+          Reordering lists with drag and drop
         </div>
         <div className='helpPara'>
-          If you want to change the order of categories, lists or items, grab the six-dot icon to the left of the text and drag it to the position you want, either with the mouse (on desktop) or with your finger (on a touch device).
+          If you want to change the order of categories, lists, or items, grab the six-dot icon to the left of the text and drag the item to the position you want, either with the mouse (on desktop) or with your finger (on a touch device).
         </div>
         <div className='helpHeader'>
           Switching categories for a list
@@ -48,8 +48,25 @@ const Help = () => {
           When you are on the page for a particular list, you can change the category of that list by pressing the "Change Category" icon and selecting a different category.
         </div>
         <div className='helpPara'>
-          This can be useful if you have added a new list when in "Flat" mode, but have switched back to "Hierarchical" mode, as the new list will have been placed in an "Uncategorized" category.  Simply move it to whichever other category you prefer, or create a new category. (Note that the "Change Category" icon will not appear if there are no other categories to switch to.)
+          This can be useful if you have added a new list when in Flat mode, but have switched back to Hierarchical mode, as the new list will have been placed in an "Uncategorized" category.  Simply move it to whichever other category you prefer, or create a new category. (Note that the Change Category icon will not appear if there are no other categories to switch to.)
         </div>
+        <div className='helpHeader'>
+          Installation on Android devices
+        </div>
+        <div className='helpPara'>
+          1. Type the URL of this site into your device's browser window and press enter.<br />
+          2. Press the More Options icon (three vertical dots) in the upper-right corner of the screen.<br />
+          3. Press "Add to Home screen" (Chrome) or "Install" (Firefox).<br />
+          4. On Chrome you may edit the name that appears on your screen, then press the "ADD" button.
+        </div>
+        <div className='helpHeader'>
+          Manual refresh
+        </div>
+        <div className='helpPara'>
+          If you have the app open on more than one device at the same time, changes made to your lists on one device will not be immediately reflected on other devices until you manually refresh them.  To do this, simply press the refresh button on your browser (on the second device), or pull down on the screen if you're using a mobile device.
+        </div>
+        <br /><br />
+
       </Fragment>
     );
   };
