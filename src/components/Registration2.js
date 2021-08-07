@@ -9,9 +9,19 @@ import { userExistsAPI } from '../store/apiCalls';
 import * as api from '../util/constants';
 import { FormLabel } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import { IconButton, MakeHelpButton } from './IconButton';
+import { MakeHelpButton } from './IconButton';
+import { IconButton as CrossIconButton } from './IconButton';  // alias needed
+import IconButton from '@material-ui/core/IconButton';    // same name as local component
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
 
 const Registration2 = () => {
   const { dispatch } = useStore();
@@ -19,7 +29,8 @@ const Registration2 = () => {
   const [regMsg, setRegMsg] = useState('Please fill out the fields below.');
   const [uNameMsg, setUNameMsg] = useState('');
   const [uNameValid, setUNameValid] = useState(false);
-  
+  const [showPassword, setShowPassword ] = useState(true);
+
   async function checkUserName(debouncedUserName) {
     if (debouncedUserName.length>2) {
       const { userExists, status } = await userExistsAPI(debouncedUserName);
@@ -34,6 +45,22 @@ const Registration2 = () => {
       setUNameMsg(' ');
     }
   }
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    margin: {
+      margin: theme.spacing(0),
+    },
+    withoutLabel: {
+      marginTop: theme.spacing(3),
+    },
+    textField: {
+      width: '100%',
+    },
+  }));
 
   const processForm = async (values) => {
     const { userName, userPwd, userPwd2, userEmail, userNickname } = values;
@@ -117,11 +144,21 @@ const Registration2 = () => {
     [debouncedUserName], // Only call effect if debounced search term changes
   );
 
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+
   const regForm = () => {
     const regIconConfig = {
       caption:'register', title:'register new user data', iconType:'login',
       callProc:formik.handleSubmit,
     };
+    const classes = useStyles();
 
     return (
       <Fragment>
@@ -138,7 +175,7 @@ const Registration2 = () => {
             <TextField
               required
               fullWidth
-              label="User name (3-60 char):"
+              label="User name (3-60 char)"
               id='userName'
               name='userName'
               value={formik.values.userName}
@@ -154,26 +191,42 @@ const Registration2 = () => {
             {uNameMsg}
           </div>
           <div className='regbox'>
-            <TextField
-              required
-              fullWidth
-              id='userPwd'
-              name='userPwd'
-              label='Password (8-60 char):'
-              value={formik.values.userPwd}
-              onChange={formik.handleChange}
-              error={formik.touched.userPwd && Boolean(formik.errors.userPwd)}
-              helperText={formik.touched.userPwd && formik.errors.userPwd}
-              variant='outlined'
-              margin='dense'
-              inputProps={{ autoCapitalize: 'off', autoComplete:'off' }}
-            />
+            <FormControl className={clsx(classes.textField)} variant='outlined' margin='dense' >
+            <InputLabel htmlFor='userPwd'>Password (8-60 char) *</InputLabel>
+              <OutlinedInput
+                labelWidth={167}
+                required
+                id='userPwd'
+                name='userPwd'
+                type={showPassword ? 'text' : 'password'}
+                value={formik.values.userPwd}
+                onChange={formik.handleChange}
+                autoComplete='new-password'
+                inputProps={{
+                  autoCapitalize: 'off',
+                  autoComplete:'new-password',
+                }}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {!showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
           </div>
           <div className='regbox'>
             <TextField
               required
               fullWidth
               id='userPwd2'
+              type={showPassword ? 'text' : 'password'}
               name='userPwd2'
               label='Repeat password:'
               value={formik.values.userPwd2}
@@ -216,7 +269,7 @@ const Registration2 = () => {
               inputProps={{ autoCapitalize: 'off' }}
             />
           </div>
-          <div className='regButton'><IconButton config={ regIconConfig } /></div>
+          <div className='regButton'><CrossIconButton config={ regIconConfig } /></div>
           <input type="submit" className="hidden" />
         </form>
       </Fragment>

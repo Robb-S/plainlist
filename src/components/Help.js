@@ -18,7 +18,7 @@ const Help = () => {
           Starting out
         </div>
         <div className='helpPara'>
-          Pick a user name and an optional nickname, and enter these along with your email address on the new-user registration page.  (We will not share your email, but will only use it for password-change confirmation.)
+          Pick a user name and an optional nickname, and enter these along with your email address on the new-user registration page.  We will start you off with a couple of default starter lists, which you can change whenever you wish.
         </div>
         <div className='helpHeader'>
           How lists are organized
@@ -27,7 +27,7 @@ const Help = () => {
           You can organize your lists in two different ways - either by category ("Hierarchical") or with no categories ("Flat").  For example you might find it useful to have separate categories such as "To do" for multiple to-do lists, "Shopping" for multiple shopping lists and "Books" for lists of books you want to read in different genres.  Or, if you have only a few lists you may find it easier to use a flat layout, with all your lists visible at once.
         </div>
         <div className='helpPara'>
-          When you first start using the app your lists will be organized in Hierarchical mode, with two starter categories ("Shopping" and "To do") and one starter list in each category.  You can rename any of these, and add or delete categories and lists as you wish.
+          When you first start using the app your lists will be organized in Hierarchical mode, with two starter categories ("Shopping" and "To do") and one starter list in each category.  You can rename any of these, and add or delete categories and lists.
         </div>
         <div className='helpHeader'>
           Switching between Hierarchical and Flat modes
@@ -39,7 +39,7 @@ const Help = () => {
           Reordering lists with drag and drop
         </div>
         <div className='helpPara'>
-          If you want to change the order of categories, lists, or items, grab the six-dot icon to the left of the text and drag the item to the position you want, either with the mouse (on desktop) or with your finger (on a touch device).
+          If you want to change the order of categories, lists, or items, use the six-dot icon to the left of the text to drag the item to the position you want, either with the mouse (on desktop) or with your finger (on a touch device).
         </div>
         <div className='helpHeader'>
           Switching categories for a list
@@ -63,7 +63,7 @@ const Help = () => {
           Manual refresh
         </div>
         <div className='helpPara'>
-          If you have the app open on more than one device at the same time, changes made to your lists on one device will not be immediately reflected on other devices until you manually refresh them.  To do this, simply press the refresh button on your browser (on the second device), or pull down on the screen if you're using a mobile device.
+          If you have the app open on more than one device at the same time, changes made to your lists on one device will not be immediately reflected on other devices until you manually refresh them.  To do this, simply press the refresh button on your browser (on the second device), or pull down on the screen if it's a mobile device.
         </div>
         <br /><br />
 
