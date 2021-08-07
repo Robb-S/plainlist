@@ -5,7 +5,6 @@ import { useStore } from '../store/StoreContext';
 import { useEscape, validateLength } from '../util/helpers'; // hook to capture escape key
 import { handleAddList } from '../store/handlers';
 import { IconButton } from './IconButton';
-// import { Toaster } from 'react-hot-toast';
 import TextField from '@material-ui/core/TextField';
 
 const AddList = ({ props }) => {

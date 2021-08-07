@@ -10,7 +10,6 @@ import { useEscape, validateLength } from '../util/helpers'; // hook to capture 
 import { handleAddItem } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
-// import { Toaster } from 'react-hot-toast';
 
 const AddItem = ({ listID }) => {
   const { state, dispatch } = useStore();

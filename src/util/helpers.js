@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
+import { VscCircleSlash } from 'react-icons/vsc';
 
 /**
  * Make unique string ID.  Currently using uuid.  Used to provide IDs in demo
@@ -139,23 +140,34 @@ function sleepy(ms) {
 
 /**
  * Test minimum and maximum length; display toast and return false if too short or too long.
+ * @param {string} text to validate 
  * @param {integer} minLength 0 if not required, 1 if required, other number if different minimum
  * @param {integer} maxLength
  * @param {string} fieldName (optional)
  * @returns 
  */
 const validateLength = (theText, minLength, maxLength, fieldName='') => {
+  const toastStyle = {
+    backgroundColor: '#263238',
+    color: '#ffffff',
+  };
+  const topt = {
+    duration: 3000,
+    position: 'top-center',
+    icon: '⚠️',
+    style: toastStyle,
+  };
   const toastRequired = () => {
-    if (fieldName.length<1) return toast.error('Please enter text for required field.');
-    return toast.error(`Please enter text for ${fieldName}`);
+    if (fieldName.length<1) return toast('Please enter text for required field.', topt);
+    return toast(`Please enter text for ${fieldName}`, topt);
   };
   const toastTooShort = () => {
-    if (fieldName.length<1) return toast.error(`Minimum length is ${minLength} characters.`);
-    return toast.error(`Minimum length for ${fieldName} is ${minLength} characters.`);
+    if (fieldName.length<1) return toast(`Minimum length is ${minLength} characters.`, topt);
+    return toast(`Minimum length for ${fieldName} is ${minLength} characters.`, topt);
   };
   const toastTooLong = () => {
-    if (fieldName.length<1) return toast.error(`Maximum length is ${maxLength} characters.`);
-    return toast.error(`Maximum length for ${fieldName} is ${maxLength} characters.`);
+    if (fieldName.length<1) return toast(`Maximum length is ${maxLength} characters.`, topt);
+    return toast(`Maximum length for ${fieldName} is ${maxLength} characters.`, topt);
   };
   if (minLength===1 && theText.length<minLength) {
     toastRequired();

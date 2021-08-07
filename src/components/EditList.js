@@ -13,7 +13,6 @@ import { useStore } from '../store/StoreContext';
 import { handleUpdateList } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
-// import { Toaster } from 'react-hot-toast';
 
 const EditList = ({ props }) => {
   const { cancelEdit, listRec }  = props;

@@ -8,7 +8,6 @@ import { CSS } from '@dnd-kit/utilities';
 import '../css/oneItem.css';
 import '../css/oneList.css';
 import { validateLength } from '../util/helpers';
-// import { Toaster } from 'react-hot-toast';
 
 import { useStore } from '../store/StoreContext';
 import { handleRemoveItem, handleUpdateItem } from '../store/handlers';

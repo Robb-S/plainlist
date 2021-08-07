@@ -14,7 +14,6 @@ import { useEscape, validateLength } from '../util/helpers'; // hook to capture 
 import { handleUpdateCategory } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
-// import { Toaster } from 'react-hot-toast';
 
 const EditCat = ({ props }) => {
   const { cancelEdit, categoryRec }  = props;
