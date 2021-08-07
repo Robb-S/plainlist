@@ -9,7 +9,7 @@ import { useEscape, validateLength } from '../util/helpers'; // hook to capture 
 import { handleAddCategory } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
-import { Toaster } from 'react-hot-toast';
+// import { Toaster } from 'react-hot-toast';
 import * as api from '../util/constants';
 import '../css/lists.css';
 
@@ -55,7 +55,7 @@ const AddCat = ({ props }) => {
                 inputProps={{ autoCapitalize: 'off' }}
               />
             </span>
-            <Toaster />
+            
           </form>
           <span className='editButtonArea'>
             <IconButton config={ { title:'accept add',

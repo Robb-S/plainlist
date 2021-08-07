@@ -2,6 +2,7 @@ import './App.css';
 
 import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import OneCat from './components/OneCat';
 import TopPage from './components/TopPage';
 import OneList from './components/OneList';
@@ -43,6 +44,7 @@ function App() {
         <Route path='/about/' component={Help} exact />
         <Route path='*' component={NotFound} />
       </Switch>
+      <Toaster />
     </div>
   );
 }

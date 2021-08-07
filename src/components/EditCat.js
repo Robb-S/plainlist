@@ -14,7 +14,7 @@ import { useEscape, validateLength } from '../util/helpers'; // hook to capture 
 import { handleUpdateCategory } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
-import { Toaster } from 'react-hot-toast';
+// import { Toaster } from 'react-hot-toast';
 
 const EditCat = ({ props }) => {
   const { cancelEdit, categoryRec }  = props;
@@ -51,7 +51,6 @@ const EditCat = ({ props }) => {
               />
             </span>
           </form>
-          <Toaster />
           <span className='editButtonArea'>
             <IconButton config={ { title:'accept category edit',
               iconType:'confirm', callProc:onRequestEdit }} />

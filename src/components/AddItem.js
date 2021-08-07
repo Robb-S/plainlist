@@ -10,7 +10,7 @@ import { useEscape, validateLength } from '../util/helpers'; // hook to capture 
 import { handleAddItem } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
-import { Toaster } from 'react-hot-toast';
+// import { Toaster } from 'react-hot-toast';
 
 const AddItem = ({ listID }) => {
   const { state, dispatch } = useStore();
@@ -48,7 +48,6 @@ const AddItem = ({ listID }) => {
         <div className='addNewShell'>
           <div className='addThisLabel'>Add new item:</div>
           <div className='editItemDiv'>
-            <Toaster />
             <form className='editItemForm' onSubmit={onSubmitAdd}>
               <span className='editItemInputArea'>
                 <TextField
