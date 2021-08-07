@@ -5,10 +5,11 @@
  */
 import React, { Fragment, useState } from 'react';
 import { useStore } from '../store/StoreContext';
-import { useEscape } from '../util/helpers'; // hook to capture escape key
+import { useEscape, validateLength } from '../util/helpers'; // hook to capture escape key
 import { handleAddCategory } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
+import { Toaster } from 'react-hot-toast';
 import * as api from '../util/constants';
 import '../css/lists.css';
 
@@ -16,7 +17,6 @@ const AddCat = ({ props }) => {
   const { addMode, cancelAdd }  = props;
   const { state, dispatch } = useStore();
   const [ categoryName, setCategoryName ] = useState('');
-
   /**
    * Form submit handler allows user to press RETURN as well as button to submit
    */
@@ -25,7 +25,7 @@ const AddCat = ({ props }) => {
     onRequestAdd();
   };
   const onRequestAdd = async () => {
-    if (categoryName.length===0) {return;}
+    if (!validateLength(categoryName, 1, 60, 'category name')) return;
     const newCategory = { categoryName: categoryName };
     const status = await handleAddCategory(newCategory, state, dispatch);
     // if (status===api.OK) { cancelAdd(); }
@@ -47,7 +47,7 @@ const AddCat = ({ props }) => {
             <span className='addAreaInput'>
               <TextField
                 required
-                label="New category name:" value={categoryName}
+                label="New category name" value={categoryName}
                 onChange={(e) => setCategoryName(e.target.value)}
                 variant='outlined'
                 margin='dense'
@@ -55,6 +55,7 @@ const AddCat = ({ props }) => {
                 inputProps={{ autoCapitalize: 'off' }}
               />
             </span>
+            <Toaster />
           </form>
           <span className='editButtonArea'>
             <IconButton config={ { title:'accept add',

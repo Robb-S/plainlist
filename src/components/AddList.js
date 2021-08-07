@@ -2,9 +2,10 @@ import React, { Fragment, useState } from 'react';
 import '../css/lists.css';
 import * as api from '../util/constants';
 import { useStore } from '../store/StoreContext';
-import { useEscape } from '../util/helpers'; // hook to capture escape key
+import { useEscape, validateLength } from '../util/helpers'; // hook to capture escape key
 import { handleAddList } from '../store/handlers';
 import { IconButton } from './IconButton';
+import { Toaster } from 'react-hot-toast';
 import TextField from '@material-ui/core/TextField';
 
 const AddList = ({ props }) => {
@@ -17,7 +18,7 @@ const AddList = ({ props }) => {
     onRequestAdd();
   };
   const onRequestAdd = async () => {
-    if (listName.length===0) {return;}
+    if (!validateLength(listName, 1, 60, 'list name')) return;
     const newList = { listName: listName, categoryID: categoryID };
     const status = await handleAddList(newList, state, dispatch);
     if (status!==api.OK) {  }
@@ -45,6 +46,7 @@ const AddList = ({ props }) => {
                 inputProps={{ autoCapitalize: 'off' }}
               />
             </span>
+            <Toaster />
           </form>
           <span className='editButtonArea'>
             <IconButton config={ { title:'accept add',

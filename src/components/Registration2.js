@@ -152,7 +152,6 @@ const Registration2 = () => {
     event.preventDefault();
   };
 
-
   const regForm = () => {
     const regIconConfig = {
       caption:'register', title:'register new user data', iconType:'login',

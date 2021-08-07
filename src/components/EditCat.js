@@ -10,10 +10,11 @@ import React, { Fragment, useState } from 'react';
 import '../css/lists.css';
 import * as api from '../util/constants';
 import { useStore } from '../store/StoreContext';
-import { useEscape } from '../util/helpers'; // hook to capture escape key
+import { useEscape, validateLength } from '../util/helpers'; // hook to capture escape key
 import { handleUpdateCategory } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
+import { Toaster } from 'react-hot-toast';
 
 const EditCat = ({ props }) => {
   const { cancelEdit, categoryRec }  = props;
@@ -26,7 +27,8 @@ const EditCat = ({ props }) => {
   };
 
   const onRequestEdit = async () => {
-    if (categoryName.length===0) {return;}
+    // if (categoryName.length===0) {return;}
+    if (!validateLength(categoryName, 1, 60, 'category name')) return;
     const status = await handleUpdateCategory(categoryRec.id, categoryName, state, dispatch);
     if (status===api.OK) { cancelEdit(); }
     // TODO: maybe add additional message if API operation failed?
@@ -48,6 +50,7 @@ const EditCat = ({ props }) => {
               />
             </span>
           </form>
+          <Toaster />
           <span className='editButtonArea'>
             <IconButton config={ { title:'accept category edit',
               iconType:'confirm', callProc:onRequestEdit }} />

@@ -8,11 +8,12 @@
 import React, { Fragment, useState } from 'react';
 import '../css/lists.css';
 import * as api from '../util/constants';
-import { useEscape } from '../util/helpers'; // hook to capture escape key
+import { useEscape, validateLength } from '../util/helpers'; // hook to capture escape key
 import { useStore } from '../store/StoreContext';
 import { handleUpdateList } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
+import { Toaster } from 'react-hot-toast';
 
 const EditList = ({ props }) => {
   const { cancelEdit, listRec }  = props;
@@ -25,7 +26,7 @@ const EditList = ({ props }) => {
   };
 
   const onRequestEdit = async () => {
-    if (listName.length===0) {return;}
+    if (!validateLength(listName, 1, 60, 'list name')) return;
     const status = await handleUpdateList(listRec.id, listName, state, dispatch);
     if (status===api.OK) { cancelEdit(); }
     // TODO: maybe add additional message if API operation failed?
@@ -46,6 +47,7 @@ const EditList = ({ props }) => {
                 autoFocus={true}
               />
             </span>
+            <Toaster />
           </form>
           <span className='editButtonArea'>
             <IconButton config={ { title:'accept list edit',

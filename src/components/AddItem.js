@@ -6,10 +6,11 @@
 import React, { Fragment, useState } from 'react';
 import '../css/oneItem.css';
 import { useStore } from '../store/StoreContext';
-import { useEscape } from '../util/helpers'; // hook to capture escape key
+import { useEscape, validateLength } from '../util/helpers'; // hook to capture escape key
 import { handleAddItem } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
+import { Toaster } from 'react-hot-toast';
 
 const AddItem = ({ listID }) => {
   const { state, dispatch } = useStore();
@@ -23,7 +24,8 @@ const AddItem = ({ listID }) => {
   };
 
   const onRequestAdd = () => {
-    if (itemName.length===0) {return;}
+    if (!validateLength(itemName, 1, 60, 'item name')) return;
+    if (!validateLength(itemNote, 0, 60, 'note')) return;
     const newItem = { itemName: itemName, itemNote: itemNote, listID: listID };
     handleAddItem(newItem, state, dispatch);
   };
@@ -46,6 +48,7 @@ const AddItem = ({ listID }) => {
         <div className='addNewShell'>
           <div className='addThisLabel'>Add new item:</div>
           <div className='editItemDiv'>
+            <Toaster />
             <form className='editItemForm' onSubmit={onSubmitAdd}>
               <span className='editItemInputArea'>
                 <TextField

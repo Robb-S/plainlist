@@ -7,6 +7,8 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import '../css/oneItem.css';
 import '../css/oneList.css';
+import { validateLength } from '../util/helpers';
+import { Toaster } from 'react-hot-toast';
 
 import { useStore } from '../store/StoreContext';
 import { handleRemoveItem, handleUpdateItem } from '../store/handlers';
@@ -42,7 +44,8 @@ export function SortableItemUnit(props) {
   };
 
   const updateItem = () => {
-    if (itemName.length<1) return;
+    if (!validateLength(itemName, 1, 60, 'item name')) return;
+    if (!validateLength(itemNote, 0, 60, 'note')) return;
     setEditMode(false);
     handleUpdateItem(itemID, itemName, itemNote, state, dispatch);
   };
@@ -87,6 +90,7 @@ export function SortableItemUnit(props) {
       <Fragment>
         <li className='editItemFormLi'>
           <div className='editItemDiv'>
+            <Toaster />
             <form className='editItemForm' onSubmit={submitUpdateItem}>
               <span className='editItemInputArea'>
                 <TextField
