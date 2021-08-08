@@ -4,7 +4,7 @@ import { getTokenFromAPI, makeNewUserAPI, makeNewProfileAPI, getInitDataByToken,
 import { handleGetUserAndData } from './fetchUserAndData';
 import { sleepy } from '../util/helpers';
 import { unsetAxiosAuthToken } from  '../util/helpers';
-import { getFlatMode2, getLastList, getNickname } from './getData';
+import { getFlatMode2, getLastList, getNickname, getRemember } from './getData';
 
 /**
  * Take login info, get auth token from Django API call (if login info works).
@@ -55,13 +55,28 @@ const handleFlatnessSetting = async (newFlatness, dispatch) => {
 /**
  * Reset flatMode in Profile
  */
-const handleUpdateFlatness = async (newFlatness, state, dispatch) => {
+ const handleUpdateFlatness = async (newFlatness, state, dispatch) => {
   console.log('** handleFlatnessUpdate ** ' + newFlatness);
   const oldFlatness = getFlatMode2(state);
   if (oldFlatness===newFlatness) return api.OK;
   const newProfile = {
     ...state.profile,
     flatMode: newFlatness,
+  };
+  const status = await handleUpdateProfile(newProfile, state, dispatch);
+  return status;
+};
+
+/**
+ * Reset rememberLastList in Profile
+ */
+ const handleUpdateRemember = async (newRemember, state, dispatch) => {
+  console.log('** handleUpdateRemember ** ' + newRemember);
+  const oldRemember = getRemember(state);
+  if (oldRemember===newRemember) return api.OK;
+  const newProfile = {
+    ...state.profile,
+    rememberLastList: newRemember,
   };
   const status = await handleUpdateProfile(newProfile, state, dispatch);
   return status;
@@ -169,7 +184,8 @@ const handleReg = async (newUserInfo, dispatch) => {
     first_name: '',
     last_name: '',
   };
-  const profileObj = { nickname: nickname, flatMode: false, lastList: 0 }; // write to API
+  const profileObj = { nickname: nickname, flatMode: false, rememberLastList: true,
+    lastList: 0 }; // write to API
   const userInfo = { userName: username, userPwd: password };     // to get initial token
   if (password!==password2) return 'Password 1 and password 2 must match.';
   let status = await makeNewUserAPI(userObj);

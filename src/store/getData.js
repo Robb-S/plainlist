@@ -170,6 +170,7 @@ const getGreeting = (state) => {
 
 /**
  * Return lastList from Profile record.
+ * TODO: consolidate profile get functions.
  */
 const getLastList = (state) => {
   const lastList = state.profile.lastList;
@@ -184,7 +185,15 @@ const getLastList = (state) => {
   return lastList;
 };
 
+/**
+ * Return rememberLastList from Profile record.
+ */
+ const getRemember = (state) => {
+  const rememberLastList = state.profile.rememberLastList;
+  return rememberLastList;
+};
+
 export { getItemsByListID, getListsByCatID, getListRec, getCatRec, getItemRec, getListName,
   getCatName, getParentListName, getParentCatName, getParentCatID, getAllCats, getAllLists,
   getUncategorizedCategory, getOtherCats, getRegularCats, getFlatMode, getFlatMode2,
-  getGreeting, getLastList, getNickname };
+  getGreeting, getLastList, getNickname, getRemember };

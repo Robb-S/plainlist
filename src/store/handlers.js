@@ -5,9 +5,33 @@ import * as api from '../util/constants';
 import { addRecAPI, deleteRecAPI, updateRecAPI } from './apiCalls';
 
 /**
- * Take new itemName and itemNote from input, then  add a
- * high sortOder attribute so it sorts to the top of the list.
- * ID and other attributes will be taken care of by REST API.
+ * This is similar to version in handlersUser, but without load start and end dispatches.
+ */
+const handleUpdateLastListForItem = async (oneItem, state, dispatch) => {
+  const remember = state.profile.rememberLastList;
+  if (!remember) return api.OK; // don't bother if remember mode is false  
+  const thisList = oneItem.listID;
+  const lastList = state.profile.lastList;
+  if (thisList===lastList) return api.OK; // no change in list #
+  const newProfile = {
+    ...state.profile,
+    lastList: thisList,
+  };
+  const { dbRec, status } = await updateRecAPI(newProfile, state.runMode, 'profile');
+  if (status===api.OK) {
+    await dispatch({
+      type: 'UPDATE_PROFILE',
+      payload: dbRec,
+    });
+  } else {
+    alert (api.MSG_FAILED);
+  }
+  return status;
+};
+
+/**
+ * Take new itemName and itemNote from input, then  add a high sortOder attribute so it
+ * sorts to the top of the list.  ID and other attributes will be taken care of by REST API.
  */
  const handleAddItem = async (newItem, state, dispatch) => {
   const items = state.items;
@@ -22,6 +46,7 @@ import { addRecAPI, deleteRecAPI, updateRecAPI } from './apiCalls';
       type: 'ADD_ITEM',
       payload: dbRec,
     });
+    const status2 = await handleUpdateLastListForItem(dbRec, state, dispatch);
   } else {
     alert (api.MSG_FAILED);
   }
@@ -98,6 +123,7 @@ const handleRemoveItem = async (itemID, state, dispatch) =>  {
       type: 'DELETE_ITEM',
       payload: itemID,
     });
+    const status2 = await handleUpdateLastListForItem(theItem, state, dispatch);
   } else {
     alert (api.MSG_FAILED);
   }
@@ -192,6 +218,7 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
       type: 'UPDATE_ITEM',
       payload: dbRec,
     });
+    const status2 = await handleUpdateLastListForItem(dbRec, state, dispatch);
   } else {
     alert (api.MSG_FAILED);
   }

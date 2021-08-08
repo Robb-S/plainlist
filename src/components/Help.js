@@ -36,6 +36,12 @@ const Help = () => {
           You can switch between Hierarchical and Flat modes at any time by going to the Settings page.  (Press the cog icon from any page to reach the Settings page.)
         </div>
         <div className='helpHeader'>
+          Display most recent list on startup
+        </div>
+        <div className='helpPara'>
+          The app will remember the most recent list where you added, deleted or edited an item, and by default it will display this list when you restart the app.  If you would prefer to show the top page when you restart the app, you can turn off this feature from the settings page.
+        </div>
+        <div className='helpHeader'>
           Reordering lists with drag and drop
         </div>
         <div className='helpPara'>
