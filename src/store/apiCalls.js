@@ -119,6 +119,7 @@ const recTypeToAPIUrl = (recType) => {
     case 'item': { return api.API_ITEMS; }
     case 'list': { return api.API_LISTS; }
     case 'category': { return api.API_CATS; }
+    case 'profile': { return api.API_PROF; }
     default: {
       throw new Error(`Unhandled record type: ${recType}`);
     }
@@ -174,7 +175,6 @@ const recTypeToAPIUrl = (recType) => {
     }
   }
 };
-
 
 /**
  * API call to update a record. 

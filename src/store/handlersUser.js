@@ -1,9 +1,10 @@
 import * as api from '../util/constants';
 import { getTokenFromAPI, makeNewUserAPI, makeNewProfileAPI, getInitDataByToken,
-  addRecAPI } from './apiCalls';
+  addRecAPI, updateRecAPI } from './apiCalls';
 import { handleGetUserAndData } from './fetchUserAndData';
 import { sleepy } from '../util/helpers';
 import { unsetAxiosAuthToken } from  '../util/helpers';
+import { getFlatMode2, getLastList, getNickname } from './getData';
 
 /**
  * Take login info, get auth token from Django API call (if login info works).
@@ -46,6 +47,69 @@ const handleFlatnessSetting = async (newFlatness, dispatch) => {
     payload: newFlatness,
   });
   localStorage.setItem('flatMode', newFlatness.toString());
+  await dispatch({
+    type: 'FINISHED_LOADING',
+  });
+};
+
+/**
+ * Reset flatMode in Profile
+ */
+const handleFlatnessUpdate = async (newFlatness, state, dispatch) => {
+  console.log('** handleFlatnessUpdate ** ' + newFlatness);
+  const oldFlatness = getFlatMode2(state);
+  if (oldFlatness===newFlatness) return;
+  const newProfile = {
+    ...state.profile,
+    flatMode: newFlatness,
+  };
+  await handleProfileUpdate(newProfile, state, dispatch);
+};
+
+/**
+ * Reset nickname in Profile
+ */
+const handleNicknameUpdate = async (newNickname, state, dispatch) => {
+  console.log('** handleNicknameUpdate ** ' + newNickname);
+  const oldNickname = getNickname(state);
+  if (oldNickname===newNickname) return;
+  const newProfile = {
+    ...state.profile,
+    nickname: newNickname,
+  };
+  await handleProfileUpdate(newProfile, state, dispatch);
+};
+
+/**
+ * Reset lastList in Profile
+ */
+const handleLastListUpdate = async (newLastList, state, dispatch) => {
+  console.log('** handleLastListUpdate ** ' + newLastList);
+  const oldLastList = getLastList(state);
+  if (oldLastList===newLastList) return;
+  const newProfile = {
+    ...state.profile,
+    lastList: newLastList,
+  };
+  await handleProfileUpdate(newProfile, state, dispatch);
+};
+
+/**
+ * Handle any profile attr update.  Used internally by handleNicknameUpdate, etc.
+ */
+const handleProfileUpdate = async (newProfile, state, dispatch) => {
+  await dispatch({
+    type: 'STARTED_LOADING',
+  });
+  const { dbRec, status } = await updateRecAPI(newProfile, state.runMode, 'profile');
+  if (status===api.OK) {
+    await dispatch({
+      type: 'UPDATE_PROFILE',
+      payload: dbRec,
+    });
+  } else {
+    alert (api.MSG_FAILED);
+  }
   await dispatch({
     type: 'FINISHED_LOADING',
   });
@@ -154,4 +218,7 @@ export {
   handleLogout,
   handleReg,
   handleFlatnessSetting,
+  handleFlatnessUpdate,
+  handleNicknameUpdate,
+  handleLastListUpdate,
 };

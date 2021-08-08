@@ -2,7 +2,8 @@ import React, { Fragment, useState } from 'react';
 import '../css/lists.css';
 import '../css/settings.css';
 import { useStore } from '../store/StoreContext';
-import { handleFlatnessSetting, handleReg, handleLogout } from '../store/handlersUser';
+import { handleFlatnessSetting, handleReg, handleLogout, handleLastListUpdate,
+  handleNicknameUpdate, handleFlatnessUpdate } from '../store/handlersUser';
 import { useHistory } from 'react-router-dom';
 import Loading from './Loading';
 import Login from './Login';
@@ -98,37 +99,22 @@ const Settings = () => {
     );
   };
 
-  const onTestButton = async () => {
-    console.log('test button pressed. ');
-    const newUserInfo = {
-      username:'user17',
-      password:'zdj1superuser',
-      email:'nomail@no.com',
-      firstName: 'myfirst',
-      lastName: 'mylast',
-      nickname: 'nickname',
-    };
-    await handleReg(newUserInfo, dispatch);
-    console.log('test button end. ');
+  const onTestButton1 = async () => {
+    console.log('test button 1 pressed. ');
+    await handleNicknameUpdate('snowman', state, dispatch);
+    console.log('test button 1 end. ');
   };
 
   const onTestButton2 = async () => {
     console.log('test button 2 pressed. ');
+    await handleLastListUpdate(6, state, dispatch);
     console.log('test button 2 end. ');
   };
 
   
   const onTestButton3 = async () => {
     console.log('test button 3 pressed. ');
-    const testURL = api.API_CATS_UN + state.loginName;
-    let tempvar;
-    try {
-      axios.defaults.headers.get['Cache-Control'] = 'no-cache';
-      const responseUserID = await axios.get(testURL);
-      console.log(responseUserID.data);
-    } catch (error) {
-      console.log(error);
-    }
+    await handleFlatnessUpdate(true, state, dispatch);
     console.log('test button 3 end. ');
   };
 
@@ -154,7 +140,7 @@ const Settings = () => {
 
             <button
                 className="btn default-btn"
-                onClick={() => onTestButton()}
+                onClick={() => onTestButton1()}
               >
                 Test Button
             </button><br />

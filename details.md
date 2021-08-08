@@ -41,11 +41,16 @@ I use ordinary CSS media queries to determine screen layout.  In addition, I use
 
 I have set up an API endpoint to report whether a username already exists, and I check for existing usernames as the registering user is typing in their potential username, rather than waiting for them to submit the registration form.  (I debounce the input value of the Textfield and use useEffect to check the API when the debounced value changes.)
 
+## UX - last list used (not fully implemented)
+
+The app keeps track of the last list used, and it initially shows that list when the user logs in or starts the app when already logged in.  List usage is defined as adding, deleting or editing items within a list.  
+
 ## To-do
 
 - move flatMode to user Profile
-- validate input more thoroughly
-- track and show last list used
+- edit nickname from settings page
+- validate input for nicknames and login fields
+- finish implementing last list feature
 - copy list
 - handle conditions for internet outage
 - authenticate w/ third party service
@@ -62,7 +67,7 @@ I have set up an API endpoint to report whether a username already exists, and I
 - make component for icons with labels
 - move list to different category
 - material UI text input w/ autofocus, escape key to cancel
-- create initial default records for new user
+- create initial default records for each new user
 - create user profile
 - make favicons
 - help page

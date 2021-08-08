@@ -29,9 +29,11 @@ const OneList = () => {
   // data.state will only exist when set up in LINK, not if URL was entered manually
   let needsRedirect = data.state ? false : true; // is it called from link or manual URL
   const listID = needsRedirect ? null : data.state.listID;
+  console.log('** listID: ' + listID);
   const { state, dispatch } = useStore();    // this must come before conditional render
-  const [editMode, setEditMode] = useState(false);  // set edit mode when button is pressed
-  const [moveMode, setMoveMode] = useState(false);  // set move mode when button is pressed
+  const [editMode, setEditMode] = useState(false); // set edit mode when button is pressed
+  const [moveMode, setMoveMode] = useState(false); // set move mode when button is pressed
+  const [moreMode, setMoreMode] = useState(false); // show or hide extra group of icons 
   const oneListRec = getListRec(listID, state);
   if (oneListRec===null) {needsRedirect=true;} // this will happen after record deletion
   if (needsRedirect) {return (<Redirect to="/" />);}  // back to main page if no ID

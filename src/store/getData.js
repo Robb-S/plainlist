@@ -134,6 +134,14 @@ const getFlatMode = (state) => {
 };
 
 /**
+ * Return state of flatness from profile
+ */
+ const getFlatMode2 = (state) => {
+  return state.profile.flatMode;
+};
+
+
+/**
  * Comparison function for ordering arrays by reverse sortOrder.
  * Used by getItemsByListID, getListsByCatID, getAllCats.
  */
@@ -168,7 +176,15 @@ const getLastList = (state) => {
   return lastList;
 };
 
+/**
+ * Return nickname from Profile record.
+ */
+ const getNickname = (state) => {
+  const lastList = state.profile.nickname;
+  return lastList;
+};
+
 export { getItemsByListID, getListsByCatID, getListRec, getCatRec, getItemRec, getListName,
   getCatName, getParentListName, getParentCatName, getParentCatID, getAllCats, getAllLists,
-  getUncategorizedCategory, getOtherCats, getRegularCats, getFlatMode, getGreeting,
-  getLastList };
+  getUncategorizedCategory, getOtherCats, getRegularCats, getFlatMode, getFlatMode2,
+  getGreeting, getLastList, getNickname };
