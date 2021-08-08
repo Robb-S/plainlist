@@ -31,6 +31,7 @@ div.iconCaption, div.iconLinkCaption {
   border: 0px solid #00bbbb;
   padding: 4px 6px 0px 6px;
   font-size: 10px;
+  line-height: 150%;
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;

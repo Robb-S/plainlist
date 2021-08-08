@@ -29,9 +29,11 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/iconButton.css';
 // import { GrDrag } from 'react-icons/gr';
-import { VscCheck, VscCircleSlash, VscSettingsGear, VscEmptyWindow, VscEdit, VscReferences,
-  VscTrash, VscHome, VscGripper, VscQuestion } from 'react-icons/vsc';
+import { VscCheck, VscCircleSlash, VscSettingsGear, VscEmptyWindow, VscEdit,
+  VscReferences, VscSettings, VscTrash, VscHome, VscGripper, VscRefresh,
+  VscQuestion } from 'react-icons/vsc';
 import { FiLogIn, FiLogOut, FiUserPlus } from 'react-icons/fi';
+import { CgMoreR } from 'react-icons/cg';
 
 const IconButton = ({ config }) => {
   const { caption, title, iconType, buttonLink, callProc, width, disabled } = config;
@@ -57,42 +59,36 @@ const IconButton = ({ config }) => {
 
   let TheIcon;
   switch (iconType) {
-    case 'settings':
-      TheIcon=VscSettingsGear;
-      break;
-    case 'top':
-      TheIcon=VscHome;
-      break;
     case 'add':
-      TheIcon=VscEmptyWindow;
-      break;
-    case 'edit':
-      TheIcon=VscEdit;
-      break;
-    case 'move':
-      TheIcon=VscReferences;
-      break;
-    case 'confirm':
-      TheIcon=VscCheck;
-      break;
+      TheIcon=VscEmptyWindow; break;
     case 'cancel':
-      TheIcon=VscCircleSlash;
-      break;
+      TheIcon=VscCircleSlash; break;
+    case 'confirm':
+      TheIcon=VscCheck; break;
     case 'delete':
-      TheIcon=VscTrash;
-      break;
-    case 'login':
-      TheIcon=FiLogIn;
-      break;
-    case 'logout':
-      TheIcon=FiLogOut;
-      break;
-    case 'logout':
-      TheIcon=FiUserPlus;
-      break;
+      TheIcon=VscTrash; break;
     case 'help':
-      TheIcon=VscQuestion;
-      break;
+      TheIcon=VscQuestion; break;
+    case 'edit':
+      TheIcon=VscEdit; break;
+    case 'login':
+      TheIcon=FiLogIn; break;
+    case 'logout':
+      TheIcon=FiLogOut; break;
+    case 'logout':
+      TheIcon=FiUserPlus; break;
+    case 'more':
+      TheIcon=CgMoreR; break;
+    case 'move':
+      TheIcon=VscReferences; break;
+    case 'refresh':
+      TheIcon=VscRefresh; break;
+    case 'settings':
+      TheIcon=VscSettingsGear; break;
+    case 'genSet':
+      TheIcon=VscSettings; break;
+    case 'top':
+      TheIcon=VscHome; break;
     default:
       throw 'bad call to IconButton';
   }

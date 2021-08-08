@@ -66,6 +66,10 @@ const Settings = () => {
     setNickname(state.profile.nickname);
   };
 
+  const doNothing = async () => {
+    console.log('do nothing here.');
+  };
+
   const crumbArea = () => {
     return (
       <Fragment>
@@ -151,6 +155,40 @@ const Settings = () => {
     );
   };
 
+  const moreSettings = () => {
+    return (
+      <Fragment>
+        <div className='chooseNicknameForm hidden'>
+          <FormLabel component="legend"><div className='formlabel2'>
+            More
+          </div></FormLabel>
+          <div className='iconRow'>
+            <div className='oneIconInRow'>
+              <IconButton config={ { title:'do something', width: 'wide',
+                caption: 'temporarily forget most recent list',
+                iconType:'genSet', callProc:doNothing }} />
+            </div>
+            <div className='oneIconInRow'>
+              <IconButton config={ { title:'do something', width: 'wide',
+                caption: 'extra long explanation something',
+                iconType:'genSet', callProc:doNothing }} />
+            </div>
+            <div className='oneIconInRow'>
+              <IconButton config={ { title:'do something', width: 'wide',
+                caption: 'manually refresh items from database',
+                iconType:'refresh', callProc:doNothing }} />
+            </div>
+            <div className='oneIconInRow'>
+              <IconButton config={ { title:'do something', width: 'wide',
+                caption: 'extra long explanation of something',
+                iconType:'more', callProc:doNothing }} />
+            </div>
+          </div>
+        </div>
+      </Fragment>
+    );
+  };
+
   const onTestButton1 = async () => {
     console.log('test button 1 pressed. ');
     await handleUpdateNickname('snowman2', state, dispatch);
@@ -183,8 +221,9 @@ const Settings = () => {
           { headingArea() }
           { flatForm() }
           { nicknameForm() }
+          { moreSettings() }
 
-          <div className='testArea xhidden'>
+          <div className='testArea hidden'>
             Test area:<br /><br />
               flatvalue: {flatValue}<br />
               flatness: { state.flatMode.toString() }<br />
