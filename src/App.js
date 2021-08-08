@@ -43,7 +43,7 @@ function App() {
   };
   useEffect(() => {
     redirectToLastList();
-  }, [state.profile]);
+  }, [state.profile.lastList]);
 
   return (
     <div className="App">

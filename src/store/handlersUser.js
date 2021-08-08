@@ -55,49 +55,55 @@ const handleFlatnessSetting = async (newFlatness, dispatch) => {
 /**
  * Reset flatMode in Profile
  */
-const handleFlatnessUpdate = async (newFlatness, state, dispatch) => {
+const handleUpdateFlatness = async (newFlatness, state, dispatch) => {
   console.log('** handleFlatnessUpdate ** ' + newFlatness);
   const oldFlatness = getFlatMode2(state);
-  if (oldFlatness===newFlatness) return;
+  if (oldFlatness===newFlatness) return api.OK;
   const newProfile = {
     ...state.profile,
     flatMode: newFlatness,
   };
-  await handleProfileUpdate(newProfile, state, dispatch);
+  const status = await handleUpdateProfile(newProfile, state, dispatch);
+  return status;
 };
 
 /**
  * Reset nickname in Profile
  */
-const handleNicknameUpdate = async (newNickname, state, dispatch) => {
-  console.log('** handleNicknameUpdate ** ' + newNickname);
+const handleUpdateNickname = async (newNickname, state, dispatch) => {
+  console.log('** handleUpdateNickname ** ' + newNickname);
   const oldNickname = getNickname(state);
-  if (oldNickname===newNickname) return;
+  if (oldNickname===newNickname) {
+    console.log('nickname is unchanged');
+    return api.OK;
+  }
   const newProfile = {
     ...state.profile,
     nickname: newNickname,
   };
-  await handleProfileUpdate(newProfile, state, dispatch);
+  const status = await handleUpdateProfile(newProfile, state, dispatch);
+  return status;
 };
 
 /**
  * Reset lastList in Profile
  */
-const handleLastListUpdate = async (newLastList, state, dispatch) => {
+const handleUpdateLastList = async (newLastList, state, dispatch) => {
   console.log('** handleLastListUpdate ** ' + newLastList);
   const oldLastList = getLastList(state);
-  if (oldLastList===newLastList) return;
+  if (oldLastList===newLastList) return api.OK;
   const newProfile = {
     ...state.profile,
     lastList: newLastList,
   };
-  await handleProfileUpdate(newProfile, state, dispatch);
+  const status = await handleUpdateProfile(newProfile, state, dispatch);
+  return status;
 };
 
 /**
  * Handle any profile attr update.  Used internally by handleNicknameUpdate, etc.
  */
-const handleProfileUpdate = async (newProfile, state, dispatch) => {
+const handleUpdateProfile = async (newProfile, state, dispatch) => {
   await dispatch({
     type: 'STARTED_LOADING',
   });
@@ -113,6 +119,7 @@ const handleProfileUpdate = async (newProfile, state, dispatch) => {
   await dispatch({
     type: 'FINISHED_LOADING',
   });
+  return status;
 };
 
 /**
@@ -218,7 +225,7 @@ export {
   handleLogout,
   handleReg,
   handleFlatnessSetting,
-  handleFlatnessUpdate,
-  handleNicknameUpdate,
-  handleLastListUpdate,
+  handleUpdateFlatness,
+  handleUpdateNickname,
+  handleUpdateLastList,
 };
