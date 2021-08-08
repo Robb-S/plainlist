@@ -1,6 +1,8 @@
 
-.chooseFlatnessForm {
-  margin-top: 20px;
+.chooseFlatnessForm, .chooseNicknameForm {
+  margin: 20px 0 15px 0;
+  border: 1px #aaaaaa solid;
+  padding: 14px 8px 14px 22px;
 }
 
 .loginForm {
@@ -12,6 +14,22 @@ div.formlabel {
   line-height: 25px;
   padding: 0 8px 0 10px;
 }
+
+div.formlabel2 {
+  margin: 2px 0 10px 0;
+  line-height: 25px;
+  padding: 0 8px 0 0px;
+}
+div.nickFormRow {
+  display: flex;
+  flex-direction: row;
+}
+div.nickEditButtonArea {
+  display: flex;
+  flex-direction: row;
+  padding: 12px 0 0 20px;
+}
+
 div.loginLine {
   display: grid;
   grid-template-columns: 1fr 54px;

@@ -213,12 +213,6 @@ div.helpicon {
   cursor: pointer;
 }
 
-.chooseFlatnessForm {
-  border: 1px #aaaaaa solid;
-  padding: 14px 8px 14px 22px;
-  margin-bottom: 15px;
-}
-
 @media (min-width: 600px) { /* desktop */
   .App {
     display: flex;
