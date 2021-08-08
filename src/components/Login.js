@@ -8,6 +8,7 @@ import { FormLabel } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { IconButton, MakeHelpButton } from './IconButton';
 import { getLastList } from '../store/getData';
+import { validateLength } from '../util/helpers';
 
 const Login = () => {
   const { state, dispatch } = useStore();
@@ -24,7 +25,8 @@ const Login = () => {
 
   const onSubmitButton = async () => { // called when you press button
     setDoAutoFocus(false);
-    if ((userName.length===0) || (userPwd.length===0)) {return;}
+    if (!validateLength(userName, 1, 60, 'user name')) return;
+    if (!validateLength(userPwd, 1, 60, 'password')) return;
     const userInfo = { userName: userName, userPwd: userPwd };
     await handleLogin(userInfo, dispatch);
   };
