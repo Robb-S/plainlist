@@ -1,8 +1,8 @@
 div.iconButton, div.iconButtonNarrow, div.iconButtonWide {
   border: 0px solid #bbbbbb;
   background-color: #ffffff;
-  padding: 2px 0px 0px 0px;
-  width: 65px;
+  padding: 2px 2px 0px 0px;
+  width: 66px;
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
@@ -55,7 +55,7 @@ div.iconButtonWide div.iconCaption {
 @media only screen and (max-width: 600px) {
 
   div.iconCaption {
-    font-size: 10px;
+    font-size: 9px;
   }
   div.iconButton {
     width: 62px;

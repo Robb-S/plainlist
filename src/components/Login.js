@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import '../css/lists.css';
 import '../css/settings.css';
 import { useStore } from '../store/StoreContext';
@@ -7,6 +7,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { FormLabel } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { IconButton, MakeHelpButton } from './IconButton';
+import { getLastList } from '../store/getData';
 
 const Login = () => {
   const { state, dispatch } = useStore();
@@ -25,9 +26,24 @@ const Login = () => {
     setDoAutoFocus(false);
     if ((userName.length===0) || (userPwd.length===0)) {return;}
     const userInfo = { userName: userName, userPwd: userPwd };
-    handleLogin(userInfo, dispatch);
-    history.push('/');
+    await handleLogin(userInfo, dispatch);
   };
+
+  /**
+   * After Profile record is loaded, check for lastList field and redirect if present.
+   */
+  const redirectToLastList = async () => {
+    if (!state.profile.lastList) return;
+    const lastList = await getLastList(state);
+    if (lastList!=0) {
+      history.push('/list/', { listID:lastList });
+    } else {
+      history.push('/');
+    }
+  };
+  useEffect(() => {
+    redirectToLastList();
+  }, [state.profile]);
 
   const loginForm = () => {
     const loginConfig = {

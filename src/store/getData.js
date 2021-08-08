@@ -160,6 +160,15 @@ const getGreeting = (state) => {
   return state.loginName;
 };
 
+/**
+ * Return lastList from Profile record.
+ */
+const getLastList = (state) => {
+  const lastList = state.profile.lastList;
+  return lastList;
+};
+
 export { getItemsByListID, getListsByCatID, getListRec, getCatRec, getItemRec, getListName,
   getCatName, getParentListName, getParentCatName, getParentCatID, getAllCats, getAllLists,
-  getUncategorizedCategory, getOtherCats, getRegularCats, getFlatMode, getGreeting };
+  getUncategorizedCategory, getOtherCats, getRegularCats, getFlatMode, getGreeting,
+  getLastList };

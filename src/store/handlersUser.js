@@ -1,5 +1,6 @@
 import * as api from '../util/constants';
-import { getTokenFromAPI, makeNewUserAPI, makeNewProfileAPI, getInitDataByToken, addRecAPI } from './apiCalls';
+import { getTokenFromAPI, makeNewUserAPI, makeNewProfileAPI, getInitDataByToken,
+  addRecAPI } from './apiCalls';
 import { handleGetUserAndData } from './fetchUserAndData';
 import { sleepy } from '../util/helpers';
 import { unsetAxiosAuthToken } from  '../util/helpers';

@@ -34,30 +34,36 @@ body {
   border-width: 1px 1px 1px 1px;
   border-style: solid;
   border-color: #bbbbbb;
+  border-width: 3px;
 }
 
 .topHeading {
   background-color: #ffecb3;
+  background-color: #ffffff;
 }
 
 .catHeading {
   background-color: #c8e6c9;
+  background-color: #ffffff;
 }
 
 .listHeading {
   background-color: #dcedc8;
+  background-color: #ffffff;
 }
 
 .helpHeading {
   margin-top: 15px;
   margin-bottom: 15px;
   background-color: #ffe0b2;
+  background-color: #ffffff;
 }
 
 .loginHeading {
   margin-top: 15px;
   margin-bottom: 15px;
   background-color: #e3f2fd;
+  background-color: #ffffff;
 }
 
 .headingNameArea {

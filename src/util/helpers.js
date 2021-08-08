@@ -2,7 +2,6 @@ import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { VscCircleSlash } from 'react-icons/vsc';
 
 /**
  * Make unique string ID.  Currently using uuid.  Used to provide IDs in demo

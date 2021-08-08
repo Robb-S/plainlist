@@ -52,6 +52,7 @@ I have set up an API endpoint to report whether a username already exists, and I
 - make a manual update button to resynchronize with API database
 - handle recovery for other connectivity issues
 - expand wide-desktop layout
+- show recently completed items (for xx days)
 
 ## Done
 
