@@ -15,16 +15,6 @@ body {
   display: none;
 }
 
-.topLogo {
-  padding: 8px 0px 12px 0px;
-  font-size: 14px;
-  font-weight: bold;
-  background-color: #33691e;
-  color: #eeeeee;
-  width: 100%;
-  text-align: center;
-  font-variant-caps: all-petite-caps;
-}
 
 .headingZone {
   padding: 7px 5px 12px 3px;
@@ -250,11 +240,10 @@ div.helpicon {
     display: none;
   }
   .mainContainer {
+    width: 97%;
     margin-top: 0;
     padding-top: 0;
-  }
-  .topLogo {
-    padding: 12px 0px 16px 0px;
+    padding: 0 7px 0 7px;
   }
   div.crumbsandsettings {
     width: 100%;

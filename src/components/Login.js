@@ -106,7 +106,6 @@ const Login = () => {
   return (
     <Fragment>
       <div className='mainContainer'>
-        <div className='topLogo'>- Cross It Off the List -</div>
         { headingArea() }
         { loginForm() }
       </div>

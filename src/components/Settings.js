@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import '../css/lists.css';
 import '../css/settings.css';
 import { useStore } from '../store/StoreContext';
-import { handleFlatnessSetting, handleLogout, handleUpdateLastList,
+import { handleFlatnessSetting, handleLogout, handleUpdateLastList, handleUpdateRemember,
   handleUpdateNickname, handleUpdateFlatness } from '../store/handlersUser';
 import { useHistory } from 'react-router-dom';
 import Loading from './Loading';
@@ -19,16 +19,25 @@ const flatBoolToText = (flatBool) => {
   const flatText = flatBool ? 'flat' : 'hier';
   return flatText;
 };
-
 const flatTextToBool = (flatText) => {
   const flatBool = flatText==='flat' ? true : false;
   return flatBool;
+};
+const rememberBoolToText = (rememberBool) => {
+  const rememberText = rememberBool ? 'remember' : 'forget';
+  return rememberText;
+};
+const rememberTextToBool = (rememberText) => {
+  const rememberBool = rememberText==='remember' ? true : false;
+  return rememberBool;
 };
 
 const Settings = () => {
   const { state, dispatch } = useStore();
   const history = useHistory();
   const [flatValue, setFlatValue] = useState( flatBoolToText(state.flatMode) );
+  const [rememberValue, setRememberValue] =
+    useState( rememberBoolToText(state.profile.rememberLastList) );
   const [nickname, setNickname] = useState(state.profile.nickname);
 
   let showLogin = state.loading && !state.loggedIn;
@@ -46,7 +55,11 @@ const Settings = () => {
     await handleFlatnessSetting(newFlatness, dispatch);
     history.push('/');
   };
-
+  const handleRememberRadioChange = async (e) => {
+    const newRemember = rememberTextToBool(e.target.value);
+    setRememberValue(e.target.value);
+    await handleUpdateRemember(newRemember, dispatch);
+  };
   const onSubmitEditNickname = (e) => {
     e.preventDefault();
     onRequestEditNickname();
@@ -118,6 +131,29 @@ const Settings = () => {
                 control={<Radio />} label={ hierText } />
               <FormControlLabel value={'flat'}
                 control={<Radio />} label={ flatText } />
+            </RadioGroup>
+          </FormControl>
+        </form>
+      </Fragment>
+    );
+  };
+  const rememberForm = () => {
+    const forgetText = 'Top page (all categories/lists)';
+    const rememberText = 'Most recently changed list';
+    const error = true;
+    return (
+      <Fragment>
+        <form className='chooseRememberForm' >
+          <FormLabel component="legend"><div className='formlabel2'>
+            Display on startup
+          </div></FormLabel>
+          <FormControl component="fieldset" error={error} >
+            <RadioGroup aria-label="choose startup display mode" name="chooseStartDisplay"
+              value={rememberValue} onChange={handleRememberRadioChange}>
+              <FormControlLabel value={'forget'}
+                control={<Radio />} label={ forgetText } />
+              <FormControlLabel value={'remember'}
+                control={<Radio />} label={ rememberText } />
             </RadioGroup>
           </FormControl>
         </form>
@@ -216,10 +252,10 @@ const Settings = () => {
       {showMain &&
       <Fragment>
         <div className='mainContainer'>
-          <div className='topLogo'>- Cross It Off the List -</div>
           <div>{ crumbArea() }</div>
           { headingArea() }
           { flatForm() }
+          { rememberForm() }
           { nicknameForm() }
           { moreSettings() }
 

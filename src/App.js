@@ -47,6 +47,7 @@ function App() {
 
   return (
     <div className="App">
+      <div className='topLogo'>- Cross It Off the List -</div>
       <Switch>
         <Route path="/" component={TopPage} exact />
         <Route path="/cat/" component={OneCat} exact />
