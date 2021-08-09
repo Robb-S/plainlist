@@ -68,19 +68,12 @@ const setAxiosAuthToken = token => {
   }
 };
 
-
 /**
  * Unsets the axios default header.
  */
  const unsetAxiosAuthToken = () => {
   delete axios.defaults.headers.common['Authorization'];
 };
-
-// const setAxiosCache = () => {
-//   axios.defaults.headers.get['Cache-Control'] = 'no-cache';
-//   axios.defaults.headers.get['Pragma'] = 'no-cache';
-//   axios.defaults.headers.get['Expires'] = '0';
-// };
 
 /**
  * Helper to debounce input from text fields before using it.  Use with UseEffect.
@@ -131,7 +124,8 @@ const useEscape = (onEscape) => {
 };
 
 /**
- * Simple sleep function for testing async problems
+ * Simple sleep function for testing async problems.
+ * Usage: await sleepy(2000); will wait two seconds
  */
 function sleepy(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -139,6 +133,7 @@ function sleepy(ms) {
 
 /**
  * Test minimum and maximum length; display toast and return false if too short or too long.
+ * Tests trimmed version (stripped of whitespace) to avoid errors with blank spaces.
  * @param {string} text to validate 
  * @param {integer} minLength 0 if not required, 1 if required, other number if different minimum
  * @param {integer} maxLength
@@ -168,11 +163,11 @@ const validateLength = (theText, minLength, maxLength, fieldName='') => {
     if (fieldName.length<1) return toast(`Maximum length is ${maxLength} characters.`, topt);
     return toast(`Maximum length for ${fieldName} is ${maxLength} characters.`, topt);
   };
-  if (minLength===1 && theText.length<minLength) {
+  if (minLength===1 && theText.trim().length<minLength) {
     toastRequired();
     return false;
   }
-  if (minLength>1 && theText.length<minLength) {
+  if (minLength>1 && theText.trim().length<minLength) {
     toastTooShort();
     return false;
   }
