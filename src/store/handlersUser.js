@@ -35,6 +35,20 @@ const handleLogin = async (userInfo, dispatch) => {
 };
 
 /**
+ * Manual refresh in case items get out of sync when multiple devices are used.
+ */
+const handleRefresh = async (state, dispatch) => {
+  const loginName = state.loginName;
+  await dispatch({
+    type: 'STARTED_LOADING',
+  });
+  await handleGetUserAndData(null, loginName, api.RUNMODE_API, dispatch);
+  await dispatch({
+    type: 'FINISHED_LOADING',
+  });
+};
+
+/**
  * Reset state and localStorage for flat list hierarchy.
  */
 const handleFlatnessSetting = async (newFlatness, dispatch) => {
@@ -245,4 +259,5 @@ export {
   handleUpdateNickname,
   handleUpdateLastList,
   handleUpdateRemember,
+  handleRefresh,
 };

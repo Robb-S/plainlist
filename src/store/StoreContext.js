@@ -9,8 +9,8 @@ const initValues = {
   loginName: '',
   runMode: 'API',
   user: {},
-  profile: {},            // contains { flatMode, nickname, lastList }
-  // userID: null,           // not currently used
+  profile: {},        // contains { flatMode, nickname, rememberLastList, lastList }
+  // userID: null,    // not currently used
   categories: [],
   lists: [],
   items: [],
