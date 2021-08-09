@@ -7,7 +7,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { FormLabel } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { IconButton, MakeHelpButton } from './IconButton';
-import { getLastList } from '../store/getData';
+import { getLastList, getRemember } from '../store/getData';
 import { validateLength } from '../util/helpers';
 
 const Login = () => {
@@ -36,8 +36,10 @@ const Login = () => {
    */
   const redirectToLastList = async () => {
     if (!state.profile.lastList) return;
-    const lastList = await getLastList(state);
-    if (lastList!=0) {
+    const lastList = getLastList(state);
+    const remember = getRemember(state);
+    const gotoLastList = remember && (lastList!=0);
+    if (gotoLastList) {
       history.push('/list/', { listID:lastList });
     } else {
       history.push('/');

@@ -45,16 +45,14 @@ I have set up an API endpoint to report whether a username already exists, and I
 
 By default, the app keeps track of the last list used, and it initially shows that list when the user logs in or starts the app when already logged in.  List usage is defined as adding, deleting or editing items within a list.  This feature can be turned on or off from the settings screen.
 
-## To-do
+## Roadmap
 
-- turn on and off last list feature
 - move flatMode to user Profile
-- copy list
-- handle conditions for internet outage
+- copy a list
 - authenticate w/ third party service
 - make a manual update button to resynchronize with API database
-- handle recovery for other connectivity issues
-- expand wide-desktop layout
+- handle recovery for connectivity issues
+- wide-desktop layout options
 - show recently completed items (for xx days)
 
 ## Done

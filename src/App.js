@@ -11,12 +11,10 @@ import Help from './components/Help';
 // import Registration from './components/Registration';
 import Registration2 from './components/Registration2';
 import NotFound from './components/NotFound';
-
 import Settings from './components/Settings';
-
 import { useStore } from './store/StoreContext';
 import { handleSetRunModeAndInitLoad } from './store/fetchUserAndData';
-import { getLastList } from './store/getData';
+import { getLastList, getRemember } from './store/getData';
 // import { sleepy } from './util/helpers';
 
 function App() {
@@ -34,8 +32,10 @@ function App() {
   }, [dispatch, runMode]);
 
   const redirectToLastList = async () => {
-    const lastList = await getLastList(state);
-    if (lastList!=0) {
+    const lastList = getLastList(state);
+    const remember = getRemember(state);
+    const gotoLastList = remember && (lastList!=0);
+    if (gotoLastList) {
       history.push('/list/', { listID:lastList });
     } else {
       history.push('/');

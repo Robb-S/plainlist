@@ -7,7 +7,7 @@ import { handleFlatnessSetting, handleLogout, handleUpdateLastList, handleUpdate
 import { useHistory } from 'react-router-dom';
 import Loading from './Loading';
 import Login from './Login';
-import { IconButton, MakeHomeButton } from './IconButton';
+import { IconButton, MakeHomeButton, MakeHelpButton } from './IconButton';
 import { FormControl, FormLabel, FormControlLabel, Radio, TextField,
   RadioGroup } from '@material-ui/core';
 import { getGreeting } from '../store/getData';
@@ -58,7 +58,7 @@ const Settings = () => {
   const handleRememberRadioChange = async (e) => {
     const newRemember = rememberTextToBool(e.target.value);
     setRememberValue(e.target.value);
-    await handleUpdateRemember(newRemember, dispatch);
+    await handleUpdateRemember(newRemember, state, dispatch);
   };
   const onSubmitEditNickname = (e) => {
     e.preventDefault();
@@ -86,7 +86,7 @@ const Settings = () => {
   const crumbArea = () => {
     return (
       <Fragment>
-        <div className='crumbsandsettings'>
+        <div className='crumbsandsettingsandhelp'>
           <div className='breadcrumbs'>
             <span className='oneCrumb'>
               Welcome { getGreeting(state) }
@@ -94,6 +94,9 @@ const Settings = () => {
           </div>
           <div className='settingsicon'>
             { MakeHomeButton() }
+          </div>
+          <div className='helpicon'>
+            { MakeHelpButton() }
           </div>
         </div>
       </Fragment>
