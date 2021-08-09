@@ -244,4 +244,5 @@ export {
   handleUpdateFlatness,
   handleUpdateNickname,
   handleUpdateLastList,
+  handleUpdateRemember,
 };
