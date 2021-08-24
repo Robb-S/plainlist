@@ -69,7 +69,7 @@ const Help = () => {
           Manual refresh
         </div>
         <div className='helpPara'>
-          If you have the app open on more than one device at the same time, changes made to your lists on one device will not be immediately reflected on other devices until you manually refresh them.  To do this, simply press the refresh button on your browser (on the second device), or pull down on the screen if it's a mobile device.
+          If you have the app open on more than one device at the same time, changes made to your lists on one device will not be immediately reflected on other devices until you manually refresh them.  You can do this by pressing the "Manually Refresh" button on the settings screen (on your second device).
         </div>
         <br /><br />
 

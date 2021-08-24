@@ -8,7 +8,7 @@ The app runs on a fairly simple database with a three-level hierarchy:
 - lists
 - items
 
-The main UI components are lists of categories, lists of lists and lists of items.  Operations include the usual add/rename/delete functions at each level.  You can also move a list to a different category.
+The main UI components are groups lists of categories, lists of lists and lists of items.  Operations include the usual add/rename/delete functions at each level.  You can also move a list to a different category.
 
 When you set up a new account, you are provided with two default categories ('to do' and 'shopping') and two default lists, any or all of which you can edit or delete.
 
@@ -27,7 +27,7 @@ This can be toggled from the user settings screen.  In order to implement this, 
 
 When you add a new list in hierarchical mode, it will be added to the category that is  currently displayed.  However, in order to add a new list in flat mode, I needed to create a special "uncategorized" category.  This category is hidden when it is empty, so users who only use hierarchical mode will never see it.  Likewise, users who only use flat mode will also never see it, since they won't see any categories.
 
-If you switch from flat mode to hierarchical mode after adding new lists, those lists will appear in the "uncategorized" category, although they can be easily moved to other categories.  The uncategorized category will always appear at the bottom of the list of categories, and it's not draggable, so its sort order will never change.
+If you switch from flat mode to hierarchical mode after adding new lists, those lists will appear in the "uncategorized" category, although they can be easily moved to other categories.  The uncategorized category will always appear at the bottom of the list of categories, and it's not draggable, so its sort order will never change relative to other categories.
 
 ## UI - icon buttons
 
@@ -47,23 +47,7 @@ By default, the app keeps track of the last list used, and it initially shows th
 
 ## Roadmap
 
-- move flatMode to user Profile
-- copy a list
 - authenticate w/ third party service
-- make a manual update button to resynchronize with API database
-- handle recovery for connectivity issues
-- wide-desktop layout options
+- copy a list
 - show recently completed items (for xx days)
-
-## Done
-
-- set up external django server
-- category display with uncategorized always at bottom, hidden when empty
-- flat list display
-- make component for icons with labels
-- move list to different category
-- material UI text input w/ autofocus, escape key to cancel
-- create initial default records for each new user
-- create user profile
-- make favicons
-- help page
+- streamline handling for connectivity issues
