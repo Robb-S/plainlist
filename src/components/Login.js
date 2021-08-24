@@ -27,7 +27,7 @@ const Login = () => {
   const [userPwd, setUserPwd] = useState('');
   const [doAutoFocus, setDoAutoFocus] = useState(false); // tried to solve Firefox issue
   // with login helper box that keeps reappearing
-  const [showPassword, setShowPassword ] = useState(true);
+  const [showPassword, setShowPassword ] = useState(false);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -52,6 +52,7 @@ const Login = () => {
 
   /**
    * After Profile record is loaded, check for lastList field and redirect if present.
+   * This also has the effect of redirecting from login if user is already logged in.
    */
   const redirectToLastList = async () => {
     if (!state.profile.lastList) return;
@@ -106,6 +107,7 @@ const Login = () => {
               variant='outlined'
               margin='dense'
               autoFocus={doAutoFocus}
+              autoCorrect="off"
               inputProps={{ autoCapitalize: 'off' }}
             />
             <FormControl className={clsx(classes.textField)} variant='outlined' margin='dense' >
@@ -118,10 +120,8 @@ const Login = () => {
                 type={showPassword ? 'text' : 'password'}
                 value={userPwd}
                 onChange={(e) => setUserPwd(e.target.value)}
-                autoComplete='current-password'
                 inputProps={{
                   autoCapitalize: 'off',
-                  autoComplete:'current-password',
                 }}
                 endAdornment={
                   <InputAdornment position="end">
