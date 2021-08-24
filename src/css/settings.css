@@ -104,6 +104,11 @@ div.helpPara {
   margin-bottom: 15px;
 }
 
+span.vnum {
+  font-size: 10px;
+  font-weight: 500;
+}
+
 @media (min-width: 450px) { /* desktop */
 
 }

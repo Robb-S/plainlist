@@ -84,10 +84,12 @@ const Help = () => {
       iconType: 'login',
       buttonLink: `/login/`,
     };
+    const vnum = 'version '+ process.env.REACT_APP_VERSION_NUM;
     return (
       <div className='headingZone helpHeading'>
         <div className='headingNameArea'>
-          About Cross It Off the List
+          About Cross It Off the List<br />
+          <span className='vnum'>{vnum}</span>
         </div>
         <div className='headingIcons'>
         {isLoggedIn &&

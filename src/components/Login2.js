@@ -96,7 +96,7 @@ const Login2 = () => {
     return (
       <div className='headingZone loginHeading'>
         <div className='headingNameArea'>
-          Log in here please
+          Log in
         </div>
         <div className='headingIcons headingIconsSmaller'>
           { MakeHelpButton() }
