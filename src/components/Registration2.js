@@ -7,13 +7,13 @@ import { useDebounce } from '../util/helpers';
 import { useHistory, Link } from 'react-router-dom';
 import { userExistsAPI } from '../store/apiCalls';
 import * as api from '../util/constants';
-import { FormLabel } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 import { MakeHelpButton } from './IconButton';
 import { IconButton as CrossIconButton } from './IconButton';  // alias needed
 import IconButton from '@material-ui/core/IconButton';    // same name as local component
-import { useFormik } from 'formik';
-import * as yup from 'yup';
+import { FormLabel } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import InputAdornment from '@material-ui/core/InputAdornment';

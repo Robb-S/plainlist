@@ -4,11 +4,21 @@ import '../css/settings.css';
 import { useStore } from '../store/StoreContext';
 import { handleLogin } from '../store/handlersUser';
 import { useHistory, Link } from 'react-router-dom';
-import { FormLabel } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-import { IconButton, MakeHelpButton } from './IconButton';
 import { getLastList, getRemember } from '../store/getData';
 import { validateLength } from '../util/helpers';
+import { MakeHelpButton } from './IconButton';
+import { IconButton as CrossIconButton } from './IconButton';  // alias needed
+import IconButton from '@material-ui/core/IconButton';    // same name as local component
+import { FormLabel } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
 
 const Login = () => {
   const { state, dispatch } = useStore();
@@ -17,6 +27,15 @@ const Login = () => {
   const [userPwd, setUserPwd] = useState('');
   const [doAutoFocus, setDoAutoFocus] = useState(false); // tried to solve Firefox issue
   // with login helper box that keeps reappearing
+  const [showPassword, setShowPassword ] = useState(true);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const onSubmitForm = (e) => { // called when you press Enter after typing
     e.preventDefault();
@@ -49,10 +68,27 @@ const Login = () => {
     redirectToLastList();
   }, [state.profile]);
 
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    margin: {
+      margin: theme.spacing(0),
+    },
+    withoutLabel: {
+      marginTop: theme.spacing(3),
+    },
+    textField: {
+      width: '100%',
+    },
+  }));
+
   const loginForm = () => {
     const loginConfig = {
       caption:'log in', title:'log in', iconType:'login', callProc:onSubmitButton,
     };
+    const classes = useStyles();
     return (
       <Fragment>
         <form className='loginForm' onSubmit={onSubmitForm}>
@@ -72,18 +108,37 @@ const Login = () => {
               autoFocus={doAutoFocus}
               inputProps={{ autoCapitalize: 'off' }}
             />
-            <TextField
-              required
-              label='Password:' value={userPwd}
-              onChange={(e) => setUserPwd(e.target.value)}
-              type="password"
-              autoComplete='current-password'
-              variant='outlined'
-              margin='dense'
-              inputProps={{ autoCapitalize: 'off' }}
-            />
+            <FormControl className={clsx(classes.textField)} variant='outlined' margin='dense' >
+            <InputLabel htmlFor='userPwd'>Password *</InputLabel>
+              <OutlinedInput
+                labelWidth={87}
+                required
+                id='userPwd'
+                name='userPwd'
+                type={showPassword ? 'text' : 'password'}
+                value={userPwd}
+                onChange={(e) => setUserPwd(e.target.value)}
+                autoComplete='current-password'
+                inputProps={{
+                  autoCapitalize: 'off',
+                  autoComplete:'current-password',
+                }}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {!showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
           </span>
-          <span className='loginLine2'><IconButton config={ loginConfig } /></span>
+          <span className='loginLine2'><CrossIconButton config={ loginConfig } /></span>
           </div>
           <input type="submit" className="hidden" />
         </form>
