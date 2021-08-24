@@ -101,7 +101,7 @@ const Login = () => {
           <span className='editItemInputArea loginLine1'>
             <TextField
               required
-              label="User name:" value={userName}
+              label="User name" value={userName}
               onChange={(e) => setUserName(e.target.value)}
               variant='outlined'
               margin='dense'
