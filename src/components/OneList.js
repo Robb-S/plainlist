@@ -10,7 +10,7 @@
  * the operation is performed or the cancel button is pressed.
  */
 import React, { Fragment, useState } from 'react';
-import { Link, useLocation, Redirect } from 'react-router-dom';
+import { Link, useLocation, Redirect, useHistory } from 'react-router-dom';
 import '../css/lists.css';
 import { useStore } from '../store/StoreContext';
 import { getListRec, getParentCatName, getParentCatID, getOtherCats, getFlatMode }
@@ -31,6 +31,7 @@ const OneList = () => {
   const listID = needsRedirect ? null : data.state.listID;
   console.log('** listID: ' + listID);
   const { state, dispatch } = useStore();    // this must come before conditional render
+  const history = useHistory();
   const [editMode, setEditMode] = useState(false); // set edit mode when button is pressed
   const [moveMode, setMoveMode] = useState(false); // set move mode when button is pressed
   const [moreMode, setMoreMode] = useState(false); // show or hide extra group of icons 
@@ -50,7 +51,8 @@ const OneList = () => {
   const setupMove = () => { setMoveMode(true); };
   const cancelMove = () => { setMoveMode(false); };
   const removeList = async () => {
-    handleRemoveList(listID, state, dispatch);
+    await handleRemoveList(listID, state, dispatch);
+    if (parentCatID!=null) history.push('/cat/', { categoryID:parentCatID });
   };
 
   /**

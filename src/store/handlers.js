@@ -55,8 +55,13 @@ const handleUpdateLastListForItem = async (oneItem, state, dispatch) => {
   });
 };
 
+/**
+ * Create new list object with high sort order. 
+ * @returns { status (string), listID (number) }
+ */
 const handleAddList = async (newList, state, dispatch) => {
   const lists = state.lists;
+  let listID = null;
   dispatch({
     type: 'STARTED_LOADING',
   });
@@ -69,22 +74,25 @@ const handleAddList = async (newList, state, dispatch) => {
       type: 'ADD_LIST',
       payload: dbRec,
     });
+    listID = dbRec['id'];
   } else {
     alert (api.MSG_FAILED);
   }
   dispatch({
     type: 'FINISHED_LOADING',
   });
-  return status;
+  return { status, listID };
 };
 
 /**
  * Take new rec with categoryName from input, then add a
  * high sortOder attribute so it sorts to the top of the list.
  * ID and other attributes will be taken care of by REST API.
+ * @returns { status (string), catID (number) }
  */
 const handleAddCategory = async (newCategory, state, dispatch) => {
   const categories = state.categories;
+  let categoryID = null;
   dispatch({
     type: 'STARTED_LOADING',
   });
@@ -96,13 +104,14 @@ const handleAddCategory = async (newCategory, state, dispatch) => {
       type: 'ADD_CAT',
       payload: dbRec,
     });
+    categoryID = dbRec['id'];
   } else {
     alert (api.MSG_FAILED);
   }
   dispatch({
     type: 'FINISHED_LOADING',
   });
-  return status;
+  return { status, categoryID };
 };
 
 const handleRemoveItem = async (itemID, state, dispatch) =>  {

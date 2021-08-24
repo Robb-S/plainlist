@@ -4,6 +4,7 @@
  * to change state in AddCats) are passed in as props.  
  */
 import React, { Fragment, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useStore } from '../store/StoreContext';
 import { useEscape, validateLength } from '../util/helpers'; // hook to capture escape key
 import { handleAddCategory } from '../store/handlers';
@@ -15,6 +16,7 @@ import '../css/lists.css';
 const AddCat = ({ props }) => {
   const { addMode, cancelAdd }  = props;
   const { state, dispatch } = useStore();
+  const history = useHistory();
   const [ categoryName, setCategoryName ] = useState('');
   /**
    * Form submit handler allows user to press RETURN as well as button to submit
@@ -26,10 +28,11 @@ const AddCat = ({ props }) => {
   const onRequestAdd = async () => {
     if (!validateLength(categoryName, 1, 60, 'category name')) return;
     const newCategory = { categoryName: categoryName };
-    const status = await handleAddCategory(newCategory, state, dispatch);
+    const { status, categoryID } = await handleAddCategory(newCategory, state, dispatch);
     // if (status===api.OK) { cancelAdd(); }
     if (status!==api.OK) {  }
     // TODO: maybe add additional message if API operation failed?
+    if (categoryID!=null) history.push('/cat/', { categoryID:categoryID });
   };
   const cancelAddLocal = () => {
     setCategoryName('');     // clear the input field for next time
