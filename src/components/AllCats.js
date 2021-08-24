@@ -7,7 +7,7 @@
 import React, { Fragment, useState } from 'react';
 import { useStore } from '../store/StoreContext';
 import Loading from './Loading';
-import Login from './Login';
+import Login2 from './Login2';
 import AddCat from './AddCat';
 import CategoriesGroup from './CategoriesGroup';
 import ShowUncatCat from './ShowUncatCat';
@@ -76,7 +76,7 @@ const AllCats = () => {
   return (
     <Fragment>
       {showLoading && <Loading />}
-      {showLogin && <Login />}
+      {showLogin && <Login2 />}
 
       {showMain &&
       <Fragment>

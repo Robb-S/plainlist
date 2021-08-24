@@ -4,7 +4,7 @@
 import React, { Fragment } from 'react';
 import { useStore } from '../store/StoreContext';
 import Loading from './Loading';
-import Login from './Login';
+import Login2 from './Login2';
 import AllCats from './AllCats';
 import AllLists from './AllLists';
 
@@ -17,7 +17,7 @@ const TopPage = () => {
   return (
     <Fragment>
       {showLoading && <Loading />}
-      {showLogin && <Login />}
+      {showLogin && <Login2 />}
 
       {showMain && showFlat &&
         <AllLists />

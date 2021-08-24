@@ -6,7 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import OneCat from './components/OneCat';
 import TopPage from './components/TopPage';
 import OneList from './components/OneList';
-import Login from './components/Login';
+import Login2 from './components/Login2';
 import Help from './components/Help';
 import Registration from './components/Registration';
 import NotFound from './components/NotFound';
@@ -51,7 +51,7 @@ function App() {
         <Route path="/" component={TopPage} exact />
         <Route path="/cat/" component={OneCat} exact />
         <Route path="/list/" component={OneList} exact />
-        <Route path='/login/' component={Login} exact />
+        <Route path='/login/' component={Login2} exact />
         <Route path='/reg/' component={Registration} exact />
         <Route path='/set/' component={Settings} exact />
         <Route path='/about/' component={Help} exact />

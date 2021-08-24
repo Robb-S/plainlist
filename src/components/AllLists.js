@@ -4,7 +4,7 @@
 import React, { Fragment, useState } from 'react';
 import { useStore } from '../store/StoreContext';
 import { getUncategorizedCategory, getGreeting } from '../store/getData';
-import Login from './Login';
+import Login2 from './Login2';
 import Loading from './Loading';
 import AddList from './AddList';
 import ListsGroup from './ListsGroup';  // the actual group (list) of lists
@@ -79,7 +79,7 @@ const AllLists = () => {
   return (
     <Fragment>
       {showLoading && <Loading />}
-      {showLogin && <Login />}
+      {showLogin && <Login2 />}
 
       {showMain &&
       <Fragment>

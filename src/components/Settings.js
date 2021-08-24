@@ -6,7 +6,7 @@ import { handleFlatnessSetting, handleLogout, handleUpdateLastList, handleUpdate
   handleUpdateNickname, handleUpdateFlatness, handleRefresh } from '../store/handlersUser';
 import { useHistory } from 'react-router-dom';
 import Loading from './Loading';
-import Login from './Login';
+import Login2 from './Login2';
 import { IconButton, MakeHomeButton, MakeHelpButton } from './IconButton';
 import { FormControl, FormLabel, FormControlLabel, Radio, TextField,
   RadioGroup } from '@material-ui/core';
@@ -255,7 +255,7 @@ const Settings = () => {
   return (
     <Fragment>
       {showLoading && <Loading />}
-      {showLogin && <Login />}
+      {showLogin && <Login2 />}
 
       {showMain &&
       <Fragment>

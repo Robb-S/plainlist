@@ -7,7 +7,7 @@ import React, { Fragment, useState } from 'react';
 import { Link, useLocation, Redirect } from 'react-router-dom';
 import { useStore } from '../store/StoreContext';
 import { getCatRec } from '../store/getData';
-import Login from './Login';
+import Login2 from './Login2';
 import Loading from './Loading';
 import EditCat from './EditCat';
 import AddList from './AddList';
@@ -120,7 +120,7 @@ const OneCat = () => {
   return (
     <Fragment>
       {showLoading && <Loading />}
-      {showLogin && <Login />}
+      {showLogin && <Login2 />}
 
       {showMain &&
       <Fragment>

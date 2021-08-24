@@ -23,7 +23,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const Login = () => {
   const { state, dispatch } = useStore();
   const history = useHistory();
-  const [userName, setUserName] = useState('');
+  const [username, setUsername] = useState('');
   const [userPwd, setUserPwd] = useState('');
   const [doAutoFocus, setDoAutoFocus] = useState(false); // tried to solve Firefox issue
   // with login helper box that keeps reappearing
@@ -44,9 +44,9 @@ const Login = () => {
 
   const onSubmitButton = async () => { // called when you press button
     setDoAutoFocus(false);
-    if (!validateLength(userName, 1, 60, 'user name')) return;
+    if (!validateLength(username, 1, 60, 'user name')) return;
     if (!validateLength(userPwd, 1, 60, 'password')) return;
-    const userInfo = { userName: userName, userPwd: userPwd };
+    const userInfo = { userName: username, userPwd: userPwd };
     await handleLogin(userInfo, dispatch);
   };
 
@@ -102,13 +102,14 @@ const Login = () => {
           <span className='editItemInputArea loginLine1'>
             <TextField
               required
-              label="User name" value={userName}
-              onChange={(e) => setUserName(e.target.value)}
+              label="User name" value={username}
+              onChange={(e) => setUsername(e.target.value)}
               variant='outlined'
               margin='dense'
               autoFocus={doAutoFocus}
               autoCorrect="off"
-              inputProps={{ autoCapitalize: 'off' }}
+              autoComplete='username'
+              inputProps={{ autoCapitalize: 'off', autoComplete: 'username' }}
             />
             <FormControl className={clsx(classes.textField)} variant='outlined' margin='dense' >
             <InputLabel htmlFor='userPwd'>Password *</InputLabel>
@@ -120,8 +121,10 @@ const Login = () => {
                 type={showPassword ? 'text' : 'password'}
                 value={userPwd}
                 onChange={(e) => setUserPwd(e.target.value)}
+                autoComplete='current-password'
                 inputProps={{
                   autoCapitalize: 'off',
+                  autoComplete: 'current-password',
                 }}
                 endAdornment={
                   <InputAdornment position="end">

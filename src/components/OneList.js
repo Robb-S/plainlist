@@ -16,7 +16,7 @@ import { useStore } from '../store/StoreContext';
 import { getListRec, getParentCatName, getParentCatID, getOtherCats, getFlatMode }
   from '../store/getData';
 import { handleRemoveList } from '../store/handlers';
-import Login from './Login';
+import Login2 from './Login2';
 import Loading from './Loading';
 import EditList from './EditList';  // form to edit the list name
 import MoveList from './MoveList';  // form to move the list to another category
@@ -159,7 +159,7 @@ const OneList = () => {
   return (
     <Fragment>
       {showLoading && <Loading />}
-      {showLogin && <Login />}
+      {showLogin && <Login2 />}
 
       {showMain &&
       <Fragment>
