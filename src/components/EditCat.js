@@ -10,7 +10,7 @@ import React, { Fragment, useState } from 'react';
 import '../css/lists.css';
 import * as api from '../util/constants';
 import { useStore } from '../store/StoreContext';
-import { useEscape, validateLength } from '../util/helpers'; // hook to capture escape key
+import { useEscape, validateLength, isValidLength } from '../util/helpers'; // hook to capture escape key
 import { handleUpdateCategory } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
@@ -52,6 +52,7 @@ const EditCat = ({ props }) => {
           </form>
           <span className='editButtonArea'>
             <IconButton config={ { title:'accept category edit',
+              disabled: !isValidLength(categoryName, 1, 60),
               iconType:'confirm', callProc:onRequestEdit }} />
             <IconButton config={ { title:'cancel category edit',
               iconType:'cancel', callProc:cancelEdit }} />

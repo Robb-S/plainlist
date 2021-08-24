@@ -8,7 +8,7 @@
 import React, { Fragment, useState } from 'react';
 import '../css/lists.css';
 import * as api from '../util/constants';
-import { useEscape, validateLength } from '../util/helpers'; // hook to capture escape key
+import { useEscape, validateLength, isValidLength } from '../util/helpers'; // hook to capture escape key
 import { useStore } from '../store/StoreContext';
 import { handleUpdateList } from '../store/handlers';
 import { IconButton } from './IconButton';
@@ -50,6 +50,7 @@ const EditList = ({ props }) => {
           </form>
           <span className='editButtonArea'>
             <IconButton config={ { title:'accept list edit',
+              disabled: !isValidLength(listName, 1, 60),
               iconType:'confirm', callProc:onRequestEdit }} />
             <IconButton config={ { title:'cancel list edit',
               iconType:'cancel', callProc:cancelEdit }} />

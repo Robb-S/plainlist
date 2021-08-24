@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import '../css/lists.css';
 import * as api from '../util/constants';
 import { useStore } from '../store/StoreContext';
-import { useEscape, validateLength } from '../util/helpers'; // hook to capture escape key
+import { useEscape, validateLength, isValidLength } from '../util/helpers'; // hook to capture escape key
 import { handleAddList } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
@@ -51,6 +51,7 @@ const AddList = ({ props }) => {
           </form>
           <span className='editButtonArea'>
             <IconButton config={ { title:'accept add',
+              disabled: !isValidLength(listName, 1, 60),
               iconType:'confirm', callProc:onRequestAdd }} />
             <IconButton config={ { title:'cancel add',
               iconType:'cancel', callProc:cancelAddLocal }} />

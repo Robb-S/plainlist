@@ -6,7 +6,7 @@
 import React, { Fragment, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useStore } from '../store/StoreContext';
-import { useEscape, validateLength } from '../util/helpers'; // hook to capture escape key
+import { useEscape, validateLength, isValidLength } from '../util/helpers'; // hook to capture escape key
 import { handleAddCategory } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
@@ -61,6 +61,7 @@ const AddCat = ({ props }) => {
           </form>
           <span className='editButtonArea'>
             <IconButton config={ { title:'accept add',
+              disabled: !isValidLength(categoryName, 1, 60),
               iconType:'confirm', callProc:onRequestAdd }} />
             <IconButton config={ { title:'cancel add',
               iconType:'cancel', callProc:cancelAddLocal }} />

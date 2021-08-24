@@ -178,6 +178,14 @@ const validateLength = (theText, minLength, maxLength, fieldName='') => {
   return true;
 };
 
+/**
+ * Simple test of text length (trimmed) - returns true or false.
+ */
+const isValidLength = (theText, minLength, maxLength) => {
+  const trimLength = theText.trim().length;
+  return (trimLength>=minLength) && (trimLength<=maxLength);
+};
+
 export {
   makeStringID,
   findPosWithAttr,
@@ -191,4 +199,5 @@ export {
   sleepy,
   unsetAxiosAuthToken,
   validateLength,
+  isValidLength,
 };

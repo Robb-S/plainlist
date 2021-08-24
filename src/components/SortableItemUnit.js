@@ -7,7 +7,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import '../css/oneItem.css';
 import '../css/oneList.css';
-import { validateLength } from '../util/helpers';
+import { validateLength, isValidLength } from '../util/helpers';
 
 import { useStore } from '../store/StoreContext';
 import { handleRemoveItem, handleUpdateItem } from '../store/handlers';
@@ -111,6 +111,7 @@ export function SortableItemUnit(props) {
             </form>
             <span className='editButtonArea'>
               <IconButton config={ { title:'accept edit',
+                disabled: !(isValidLength(itemName, 1, 60) && isValidLength(itemNote, 0, 60)),
                 iconType:'confirm', callProc:updateItem }} />
               <IconButton config={ { title:'cancel edit',
                 iconType:'cancel', callProc:cancelEdit }} />

@@ -6,7 +6,7 @@
 import React, { Fragment, useState } from 'react';
 import '../css/oneItem.css';
 import { useStore } from '../store/StoreContext';
-import { useEscape, validateLength } from '../util/helpers'; // hook to capture escape key
+import { useEscape, validateLength, isValidLength } from '../util/helpers'; // hook to capture escape key
 import { handleAddItem } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
@@ -70,6 +70,7 @@ const AddItem = ({ listID }) => {
             </form>
             <span className='editButtonArea'>
               <IconButton config={ { title:'add item',
+                disabled: !(isValidLength(itemName, 1, 60) && isValidLength(itemNote, 0, 60)),
                 iconType:'confirm', callProc:onRequestAdd }} />
               <IconButton config={ { title:'cancel item',
                 iconType:'cancel', callProc:cancelAdd }} />
