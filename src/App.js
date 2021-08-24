@@ -8,8 +8,7 @@ import TopPage from './components/TopPage';
 import OneList from './components/OneList';
 import Login from './components/Login';
 import Help from './components/Help';
-// import Registration from './components/Registration';
-import Registration2 from './components/Registration2';
+import Registration from './components/Registration';
 import NotFound from './components/NotFound';
 import Settings from './components/Settings';
 import { useStore } from './store/StoreContext';
@@ -53,7 +52,7 @@ function App() {
         <Route path="/cat/" component={OneCat} exact />
         <Route path="/list/" component={OneList} exact />
         <Route path='/login/' component={Login} exact />
-        <Route path='/reg/' component={Registration2} exact />
+        <Route path='/reg/' component={Registration} exact />
         <Route path='/set/' component={Settings} exact />
         <Route path='/about/' component={Help} exact />
         <Route path='*' component={NotFound} />
