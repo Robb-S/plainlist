@@ -13,7 +13,6 @@ import { FormControl, FormLabel, FormControlLabel, Radio, TextField,
 import { getGreeting } from '../store/getData';
 import { validateLength } from '../util/helpers';
 import * as api from '../util/constants';
-// import axios from 'axios';
 
 const flatBoolToText = (flatBool) => {
   const flatText = flatBool ? 'flat' : 'hier';

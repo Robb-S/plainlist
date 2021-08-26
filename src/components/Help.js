@@ -7,6 +7,7 @@ import { IconButton, MakeHomeButton } from './IconButton';
 const Help = () => {
   const { state } = useStore();
   const isLoggedIn = state.loggedIn;
+  const vnum = 'version '+ process.env.REACT_APP_VERSION_NUM;
 
   const helpBody = () => {
     return (
@@ -71,8 +72,8 @@ const Help = () => {
         <div className='helpPara'>
           If you have the app open on more than one device at the same time, changes made to your lists on one device will not be immediately reflected on other devices until you manually refresh them.  You can do this by pressing the "Manually Refresh" button on the settings screen (on your second device).
         </div>
-        <br /><br />
-
+        <div className='vnum'>{vnum}</div>
+        <br />
       </Fragment>
     );
   };
@@ -84,12 +85,10 @@ const Help = () => {
       iconType: 'login',
       buttonLink: `/login/`,
     };
-    const vnum = 'version '+ process.env.REACT_APP_VERSION_NUM;
     return (
       <div className='headingZone helpHeading'>
         <div className='headingNameArea'>
-          About Cross It Off the List<br />
-          <span className='vnum'>{vnum}</span>
+          About Cross It Off the List
         </div>
         <div className='headingIcons'>
         {isLoggedIn &&
