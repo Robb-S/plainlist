@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import '../css/lists.css';
 import '../css/settings.css';
 import { useStore } from '../store/StoreContext';
-import { handleFlatnessSetting, handleLogout, handleUpdateLastList, handleUpdateRemember,
+import { handleLogout, handleUpdateLastList, handleUpdateRemember,
   handleUpdateNickname, handleUpdateFlatness, handleRefresh } from '../store/handlersUser';
 import { useHistory } from 'react-router-dom';
 import Loading from './Loading';
@@ -10,7 +10,7 @@ import Login2 from './Login2';
 import { IconButton, MakeHomeButton, MakeHelpButton } from './IconButton';
 import { FormControl, FormLabel, FormControlLabel, Radio, TextField,
   RadioGroup } from '@material-ui/core';
-import { getGreeting } from '../store/getData';
+import { getGreeting, getFlatMode2, getNickname, getRemember } from '../store/getData';
 import { validateLength } from '../util/helpers';
 import * as api from '../util/constants';
 
@@ -34,15 +34,14 @@ const rememberTextToBool = (rememberText) => {
 const Settings = () => {
   const { state, dispatch } = useStore();
   const history = useHistory();
-  const [flatValue, setFlatValue] = useState( flatBoolToText(state.flatMode) );
-  const [rememberValue, setRememberValue] =
-    useState( rememberBoolToText(state.profile.rememberLastList) );
-  const [nickname, setNickname] = useState(state.profile.nickname);
+  const [flatValue, setFlatValue] = useState( flatBoolToText(getFlatMode2(state)) );
+  const [rememberValue, setRememberValue] = useState( rememberBoolToText(getRemember(state)) );
+  const [nickname, setNickname] = useState(getNickname(state));
 
   let showLogin = state.loading && !state.loggedIn;
   let showLoading = state.loading && state.loggedIn;
   let showMain = !state.loading;
-  const nicknameChangeDisabled = ((nickname===state.profile.nickname) || (nickname.length===0));
+  const nicknameChangeDisabled = ((nickname===getNickname(state)) || (nickname.length===0));
 
   const onLogout = async () => {
     await handleLogout(dispatch);
@@ -51,7 +50,7 @@ const Settings = () => {
   const handleFlatRadioChange = async (e) => {
     const newFlatness = flatTextToBool(e.target.value);
     setFlatValue(e.target.value);
-    await handleFlatnessSetting(newFlatness, dispatch);
+    const status = await handleUpdateFlatness(newFlatness, state, dispatch);
     history.push('/');
   };
   const handleRememberRadioChange = async (e) => {
@@ -74,7 +73,7 @@ const Settings = () => {
   };
 
   const cancelEditNickname = async () => {
-    setNickname(state.profile.nickname);
+    setNickname(getNickname(state));
   };
 
   const doNothing = async () => {
@@ -269,7 +268,7 @@ const Settings = () => {
           <div className='testArea hidden'>
             Test area:<br /><br />
               flatvalue: {flatValue}<br />
-              flatness: { state.flatMode.toString() }<br />
+              flatness: { state.profile.flatMode.toString() }<br />
               loginName: [{ state.loginName }]<br />
             <br /><br />
 

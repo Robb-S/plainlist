@@ -2,7 +2,7 @@ import * as api from '../util/constants';
 import { getTokenFromAPI, makeNewUserAPI, makeNewProfileAPI, getInitDataByToken,
   addRecAPI, updateRecAPI } from './apiCalls';
 import { handleGetUserAndData } from './fetchUserAndData';
-import { sleepy } from '../util/helpers';
+// import { sleepy } from '../util/helpers';
 import { unsetAxiosAuthToken } from  '../util/helpers';
 import { getFlatMode2, getLastList, getNickname, getRemember } from './getData';
 
@@ -48,29 +48,29 @@ const handleRefresh = async (state, dispatch) => {
   });
 };
 
-/**
- * Reset state and localStorage for flat list hierarchy.
- */
-const handleFlatnessSetting = async (newFlatness, dispatch) => {
-  // console.log('* handleFlatnessSetting change to ' + newFlatness);
-  await dispatch({
-    type: 'STARTED_LOADING',
-  });
-  await dispatch({
-    type: 'SET_FLAT',
-    payload: newFlatness,
-  });
-  localStorage.setItem('flatMode', newFlatness.toString());
-  await dispatch({
-    type: 'FINISHED_LOADING',
-  });
-};
+// /**
+//  * Reset state and localStorage for flat list hierarchy.
+//  */
+// const handleFlatnessSetting = async (newFlatness, dispatch) => {
+//   // console.log('* handleFlatnessSetting change to ' + newFlatness);
+//   await dispatch({
+//     type: 'STARTED_LOADING',
+//   });
+//   await dispatch({
+//     type: 'SET_FLAT',
+//     payload: newFlatness,
+//   });
+//   localStorage.setItem('flatMode', newFlatness.toString());
+//   await dispatch({
+//     type: 'FINISHED_LOADING',
+//   });
+// };
 
 /**
  * Reset flatMode in Profile
  */
- const handleUpdateFlatness = async (newFlatness, state, dispatch) => {
-  console.log('** handleFlatnessUpdate ** ' + newFlatness);
+const handleUpdateFlatness = async (newFlatness, state, dispatch) => {
+  // console.log('** handleFlatnessUpdate ** ' + newFlatness);
   const oldFlatness = getFlatMode2(state);
   if (oldFlatness===newFlatness) return api.OK;
   const newProfile = {
@@ -84,8 +84,8 @@ const handleFlatnessSetting = async (newFlatness, dispatch) => {
 /**
  * Reset rememberLastList in Profile
  */
- const handleUpdateRemember = async (newRemember, state, dispatch) => {
-  console.log('** handleUpdateRemember ** ' + newRemember);
+const handleUpdateRemember = async (newRemember, state, dispatch) => {
+  // console.log('** handleUpdateRemember ** ' + newRemember);
   const oldRemember = getRemember(state);
   if (oldRemember===newRemember) return api.OK;
   const newProfile = {
@@ -100,7 +100,7 @@ const handleFlatnessSetting = async (newFlatness, dispatch) => {
  * Reset nickname in Profile
  */
 const handleUpdateNickname = async (newNickname, state, dispatch) => {
-  console.log('** handleUpdateNickname ** ' + newNickname);
+  // console.log('** handleUpdateNickname ** ' + newNickname);
   const oldNickname = getNickname(state);
   if (oldNickname===newNickname) {
     console.log('nickname is unchanged');
@@ -254,7 +254,6 @@ export {
   handleLogin,
   handleLogout,
   handleReg,
-  handleFlatnessSetting,
   handleUpdateFlatness,
   handleUpdateNickname,
   handleUpdateLastList,

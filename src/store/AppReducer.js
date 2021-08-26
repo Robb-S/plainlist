@@ -39,39 +39,39 @@ function AppReducer(state, action) {
         items: [],
       };
     }
-    case 'SET_FLAT': { // payload is true or false
-      return {
-        ...state,
-        flatMode: action.payload,
-      };
-    }
-    case 'SET_FLAT2': { // payload is true or false
-      return {
-        ...state,
-        profile: {
-          ...state.profile,
-          flatMode: action.payload,
-        },
-      };
-    }
-    case 'SET_LAST_LIST': { // payload is lastList (integer)
-      return {
-        ...state,
-        profile: {
-          ...state.profile,
-          lastList: action.payload,
-        },
-      };
-    }
-    case 'SET_NICKNAME': { // payload is nickname
-      return {
-        ...state,
-        profile: {
-          ...state.profile,
-          nickname: action.payload,
-        },
-      };
-    }
+    // case 'SET_FLAT': { // payload is true or false
+    //   return {
+    //     ...state,
+    //     flatMode: action.payload,
+    //   };
+    // }
+    // case 'SET_FLAT2': { // payload is true or false
+    //   return {
+    //     ...state,
+    //     profile: {
+    //       ...state.profile,
+    //       flatMode: action.payload,
+    //     },
+    //   };
+    // }
+    // case 'SET_LAST_LIST': { // payload is lastList (integer)
+    //   return {
+    //     ...state,
+    //     profile: {
+    //       ...state.profile,
+    //       lastList: action.payload,
+    //     },
+    //   };
+    // }
+    // case 'SET_NICKNAME': { // payload is nickname
+    //   return {
+    //     ...state,
+    //     profile: {
+    //       ...state.profile,
+    //       nickname: action.payload,
+    //     },
+    //   };
+    // }
     case 'SET_IS_MOBILE': { // payload is true or false
       return {
         ...state,
@@ -85,12 +85,12 @@ function AppReducer(state, action) {
         profile: action.payload.profile,
       };
     }
-    case 'SET_PROFILE': { // payload is Profile object
-      return {
-        ...state,
-        profile: action.payload,
-      };
-    }
+    // case 'SET_PROFILE': { // payload is Profile object
+    //   return {
+    //     ...state,
+    //     profile: action.payload,
+    //   };
+    // }
     case 'UPDATE_PROFILE': { // payload is profile object
       return {
         ...state,

@@ -125,18 +125,9 @@ const getItemsByListID = (listID, state) => {
 };
 
 /**
- * Return state of flatness.  // TODO change to profile.flatMode
- */
-const getFlatMode = (state) => {
-  // console.log('getflatmode');
-  // console.log(state);
-  return state.flatMode;
-};
-
-/**
  * Return state of flatness from profile
  */
- const getFlatMode2 = (state) => {
+const getFlatMode2 = (state) => {
   return state.profile.flatMode;
 };
 
@@ -195,5 +186,5 @@ const getLastList = (state) => {
 
 export { getItemsByListID, getListsByCatID, getListRec, getCatRec, getItemRec, getListName,
   getCatName, getParentListName, getParentCatName, getParentCatID, getAllCats, getAllLists,
-  getUncategorizedCategory, getOtherCats, getRegularCats, getFlatMode, getFlatMode2,
+  getUncategorizedCategory, getOtherCats, getRegularCats, getFlatMode2,
   getGreeting, getLastList, getNickname, getRemember };

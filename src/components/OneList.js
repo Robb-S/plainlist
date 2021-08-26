@@ -13,7 +13,7 @@ import React, { Fragment, useState } from 'react';
 import { Link, useLocation, Redirect, useHistory } from 'react-router-dom';
 import '../css/lists.css';
 import { useStore } from '../store/StoreContext';
-import { getListRec, getParentCatName, getParentCatID, getOtherCats, getFlatMode }
+import { getListRec, getParentCatName, getParentCatID, getOtherCats, getFlatMode2 }
   from '../store/getData';
 import { handleRemoveList } from '../store/handlers';
 import Login2 from './Login2';
@@ -60,7 +60,7 @@ const OneList = () => {
    * flat mode or category mode. 
    */
   const crumbArea = () => {
-    const isFlatMode = getFlatMode(state);
+    const isFlatMode = getFlatMode2(state);
     return (
       <Fragment>
         <div className='crumbsandsettingsandhelp'>

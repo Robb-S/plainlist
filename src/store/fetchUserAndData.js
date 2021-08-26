@@ -95,14 +95,14 @@ const getListsByUserIDTestData = async (userID) => {
         payload: { loginName: loginName },
       });
       await handleGetUserAndData(testUserId, loginName, runMode, dispatch);
-      const flatCookie = localStorage.getItem('flat');
-      if (flatCookie!==null) { // now set it in state (TEMP)
-        const flatBool = flatCookie==='true';
-        await dispatch({
-          type: 'SET_FLAT',
-          payload: flatBool,
-        });
-      }
+      // const flatCookie = localStorage.getItem('flat');
+      // if (flatCookie!==null) { // now set it in state (TEMP)
+      //   const flatBool = flatCookie==='true';
+      //   await dispatch({
+      //     type: 'SET_FLAT',
+      //     payload: flatBool,
+      //   });
+      // }
       await dispatch({
         type: 'FINISHED_LOADING',
       });
