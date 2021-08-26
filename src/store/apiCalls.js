@@ -1,10 +1,9 @@
 /** 
  * All calls to the back-end REST API are gathered here.  
- * These functions also handle test runMode, just passing back the original object
- * and an OK status, to keep things simple in the calling functions. 
  */
+// TODO: remove checks for thirdVar
 
-import { makeStringID, sleepy } from '../util/helpers';
+// import { makeStringID, sleepy } from '../util/helpers';
 import axios from 'axios';
 import * as api from '../util/constants';
 import { setAxiosAuthToken } from '../util/helpers';
@@ -126,26 +125,24 @@ const recTypeToAPIUrl = (recType) => {
  * Handle API call to add a record.  Also, add a unique ID if using test data. 
  * @returns object with new record from API (w/ assigned ID), plus status flag
  */
- const addRecAPI = async (newRec, runMode, recType) => {
-  if (runMode===api.RUNMODE_DEMO) {
-    const dbRec = { ...newRec };
-    dbRec.id = makeStringID();  // just add a temporary unique ID if test data
-    return { dbRec: dbRec, status: api.OK };
-  } else {
-    const newRecJSON = JSON.stringify(newRec);
-    const config = {
-      method: 'post',
-      url: recTypeToAPIUrl(recType),
-      data: newRecJSON,
-      headers: api.JSON_HEADER,
-    };
-    try {
-      const response = await axios(config);
-      return { dbRec: response.data, status: api.OK };
-    } catch (error) {
-      console.log(error);
-      return { dbRec: newRec, status: api.FAILED };
-    }
+ const addRecAPI = async (newRec, recType, thirdVar=null) => {
+  if (thirdVar!==null) {
+    alert ('fix addRecAPI');
+    return null;
+  }
+  const newRecJSON = JSON.stringify(newRec);
+  const config = {
+    method: 'post',
+    url: recTypeToAPIUrl(recType),
+    data: newRecJSON,
+    headers: api.JSON_HEADER,
+  };
+  try {
+    const response = await axios(config);
+    return { dbRec: response.data, status: api.OK };
+  } catch (error) {
+    console.log(error);
+    return { dbRec: newRec, status: api.FAILED };
   }
 };
 
@@ -153,22 +150,22 @@ const recTypeToAPIUrl = (recType) => {
  * Handle API call for record deletion. * 
  * @returns status flag
  */
- const deleteRecAPI = async (recID, runMode, recType) => {
-  if (runMode===api.RUNMODE_DEMO) {
-    return (api.OK); // no API call, so no problem
-  } else {
-    const config = {
-      method: 'delete',
-      url: recTypeToAPIUrl(recType) + recID + '/',
-    };
-    try {
-      const response = await axios(config);
-      // console.log(response);
-      return (api.OK);
-    } catch (error) {
-      console.log(error);
-      return (api.FAILED);
-    }
+ const deleteRecAPI = async (recID, recType, thirdVar=null) => {
+  if (thirdVar!==null) {
+    alert ('fix deleteRecAPI');
+    return null;
+  }
+  const config = {
+    method: 'delete',
+    url: recTypeToAPIUrl(recType) + recID + '/',
+  };
+  try {
+    const response = await axios(config);
+    // console.log(response);
+    return (api.OK);
+  } catch (error) {
+    console.log(error);
+    return (api.FAILED);
   }
 };
 
@@ -176,26 +173,25 @@ const recTypeToAPIUrl = (recType) => {
  * API call to update a record. 
  * @returns object with updated record from API call, plus status flag
  */
-const updateRecAPI = async (updateRec, runMode, recType) => {
-  if (runMode===api.RUNMODE_DEMO) {
-    const dbRec = { ...updateRec };
-    return { dbRec: dbRec, status: api.OK };
-  } else {
-    const recID = updateRec.id;
-    const updateRecJSON = JSON.stringify(updateRec);
-    const config = {
-      method: 'put',
-      url: recTypeToAPIUrl(recType) + recID + '/',
-      data: updateRecJSON,
-      headers: api.JSON_HEADER,
-    };
-    try {
-      const response = await axios(config);
-      return { dbRec: response.data, status: api.OK };
-    } catch (error) {
-      console.log(error);
-      return { dbRec: updateRec, status: api.FAILED };
-    }
+const updateRecAPI = async (updateRec, recType, thirdVar=null) => {
+  if (thirdVar!==null) {
+    alert ('fix updateRecAPI');
+    return null;
+  }
+  const recID = updateRec.id;
+  const updateRecJSON = JSON.stringify(updateRec);
+  const config = {
+    method: 'put',
+    url: recTypeToAPIUrl(recType) + recID + '/',
+    data: updateRecJSON,
+    headers: api.JSON_HEADER,
+  };
+  try {
+    const response = await axios(config);
+    return { dbRec: response.data, status: api.OK };
+  } catch (error) {
+    console.log(error);
+    return { dbRec: updateRec, status: api.FAILED };
   }
 };
 

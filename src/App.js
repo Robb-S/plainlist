@@ -12,23 +12,22 @@ import Registration from './components/Registration';
 import NotFound from './components/NotFound';
 import Settings from './components/Settings';
 import { useStore } from './store/StoreContext';
-import { handleSetRunModeAndInitLoad } from './store/fetchUserAndData';
+import { handleInitLoad } from './store/fetchUserAndData';
 import { getLastList, getRemember } from './store/getData';
 // import { sleepy } from './util/helpers';
 
 function App() {
-  const runMode = process.env.REACT_APP_RUNMODE;   // API or DEMO
-  const testUserID = parseInt(process.env.REACT_APP_TEST_USER);   // 1 or 2 (when in DEMO mode)
+  const dummy1 = 'API';  // TODO test useEffect if this is removed  
   const store = useStore();
   const { state, dispatch } = store;
   const history = useHistory();
 
   const startupProc = async () => {
-    await handleSetRunModeAndInitLoad(testUserID, runMode, dispatch);
+    await handleInitLoad(dispatch);
   };
   useEffect(() => {
     startupProc();
-  }, [dispatch, runMode]);
+  }, [dispatch, dummy1]);
 
   const redirectToLastList = async () => {
     const lastList = getLastList(state);

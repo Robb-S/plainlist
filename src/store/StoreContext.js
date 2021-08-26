@@ -2,12 +2,11 @@ import React, { useContext } from 'react';
 import { AppReducer } from './AppReducer';
 
 const initValues = {
-  flatMode: false,        // TODO move to profile
+  // flatMode: false,        // moved to profile
   isMobile: false,
   loading: true,
   loggedIn: false,
   loginName: '',
-  runMode: 'API',
   user: {},
   profile: {},        // contains { flatMode, nickname, rememberLastList, lastList }
   // userID: null,    // not currently used

@@ -13,12 +13,6 @@ function AppReducer(state, action) {
         loading: false,
       };
     }
-    case 'SET_RUNMODE': { // payload is 'API' or 'testMode'
-      return {
-        ...state,
-        runMode: action.payload,
-      };
-    }
     case 'USER_LOGIN': { // payload is { loginName }
       return {
         ...state,

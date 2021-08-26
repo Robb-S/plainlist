@@ -25,7 +25,7 @@ const handleLogin = async (userInfo, dispatch) => {
       type: 'USER_LOGIN',
       payload: { loginName: loginName },
     });
-    await handleGetUserAndData(null, loginName, api.RUNMODE_API, dispatch);
+    await handleGetUserAndData(loginName, dispatch);
     dispatch({
       type: 'FINISHED_LOADING',
     });
@@ -42,7 +42,7 @@ const handleRefresh = async (state, dispatch) => {
   await dispatch({
     type: 'STARTED_LOADING',
   });
-  await handleGetUserAndData(null, loginName, api.RUNMODE_API, dispatch);
+  await handleGetUserAndData(loginName, dispatch);
   await dispatch({
     type: 'FINISHED_LOADING',
   });
@@ -136,7 +136,7 @@ const handleUpdateProfile = async (newProfile, state, dispatch) => {
   await dispatch({
     type: 'STARTED_LOADING',
   });
-  const { dbRec, status } = await updateRecAPI(newProfile, state.runMode, 'profile');
+  const { dbRec, status } = await updateRecAPI(newProfile, 'profile');
   if (status===api.OK) {
     await dispatch({
       type: 'UPDATE_PROFILE',
@@ -217,9 +217,9 @@ const handleReg = async (newUserInfo, dispatch) => {
   const todoCat = { categoryName: 'To do', sortOrder: 1, uncategorized: false };
   const shoppingCat = { categoryName: 'Shopping', sortOrder: 2, uncategorized: false };
   const uncatCat = { categoryName: 'Uncategorized', sortOrder: 0, uncategorized: true };
-  const resp1 = await addRecAPI(todoCat, api.RUNMODE_API, 'category');
-  const resp2 = await addRecAPI(shoppingCat, api.RUNMODE_API, 'category');
-  const resp3 = await addRecAPI(uncatCat, api.RUNMODE_API, 'category');
+  const resp1 = await addRecAPI(todoCat, 'category');
+  const resp2 = await addRecAPI(shoppingCat, 'category');
+  const resp3 = await addRecAPI(uncatCat, 'category');
   if (!(resp1.status===api.OK || resp2.status===api.OK || resp3.status===api.OK)) { return 'Problem writing initial records.';}
   const todoCatID = resp1.dbRec.id;
   const todoList = { listName: 'things to do', sortOrder: 1, sortOrderFlat: 1,
@@ -227,8 +227,8 @@ const handleReg = async (newUserInfo, dispatch) => {
   const shoppingCatID = resp2.dbRec.id;
   const shoppingList = { listName: 'main shopping', sortOrder: 1, sortOrderFlat: 2,
     categoryID: shoppingCatID };
-  const resp4 = await addRecAPI(todoList, api.RUNMODE_API, 'list');
-  const resp5 = await addRecAPI(shoppingList, api.RUNMODE_API, 'list');
+  const resp4 = await addRecAPI(todoList, 'list');
+  const resp5 = await addRecAPI(shoppingList, 'list');
   if (!(resp4.status===api.OK || resp5.status===api.OK)) { return 'Problem writing initial records.';}
   // now read them back from the API
   const { user, profile, categories, lists, items } = await getInitDataByToken(loginName);

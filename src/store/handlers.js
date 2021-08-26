@@ -17,7 +17,7 @@ const handleUpdateLastListForItem = async (oneItem, state, dispatch) => {
     ...state.profile,
     lastList: thisList,
   };
-  const { dbRec, status } = await updateRecAPI(newProfile, state.runMode, 'profile');
+  const { dbRec, status } = await updateRecAPI(newProfile, 'profile');
   if (status===api.OK) {
     await dispatch({
       type: 'UPDATE_PROFILE',
@@ -40,7 +40,7 @@ const handleUpdateLastListForItem = async (oneItem, state, dispatch) => {
   });
   // add high sortOrder to make it sort to beginning of list
   newItem.sortOrder = makeHighestNumericAttribute(items, 'sortOrder');
-  const { dbRec, status } = await addRecAPI(newItem, state.runMode, 'item');
+  const { dbRec, status } = await addRecAPI(newItem, 'item');
   if (status===api.OK) {
     dispatch({
       type: 'ADD_ITEM',
@@ -68,7 +68,7 @@ const handleAddList = async (newList, state, dispatch) => {
   // add high sortOrder to make it sort to beginning of list
   newList.sortOrder = makeHighestNumericAttribute(lists, 'sortOrder');
   newList.sortOrderFlat = makeHighestNumericAttribute(lists, 'sortOrderFlat');
-  const { dbRec, status } = await addRecAPI(newList, state.runMode, 'list');
+  const { dbRec, status } = await addRecAPI(newList, 'list');
   if (status===api.OK) {
     dispatch({
       type: 'ADD_LIST',
@@ -98,7 +98,7 @@ const handleAddCategory = async (newCategory, state, dispatch) => {
   });
   // add high sortOrder to make it sort to beginning of list
   newCategory.sortOrder = makeHighestNumericAttribute(categories, 'sortOrder');
-  const { dbRec, status } = await addRecAPI(newCategory, state.runMode, 'category');
+  const { dbRec, status } = await addRecAPI(newCategory, 'category');
   if (status===api.OK) {
     dispatch({
       type: 'ADD_CAT',
@@ -126,7 +126,7 @@ const handleRemoveItem = async (itemID, state, dispatch) =>  {
   dispatch({
     type: 'STARTED_LOADING',
   });
-  const status = await deleteRecAPI(theItem.id, state.runMode, 'item');
+  const status = await deleteRecAPI(theItem.id, 'item');
   if (status===api.OK) {
     dispatch({
       type: 'DELETE_ITEM',
@@ -160,7 +160,7 @@ const handleRemoveList = async (listID, state, dispatch) =>  {
   dispatch({
     type: 'STARTED_LOADING',
   });
-  const status = await deleteRecAPI(theList.id, state.runMode, 'list');
+  const status = await deleteRecAPI(theList.id, 'list');
   console.log('status: ' + status);
   if (status===api.OK) {
     await dispatch({
@@ -191,7 +191,7 @@ const handleRemoveCategory = async (categoryID, state, dispatch) =>  {
   dispatch({
     type: 'STARTED_LOADING',
   });
-  const status = await deleteRecAPI(theCat.id, state.runMode, 'category');
+  const status = await deleteRecAPI(theCat.id, 'category');
   if (status===api.OK) {
     dispatch({
       type: 'DELETE_CAT',
@@ -219,7 +219,7 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
   dispatch({
     type: 'STARTED_LOADING',
   });
-  const { dbRec, status } = await updateRecAPI(newItem, state.runMode, 'item');
+  const { dbRec, status } = await updateRecAPI(newItem, 'item');
   // console.log('handleUpdateItem API call returns ' + status)
   // console.log(dbRec);
   if (status===api.OK) {
@@ -249,7 +249,7 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
   dispatch({
     type: 'STARTED_LOADING',
   });
-  const { dbRec, status } = await updateRecAPI(newList, state.runMode, 'list');
+  const { dbRec, status } = await updateRecAPI(newList, 'list');
   // console.log('handleUpdateList API call returns ' + status)
   // console.log(dbRec);
   if (status===api.OK) {
@@ -280,7 +280,7 @@ const handleUpdateItem = async (itemID, newItemName, newItemNote, state, dispatc
   dispatch({
     type: 'STARTED_LOADING',
   });
-  const { dbRec, status } = await updateRecAPI(newList, state.runMode, 'list');
+  const { dbRec, status } = await updateRecAPI(newList, 'list');
   // console.log('handleMoveList API call returns ' + status)
   // console.log(dbRec);
   if (status===api.OK) {
@@ -311,7 +311,7 @@ const handleUpdateCategory = async (categoryID, newCatName, state, dispatch) => 
   dispatch({
     type: 'STARTED_LOADING',
   });
-  const { dbRec, status } = await updateRecAPI(newCat, state.runMode, 'category');
+  const { dbRec, status } = await updateRecAPI(newCat, 'category');
   // console.log('handleUpdateList API call returns ' + status)
   // console.log(dbRec);
   if (status===api.OK) {
@@ -344,7 +344,6 @@ const handleUpdateCategory = async (categoryID, newCatName, state, dispatch) => 
  * API call failures.  
  */
 const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
-  const runMode = state.runMode;
   if (newOneListItems.length<1) return; // this should never happen
   const listID = newOneListItems[0].listID;  // same for all, so just check first one.
   const expectedListSize = getItemsByListID(listID, state).length;
@@ -365,7 +364,7 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
   });
   let updateErrors = 0;
   itemsToUpdate.forEach(async function(updateItem) {
-    const { status } = await updateRecAPI(updateItem, runMode, 'item');
+    const { status } = await updateRecAPI(updateItem, 'item');
     if (status!==api.OK) {updateErrors += 1;}
   });
   /** We'll update state even if there were errors, as they may be corrected on the next 
@@ -398,9 +397,6 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
  * API call failures.  
  */
  const handleUpdateListsGroup = async (newOneCatLists, state, dispatch) => {
-  const runMode = state.runMode;
-  // console.log('*** handler called, returning now!'); // TODO: REMOVE THIS
-  // if (newOneCatLists.length>0) return; // TODO: REMOVE THIS
   if (newOneCatLists.length<1) return; // this should never happen
   const categoryID = newOneCatLists[0].categoryID;  // same for all, so just check first one.
   const expectedCatSize = getListsByCatID(categoryID, state).length;
@@ -421,7 +417,7 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
   });
   let updateErrors = 0;
   listsToUpdate.forEach(async function(updateList) {
-    const { status } = await updateRecAPI(updateList, runMode, 'list');
+    const { status } = await updateRecAPI(updateList, 'list');
     if (status!==api.OK) {updateErrors += 1;}
   });
   /** We'll update state even if there were errors, as they may be corrected on the next 
@@ -450,7 +446,6 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
  * 4) if so, then update API and dispatch 'UPDATE_LIST'
  */
  const handleUpdateFlatListsGroup = async (newAllLists, state, dispatch) => {
-  const runMode = state.runMode;
   // console.log('*** handleUpdateListsGroupFlat called, returning now!'); // TODO: REMOVE THIS
   // if (newAllLists.length>0) return; // TODO: REMOVE THIS
   if (newAllLists.length<1) return; // this should never happen
@@ -472,7 +467,7 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
   });
   let updateErrors = 0;
   listsToUpdate.forEach(async function(updateList) {
-    const { status } = await updateRecAPI(updateList, runMode, 'list');
+    const { status } = await updateRecAPI(updateList, 'list');
     if (status!==api.OK) {updateErrors += 1;}
   });
   /** We'll update state even if there were errors, as they may be corrected on the next 
@@ -506,7 +501,6 @@ const handleUpdateItemsGroup = async (newOneListItems, state, dispatch) => {
  * API call failures.  
  */
 const handleUpdateCategoriesGroup = async (newCategories, state, dispatch) => {
-  const runMode = state.runMode;
   if (newCategories.length<1) return; // this should never happen
   const expectedAllCatSize = getRegularCats(state).length; // don't count "Uncategorized"
   if (expectedAllCatSize!==newCategories.length) return; // something is out of sync
@@ -526,7 +520,7 @@ const handleUpdateCategoriesGroup = async (newCategories, state, dispatch) => {
   });
   let updateErrors = 0;
   catsToUpdate.forEach(async function(updateCat) {
-    const { status } = await updateRecAPI(updateCat, runMode, 'category');
+    const { status } = await updateRecAPI(updateCat, 'category');
     if (status!==api.OK) {updateErrors += 1;}
   });
   /** We'll update state even if there were errors, as they may be corrected on the next 
