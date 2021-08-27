@@ -184,7 +184,11 @@ const getLastList = (state) => {
   return rememberLastList;
 };
 
+const getMobile = (state) => {
+  return state.isMobile;
+};
+
 export { getItemsByListID, getListsByCatID, getListRec, getCatRec, getItemRec, getListName,
   getCatName, getParentListName, getParentCatName, getParentCatID, getAllCats, getAllLists,
   getUncategorizedCategory, getOtherCats, getRegularCats, getFlatMode2,
-  getGreeting, getLastList, getNickname, getRemember };
+  getGreeting, getLastList, getNickname, getRemember, getMobile };

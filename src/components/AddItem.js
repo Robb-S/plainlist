@@ -3,17 +3,18 @@
  * the ENTER button can be used to submit the form's multiple input fields.  (It wouldn't 
  * be necessary for only one input field.)
  */
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import '../css/oneItem.css';
 import { useStore } from '../store/StoreContext';
 import { useEscape, validateLength, isValidLength } from '../util/helpers'; // hook to capture escape key
 import { handleAddItem } from '../store/handlers';
+import { getMobile } from '../store/getData';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
 
 const AddItem = ({ listID }) => {
   const { state, dispatch } = useStore();
-  const [addMode, setAddMode] = useState(!state.isMobile); // if mobile, show only button
+  const [addMode, setAddMode] = useState(!getMobile(state)); // if mobile, show only button
   const [itemName, setItemName] = useState('');
   const [itemNote, setItemNote] = useState('');
 
@@ -38,6 +39,10 @@ const AddItem = ({ listID }) => {
   const setupAdd = () => {
     setAddMode(true);
   };
+
+  useEffect(() => { // make sure addMode is up to date if isMobile tester is slow
+    setAddMode(!getMobile(state));
+  }, [state.isMobile]);
 
   useEscape(() => cancelAdd());
   return (
