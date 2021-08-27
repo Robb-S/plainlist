@@ -17,7 +17,6 @@ import { getLastList, getRemember } from './store/getData';
 // import { sleepy } from './util/helpers';
 
 function App() {
-  const dummy1 = 'API';  // TODO test useEffect if this is removed  
   const store = useStore();
   const { state, dispatch } = store;
   const history = useHistory();
@@ -27,7 +26,7 @@ function App() {
   };
   useEffect(() => {
     startupProc();
-  }, [dispatch, dummy1]);
+  }, [dispatch]);
 
   const redirectToLastList = async () => {
     const lastList = getLastList(state);
