@@ -93,6 +93,16 @@ const Registration = () => {
     );
   };
   
+  yup.addMethod(yup.string, 'noSpace', function (errorMessage) {
+    return this.test(`test-no-space`, errorMessage, function (value) {
+      const { path, createError } = this;
+      return (
+        (!value.includes(' ')) ||
+        createError({ path, message: errorMessage })
+      );
+    });
+  });
+
   const validationSchema = yup.object({
     userEmail: yup
       .string('Enter your email')
@@ -101,6 +111,7 @@ const Registration = () => {
       .required('Email is required'),
     userName: yup
       .string('Enter a user name')
+      .noSpace('User name must not contain spaces')
       .min(3, 'User name should be a minimum of 3 characters in length')
       .max(60, 'User name should be a maximum of 60 characters in length')
       .required('User name is required'),
