@@ -1,7 +1,10 @@
+
+
 body {
   font-family: Roboto, Verdana, Segoe, sans-serif;
   background-color: #ffffff;
   }
+
 
 .mainContainer {
   padding: 0px 0 14px 0;
@@ -180,12 +183,21 @@ div.crumbsandsettings {
   gap: 10px;
 }
 
-div.crumbsandsettingsandhelp {
+div.crumbsplustwo {
   max-width: 600px;
   display: grid;
   grid-template-columns: 1fr 38px 38px;
   gap: 4px;
 }
+
+
+div.crumbsplusthree {
+  max-width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 38px 38px 38px;
+  gap: 4px;
+}
+
 
 div.settingsicon {
   padding: 5px 5px 0px 0px;
@@ -204,10 +216,6 @@ div.helpicon {
 }
 
 @media (min-width: 600px) { /* desktop */
-  .App {
-    display: flex;
-    justify-content: center;
-  }
   .mainContainer {
     width: 600px;
   }
@@ -220,10 +228,6 @@ div.helpicon {
 }
 
 @media (min-width: 450px) and (max-width: 599px) { /* narrow desktop */
-  .App {
-    display: flex;
-    justify-content: center;
-  }
   .mainContainer {
     width: 97%;
   }

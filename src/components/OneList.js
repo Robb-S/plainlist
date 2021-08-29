@@ -63,7 +63,7 @@ const OneList = () => {
     const isFlatMode = getFlatMode2(state);
     return (
       <Fragment>
-        <div className='crumbsandsettingsandhelp'>
+        <div className='crumbsplustwo'>
           <div className='breadcrumbs'>
             { isFlatMode &&
               <Fragment>

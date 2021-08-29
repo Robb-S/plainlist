@@ -31,7 +31,7 @@ const AllLists = () => {
   const crumbArea = () => {
     return (
       <Fragment>
-        <div className='crumbsandsettingsandhelp'>
+        <div className='crumbsplustwo'>
           <div className='breadcrumbs'>
             <span className='oneCrumb'>
               Welcome { getGreeting(state) }

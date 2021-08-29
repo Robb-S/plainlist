@@ -42,7 +42,7 @@ const OneCat = () => {
   const crumbArea = () => {
     return (
       <Fragment>
-        <div className='crumbsandsettingsandhelp'>
+        <div className='crumbsplustwo'>
           <div className='breadcrumbs'>
             <Link className='linky3 oneCrumb' to={`/`}>
               All categories
