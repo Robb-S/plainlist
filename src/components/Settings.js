@@ -7,7 +7,7 @@ import { handleLogout, handleUpdateLastList, handleUpdateRemember,
 import { useHistory } from 'react-router-dom';
 import Loading from './Loading';
 import Login2 from './Login2';
-import { IconButton, MakeHomeButton, MakeHelpButton } from './IconButton';
+import { IconButton, MakeHomeButton, MakeHelpButton, MakeSpinButton } from './IconButton';
 import { FormControl, FormLabel, FormControlLabel, Radio, TextField,
   RadioGroup } from '@material-ui/core';
 import { getGreeting, getFlatMode2, getNickname, getRemember } from '../store/getData';
@@ -89,11 +89,14 @@ const Settings = () => {
   const crumbArea = () => {
     return (
       <Fragment>
-        <div className='crumbsandsettingsandhelp'>
+        <div className='crumbsplusthree'>
           <div className='breadcrumbs'>
             <span className='oneCrumb'>
               Welcome { getGreeting(state) }
             </span>
+          </div>
+          <div className='helpicon'>
+            { MakeSpinButton() }
           </div>
           <div className='settingsicon'>
             { MakeHomeButton() }

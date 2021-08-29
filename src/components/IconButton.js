@@ -34,6 +34,8 @@ import { VscCheck, VscCircleSlash, VscSettingsGear, VscEmptyWindow, VscEdit,
   VscQuestion } from 'react-icons/vsc';
 import { FiLogIn, FiLogOut, FiUserPlus } from 'react-icons/fi';
 import { CgMoreR } from 'react-icons/cg';
+import { GiSpinalCoil } from 'react-icons/gi';
+
 
 const IconButton = ({ config }) => {
   const { caption, title, iconType, buttonLink, callProc, width, disabled } = config;
@@ -59,6 +61,8 @@ const IconButton = ({ config }) => {
 
   let TheIcon;
   switch (iconType) {
+    case 'spin':
+      TheIcon=GiSpinalCoil; break;
     case 'add':
       TheIcon=VscEmptyWindow; break;
     case 'cancel':
@@ -148,27 +152,39 @@ const MakeSettingsButton = ( caption='' ) => {
   );
 };
 
+const MakeSpinButton = ( caption='' ) => {
+  const theConfig = {
+    caption: caption,
+    title: 'go for a spin',
+    iconType: 'spin',
+    buttonLink: `/load/`,
+  };
+  return (
+    <IconButton config={ theConfig } />
+  );
+};
+
 const MakeHomeButton = ( caption='' ) => {
-  const topConfig = {
+  const theConfig = {
     caption: caption,
     title: 'go to top page',
     iconType: 'top',
     buttonLink: `/`,
   };
   return (
-    <IconButton config={ topConfig } />
+    <IconButton config={ theConfig } />
   );
 };
 
 const MakeHelpButton = ( caption='' ) => {
-  const helpConfig = {
+  const theConfig = {
     caption: caption,
     title: 'about',
     iconType: 'help',
     buttonLink: `/about/`,
   };
   return (
-    <IconButton config={ helpConfig } />
+    <IconButton config={ theConfig } />
   );
 };
 
@@ -179,4 +195,4 @@ const MakeDragIcon = () => {
 };
 
 export { IconButton, MakeSettingsButton, MakeHomeButton, MakeDragIcon,
-  MakeHelpButton };
+  MakeHelpButton, MakeSpinButton };

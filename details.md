@@ -47,7 +47,7 @@ By default, the app keeps track of the last list used, and it initially shows th
 
 ## Roadmap
 
-- authenticate w/ third party service
+- authentication functions (reset password, etc.)
 - copy a list
 - show recently completed items (for xx days)
 - streamline handling for connectivity issues

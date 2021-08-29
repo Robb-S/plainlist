@@ -1,0 +1,46 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.App {
+  height: 100%;
+}
+
+div.main-loader {
+  padding: 0px 0 14px 0;
+  margin: 0px 0 0px 0;
+  font-size: 18px;
+  text-align: center;
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+}
+
+div.spindiv {
+  margin: 160px 0 40px 0;
+}
+
+@media (min-width: 450px) { /* desktop */
+
+}
+
+@media (max-width: 449px) { /* device */
+  div.main-loader {
+    background-color: #33691e;
+  }
+  div.spindiv {
+    margin: 140px 0 40px 0;
+  }
+}
+ 
+
+
