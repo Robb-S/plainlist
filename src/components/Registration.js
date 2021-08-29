@@ -12,6 +12,7 @@ import * as yup from 'yup';
 import { MakeHelpButton } from './IconButton';
 import { IconButton as CrossIconButton } from './IconButton';  // alias needed
 import IconButton from '@material-ui/core/IconButton';    // same name as local component
+import Loading from './Loading';
 import { FormLabel } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Visibility from '@material-ui/icons/Visibility';
@@ -29,7 +30,8 @@ const Registration = () => {
   const [regMsg, setRegMsg] = useState('Please fill out the fields below.');
   const [uNameMsg, setUNameMsg] = useState('');
   const [uNameValid, setUNameValid] = useState(false);
-  const [showPassword, setShowPassword ] = useState(true);
+  const [showPassword, setShowPassword] = useState(true);
+  const [isReg, setIsReg] = useState(false);
 
   async function checkUserName(debouncedUserName) {
     if (debouncedUserName.length>2) {
@@ -63,21 +65,24 @@ const Registration = () => {
   }));
 
   const processForm = async (values) => {
-    const { userName, userPwd, userPwd2, userEmail, userNickname } = values;
     if (!uNameValid) {
       setRegMsg('Please pick another user name.');
-      return;
     } else {
+      setIsReg(true);
       setRegMsg('');
+      const { userName, userPwd, userPwd2, userEmail, userNickname } = values;
+      const userInfo = { username: userName, password: userPwd,
+        password2: userPwd2, email: userEmail, nickname: userNickname };
+      console.log(values);
+      console.log(userInfo);
+      const regResult = await handleReg(userInfo, dispatch);
+      console.log(regResult);
+      if (regResult===api.OK) { history.push('/'); }
+      else {
+        setRegMsg(regResult); // try to find Django error message
+        setIsReg(false);
+      }
     }
-    const userInfo = { username: userName, password: userPwd,
-      password2: userPwd2, email: userEmail, nickname: userNickname };
-    console.log(values);
-    console.log(userInfo);
-    const regResult = await handleReg(userInfo, dispatch);
-    console.log(regResult);
-    if (regResult===api.OK) { history.push('/'); }
-    else setRegMsg(regResult);
   };
 
   const headingArea = () => {
@@ -289,6 +294,7 @@ const Registration = () => {
 
   return (
     <Fragment>
+      { isReg && <div class="tallLoad"><Loading /></div> }
       <div className='mainContainer'>
         { headingArea() }
         { regForm() }
