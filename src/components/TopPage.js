@@ -11,9 +11,9 @@ import { getFlatMode2 } from '../store/getData';
 
 const TopPage = () => {
   const { state } = useStore();  // this must come before conditional render
-  let showLogin = state.loading && !state.loggedIn;
+  let showLogin = !state.loading && !state.loggedIn;
   let showLoading = state.loading && state.loggedIn;
-  let showMain = !state.loading;
+  let showMain = !state.loading && state.loggedIn;
   let showFlat = getFlatMode2(state);
   return (
     <Fragment>

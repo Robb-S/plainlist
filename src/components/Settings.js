@@ -38,7 +38,7 @@ const Settings = () => {
   const [rememberValue, setRememberValue] = useState( rememberBoolToText(getRemember(state)) );
   const [nickname, setNickname] = useState(getNickname(state));
 
-  let showLogin = state.loading && !state.loggedIn;
+  let showLogin = !state.loading && !state.loggedIn;
   let showLoading = state.loading && state.loggedIn;
   let showMain = !state.loading;
   const nicknameChangeDisabled = ((nickname===getNickname(state)) || (nickname.length===0));

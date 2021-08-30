@@ -15,7 +15,7 @@ const AllLists = () => {
   const { state } = useStore();  // this must come before conditional render
   const [addMode, setAddMode] = useState(false);  // set add mode when add button is pressed.
   const uncatCat = getUncategorizedCategory(state); // used when adding a new list here
-  const showLogin = state.loading && !state.loggedIn;
+  const showLogin = !state.loading && !state.loggedIn;
   const showLoading = state.loading && state.loggedIn;
   const showMain = !state.loading;
 

@@ -38,7 +38,7 @@ const OneList = () => {
   const oneListRec = getListRec(listID, state);
   if (oneListRec===null) {needsRedirect=true;} // this will happen after record deletion
   if (needsRedirect) {return (<Redirect to="/" />);}  // back to main page if no ID
-  const showLogin = state.loading && !state.loggedIn;
+  const showLogin = !state.loading && !state.loggedIn;
   const showLoading = state.loading && state.loggedIn;
   const showMain = !state.loading;
   const parentCatName = getParentCatName(listID, state);

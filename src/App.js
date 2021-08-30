@@ -15,7 +15,6 @@ import Loading from './components/Loading';
 import { useStore } from './store/StoreContext';
 import { handleInitLoad } from './store/fetchUserAndData';
 import { getLastList, getRemember } from './store/getData';
-// import { sleepy } from './util/helpers';
 
 function App() {
   const store = useStore();
@@ -54,7 +53,7 @@ function App() {
         <Route path='/reg/' component={Registration} exact />
         <Route path='/set/' component={Settings} exact />
         <Route path='/about/' component={Help} exact />
-        <Route path='/load/' component={Loading} exact />
+        <Route path='/spin/' component={Loading} exact />
         <Route path='*' component={NotFound} />
       </Switch>
       <Toaster />

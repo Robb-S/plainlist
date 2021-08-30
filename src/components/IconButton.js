@@ -157,7 +157,7 @@ const MakeSpinButton = ( caption='' ) => {
     caption: caption,
     title: 'go for a spin',
     iconType: 'spin',
-    buttonLink: `/load/`,
+    buttonLink: `/spin/`,
   };
   return (
     <IconButton config={ theConfig } />

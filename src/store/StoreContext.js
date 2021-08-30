@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { AppReducer } from './AppReducer';
 
 const initValues = {
-  // flatMode: false,        // moved to profile
   isMobile: false,
   loading: true,
   loggedIn: false,
