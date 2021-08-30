@@ -16,7 +16,7 @@ const AllLists = () => {
   const [addMode, setAddMode] = useState(false);  // set add mode when add button is pressed.
   const uncatCat = getUncategorizedCategory(state); // used when adding a new list here
   const showLogin = !state.loading && !state.loggedIn;
-  const showLoading = state.loading && state.loggedIn;
+  const showLoading = state.loading;
   const showMain = !state.loading;
 
   const setupAdd = () => {

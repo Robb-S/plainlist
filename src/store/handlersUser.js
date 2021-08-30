@@ -26,12 +26,12 @@ const handleLogin = async (userInfo, dispatch) => {
       payload: { loginName: loginName },
     });
     await handleGetUserAndData(loginName, dispatch);
-    dispatch({
-      type: 'FINISHED_LOADING',
-    });
   } else {
     alert (api.MSG_LOGIN_FAILED);
   }
+  dispatch({
+    type: 'FINISHED_LOADING',
+  });
 };
 
 /**

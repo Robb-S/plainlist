@@ -39,7 +39,7 @@ const Settings = () => {
   const [nickname, setNickname] = useState(getNickname(state));
 
   let showLogin = !state.loading && !state.loggedIn;
-  let showLoading = state.loading && state.loggedIn;
+  let showLoading = state.loading;
   let showMain = !state.loading;
   const nicknameChangeDisabled = ((nickname===getNickname(state)) || (nickname.length===0));
 

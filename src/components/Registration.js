@@ -102,7 +102,7 @@ const Registration = () => {
     return this.test(`test-no-space`, errorMessage, function (value) {
       const { path, createError } = this;
       return (
-        (!value.includes(' ')) ||
+        (value && !value.includes(' ')) ||
         createError({ path, message: errorMessage })
       );
     });
@@ -294,7 +294,7 @@ const Registration = () => {
 
   return (
     <Fragment>
-      { isReg && <div class="tallLoad"><Loading /></div> }
+      { isReg && <div className="tallLoad"><Loading /></div> }
       <div className='mainContainer'>
         { headingArea() }
         { regForm() }

@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import { IconButton, MakeHelpButton } from './IconButton';
 import { getLastList, getRemember } from '../store/getData';
 import { validateLength } from '../util/helpers';
+import Loading from './Loading';
 
 const Login2 = () => {
   const { state, dispatch } = useStore();
@@ -17,6 +18,8 @@ const Login2 = () => {
   const [userPwd, setUserPwd] = useState('');
   const [doAutoFocus, setDoAutoFocus] = useState(false); // tried to solve Firefox issue
   // with login helper box that keeps reappearing
+  let showLogin = !state.loggedIn;
+  let showLoading = state.loading && state.loggedIn;
 
   const onSubmitForm = (e) => { // called when you press Enter after typing
     e.preventDefault();
@@ -109,7 +112,8 @@ const Login2 = () => {
     <Fragment>
       <div className='mainContainer'>
         { headingArea() }
-        { loginForm() }
+        { showLoading && <Loading /> }
+        { showLogin && loginForm() }
       </div>
     </Fragment>
   );

@@ -19,7 +19,7 @@ const AllCats = () => {
   const { state } =  useStore();
   const [addMode, setAddMode] = useState(false);  // set add mode when add button is pressed.
   let showLogin = !state.loading && !state.loggedIn;
-  let showLoading = state.loading && state.loggedIn;
+  let showLoading = state.loading;
   let showMain = !state.loading;
 
   const setupAdd = () => { setAddMode(true); };
