@@ -213,8 +213,19 @@ const makeNewUserAPI = async (newUserRec) => {
     console.log(response);
     return api.OK;
   } catch (error) {
-    console.log(error);
-    return api.FAILED;
+    // console.log(error.toString());
+    // console.log('error 1');
+    if (error.response.data.username && error.response.data.username[0]) {
+      return error.response.data.username[0];
+    }
+    if (error.response.data.email && error.response.data.email[0]) {
+      return error.response.data.email[0];
+    }
+    // following is not tested
+    // if (error.response.data.password && error.response.data.password[0]) {
+    //   return error.response.data.password[0];
+    // }
+    return error.toString();
   }
 };
 

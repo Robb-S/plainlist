@@ -42,6 +42,7 @@ const Registration = () => {
       } else {
         setUNameMsg(api.MSG_USER_AVAILABLE);
         setUNameValid(true);
+        setRegMsg(''); // erase error message if it exists
       }
     } else {
       setUNameMsg(' ');
@@ -79,7 +80,7 @@ const Registration = () => {
       console.log(regResult);
       if (regResult===api.OK) { history.push('/'); }
       else {
-        setRegMsg(regResult); // try to find Django error message
+        setRegMsg('Error: ' + regResult);
         setIsReg(false);
       }
     }

@@ -203,7 +203,7 @@ const handleReg = async (newUserInfo, dispatch) => {
   const userInfo = { userName: username, userPwd: password };     // to get initial token
   if (password!==password2) return 'Password 1 and password 2 must match.';
   let status = await makeNewUserAPI(userObj);
-  console.log('make new user: ' + status);
+  // console.log('make new user: ' + status);
   if (status!==api.OK) { return status; }
   status = await getTokenFromAPI(userInfo);
   if (status!==api.OK) { return status; }
