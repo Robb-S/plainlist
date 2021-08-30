@@ -27,9 +27,9 @@ const OneCat = () => {
   const oneCatRec = getCatRec(categoryID, state);
   if (oneCatRec===null) {needsRedirect=true;} // this will happen after record deletion
   if (needsRedirect) {return (<Redirect to="/" />);}  // back to main page if no ID
-  const showLogin = !state.loading && !state.loggedIn;
   const showLoading = state.loading;
-  const showMain = !state.loading;
+  const showLogin = !state.loading && !state.loggedIn;
+  const showMain = !state.loading  && state.loggedIn;
   
   const setupEdit = () => { setEditMode(true); };
   const cancelEdit = () => { setEditMode(false); };

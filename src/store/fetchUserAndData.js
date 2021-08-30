@@ -23,6 +23,9 @@ import { handleLogout } from './handlersUser';
       type: 'FINISHED_LOADING',
     });
   }
+  await dispatch({ // this will enable display of login component if not already logged in
+    type: 'DO_LAUNCH',
+  });
   await dispatch({
     type: 'SET_IS_MOBILE',
     payload: isMobile,
@@ -36,9 +39,12 @@ import { handleLogout } from './handlersUser';
  * loginName is used, and matched at the API endpoint with the token.
  */
 const handleGetUserAndData = async (loginName, dispatch) =>  {
+  await dispatch({
+    type: 'STARTED_LOADING',
+  });
   const { user, profile, categories, lists, items } = await getInitDataByToken(loginName);
   if ( Object.keys(user).length === 0 ) { // token-based retrieval failed, so log out
-    console.log('************* Logging out');
+    console.log('Logging out');
     await handleLogout(dispatch);
     return;
   }

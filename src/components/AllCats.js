@@ -18,9 +18,9 @@ import { getGreeting } from '../store/getData';
 const AllCats = () => {
   const { state } =  useStore();
   const [addMode, setAddMode] = useState(false);  // set add mode when add button is pressed.
-  let showLogin = !state.loading && !state.loggedIn;
-  let showLoading = state.loading;
-  let showMain = !state.loading;
+  const showLoading = state.loading;
+  const showLogin = !state.loading && !state.loggedIn;
+  const showMain = !state.loading  && state.loggedIn;
 
   const setupAdd = () => { setAddMode(true); };
   const cancelAdd = () => { setAddMode(false); };

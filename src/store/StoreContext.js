@@ -2,8 +2,9 @@ import React, { useContext } from 'react';
 import { AppReducer } from './AppReducer';
 
 const initValues = {
+  isLaunched: false,
   isMobile: false,
-  loading: true,
+  loading: false,
   loggedIn: false,
   loginName: '',
   user: {},

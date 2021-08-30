@@ -1,6 +1,12 @@
 
 function AppReducer(state, action) {
   switch (action.type) {
+    case 'DO_LAUNCH': { // no payload
+      return {
+        ...state,
+        isLaunched: true,
+      };
+    }
     case 'STARTED_LOADING': { // no payload
       return {
         ...state,
