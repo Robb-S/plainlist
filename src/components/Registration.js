@@ -65,9 +65,9 @@ const Registration = () => {
   }));
 
   const processForm = async (values) => {
-    // if (!uNameValid) {
-    //   setRegMsg('Please pick another user name.');
-    // } else {
+    if (!uNameValid) {
+      setRegMsg('Please pick another user name.');
+    } else {
       setIsReg(true);
       setRegMsg('');
       const { userName, userPwd, userPwd2, userEmail, userNickname } = values;
@@ -82,7 +82,7 @@ const Registration = () => {
         setRegMsg(regResult); // try to find Django error message
         setIsReg(false);
       }
-    // }
+    }
   };
 
   const headingArea = () => {
@@ -292,6 +292,7 @@ const Registration = () => {
     );
   };
 
+  // hide registration form when registration is in progress, show loading screen
   const regFormClass = isReg ? 'mainContainer hidden' : 'mainContainer';
   return (
     <Fragment>
