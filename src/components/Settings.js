@@ -11,7 +11,7 @@ import { IconButton, MakeHomeButton, MakeHelpButton, MakeSpinButton } from './Ic
 import { FormControl, FormLabel, FormControlLabel, Radio, TextField,
   RadioGroup } from '@material-ui/core';
 import { getGreeting, getFlatMode2, getNickname, getRemember } from '../store/getData';
-import { validateLength } from '../util/helpers';
+import { validateLength, isValidLength } from '../util/helpers';
 import * as api from '../util/constants';
 
 const flatBoolToText = (flatBool) => {
@@ -37,27 +37,30 @@ const Settings = () => {
   const [flatValue, setFlatValue] = useState( flatBoolToText(getFlatMode2(state)) );
   const [rememberValue, setRememberValue] = useState( rememberBoolToText(getRemember(state)) );
   const [nickname, setNickname] = useState(getNickname(state));
-
   const showLoading = state.loading;
   const showLogin = !state.loading && !state.loggedIn;
   const showMain = !state.loading  && state.loggedIn;
-  const nicknameChangeDisabled = ((nickname===getNickname(state)) || (nickname.length===0));
+  const nicknameChangeDisabled = ((nickname.trim()===getNickname(state)) ||
+    !isValidLength(nickname, 1, 60));
 
   const onLogout = async () => {
     await handleLogout(dispatch);
     history.push('/login/');
   };
+
   const handleFlatRadioChange = async (e) => {
     const newFlatness = flatTextToBool(e.target.value);
     setFlatValue(e.target.value);
     const status = await handleUpdateFlatness(newFlatness, state, dispatch);
     history.push('/');
   };
+
   const handleRememberRadioChange = async (e) => {
     const newRemember = rememberTextToBool(e.target.value);
     setRememberValue(e.target.value);
     await handleUpdateRemember(newRemember, state, dispatch);
   };
+
   const onSubmitEditNickname = (e) => {
     e.preventDefault();
     onRequestEditNickname();
@@ -245,7 +248,6 @@ const Settings = () => {
     await handleUpdateLastList(8, state, dispatch);
     console.log('test button 2 end. ');
   };
-
   
   const onTestButton3 = async () => {
     console.log('test button 3 pressed. ');

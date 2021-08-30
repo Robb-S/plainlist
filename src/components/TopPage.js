@@ -19,19 +19,13 @@ const TopPage = () => {
   const showLogin = !state.loading && !state.loggedIn;
   const showMain = !state.loading  && state.loggedIn;
   const isLaunched = state.isLaunched; // don't show login screen until login token checked
-
-  let showFlat = getFlatMode2(state);
+  const showFlat = getFlatMode2(state);
   return (
     <Fragment>
       {showLoading && <Loading />}
       {showLogin && isLaunched && <Login2 />}
-
-      {showMain && showFlat &&
-        <AllLists />
-      }
-      {showMain && !showFlat &&
-        <AllCats />
-      }
+      {showMain && showFlat && <AllLists />}
+      {showMain && !showFlat && <AllCats />}
     </Fragment>
     );
   };
