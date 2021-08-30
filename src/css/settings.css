@@ -110,8 +110,8 @@ div.vnum {
   padding: 22px 0 0 12px;
 }
 
-div.tallLoad {
-  padding: 0 0 1000px 0;
+div.regLoad {
+  padding: 5px 0 10px 0;
 }
 
 @media (min-width: 450px) { /* desktop */

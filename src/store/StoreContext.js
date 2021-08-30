@@ -9,7 +9,6 @@ const initValues = {
   loginName: '',
   user: {},
   profile: {},        // contains { flatMode, nickname, rememberLastList, lastList }
-  // userID: null,    // not currently used
   categories: [],
   lists: [],
   items: [],
