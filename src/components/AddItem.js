@@ -41,6 +41,7 @@ const AddItem = ({ listID }) => {
   };
 
   useEffect(() => { // make sure addMode is up to date if isMobile tester is slow
+    // console.log('** setting AddMode to ' + (!state.isMobile).toString());
     setAddMode(!getMobile(state));
   }, [state.isMobile]);
 

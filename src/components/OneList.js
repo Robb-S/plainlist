@@ -8,8 +8,15 @@
  * delete, or move (to a different category) the list itself.  If the edit or move icon
  * is pressed, the list is hidden and a form to edit or move is shown instead, until
  * the operation is performed or the cancel button is pressed.
+ * 
+ * The area below the headingArea will show one of the following:
+ * - form to add an item (default start on desktop) / addMode===true
+ * - single icon for "add item" (default start on mobile) / addMode===false, moreMode===false
+ * - "add item" icon plus more icons for additional operations (change category, copy 
+ *     list, etc.) / moreMode===true, addMode===false
+ * - form to move a list (change category) / moveMode===true
  */
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link, useLocation, Redirect, useHistory } from 'react-router-dom';
 import '../css/lists.css';
 import { useStore } from '../store/StoreContext';
@@ -20,9 +27,11 @@ import Login2 from './Login2';
 import Loading from './Loading';
 import EditList from './EditList';  // form to edit the list name
 import MoveList from './MoveList';  // form to move the list to another category
-import AddItem from './AddItem';    // form to add an item
+import AddItemForm from './AddItemForm';    // form to add an item
 import ItemsGroup from './ItemsGroup';  // the actual group (list) of items
 import { IconButton, MakeSettingsButton, MakeHelpButton } from './IconButton';
+import { getMobile } from '../store/getData';
+import { useEscape } from '../util/helpers'; // set addMode to false
 
 const OneList = () => {
   const data = useLocation(); // to retrieve params from data.state
@@ -32,6 +41,7 @@ const OneList = () => {
   console.log('** listID: ' + listID);
   const { state, dispatch } = useStore();    // this must come before conditional render
   const history = useHistory();
+  const [addMode, setAddMode] = useState(!getMobile(state)); // if mobile, show only button
   const [editMode, setEditMode] = useState(false); // set edit mode when button is pressed
   const [moveMode, setMoveMode] = useState(false); // set move mode when button is pressed
   const [moreMode, setMoreMode] = useState(false); // show or hide extra group of icons 
@@ -41,16 +51,29 @@ const OneList = () => {
   const showLoading = state.loading;
   const showLogin = !state.loading && !state.loggedIn;
   const showMain = !state.loading  && state.loggedIn;
-  
+  const showMore = !state.loading && moreMode && !addMode; // show more icons for additional operations
+  const showAdd = !state.loading && addMode;
+  const showAddIcon = !state.loading && !moreMode && !addMode;
+
   const parentCatName = getParentCatName(listID, state);
   const parentCatID = getParentCatID(listID, state);
   // see if there are other categories; equivalent to getAllCats.length>1, but maybe safer
   const areThereOtherCats = getOtherCats(parentCatID, state).length>0;
 
+  const setupAdd = () => { setAddMode(true); };
+  const cancelAdd = () => { setAddMode(false); setMoreMode(false); };
   const setupEdit = () => { setEditMode(true); };
   const cancelEdit = () => { setEditMode(false); };
   const setupMove = () => { setMoveMode(true); };
   const cancelMove = () => { setMoveMode(false); };
+  const setupMore = () => { setMoreMode(true); setAddMode(false); };
+  const cancelMore = () => { setMoreMode(false); };
+
+  useEffect(() => { // make sure addMode is up to date if isMobile tester is slow
+    // console.log('** setting AddMode to ' + (!state.isMobile).toString());
+    setAddMode(!getMobile(state));
+  }, [state.isMobile]);
+
   const removeList = async () => {
     await handleRemoveList(listID, state, dispatch);
     if (parentCatID!=null) history.push('/cat/', { categoryID:parentCatID });
@@ -97,10 +120,26 @@ const OneList = () => {
             { MakeSettingsButton() }
           </div>
           <div className='helpicon'>
-          { MakeHelpButton() }
+            { MakeHelpButton() }
           </div>
         </div>
       </Fragment>
+    );
+  };
+
+  const headingArea = () => {
+    return (
+      <div className='headingZone listHeading'>
+        <div className='headingNameArea'>
+          {oneListRec.listName}
+        </div>
+        <div className='headingIcons'>
+          <IconButton config={ { title:'rename list', caption:'rename list',
+            iconType:'edit', callProc:setupEdit } } />
+          <IconButton config={ { title:'more operations', caption:'more',
+            iconType:'more', callProc:setupMore } } />
+        </div>
+      </div>
     );
   };
 
@@ -116,19 +155,27 @@ const OneList = () => {
     );
   };
 
-  const headingArea = () => {
+  const addItemIconAlone = () => {
     return (
-      <div className='headingZone listHeading'>
-        <div className='headingNameArea'>
-          {oneListRec.listName}
+      <Fragment>
+        <div className='addItemIconContainer'>
+          <div className='addItemIcon'>
+            <IconButton config={ { title:'add a new item', caption:'add item',
+              iconType:'add', width:'wide', callProc:setupAdd } } />
+          </div>
         </div>
-        <div className='headingIcons'>
-          <IconButton config={ { title:'rename list', caption:'rename list',
-            iconType:'edit', callProc:setupEdit } } />
-          { showOrHideMoveIcon() }
-          <IconButton config={ { title:'delete list', caption:'delete list',
-            iconType:'delete', callProc:removeList } } />
-        </div>
+      </Fragment>
+    );
+  };
+
+  const moreIconsZone = () => {
+    return (
+      <div className='oneListMoreIcons'>
+        <IconButton config={ { title:'add a new item', caption:'add item',
+          iconType:'add', callProc:setupAdd } } />
+        { showOrHideMoveIcon() }
+        <IconButton config={ { title:'delete list', caption:'delete list',
+          iconType:'delete', callProc:removeList } } />
       </div>
     );
   };
@@ -151,12 +198,15 @@ const OneList = () => {
     return (
       <Fragment>
         { headingArea() }
-        <AddItem listID={listID} />
+        { showAdd && <AddItemForm cancelAdd={cancelAdd} listID={listID} /> }
+        { showMore && moreIconsZone() }
+        { showAddIcon && addItemIconAlone() }
         <ItemsGroup />
       </Fragment>
     );
   };
 
+  useEscape(() => cancelAdd());
   return (
     <Fragment>
       {showLoading && <Loading />}
