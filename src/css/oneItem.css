@@ -2,12 +2,6 @@
   display: none;
 }
 
-div.addItemIconContainer {
-  max-width: 600px;
-  display: grid;
-  padding-top: 12px;
-}
-
 div.addItemIcon {
   justify-self: end;
 }

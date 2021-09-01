@@ -33,9 +33,16 @@ div.listPart3 {
   justify-self: end;
 }
 div.oneListMoreIcons {
-  padding: 16px 5px 12px 0px;
+  padding: 16px 5px 11px 0px;
   display: flex;
   justify-content: flex-end;
+}
+
+div.addItemIconContainer {
+  max-width: 600px;
+  display: grid;
+  padding-top: 17px;
+  padding-bottom: 25px;
 }
 
 @media (min-width: 451px) { /* desktop */
@@ -60,8 +67,11 @@ div.oneListMoreIcons {
     padding: 6px 4px 4px 5px;
   }
   div.oneListMoreIcons {
-    padding: 50px;
     justify-content: center;
+  }
+  div.addItemIconContainer {
+    padding-top: 15px;
+    padding-bottom: 10px;
   }
 }
  
