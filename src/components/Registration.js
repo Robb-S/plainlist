@@ -44,9 +44,17 @@ const Registration = () => {
         setUNameMsg('* ' + api.WARN_USER_EXISTS + ' *');
         setUNameValid(false);
       } else {
-        setUNameMsg(api.MSG_USER_AVAILABLE);
-        setUNameValid(true);
-        setRegMsg(''); // erase error message if it exists
+        const regex = new RegExp('^[@a-zA-Z0-9._-]+$');
+        const strOK = regex.test(debouncedUserName);
+        if (strOK) {
+          setUNameMsg(api.MSG_USER_AVAILABLE);
+          setUNameValid(true);
+          setRegMsg(''); // erase error message if it exists
+        } else {
+          setUNameMsg('must contain only letters, numbers and @.-_');
+          setUNameValid(false);
+          setRegMsg(''); // erase error message if it exists
+        }
       }
     } else {
       setUNameMsg(' ');
@@ -121,6 +129,7 @@ const Registration = () => {
       .required('Email is required'),
     userName: yup
       .string('Enter a user name')
+      .matches(/^[@a-zA-Z0-9._-]+$/, 'Password can only contain letters, numbers, and @._-')
       .noSpace('User name must not contain spaces')
       .min(3, 'User name should be a minimum of 3 characters in length')
       .max(60, 'User name should be a maximum of 60 characters in length')
