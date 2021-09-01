@@ -15,7 +15,7 @@ body {
 }
 
 div.main-loader {
-  padding: 0px 0 14px 0;
+  padding: 0;
   margin: 0px 0 0px 0;
   font-size: 18px;
   text-align: center;
@@ -26,7 +26,8 @@ div.main-loader {
 }
 
 div.spindiv {
-  margin: 160px 0 40px 0;
+  margin: 0px 0 40px 0;
+  padding-top: 140px;
 }
 
 @media (min-width: 450px) { /* desktop */
@@ -36,9 +37,11 @@ div.spindiv {
 @media (max-width: 449px) { /* device */
   div.main-loader {
     background-color: #33691e;
+    padding: 0;
   }
   div.spindiv {
-    margin: 140px 0 40px 0;
+    margin: 0px 0 40px 0;
+    padding-top: 140px;
   }
 }
  

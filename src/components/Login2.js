@@ -110,9 +110,9 @@ const Login2 = () => {
 
   return (
     <Fragment>
+      { showLoading && <Loading /> }
       <div className='mainContainer'>
         { showLogin && headingArea() }
-        { showLoading && <Loading /> }
         { showLogin && loginForm() }
       </div>
     </Fragment>

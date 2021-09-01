@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import '../css/lists.css';
+import '../css/loading.css';
 import '../css/settings.css';
 import { useStore } from '../store/StoreContext';
 import { handleReg } from '../store/handlersUser';
@@ -34,8 +35,11 @@ const Registration = () => {
   const [isReg, setIsReg] = useState(false);
 
   async function checkUserName(debouncedUserName) {
+    // console.log('* checking user name *');
     if (debouncedUserName.length>2) {
+      // console.log('* starting wait *');
       const { userExists, status } = await userExistsAPI(debouncedUserName);
+      // console.log('* finished wait ' + status + ' ' + userExists);
       if (status===api.OK && userExists) {
         setUNameMsg('* ' + api.WARN_USER_EXISTS + ' *');
         setUNameValid(false);
@@ -295,9 +299,10 @@ const Registration = () => {
 
   // hide registration form when registration is in progress, show loading screen
   const regFormClass = isReg ? 'mainContainer hidden' : 'mainContainer';
+  const regLoadClass = isReg ? 'regLoad' : 'regLoad hidden';
   return (
     <Fragment>
-      { isReg && <div className="regLoad"><Loading /></div> }
+      <div className={regLoadClass}><Loading /></div>
       <div id='regFormMain' className={regFormClass}>
         { headingArea() }
         { regForm() }
