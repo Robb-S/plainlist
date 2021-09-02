@@ -15,8 +15,9 @@
  * 3) form to add an item / addMode===true
  * 4) form to move a list (list of other categories) / moveMode===true
  * 5) form to copy a list (name of new list) / copyMode===true
+ * 6) the actual list of items will be displayed unless #4 or #5 is visible.
  */
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link, useLocation, Redirect, useHistory } from 'react-router-dom';
 import '../css/lists.css';
 import { useStore } from '../store/StoreContext';
@@ -31,8 +32,9 @@ import MoveList from './MoveList';  // form to move the list to another category
 import AddItemForm from './AddItemForm';    // form to add an item
 import ItemsGroup from './ItemsGroup';  // the actual group (list) of items
 import { IconButton, MakeSettingsButton, MakeHelpButton } from './IconButton';
-import { getMobile } from '../store/getData';
+// import { getMobile } from '../store/getData';
 import { useEscape } from '../util/helpers'; // set addMode to false
+import * as api from '../util/constants';
 
 const OneList = () => {
   const data = useLocation(); // to retrieve params from data.state
@@ -42,7 +44,8 @@ const OneList = () => {
   console.log('** listID: ' + listID);
   const { state, dispatch } = useStore();    // this must come before conditional render
   const history = useHistory();
-  const [addMode, setAddMode] = useState(!getMobile(state)); // if mobile, show only button
+  const [addMode, setAddMode] = useState(false); // just show items, not add form.
+  // const [addMode, setAddMode] = useState(!getMobile(state)); // if mobile, show only button
   const [editMode, setEditMode] = useState(false); // edit list name
   const [moveMode, setMoveMode] = useState(false); // show form to change category
   const [moreMode, setMoreMode] = useState(false); // show or hide extra group of icons
@@ -83,15 +86,15 @@ const OneList = () => {
     setEditMode(false);
   };
 
-
-  useEffect(() => { // make sure addMode is up to date if isMobile tester is slow
-    // console.log('** setting AddMode to ' + (!state.isMobile).toString());
-    setAddMode(!getMobile(state));
-  }, [state.isMobile]);
+  // NOTE: Reinstate this in order to show/hide add form depending on platform.
+  // useEffect(() => { // make sure addMode is up to date if isMobile tester is slow
+  //   // console.log('** setting AddMode to ' + (!state.isMobile).toString());
+  //   setAddMode(!getMobile(state));
+  // }, [state.isMobile]);
 
   const removeList = async () => {
     await handleRemoveList(listID, state, dispatch);
-    if (parentCatID!=null) history.push('/cat/', { categoryID:parentCatID });
+    // if (parentCatID!=null) history.push('/cat/', { categoryID:parentCatID });
   };
 
   /**
@@ -187,19 +190,6 @@ const OneList = () => {
       <IconButton config={ { title:'change category for this list', caption:'change category',
         iconType:'move', callProc:setupMove } } />
     );
-  };
-
-  const showMoveZone = () => {
-    const moveListProps = { cancelMove: cancelMove, listRec: oneListRec };
-    return (<MoveList props={moveListProps} />);
-  };
-  const showEditZone = () => {
-    const editListProps = { cancelEdit: cancelEdit, listRec: oneListRec };
-    return (<EditList props={editListProps} />);
-  };
-  const showCopyZone = () => {
-    const copyListProps = { cancelCopy: cancelCopy, listRec: oneListRec };
-    return (<CopyList props={copyListProps} />);
   };
 
   /**

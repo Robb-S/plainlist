@@ -148,15 +148,15 @@ const handleRemoveItem = async (itemID, state, dispatch) =>  {
  */
 const handleRemoveList = async (listID, state, dispatch) =>  {
   console.log('** remove list ' + listID + ' before **');
-  console.log(state.items);
+  // console.log(state.items);
   const theList = getListRec(listID, state);
   if (!theList) { // check that it still exists in state
     alert("Sorry, that list can't be found.");
-    return;
+    return 'not found';
   }
   const delConfirmMsg = 'Are you sure you wnat to delete list ' + theList.listName + '?';
   const keepGoing = confirmQuest(delConfirmMsg);
-  if (!keepGoing) return;
+  if (!keepGoing) return 'cancelled';
   dispatch({
     type: 'STARTED_LOADING',
   });
@@ -173,9 +173,9 @@ const handleRemoveList = async (listID, state, dispatch) =>  {
   dispatch({
     type: 'FINISHED_LOADING',
   });
-  console.log('** remove list after **');
-  console.log(state.items);
-  console.log(state.lists);
+  // console.log('** remove list after **');
+  // console.log(state.items);
+  // console.log(state.lists);
   return status;
 };
 
