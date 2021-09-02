@@ -50,6 +50,7 @@ const OneList = () => {
   const [moveMode, setMoveMode] = useState(false); // show form to change category
   const [moreMode, setMoreMode] = useState(false); // show or hide extra group of icons
   const [copyMode, setCopyMode] = useState(false); // show form to copy list
+  useEscape(() => cancelAdd()); // need to use this before any branching
   const oneListRec = getListRec(listID, state);
   if (oneListRec===null) {needsRedirect=true;} // this will happen after record deletion
   if (needsRedirect) {return (<Redirect to="/" />);}  // back to main page if no ID
@@ -93,8 +94,10 @@ const OneList = () => {
   // }, [state.isMobile]);
 
   const removeList = async () => {
-    await handleRemoveList(listID, state, dispatch);
-    // if (parentCatID!=null) history.push('/cat/', { categoryID:parentCatID });
+    const status = await handleRemoveList(listID, state, dispatch);
+    if (status===api.OK) {
+      if (parentCatID!=null) history.push('/cat/', { categoryID:parentCatID });
+    }
   };
 
   /**
@@ -212,7 +215,6 @@ const OneList = () => {
     );
   };
 
-  useEscape(() => cancelAdd());
   return (
     <Fragment>
       {showLoading && <Loading />}
