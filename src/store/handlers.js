@@ -30,10 +30,26 @@ const handleUpdateLastListForItem = async (oneItem, state, dispatch) => {
 };
 
 /**
+ * Copy all elements from one list to a new list.
+ */
+const handleCopyList = async (listID, newListName, state, dispatch) => {
+  console.log('handling copy list ' + listID + ' ' + newListName);
+  let status='';
+  dispatch({
+    type: 'STARTED_LOADING',
+  });
+
+  dispatch({
+    type: 'FINISHED_LOADING',
+  });
+  return status;
+};
+
+/**
  * Take new itemName and itemNote from input, then  add a high sortOder attribute so it
  * sorts to the top of the list.  ID and other attributes will be taken care of by REST API.
  */
- const handleAddItem = async (newItem, state, dispatch) => {
+const handleAddItem = async (newItem, state, dispatch) => {
   const items = state.items;
   dispatch({
     type: 'STARTED_LOADING',
@@ -548,6 +564,7 @@ export {
   handleUpdateItem,
   handleUpdateList,
   handleMoveList,
+  handleCopyList,
   handleUpdateCategory,
   handleUpdateItemsGroup,
   handleUpdateListsGroup,
