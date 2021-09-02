@@ -8,8 +8,7 @@ import { getOtherCats, getCatRec } from '../store/getData';
 import { IconButton } from './IconButton';
 import { FormControl, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 
-const MoveList = ({ props }) => {
-  const { cancelMove, listRec } = props;
+const MoveList = ({ cancelMove, listRec }) => {
   const { state, dispatch } = useStore();
   const [catValue, setCatValue] = useState('');
   const [moveButtonDisabled, setmoveButtonDisabled] = useState(true);

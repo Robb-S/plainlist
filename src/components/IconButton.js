@@ -35,6 +35,7 @@ import { VscCheck, VscCircleSlash, VscSettingsGear, VscEmptyWindow, VscEdit,
 import { FiLogIn, FiLogOut, FiUserPlus } from 'react-icons/fi';
 import { CgMoreR } from 'react-icons/cg';
 import { GiSpinalCoil } from 'react-icons/gi';
+import { FaRegCopy } from 'react-icons/fa';
 
 
 const IconButton = ({ config }) => {
@@ -83,6 +84,8 @@ const IconButton = ({ config }) => {
       TheIcon=FiUserPlus; break;
     case 'more':
       TheIcon=CgMoreR; break;
+    case 'copy':
+      TheIcon=FaRegCopy; break;
     case 'move':
       TheIcon=VscReferences; break;
     case 'refresh':

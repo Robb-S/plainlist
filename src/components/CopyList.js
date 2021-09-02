@@ -1,7 +1,8 @@
 /**
- * Show edit form for changing name of a list.  Handle the update, or toggle the edit mode if 
- * cancel button is pressed.  Escape key also calls cancel.  Called by OneList.
- * Params: cancelEdit function (toggles state in parent component)
+ * Show copy form for changing name of a new list.  Handle the copy of the list,
+ * update, or toggle the copy mode if the cancel button is pressed.  
+ * Escape key also calls cancel.  Called by OneList.
+ * Params: cancelCopy function (toggles state in parent component)
  * listRec: list record w/ list name and id
  */
 
@@ -14,31 +15,31 @@ import { handleUpdateList } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
 
-const EditList = ({ cancelEdit, listRec }) => {
+const CopyList = ({ cancelCopy, listRec }) => {
   const { state, dispatch } = useStore();
   const [listName, setListName] = useState(listRec.listName);
 
-  const onSubmitEdit = (e) => {
+  const onSubmitCopy = (e) => {
     e.preventDefault();
-    onRequestEdit();
+    onRequestCopy();
   };
 
-  const onRequestEdit = async () => {
-    if (!validateLength(listName, 1, 60, 'list name')) return;
-    const status = await handleUpdateList(listRec.id, listName, state, dispatch);
-    if (status===api.OK) { cancelEdit(); }
+  const onRequestCopy = async () => {
+    // if (!validateLength(listName, 1, 60, 'list name')) return;
+    // const status = await handleCopyList(listRec.id, listName, state, dispatch);
+    // if (status===api.OK) { cancelCopy(); }
     // TODO: maybe add additional message if API operation failed?
   };
 
-  useEscape(() => cancelEdit());
+  useEscape(() => cancelCopy());
   return (
       <Fragment>
         <div className='addArea'>
-          <form className='addCategoryForm' onSubmit={onSubmitEdit}>
+          <form className='addCategoryForm' onSubmit={onSubmitCopy}>
             <span className='addAreaInput'>
               <TextField
                 required
-                label="Edit list name:" value={listName}
+                label="Edit new list name:" value={listName}
                 onChange={(e) => setListName(e.target.value)}
                 variant='outlined'
                 margin='dense'
@@ -48,15 +49,15 @@ const EditList = ({ cancelEdit, listRec }) => {
             </span>
           </form>
           <span className='editButtonArea'>
-            <IconButton config={ { title:'accept list edit',
+            <IconButton config={ { title:'copy list',
               disabled: !isValidLength(listName, 1, 60),
-              iconType:'confirm', callProc:onRequestEdit }} />
-            <IconButton config={ { title:'cancel list edit',
-              iconType:'cancel', callProc:cancelEdit }} />
+              iconType:'confirm', callProc:onRequestCopy }} />
+            <IconButton config={ { title:'cancel new list',
+              iconType:'cancel', callProc:cancelCopy }} />
           </span>
         </div>
       </Fragment>
   );
 };
 
-export default EditList;
+export default CopyList;
