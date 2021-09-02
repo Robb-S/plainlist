@@ -54,7 +54,7 @@ const AllCats = () => {
         </div>
         <div className='headingIcons'>
           { showAddIcon &&
-            <IconButton config={ { title:'add a new category', caption:'add category',
+            <IconButton config={ { title:'add a new category', caption:'add a category',
               iconType:'add', callProc:setupAdd, width:'wide' } } />
           }
         </div>
