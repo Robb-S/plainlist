@@ -17,7 +17,7 @@ import TextField from '@material-ui/core/TextField';
 
 const CopyList = ({ cancelCopy, listRec }) => {
   const { state, dispatch } = useStore();
-  const [listName, setListName] = useState(listRec.listName);
+  const [listName, setListName] = useState(listRec.listName+' #2');
 
   const onSubmitCopy = (e) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ const CopyList = ({ cancelCopy, listRec }) => {
             <span className='addAreaInput'>
               <TextField
                 required
-                label="Edit new list name:" value={listName}
+                label="Name for copied list" value={listName}
                 onChange={(e) => setListName(e.target.value)}
                 variant='outlined'
                 margin='dense'
@@ -49,11 +49,11 @@ const CopyList = ({ cancelCopy, listRec }) => {
             </span>
           </form>
           <span className='editButtonArea'>
-            <IconButton config={ { title:'copy list',
-              disabled: !isValidLength(listName, 1, 60),
+            <IconButton config={ { title:'copy list', caption: 'copy current list',
+              disabled: !isValidLength(listName, 1, 60), width:'wide',
               iconType:'confirm', callProc:onRequestCopy }} />
-            <IconButton config={ { title:'cancel new list',
-              iconType:'cancel', callProc:cancelCopy }} />
+            <IconButton config={ { title:'cancel new list', caption: 'cancel list copy',
+              width:'wide', iconType:'cancel', callProc:cancelCopy }} />
           </span>
         </div>
       </Fragment>
