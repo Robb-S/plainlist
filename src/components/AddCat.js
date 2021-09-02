@@ -60,11 +60,11 @@ const AddCat = ({ props }) => {
             
           </form>
           <span className='editButtonArea'>
-            <IconButton config={ { title:'accept add',
-              disabled: !isValidLength(categoryName, 1, 60),
+            <IconButton config={ { title:'accept add', caption:'add category',
+              disabled: !isValidLength(categoryName, 1, 60), width:'wide',
               iconType:'confirm', callProc:onRequestAdd }} />
-            <IconButton config={ { title:'cancel add',
-              iconType:'cancel', callProc:cancelAddLocal }} />
+            <IconButton config={ { title:'cancel add', caption:'cancel add',
+              width:'wide', iconType:'cancel', callProc:cancelAddLocal }} />
           </span>
         </div>
       </Fragment>

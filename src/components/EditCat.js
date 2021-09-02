@@ -16,9 +16,12 @@ import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
 
 const EditCat = ({ props }) => {
-  const { cancelEdit, categoryRec }  = props;
+  const { cancelEdit, categoryRec } = props;
   const { state, dispatch } = useStore();
   const [categoryName, setCategoryName] = useState(categoryRec.categoryName);
+  useEscape(() => cancelEdit());
+  const catNameChangeDisabled = ((categoryName.trim()===categoryRec.categoryName) ||
+    !isValidLength(categoryName, 1, 60));
 
   const onSubmitEdit = (e) => {
     e.preventDefault();
@@ -33,7 +36,7 @@ const EditCat = ({ props }) => {
     // TODO: maybe add additional message if API operation failed?
   };
 
-  useEscape(() => cancelEdit());
+
   return (
       <Fragment>
         <div className='addArea'>
@@ -51,11 +54,11 @@ const EditCat = ({ props }) => {
             </span>
           </form>
           <span className='editButtonArea'>
-            <IconButton config={ { title:'accept category edit',
-              disabled: !isValidLength(categoryName, 1, 60),
+            <IconButton config={ { title:'accept category edit', caption:'rename category',
+              disabled:catNameChangeDisabled, width:'wide',
               iconType:'confirm', callProc:onRequestEdit }} />
-            <IconButton config={ { title:'cancel category edit',
-              iconType:'cancel', callProc:cancelEdit }} />
+            <IconButton config={ { title:'cancel category edit', caption:'cancel rename',
+              width:'wide', iconType:'cancel', callProc:cancelEdit }} />
           </span>
         </div>
       </Fragment>

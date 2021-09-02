@@ -170,15 +170,15 @@ const OneList = () => {
   const moreIconsZone = () => {
     return (
       <div className='oneListMoreIcons'>
-        <IconButton config={ { title:'rename list', caption:'rename list',
-          iconType:'edit', callProc:setupEdit } } />
+        <IconButton config={ { title:'rename list', caption:'rename this list',
+          width:'wide', iconType:'edit', callProc:setupEdit } } />
         { showOrHideMoveIcon() }
-        <IconButton config={ { title:'copy list', caption:'copy list',
-          iconType:'copy', callProc:setupCopy } } />
-        <IconButton config={ { title:'delete list', caption:'delete list',
-          iconType:'delete', callProc:removeList } } />
+        <IconButton config={ { title:'copy list', caption:'copy this list',
+          width:'wide', iconType:'copy', callProc:setupCopy } } />
+        <IconButton config={ { title:'delete list', caption:'delete this list',
+          width:'wide', iconType:'delete', callProc:removeList } } />
         <IconButton config={ { title:'hide list ops', caption:'hide changes menu',
-          iconType:'cancel', callProc:cancelMore } } />
+          width:'wide', iconType:'cancel', callProc:cancelMore } } />
       </div>
     );
   };
@@ -191,7 +191,7 @@ const OneList = () => {
     if (!areThereOtherCats) {return null;}
     return (
       <IconButton config={ { title:'change category for this list', caption:'change category',
-        iconType:'move', callProc:setupMove } } />
+      width:'wide', iconType:'move', callProc:setupMove } } />
     );
   };
 

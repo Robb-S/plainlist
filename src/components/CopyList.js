@@ -11,7 +11,7 @@ import '../css/lists.css';
 import * as api from '../util/constants';
 import { useEscape, validateLength, isValidLength } from '../util/helpers'; // hook to capture escape key
 import { useStore } from '../store/StoreContext';
-import { handleUpdateList } from '../store/handlers';
+import { handleCopyList } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
 
@@ -25,9 +25,9 @@ const CopyList = ({ cancelCopy, listRec }) => {
   };
 
   const onRequestCopy = async () => {
-    // if (!validateLength(listName, 1, 60, 'list name')) return;
-    // const status = await handleCopyList(listRec.id, listName, state, dispatch);
-    // if (status===api.OK) { cancelCopy(); }
+    if (!validateLength(listName, 1, 60, 'list name')) return;
+    const status = await handleCopyList(listRec.id, listName, state, dispatch);
+    if (status===api.OK) { cancelCopy(); } // TODO go to new list if successful
     // TODO: maybe add additional message if API operation failed?
   };
 
