@@ -17,6 +17,9 @@ import TextField from '@material-ui/core/TextField';
 const EditList = ({ cancelEdit, listRec }) => {
   const { state, dispatch } = useStore();
   const [listName, setListName] = useState(listRec.listName);
+  useEscape(() => cancelEdit());
+  const listNameChangeDisabled = ((listName.trim()===listRec.listName) ||
+    !isValidLength(listName, 1, 60));
 
   const onSubmitEdit = (e) => {
     e.preventDefault();
@@ -30,7 +33,6 @@ const EditList = ({ cancelEdit, listRec }) => {
     // TODO: maybe add additional message if API operation failed?
   };
 
-  useEscape(() => cancelEdit());
   return (
       <Fragment>
         <div className='addArea'>
@@ -48,11 +50,11 @@ const EditList = ({ cancelEdit, listRec }) => {
             </span>
           </form>
           <span className='editButtonArea'>
-            <IconButton config={ { title:'accept list edit',
-              disabled: !isValidLength(listName, 1, 60),
+            <IconButton config={ { title:'accept list edit', caption:'confirm rename',
+              disabled: listNameChangeDisabled, width:'wide',
               iconType:'confirm', callProc:onRequestEdit }} />
-            <IconButton config={ { title:'cancel list edit',
-              iconType:'cancel', callProc:cancelEdit }} />
+            <IconButton config={ { title:'cancel list edit', caption:'cancel rename',
+              width:'wide', iconType:'cancel', callProc:cancelEdit }} />
           </span>
         </div>
       </Fragment>
