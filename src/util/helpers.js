@@ -178,6 +178,20 @@ const validateLength = (theText, minLength, maxLength, fieldName='') => {
   return true;
 };
 
+const showToast = (theText, theDuration=3000) => {
+  const toastStyle = {
+    backgroundColor: '#263238',
+    color: '#ffffff',
+  };
+  const topt = {
+    duration: theDuration,
+    position: 'top-center',
+    icon: '⚠️',
+    style: toastStyle,
+  };
+  toast(`${theText}`, topt);
+};
+
 /**
  * Simple test of text length (trimmed) - returns true or false.
  */
@@ -200,4 +214,5 @@ export {
   unsetAxiosAuthToken,
   validateLength,
   isValidLength,
+  showToast,
 };
