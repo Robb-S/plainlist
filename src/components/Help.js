@@ -55,7 +55,7 @@ const Help = () => {
           When you are on the page for a particular list, you can change the category of that list by pressing the "Change Category" icon and selecting a different category.
         </div>
         <div className='helpPara'>
-          This can be useful if you have added a new list when in Flat mode, but have switched back to Hierarchical mode, as the new list will have been placed in an "Uncategorized" category.  Simply move it to whichever other category you prefer, or create a new category. (Note that the Change Category icon will not appear if there are no other categories to switch to.)
+          This can be useful if you have added a new list when in Flat mode, but have switched back to Hierarchical mode, as the new list will have been placed in an "Uncategorized" category.  Simply move it to whichever other category you prefer, or create a new category.
         </div>
         <div className='helpHeader'>
           Installation on Android devices
