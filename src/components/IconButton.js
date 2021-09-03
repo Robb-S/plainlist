@@ -28,15 +28,16 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/iconButton.css';
+
+import { CgMoreR } from 'react-icons/cg';
+import { FaRegCopy } from 'react-icons/fa';
+import { FiLogIn, FiLogOut, FiUserPlus } from 'react-icons/fi';
+import { GiSpinalCoil } from 'react-icons/gi';
 // import { GrDrag } from 'react-icons/gr';
+import { IoCloseSharp, IoCloseCircleOutline, IoCloseCircleSharp } from 'react-icons/io5';
 import { VscCheck, VscCircleSlash, VscSettingsGear, VscEmptyWindow, VscEdit,
   VscReferences, VscSettings, VscTrash, VscHome, VscGripper, VscRefresh,
-  VscQuestion } from 'react-icons/vsc';
-import { FiLogIn, FiLogOut, FiUserPlus } from 'react-icons/fi';
-import { CgMoreR } from 'react-icons/cg';
-import { GiSpinalCoil } from 'react-icons/gi';
-import { FaRegCopy } from 'react-icons/fa';
-
+  VscQuestion, VscClose } from 'react-icons/vsc';
 
 const IconButton = ({ config }) => {
   const { caption, title, iconType, buttonLink, callProc, width, disabled } = config;
@@ -68,6 +69,8 @@ const IconButton = ({ config }) => {
       TheIcon=VscEmptyWindow; break;
     case 'cancel':
       TheIcon=VscCircleSlash; break;
+    case 'close':
+      TheIcon=IoCloseCircleOutline; break;
     case 'confirm':
       TheIcon=VscCheck; break;
     case 'delete':
