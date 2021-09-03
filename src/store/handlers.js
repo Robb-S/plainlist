@@ -30,22 +30,6 @@ const handleUpdateLastListForItem = async (oneItem, state, dispatch) => {
 };
 
 /**
- * Copy all elements from one list to a new list.
- */
-const handleCopyList = async (listID, newListName, state, dispatch) => {
-  console.log('handling copy list ' + listID + ' ' + newListName);
-  let status='';
-  dispatch({
-    type: 'STARTED_LOADING',
-  });
-
-  dispatch({
-    type: 'FINISHED_LOADING',
-  });
-  return status;
-};
-
-/**
  * Take new itemName and itemNote from input, then  add a high sortOder attribute so it
  * sorts to the top of the list.  ID and other attributes will be taken care of by REST API.
  */
@@ -73,12 +57,13 @@ const handleAddItem = async (newItem, state, dispatch) => {
 
 /**
  * Create new list object with high sort order. 
+ * newList = { listName: listName, categoryID: categoryID }
  * @returns { status (string), listID (number) }
  */
 const handleAddList = async (newList, state, dispatch) => {
   const lists = state.lists;
   let listID = null;
-  dispatch({
+  await dispatch({
     type: 'STARTED_LOADING',
   });
   // add high sortOrder to make it sort to beginning of list
@@ -86,7 +71,7 @@ const handleAddList = async (newList, state, dispatch) => {
   newList.sortOrderFlat = makeHighestNumericAttribute(lists, 'sortOrderFlat');
   const { dbRec, status } = await addRecAPI(newList, 'list');
   if (status===api.OK) {
-    dispatch({
+    await dispatch({
       type: 'ADD_LIST',
       payload: dbRec,
     });
@@ -94,10 +79,80 @@ const handleAddList = async (newList, state, dispatch) => {
   } else {
     alert (api.MSG_FAILED);
   }
-  dispatch({
+  await dispatch({
     type: 'FINISHED_LOADING',
   });
   return { status, listID };
+};
+
+/**
+ * Copy all elements from one list to a new list.
+ * 1) make new list and write to API/store.
+ * 2) copy items from old list, including sortOrder.
+ * 3) substitute new list ID.
+ * 4) write new items to API.
+ * 5) if there was a problem anywhere, delete the new list (items will be automatically
+ *    deleted as well).
+ * 6) if okay, write new items to store.
+ * 7) push history to new list.
+ * 
+ * newList = { listName: listName, categoryID: categoryID }
+ */
+const handleCopyList = async (oldListID, newList, state, dispatch) => {
+  let currentStatus = api.OK; // this is the status that will be returned
+  const oldItems = getItemsByListID(oldListID, state); // array of item records
+  const newItems = [];
+  let newListID = null;
+  // console.log('handling copy list ' + oldListID + ' ' + newList.listName);
+  if (oldItems.length<1) {
+    currentStatus='found no items, cannot copy empty list; create a new list instead';
+    return currentStatus;
+  }
+  let { status, listID } = await handleAddList(newList, state, dispatch);
+  if (status===api.OK) {
+    await dispatch({ // need to reset this, was set to finished by handleAddList
+      type: 'STARTED_LOADING',
+    });
+    newListID = listID; // just to avoid confusion
+    for (const oneOldItem of oldItems) {
+      const oneNewItem = { // to be written to API
+        listID: newListID,
+        sortOrder: oneOldItem.sortOrder,
+        itemName: oneOldItem.itemName,
+        itemNote: oneOldItem.itemNote,
+      };
+      newItems.push(oneNewItem);
+    }
+    const newItemDBRecs = []; // returned full records from API
+    let addAPIStatus = api.OK; // make sure each item is written successfully
+    for (const oneNewItem of newItems) {
+      const { dbRec, status } = await addRecAPI (oneNewItem, 'item');
+      if (status!==api.OK) { // failed to write an item
+        addAPIStatus = status;
+        break; // don't add any more items
+      } else { // successfully wrote item to API
+        newItemDBRecs.push(dbRec);
+      }
+    }
+    if (addAPIStatus===api.OK) { // all items were successfully written
+      for (const dbRec of newItemDBRecs) { // add them to store one by one
+        await dispatch({
+          type: 'ADD_ITEM',
+          payload: dbRec,
+        });
+      }
+    } else { // failed to add an item to API
+      currentStatus = 'problem copying list items to database, please try again';
+      status = await deleteRecAPI(newListID, 'list'); // try to delete the new list
+    }
+  } else { // handleAddList failed
+    currentStatus = 'problem adding new list to database, please try again';
+  }
+  await dispatch({
+    type: 'FINISHED_LOADING',
+  });
+  return { status: currentStatus, newListID: newListID };
+  // return { status: 'error message test', newListID: newListID };
 };
 
 /**

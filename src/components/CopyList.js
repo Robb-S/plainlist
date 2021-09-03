@@ -7,8 +7,10 @@
  */
 
 import React, { Fragment, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import '../css/lists.css';
 import * as api from '../util/constants';
+import { showToast, sleepy } from '../util/helpers';
 import { useEscape, validateLength, isValidLength } from '../util/helpers'; // hook to capture escape key
 import { useStore } from '../store/StoreContext';
 import { handleCopyList } from '../store/handlers';
@@ -18,6 +20,8 @@ import TextField from '@material-ui/core/TextField';
 const CopyList = ({ cancelCopy, listRec }) => {
   const { state, dispatch } = useStore();
   const [listName, setListName] = useState(listRec.listName+' #2');
+  const history = useHistory();
+  useEscape(() => cancelCopy());
 
   const onSubmitCopy = (e) => {
     e.preventDefault();
@@ -26,12 +30,20 @@ const CopyList = ({ cancelCopy, listRec }) => {
 
   const onRequestCopy = async () => {
     if (!validateLength(listName, 1, 60, 'list name')) return;
-    const status = await handleCopyList(listRec.id, listName, state, dispatch);
-    if (status===api.OK) { cancelCopy(); } // TODO go to new list if successful
-    // TODO: maybe add additional message if API operation failed?
+    // make newList object with same category ID and new listName
+    const newList = { listName: listName, categoryID: listRec.categoryID };
+    const { status, newListID } = await handleCopyList(listRec.id, newList, state, dispatch);
+    console.log('onRequestCopy status: ' + status + ' ' + newListID);
+    if (status===api.OK) {
+      // await sleepy(2000);
+      cancelCopy();
+      if (newListID!=null) history.push('/list/', { listID:newListID });
+    } else {
+      showToast(status, 5000);
+    }
   };
 
-  useEscape(() => cancelCopy());
+
   return (
       <Fragment>
         <div className='addArea'>

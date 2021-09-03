@@ -114,8 +114,10 @@ const getListsByCatID = (categoryID, state) => {
   });
   return matchItems.sort(sortOrderRevSort);
 };
+
 /**
  * Find items for a particular list, then reverse sort them by itemPos.
+ * Return array of full item records.
  */
 const getItemsByListID = (listID, state) => {
   const matchItems = state.items.filter(oneItem => {

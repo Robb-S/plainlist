@@ -122,7 +122,7 @@ const recTypeToAPIUrl = (recType) => {
 };
 
 /**
- * Handle API call to add a record.  Also, add a unique ID if using test data. 
+ * Handle API call to add a record.
  * @returns object with new record from API (w/ assigned ID), plus status flag
  */
  const addRecAPI = async (newRec, recType, thirdVar=null) => {

@@ -41,7 +41,7 @@ const OneList = () => {
   // data.state will only exist when set up in LINK, not if URL was entered manually
   let needsRedirect = data.state ? false : true; // is it called from link or manual URL
   const listID = needsRedirect ? null : data.state.listID;
-  console.log('** listID: ' + listID);
+  // console.log('** listID: ' + listID);
   const { state, dispatch } = useStore();    // this must come before conditional render
   const history = useHistory();
   const [addMode, setAddMode] = useState(false); // just show items, not add form.
@@ -166,32 +166,22 @@ const OneList = () => {
     );
   };
 
-
   const moreIconsZone = () => {
     return (
       <div className='oneListMoreIcons'>
         <IconButton config={ { title:'rename list', caption:'rename this list',
           width:'wide', iconType:'edit', callProc:setupEdit } } />
-        { showOrHideMoveIcon() }
+        <IconButton config={ { title:'change category for this list',
+          caption:'change category', disabled:!areThereOtherCats,
+          width:'wide', iconType:'move', callProc:setupMove } } />
         <IconButton config={ { title:'copy list', caption:'copy this list',
+          // disabled:true,
           width:'wide', iconType:'copy', callProc:setupCopy } } />
         <IconButton config={ { title:'delete list', caption:'delete this list',
           width:'wide', iconType:'delete', callProc:removeList } } />
-        <IconButton config={ { title:'hide list ops', caption:'hide changes menu',
-          width:'wide', iconType:'cancel', callProc:cancelMore } } />
+        <IconButton config={ { title:'close submenu of list changes', caption:'close submenu',
+          width:'wide', iconType:'close', callProc:cancelMore } } />
       </div>
-    );
-  };
-
-  /**
-   * Show move icon or hide it depending on whether there are other categories 
-   * to move to.  There almost always are.
-   */
-   const showOrHideMoveIcon = () => {
-    if (!areThereOtherCats) {return null;}
-    return (
-      <IconButton config={ { title:'change category for this list', caption:'change category',
-      width:'wide', iconType:'move', callProc:setupMove } } />
     );
   };
 
