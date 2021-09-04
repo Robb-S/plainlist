@@ -24,7 +24,7 @@ const AddList = ({ props }) => {
     const { status, listID } = await handleAddList(newList, state, dispatch);
     if (status!==api.OK) {  }
     // TODO: maybe add additional message if API operation failed?
-    cancelAdd();
+    // cancelAdd();
     if (listID!=null) history.push('/list/', { listID:listID });
   };
   const cancelAddLocal = () => {
