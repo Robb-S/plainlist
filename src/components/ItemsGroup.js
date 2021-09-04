@@ -2,8 +2,7 @@
  * ItemsGroup - show group of items as draggable elements.  Called by OneList.  
  * Handles REORDER_LIST on dragEnd.
  */
-import React, { Fragment, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { Fragment, useState, useEffect } from 'react';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor,
   useSensors, TouchSensor } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates,
@@ -16,11 +15,7 @@ import { SortableItemUnit } from './SortableItemUnit';
 import { findPosWithAttr } from '../util/helpers';
 import { handleUpdateItemsGroup } from '../store/handlers';
 
-const ItemsGroup = () => {
-  const data = useLocation(); // to retrieve params from data.state
-  // data.state will only exist when set up in LINK, not if URL was entered manually
-  const needsRedirect = data.state ? false : true; // is it called from link or manual URL
-  const listID = needsRedirect ? null : data.state.listID;
+const ItemsGroup = ({ listID }) => {
   const { state, dispatch } = useStore();  // this must come before conditional render
 
   const oneListItems = getItemsByListID(listID, state);
@@ -28,6 +23,12 @@ const ItemsGroup = () => {
   // set variable 'items' as local array, which can be reordered by dragging.
   // not to be confused with 'items' in state.
   const [items, setItems] = useState([...oneListItems]);
+
+  // this is needed when switching from orig to copied list, need to update items
+  useEffect(() => {
+    const newListItems = getItemsByListID(listID, state);
+    setItems([...newListItems]);
+  }, [listID]);
 
   const sensors = useSensors(
     useSensor(TouchSensor, {

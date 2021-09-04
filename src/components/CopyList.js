@@ -35,7 +35,7 @@ const CopyList = ({ cancelCopy, listRec }) => {
     const { status, newListID } = await handleCopyList(listRec.id, newList, state, dispatch);
     console.log('onRequestCopy status: ' + status + ' ' + newListID);
     if (status===api.OK) {
-      // await sleepy(2000);
+      // await sleepy(1000);
       cancelCopy();
       if (newListID!=null) history.push('/list/', { listID:newListID });
     } else {

@@ -41,7 +41,6 @@ const OneList = () => {
   // data.state will only exist when set up in LINK, not if URL was entered manually
   let needsRedirect = data.state ? false : true; // is it called from link or manual URL
   const listID = needsRedirect ? null : data.state.listID;
-  // console.log('** listID: ' + listID);
   const { state, dispatch } = useStore();    // this must come before conditional render
   const history = useHistory();
   const [addMode, setAddMode] = useState(false); // just show items, not add form.
@@ -200,7 +199,7 @@ const OneList = () => {
         { showCopy && <CopyList cancelCopy={cancelCopy} listRec={oneListRec} /> }
         { showMove && <MoveList cancelMove={cancelMove} listRec={oneListRec} /> }
         { showEdit && <EditList cancelEdit={cancelEdit} listRec={oneListRec} /> }
-        { showItems && <ItemsGroup /> }
+        { showItems && <ItemsGroup listID={listID} /> }
       </Fragment>
     );
   };

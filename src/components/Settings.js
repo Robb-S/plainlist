@@ -177,7 +177,7 @@ const Settings = () => {
       <Fragment>
         <form className='chooseNicknameForm' onSubmit={onSubmitEditNickname}>
           <FormLabel component="legend"><div className='formlabel2'>
-            Edit information
+            Edit nickname
           </div></FormLabel>
           <div className='nickFormRow'>
             <div className='addAreaInput'>
