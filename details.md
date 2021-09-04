@@ -35,7 +35,9 @@ Coding for icons was getting messy, especially when I wanted to change an icon, 
 
 ## UI - mobile devices
 
-I use ordinary CSS media queries to determine screen layout.  In addition, I use the autofocus param to set the focus on input text boxes where appropriate, but this was distracting on mobile platforms (it would open the keyboard as soon as the screen appeared), so I use the 'react-device-detect' package to detect mobile devices.  I used inputProps in all TextFields to turn off autocapitalization.  
+I use ordinary CSS media queries to determine screen layout.  In addition, I use the autofocus param to set the focus on input text boxes where appropriate, but this was distracting on mobile platforms (it would open the keyboard as soon as the screen appeared), so I use the 'react-device-detect' package to detect mobile devices.  (Note: This feature is currently turned off and the item input form is turned off in desktop mode to save space.) 
+
+I use inputProps in all TextFields to turn off autocapitalization.  
 
 ## UX - registration
 
@@ -47,7 +49,8 @@ By default, the app keeps track of the last list used, and it initially shows th
 
 ## Roadmap
 
-- authentication functions (reset password, etc.)
-- copy a list
+- turn off autocorrect
+- password reset
 - show recently completed items (for xx days)
-- streamline handling for connectivity issues
+- import and export files
+- drop a pin to save geographical location for a list item
