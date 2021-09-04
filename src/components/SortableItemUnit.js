@@ -55,6 +55,7 @@ export function SortableItemUnit(props) {
     setItemNote(props.item.itemNote);
   };
 
+  // show an actual horizontal rule if itemName==='<hr>'
   const showHR = props.item.itemName==='<hr>';
   return (
     <Fragment>

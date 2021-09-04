@@ -53,6 +53,7 @@ const OneList = () => {
   const oneListRec = getListRec(listID, state);
   if (oneListRec===null) {needsRedirect=true;} // this will happen after record deletion
   if (needsRedirect) {return (<Redirect to="/" />);}  // back to main page if no ID
+  const isFlatMode = getFlatMode2(state);
   const showLoading = state.loading;
   const showLogin = !state.loading && !state.loggedIn;
   const showMain = !state.loading  && state.loggedIn;
@@ -92,10 +93,15 @@ const OneList = () => {
   //   setAddMode(!getMobile(state));
   // }, [state.isMobile]);
 
+  // go to parent category page after deletion, or top page if in flat mode
   const removeList = async () => {
     const status = await handleRemoveList(listID, state, dispatch);
     if (status===api.OK) {
-      if (parentCatID!=null) history.push('/cat/', { categoryID:parentCatID });
+      if (isFlatMode) {
+        history.push('/');
+      } else {
+        if (parentCatID!=null) history.push('/cat/', { categoryID:parentCatID });
+      }
     }
   };
 
@@ -104,7 +110,6 @@ const OneList = () => {
    * flat mode or category mode. 
    */
   const crumbArea = () => {
-    const isFlatMode = getFlatMode2(state);
     return (
       <Fragment>
         <div className='crumbsplustwo'>
