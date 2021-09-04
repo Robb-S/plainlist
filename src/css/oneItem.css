@@ -146,6 +146,12 @@ div.itemPart5 {
   align-self: center;
 }
 
+div.itemPart23 hr {
+  background-color: #444444;
+  border: none;
+  height: 1px;
+}
+
 @media (min-width: 450px) { /* desktop */
   div.itemOneRow {
     grid-template-columns: 28px 1fr 36px 36px;

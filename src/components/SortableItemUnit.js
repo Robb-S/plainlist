@@ -55,6 +55,7 @@ export function SortableItemUnit(props) {
     setItemNote(props.item.itemNote);
   };
 
+  const showHR = props.item.itemName==='<hr>';
   return (
     <Fragment>
       { !editMode &&
@@ -65,12 +66,17 @@ export function SortableItemUnit(props) {
                 <div className='dragHandleIcon'>{ MakeDragIcon() }</div>
               </div>
               <div className='itemPart23'>
+                { !showHR &&
                 <div className='itemPart2'>
                   {props.item.itemName}
                 </div>
-                <div className='itemPart3 xhidden'>
+                }
+                { !showHR &&
+                <div className='itemPart3'>
                   {props.item.itemNote}
                 </div>
+                }
+                { showHR && <div><hr /></div>}
               </div>
               <div className='buttons itemPart4'>
                 <IconButton config={ { title:'edit item',
