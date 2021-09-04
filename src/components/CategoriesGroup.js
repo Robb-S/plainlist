@@ -9,13 +9,19 @@ import { arrayMove, SortableContext, sortableKeyboardCoordinates,
   verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { useStore } from '../store/StoreContext';
-import { getRegularCats } from '../store/getData';
+import { getRegularCats, getUncategorizedCategory } from '../store/getData';
 import { SortableCatUnit } from './SortableCatUnit';
 import { findPosWithAttr } from '../util/helpers';
 import { handleUpdateCategoriesGroup } from '../store/handlers';
 
 const CategoriesGroup = () => {
   const { state, dispatch } = useStore();  // this must come before conditional render
+
+  const isUncategorizedCatShown = () => {
+    const specialCat = getUncategorizedCategory(state);
+    if (!specialCat) return false;  // just in case something went wrong
+    return specialCat.childCount>0;
+  };
 
   const allCats = getRegularCats(state);
   // set variable 'items' as local array, which can be reordered by dragging.
@@ -47,7 +53,10 @@ const CategoriesGroup = () => {
     }
   };
 
-  if (allCats.length<1) { return (<div className='noneYetMsg'>[no categories yet]</div>); }
+  if (allCats.length<1) {
+    if (isUncategorizedCatShown()) return <div className='noneYetMsg'></div>; // no message
+    else return (<div className='noneYetMsg'>[no categories yet]</div>);
+  }
   return (
     <Fragment>
       <DndContext
