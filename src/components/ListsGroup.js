@@ -53,7 +53,7 @@ const ListsGroup = ({ categoryID }) => {
     }
   };
 
-  if (listsToShow.length<1) { return (<div  className='noneYetMsg'>[no lists yet]</div>); }
+  if (listsToShow.length<1) { return (<div  className='noneYetMsg'>[no lists here]</div>); }
   return (
     <Fragment>
       <DndContext

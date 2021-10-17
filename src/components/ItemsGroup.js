@@ -55,7 +55,7 @@ const ItemsGroup = ({ listID }) => {
     }
   };
 
-  if (oneListItems.length<1) { return (<div  className='noneYetMsg'>[no items yet]</div>); }
+  if (oneListItems.length<1) { return (<div  className='noneYetMsg'>[no items here]</div>); }
   return (
     <Fragment>
       <DndContext

@@ -55,7 +55,7 @@ const CategoriesGroup = () => {
 
   if (allCats.length<1) {
     if (isUncategorizedCatShown()) return <div className='noneYetMsg'></div>; // no message
-    else return (<div className='noneYetMsg'>[no categories yet]</div>);
+    else return (<div className='noneYetMsg'>[no categories here]</div>);
   }
   return (
     <Fragment>
