@@ -47,7 +47,7 @@ const OneCat = () => {
             <Link className='linky3 oneCrumb' to={`/`}>
               All categories
             </Link>
-            <span className='oneCrumb'>:</span>
+            <span>: </span>
             <span className='oneCrumb'>
               {oneCatRec.categoryName}
             </span>

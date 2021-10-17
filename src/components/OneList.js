@@ -172,14 +172,13 @@ const OneList = () => {
 
   const moreIconsZone = () => {
     return (
-      <div className='oneListMoreIcons'>
+      <div className='moreIcons'>
         <IconButton config={ { title:'rename list', caption:'rename this list',
           width:'wide', iconType:'edit', callProc:setupEdit } } />
         <IconButton config={ { title:'change category for this list',
           caption:'change category', disabled:!areThereOtherCats,
           width:'wide', iconType:'move', callProc:setupMove } } />
         <IconButton config={ { title:'copy list', caption:'copy this list',
-          // disabled:true,
           width:'wide', iconType:'copy', callProc:setupCopy } } />
         <IconButton config={ { title:'delete list', caption:'delete this list',
           width:'wide', iconType:'delete', callProc:removeList } } />
