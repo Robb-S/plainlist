@@ -8,8 +8,7 @@ import { handleAddList } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
 
-const AddList = ({ props }) => {
-  const { cancelAdd, categoryID } = props;
+const AddList = ({ cancelAdd, categoryID }) => {
   const { state, dispatch } = useStore();
   const history = useHistory();
   const [listName, setListName] = useState('');
@@ -35,27 +34,30 @@ const AddList = ({ props }) => {
   useEscape(() => cancelAddLocal());
   return (
     <Fragment>
-        <div className='addArea'>
-          <form className='addCategoryForm' onSubmit={onSubmitAdd}>
-            <span className='addAreaInput'>
-              <TextField
-                required
-                label="List name:" value={listName}
-                onChange={(e) => setListName(e.target.value)}
-                variant='outlined'
-                margin='dense'
-                autoFocus={true}
-                inputProps={{ autoCapitalize: 'off' }}
-              />
+      <div className='addNewShell'>
+        <div className='addThisLabel'>Add new list:</div>
+          <div className='addAreaNarrow'>
+            <form className='addCategoryForm' onSubmit={onSubmitAdd}>
+              <span className='addAreaInput'>
+                <TextField
+                  required
+                  label="List name:" value={listName}
+                  onChange={(e) => setListName(e.target.value)}
+                  variant='outlined'
+                  margin='dense'
+                  autoFocus={true}
+                  inputProps={{ autoCapitalize: 'off' }}
+                />
+              </span>
+            </form>
+            <span className='editButtonArea'>
+              <IconButton config={ { title:'accept add',
+                disabled: !isValidLength(listName, 1, 60), width:'wide',
+                iconType:'confirm', callProc:onRequestAdd }} />
+              <IconButton config={ { title:'cancel add',
+                width:'wide', iconType:'cancel', callProc:cancelAddLocal }} />
             </span>
-          </form>
-          <span className='editButtonArea'>
-            <IconButton config={ { title:'accept add', caption:'add new list',
-              disabled: !isValidLength(listName, 1, 60), width:'wide',
-              iconType:'confirm', callProc:onRequestAdd }} />
-            <IconButton config={ { title:'cancel add', caption:'cancel new list',
-              width:'wide', iconType:'cancel', callProc:cancelAddLocal }} />
-          </span>
+          </div>
         </div>
     </Fragment>
   );

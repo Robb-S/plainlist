@@ -24,17 +24,28 @@ const OneCat = () => {
   const { state, dispatch } = useStore();  // this must come before conditional render
   const [editMode, setEditMode] = useState(false);  // set edit mode when button is pressed.
   const [addMode, setAddMode] = useState(false);  // set add mode when add button is pressed.
+  const [moreMode, setMoreMode] = useState(false); // show or hide extra group of icons
   const oneCatRec = getCatRec(categoryID, state);
   if (oneCatRec===null) {needsRedirect=true;} // this will happen after record deletion
   if (needsRedirect) {return (<Redirect to="/" />);}  // back to main page if no ID
   const showLoading = state.loading;
   const showLogin = !state.loading && !state.loggedIn;
   const showMain = !state.loading  && state.loggedIn;
-  
-  const setupEdit = () => { setEditMode(true); };
+  const showMore = !state.loading && moreMode && !addMode; ; // show more icons for additional operations
+  const showAdd = !state.loading && addMode;
+  const showEdit = !state.loading && editMode;
+
+  const setupEdit = () => { clearAllModes(); setEditMode(true); };
   const cancelEdit = () => { setEditMode(false); };
-  const setupAdd = () => { setAddMode(true); };
+  const setupAdd = () => { clearAllModes(); setAddMode(true); };
   const cancelAdd = () => { setAddMode(false); };
+  const setupMore = () => { clearAllModes(); setMoreMode(true); };
+  const cancelMore = () => { setMoreMode(false); };
+  const clearAllModes = () => {
+    setMoreMode(false);
+    setAddMode(false);
+    setEditMode(false);
+  };
   const removeCategory = async () => {
     handleRemoveCategory(categoryID, state, dispatch);
   };
@@ -70,14 +81,12 @@ const OneCat = () => {
    * the EditCat component, deletions are handled here.
    */
   const mainDisplayOrEditForm = () => {
-    if (editMode) {
-      const editCatProps = { cancelEdit: cancelEdit, categoryRec: oneCatRec };
-      return (<EditCat props={editCatProps} />);
-    }
     return (
       <Fragment>
         { headingArea() }
-        { addListArea() }
+        { showMore && moreIconsZone() }
+        { showAdd && <AddList cancelAdd={cancelAdd} categoryID={categoryID} /> }
+        { showEdit && <EditCat cancelEdit={cancelEdit} categoryRec={oneCatRec} /> }
         <ListsGroup categoryID={categoryID} />
       </Fragment>
     );
@@ -93,19 +102,28 @@ const OneCat = () => {
           Category: {oneCatRec.categoryName}
         </div>
         <div className='headingIcons'>
-          { showAddIcon &&
-            <IconButton config={ { title:'add a new list', caption:'add a list',
-              iconType:'add', callProc:setupAdd } } />
-          }
+          <IconButton config={ { title:'add a new list', caption:'add a list',
+            disabled:addMode,
+            iconType:'add', callProc:setupAdd } } />
           { showEditAndDelete &&
-            <IconButton config={ { title:'rename category', caption:'rename category',
-              iconType:'edit', callProc:setupEdit } } />
-          }
-          { showEditAndDelete &&
-            <IconButton config={ { title:'delete category', caption:'delete category',
-              iconType:'delete', callProc:removeCategory } } />
+            <IconButton config={ { title:'more operations on this category',
+              caption:'changes to category', disabled:moreMode,
+              iconType:'more', callProc:setupMore } } />
           }
         </div>
+      </div>
+    );
+  };
+
+  const moreIconsZone = () => {
+    return (
+      <div className='moreIcons'>
+        <IconButton config={ { title:'rename category', caption:'rename category',
+          width:'wide', iconType:'edit', callProc:setupEdit } } />
+        <IconButton config={ { title:'delete category', caption:'delete category',
+          width:'wide', iconType:'delete', callProc:removeCategory } } />
+        <IconButton config={ { title:'close submenu of category changes', caption:'close submenu',
+          width:'wide', iconType:'close', callProc:cancelMore } } />
       </div>
     );
   };

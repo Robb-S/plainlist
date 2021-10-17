@@ -27,6 +27,7 @@ div.editItemDiv {
   display: grid;
   grid-template-columns: 1fr 72px;
   grid-column-gap: 5px;
+  margin-top: 10px;
 }
 
 span.iconBorder {

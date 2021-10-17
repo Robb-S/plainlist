@@ -44,28 +44,31 @@ const AddCat = ({ props }) => {
     <Fragment>
       {addMode &&
       <Fragment>
-        <div className='addArea'>
-          <form className='addCategoryForm' onSubmit={onSubmitAdd}>
-            <span className='addAreaInput'>
-              <TextField
-                required
-                label="New category name" value={categoryName}
-                onChange={(e) => setCategoryName(e.target.value)}
-                variant='outlined'
-                margin='dense'
-                autoFocus={true}
-                inputProps={{ autoCapitalize: 'off' }}
-              />
+        <div className='addNewShell'>
+        <div className='addThisLabel'>Add new category:</div>
+          <div className='addAreaNarrow'>
+            <form className='addCategoryForm' onSubmit={onSubmitAdd}>
+              <span className='addAreaInput'>
+                <TextField
+                  required
+                  label="New category name" value={categoryName}
+                  onChange={(e) => setCategoryName(e.target.value)}
+                  variant='outlined'
+                  margin='dense'
+                  autoFocus={true}
+                  inputProps={{ autoCapitalize: 'off' }}
+                />
+              </span>
+              
+            </form>
+            <span className='editButtonArea'>
+              <IconButton config={ { title:'accept add',
+                disabled: !isValidLength(categoryName, 1, 60), width:'wide',
+                iconType:'confirm', callProc:onRequestAdd }} />
+              <IconButton config={ { title:'cancel add',
+                width:'wide', iconType:'cancel', callProc:cancelAddLocal }} />
             </span>
-            
-          </form>
-          <span className='editButtonArea'>
-            <IconButton config={ { title:'accept add', caption:'add category',
-              disabled: !isValidLength(categoryName, 1, 60), width:'wide',
-              iconType:'confirm', callProc:onRequestAdd }} />
-            <IconButton config={ { title:'cancel add', caption:'cancel add',
-              width:'wide', iconType:'cancel', callProc:cancelAddLocal }} />
-          </span>
+          </div>
         </div>
       </Fragment>
       }

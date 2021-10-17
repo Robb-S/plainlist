@@ -15,8 +15,8 @@ import { handleUpdateCategory } from '../store/handlers';
 import { IconButton } from './IconButton';
 import TextField from '@material-ui/core/TextField';
 
-const EditCat = ({ props }) => {
-  const { cancelEdit, categoryRec } = props;
+const EditCat = ({ cancelEdit, categoryRec }) => {
+  // const { cancelEdit, categoryRec } = props;
   const { state, dispatch } = useStore();
   const [categoryName, setCategoryName] = useState(categoryRec.categoryName);
   useEscape(() => cancelEdit());
