@@ -212,22 +212,22 @@ const Settings = () => {
           </div></FormLabel>
           <div className='iconRow'>
             <div className='oneIconInRow'>
-              <IconButton config={ { title:'manual refresh from database', width: 'wide',
+              <IconButton config={ { title:'manual refresh from database', width: 'alwaysWide',
                 caption: 'manually refresh items from database',
                 iconType:'refresh', callProc:doRefresh }} />
             </div>
             <div className='oneIconInRow hidden'>
-              <IconButton config={ { title:'do something', width: 'wide',
-                caption: 'temporarily forget most recent list',
-                iconType:'genSet', callProc:doNothing }} />
+              <IconButton config={ { title:'show QR code', width: 'alwaysWide',
+                caption: 'show QR code for this app',
+                iconType:'qrcode', callProc:doNothing }} />
             </div>
             <div className='oneIconInRow hidden'>
-              <IconButton config={ { title:'do something', width: 'wide',
+              <IconButton config={ { title:'do something', width: 'alwaysWide',
                 caption: 'extra long explanation something',
                 iconType:'genSet', callProc:doNothing }} />
             </div>
             <div className='oneIconInRow hidden'>
-              <IconButton config={ { title:'do something', width: 'wide',
+              <IconButton config={ { title:'do something', width: 'alwaysWide',
                 caption: 'extra long explanation of something',
                 iconType:'more', callProc:doNothing }} />
             </div>
