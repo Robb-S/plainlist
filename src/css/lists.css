@@ -21,7 +21,7 @@ body {
 .headingZone {
   padding: 7px 5px 12px 3px;
   display: grid;
-  grid-template-columns: 1fr 170px;
+  grid-template-columns: minmax(0, 1fr) 136px;
   max-width: 600px;
   border-width: 1px 1px 1px 1px;
   border-style: solid;
@@ -61,16 +61,19 @@ body {
 .headingNameArea {
   border: 0px solid black;
   font-size: 24px;
+  line-height: 140%;
   font-weight: bold;
   padding: 5px 0 0 10px;
+  overflow-wrap: break-word;
 }
 
 .headingIcons {
   border: 0px solid black;
   padding: 2px 0px 0px 0px;
+  display: flex;
+  flex-wrap: wrap;
   justify-self: end;
   align-self: start;
-  display: flex;
   align-items: flex-start;
 }
 
@@ -162,6 +165,7 @@ ul.itemsTableUL {
   padding: 12px 8px 15px 12px;
   text-align: left;
   font-size: 16px;
+  line-height: 140%;
 }
 
 a:hover, a:visited, a:link, a:active {
@@ -220,6 +224,14 @@ div.noneYetMsg {
   padding: 0 0 0 15px;
 }
 
+div.moreIcons {
+  padding: 16px 0px 11px 0px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-right: -8px;
+}
+
 @media (min-width: 600px) { /* desktop */
   .mainContainer {
     width: 600px;
@@ -242,6 +254,11 @@ div.noneYetMsg {
   .breadcrumbs {
     font-size: 15px;
   }
+  div.moreIcons {
+    justify-content: center;
+    padding-right: 0px;
+    margin-right: 0px;
+  }
 }
 
 @media (max-width: 449px) { /*  device */
@@ -261,7 +278,12 @@ div.noneYetMsg {
     margin: 10px 0 0 0;
   }
   .headingNameArea {
-    font-size: 20px;
+    font-size: 18px;
   }
-
+  .headingZone {
+    max-width: 100%;
+    padding: 7px 5px 12px 3px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 128px;
+  }
 }
