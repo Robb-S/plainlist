@@ -2,9 +2,9 @@
  * Render an icon with a caption.  Call with a config object containing either a link
  * or a procudure to call.  Set caption='' to show only icon.  
  * 
- * For non-link icons, set width='wide' to produce an extra-wide icon with caption
- * all on one line, to save vertical space. Set disabled=true to display a greyed-out
- * version with onClick disabled.
+ * For non-link icons, set width='wide' or 'alwaysWide' to produce an extra-wide icon
+ * with caption all on one line, to save vertical space. Set disabled=true to 
+ * display a greyed-out version with onClick disabled.
  * 
  * Examples of config object:
  * 
@@ -23,6 +23,7 @@
  *   width: 'wide',
  * };
  * <IconButton config={ myconfig } />
+ * width: "wide", "narrow", "alwaysWide" (wide even on small screen)
  */
 
 import React, { Fragment } from 'react';
@@ -34,6 +35,7 @@ import { FaRegCopy } from 'react-icons/fa';
 import { FiLogIn, FiLogOut, FiUserPlus } from 'react-icons/fi';
 import { GiSpinalCoil } from 'react-icons/gi';
 // import { GrDrag } from 'react-icons/gr';
+import { ImQrcode } from 'react-icons/im';
 import { IoCloseSharp, IoCloseCircleOutline, IoCloseCircleSharp } from 'react-icons/io5';
 import { VscCheck, VscCircleSlash, VscSettingsGear, VscEmptyWindow, VscEdit,
   VscReferences, VscSettings, VscTrash, VscHome, VscGripper, VscRefresh,
@@ -50,6 +52,8 @@ const IconButton = ({ config }) => {
     let ibClass;
     if (width==='wide') {
       ibClass='iconButtonWide';
+    } else if (width==='alwaysWide') {
+      ibClass='iconButtonXWide';
     } else if (iconCaption==='') {
       ibClass='iconButtonNarrow';
     } else {
@@ -63,6 +67,8 @@ const IconButton = ({ config }) => {
 
   let TheIcon;
   switch (iconType) {
+    case 'qrcode':
+      TheIcon=ImQrcode; break;
     case 'spin':
       TheIcon=GiSpinalCoil; break;
     case 'add':

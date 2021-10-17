@@ -1,10 +1,10 @@
-div.iconButton, div.iconButtonNarrow, div.iconButtonWide {
+div.iconButton, div.iconButtonNarrow, div.iconButtonWide, div.iconButtonXWide {
   border: 0px solid #bbbbbb;
   background-color: #ffffff;
   padding: 2px 2px 0px 0px;
   width: 66px;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
   justify-items: center;
   cursor: pointer;
@@ -23,7 +23,7 @@ div.iconButtonNarrow {
   width: 36px;
 }
 
-div.iconButtonWide {
+div.iconButtonWide, div.iconButtonXWide {
   width: 90px;
 }
 
@@ -41,7 +41,7 @@ div.iconCaptionDisabled {
   color: #bbbbbb;
 }
 
-div.iconButtonWide div.iconCaption {
+div.iconButtonWide div.iconCaption, div.iconButtonXWide div.iconCaption {
   display: flex;
   flex-wrap: no-wrap;
   padding-bottom: 0;
@@ -59,9 +59,17 @@ div.iconButtonWide div.iconCaption {
     font-size: 9px;
   }
   div.iconButton {
-    width: 62px;
+    width: 60px;
   }
 
 }
 
+@media only screen and (max-width: 480px) {
+
+  div.iconButtonWide {
+    width: 60px;
+    margin-bottom: 10px;
+  }
+
+}
 
