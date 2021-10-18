@@ -172,7 +172,7 @@ const OneList = () => {
 
   const moreIconsZone = () => {
     return (
-      <div className='moreIcons'>
+      <div className='moreIcons moreIcons5'>
         <IconButton config={ { title:'rename list', caption:'rename this list',
           width:'wide', iconType:'edit', callProc:setupEdit } } />
         <IconButton config={ { title:'change category for this list',

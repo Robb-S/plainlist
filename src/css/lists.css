@@ -272,13 +272,19 @@ div.moreIcons {
     font-size: 15px;
   }
   div.moreIcons {
-    justify-content: center;
     padding-right: 0px;
     margin-right: 0px;
+  }
+  div.moreIcons5 {
+    padding-right: 0;
   }
 }
 
 @media (max-width: 449px) { /*  device */
+  div.moreIcons5 {
+    padding-right: 0;
+    justify-content: space-between;
+  }
   .hiddenOnDevice {
     display: none;
   }
@@ -295,12 +301,22 @@ div.moreIcons {
     margin: 10px 0 0 0;
   }
   .headingNameArea {
-    font-size: 18px;
+    font-size: 22px;
   }
   .headingZone {
     max-width: 100%;
     padding: 7px 5px 12px 3px;
     display: grid;
     grid-template-columns: minmax(0, 1fr) 128px;
+  }
+}
+
+@media (max-width: 359px) { /*  smaller device */
+  .headingNameArea {
+    font-size: 18px;
+  }
+  div.moreIcons5 {
+    padding-right: 0;
+    justify-content: right;
   }
 }

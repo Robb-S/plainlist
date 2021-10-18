@@ -53,23 +53,39 @@ div.iconButtonWide div.iconCaption, div.iconButtonXWide div.iconCaption {
   color: black;
 }
 
-@media only screen and (max-width: 600px) {
-
+@media (min-width: 450px) and (max-width: 599px) { /* narrow desktop */
   div.iconCaption {
     font-size: 9px;
   }
   div.iconButton {
     width: 60px;
   }
-
+  div.iconButtonWide {
+    width: 85px;
+  }
 }
 
-@media only screen and (max-width: 480px) {
-
-  div.iconButtonWide {
+@media (min-width: 360px) and (max-width: 449px) {
+  div.iconCaption {
+    font-size: 9px;
+  }
+  div.iconButtonWide, div.iconButton {
     width: 60px;
     margin-bottom: 10px;
   }
+}
 
+
+@media (max-width: 359px) {
+  div.iconCaption {
+    font-size: 9px;
+  }
+  div.iconButtonWide, div.iconButton {
+    width: 60px;
+    margin-bottom: 10px;
+  }
+  div.iconButtonXWide {
+    margin-bottom: 10px;
+  }
 }
 

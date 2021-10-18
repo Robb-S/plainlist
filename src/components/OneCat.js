@@ -119,11 +119,11 @@ const OneCat = () => {
     return (
       <div className='moreIcons'>
         <IconButton config={ { title:'rename category', caption:'rename category',
-          width:'wide', iconType:'edit', callProc:setupEdit } } />
+          width:'alwaysWide', iconType:'edit', callProc:setupEdit } } />
         <IconButton config={ { title:'delete category', caption:'delete category',
-          width:'wide', iconType:'delete', callProc:removeCategory } } />
+          width:'alwaysWide', iconType:'delete', callProc:removeCategory } } />
         <IconButton config={ { title:'close submenu of category changes', caption:'close submenu',
-          width:'wide', iconType:'close', callProc:cancelMore } } />
+          width:'alwaysWide', iconType:'close', callProc:cancelMore } } />
       </div>
     );
   };
