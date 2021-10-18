@@ -29,10 +29,9 @@ const AddCat = ({ props }) => {
     if (!validateLength(categoryName, 1, 60, 'category name')) return;
     const newCategory = { categoryName: categoryName };
     const { status, categoryID } = await handleAddCategory(newCategory, state, dispatch);
-    // if (status===api.OK) { cancelAdd(); }
     if (status!==api.OK) {  }
     // TODO: maybe add additional message if API operation failed?
-    if (categoryID!=null) history.push('/cat/', { categoryID:categoryID });
+    if (categoryID!=null) history.push('/cat/', { categoryID:categoryID, newCat:'new' });
   };
   const cancelAddLocal = () => {
     setCategoryName('');     // clear the input field for next time

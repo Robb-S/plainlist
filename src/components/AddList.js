@@ -24,7 +24,7 @@ const AddList = ({ cancelAdd, categoryID }) => {
     if (status!==api.OK) {  }
     // TODO: maybe add additional message if API operation failed?
     // cancelAdd();
-    if (listID!=null) history.push('/list/', { listID:listID });
+    if (listID!=null) history.push('/list/', { listID:listID, newList:'new' });
   };
   const cancelAddLocal = () => {
     setListName('');

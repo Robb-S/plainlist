@@ -41,10 +41,10 @@ const OneList = () => {
   // data.state will only exist when set up in LINK, not if URL was entered manually
   let needsRedirect = data.state ? false : true; // is it called from link or manual URL
   const listID = needsRedirect ? null : data.state.listID;
+  const newList = !data.state ? false : data.state.newList==='new';
   const { state, dispatch } = useStore();    // this must come before conditional render
   const history = useHistory();
-  const [addMode, setAddMode] = useState(false); // just show items, not add form.
-  // const [addMode, setAddMode] = useState(!getMobile(state)); // if mobile, show only button
+  const [addMode, setAddMode] = useState(newList); // just show items, not add form.
   const [editMode, setEditMode] = useState(false); // edit list name
   const [moveMode, setMoveMode] = useState(false); // show form to change category
   const [moreMode, setMoreMode] = useState(false); // show or hide extra group of icons

@@ -21,9 +21,10 @@ const OneCat = () => {
   // data.state will only exist when set up in LINK, not if URL was entered manually
   let needsRedirect = data.state ? false : true; // is it called from link or manual URL
   const categoryID = needsRedirect ? null : data.state.categoryID;
+  const newCat = !data.state ? false : data.state.newCat==='new';
   const { state, dispatch } = useStore();  // this must come before conditional render
   const [editMode, setEditMode] = useState(false);  // set edit mode when button is pressed.
-  const [addMode, setAddMode] = useState(false);  // set add mode when add button is pressed.
+  const [addMode, setAddMode] = useState(newCat);  // also true when new category is set up.
   const [moreMode, setMoreMode] = useState(false); // show or hide extra group of icons
   const oneCatRec = getCatRec(categoryID, state);
   if (oneCatRec===null) {needsRedirect=true;} // this will happen after record deletion
