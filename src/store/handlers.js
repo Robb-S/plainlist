@@ -58,7 +58,7 @@ const handleAddItem = async (newItem, state, dispatch) => {
 /**
  * Create new list object with high sort order. 
  * newList = { listName: listName, categoryID: categoryID }
- * @returns { status (string), listID (number) }
+ * @returns promise({ status (string), listID (number) })
  */
 const handleAddList = async (newList, state, dispatch) => {
   const lists = state.lists;
@@ -159,7 +159,7 @@ const handleCopyList = async (oldListID, newList, state, dispatch) => {
  * Take new rec with categoryName from input, then add a
  * high sortOder attribute so it sorts to the top of the list.
  * ID and other attributes will be taken care of by REST API.
- * @returns { status (string), catID (number) }
+ * @returns promise({ status (string), catID (number) })
  */
 const handleAddCategory = async (newCategory, state, dispatch) => {
   const categories = state.categories;
