@@ -103,6 +103,7 @@ const Help = () => {
         {!isLoggedIn &&
           MakeButtonForLink('login', 'log in')
         }
+        { MakeButtonForLink('qrcode', 'share') }
         </div>
       </div>
     );

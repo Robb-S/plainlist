@@ -119,6 +119,10 @@ div.regLoad {
   height: 100%;
 }
 
+.qrcodeimg img {
+  max-width: 100%;
+}
+
 @media (min-width: 450px) { /* desktop */
 
 }

@@ -7,19 +7,16 @@ import { MakeButtonForLink } from './IconButton';
 const Qr = () => {
   const { state } = useStore();
   const isLoggedIn = state.loggedIn;
-  const vnum = 'version '+ process.env.REACT_APP_VERSION_NUM;
 
   const qrBody = () => {
     return (
       <Fragment>
         <div className='helpPara'>
-          Welcome to "Cross It Off the List" - a simple, no-frills app for your shopping lists, to-do lists and other personal list needs.
+          Scan the QR code below to access the top page of the Cross It Off the List app.
         </div>
-        <div className='helpHeader'>
-          Starting out
-        </div>
-        <div className='helpPara'>
-          Pick a user name and an optional nickname, and enter these along with your email address on the new-user registration page.  We will start you off with a couple of default starter lists, which you can change whenever you wish.
+        <div className='qrcodeimg'>
+          <img src="https://crossitoffthelist.com/pix/qrcode1.png"
+            alt="qr code for let's dot cross it off the list dot com" />
         </div>
 
       </Fragment>
@@ -34,11 +31,12 @@ const Qr = () => {
         </div>
         <div className='headingIcons'>
         {isLoggedIn &&
-          MakeButtonForLink('home', 'home')
+          MakeButtonForLink('home')
         }
         {!isLoggedIn &&
-          MakeButtonForLink('login', 'log in')
+          MakeButtonForLink('login')
         }
+        { MakeButtonForLink('help') }
         </div>
       </div>
     );
