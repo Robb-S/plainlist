@@ -31,7 +31,7 @@ import CopyList from './CopyList';  // form to edit new list name
 import MoveList from './MoveList';  // form to move the list to another category
 import AddItemForm from './AddItemForm';    // form to add an item
 import ItemsGroup from './ItemsGroup';  // the actual group (list) of items
-import { IconButton, MakeSettingsButton, MakeHelpButton } from './IconButton';
+import { IconButton, MakeButtonForLink } from './IconButton';
 // import { getMobile } from '../store/getData';
 import { useEscape } from '../util/helpers'; // set addMode to false
 import * as api from '../util/constants';
@@ -142,10 +142,10 @@ const OneList = () => {
             </span>
           </div>
           <div className='settingsicon'>
-            { MakeSettingsButton() }
+            { MakeButtonForLink('settings') }
           </div>
           <div className='helpicon'>
-            { MakeHelpButton() }
+            { MakeButtonForLink('help') }
           </div>
         </div>
       </Fragment>

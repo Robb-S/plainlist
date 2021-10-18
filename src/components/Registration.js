@@ -10,7 +10,7 @@ import { userExistsAPI } from '../store/apiCalls';
 import * as api from '../util/constants';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { MakeHelpButton } from './IconButton';
+import { MakeButtonForLink } from './IconButton';
 import { IconButton as CrossIconButton } from './IconButton';  // alias needed
 import IconButton from '@material-ui/core/IconButton';    // same name as local component
 import Loading from './Loading';
@@ -105,7 +105,7 @@ const Registration = () => {
           Register new user
         </div>
         <div className='headingIcons headingIconsSmaller'>
-          { MakeHelpButton() }
+          { MakeButtonForLink('help') }
         </div>
       </div>
     );

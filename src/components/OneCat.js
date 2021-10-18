@@ -12,7 +12,7 @@ import Loading from './Loading';
 import EditCat from './EditCat';
 import AddList from './AddList';
 import ListsGroup from './ListsGroup';  // the actual group (list) of lists
-import { IconButton, MakeSettingsButton, MakeHelpButton } from './IconButton';
+import { IconButton, MakeButtonForLink } from './IconButton';
 import { handleRemoveCategory  } from '../store/handlers';
 import '../css/lists.css';
 
@@ -65,10 +65,10 @@ const OneCat = () => {
             </span>
           </div>
           <div className='settingsicon'>
-            { MakeSettingsButton() }
+            { MakeButtonForLink('settings') }
           </div>
           <div className='helpicon'>
-            { MakeHelpButton() }
+            { MakeButtonForLink('help') }
           </div>
         </div>
       </Fragment>

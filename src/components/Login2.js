@@ -6,7 +6,7 @@ import { handleLogin } from '../store/handlersUser';
 import { useHistory, Link } from 'react-router-dom';
 import { FormLabel } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import { IconButton, MakeHelpButton } from './IconButton';
+import { IconButton, MakeButtonForLink } from './IconButton';
 import { getLastList, getRemember } from '../store/getData';
 import { validateLength } from '../util/helpers';
 import Loading from './Loading';
@@ -102,7 +102,7 @@ const Login2 = () => {
           Log in
         </div>
         <div className='headingIcons headingIconsSmaller'>
-          { MakeHelpButton() }
+          { MakeButtonForLink('help') }
         </div>
       </div>
     );

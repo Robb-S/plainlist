@@ -12,7 +12,7 @@ import AddCat from './AddCat';
 import CategoriesGroup from './CategoriesGroup';
 import ShowUncatCat from './ShowUncatCat';
 import '../css/lists.css';
-import { IconButton, MakeSettingsButton, MakeHelpButton } from './IconButton';
+import { IconButton, MakeButtonForLink } from './IconButton';
 import { getGreeting } from '../store/getData';
 
 const AllCats = () => {
@@ -35,10 +35,10 @@ const AllCats = () => {
             </span>
           </div>
           <div className='settingsicon'>
-          { MakeSettingsButton() }
+          { MakeButtonForLink('settings') }
           </div>
           <div className='helpicon'>
-          { MakeHelpButton() }
+          { MakeButtonForLink('help') }
           </div>
         </div>
       </Fragment>

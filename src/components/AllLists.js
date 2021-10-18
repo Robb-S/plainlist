@@ -8,7 +8,7 @@ import Login2 from './Login2';
 import Loading from './Loading';
 import AddList from './AddList';
 import ListsGroup from './ListsGroup';  // the actual group (list) of lists
-import { IconButton, MakeSettingsButton, MakeHelpButton } from './IconButton';
+import { IconButton, MakeButtonForLink } from './IconButton';
 import '../css/lists.css';
 
 const AllLists = () => {
@@ -38,10 +38,10 @@ const AllLists = () => {
             </span>
           </div>
           <div className='settingsicon'>
-            { MakeSettingsButton() }
+            { MakeButtonForLink('settings') }
           </div>
           <div className='helpicon'>
-          { MakeHelpButton() }
+          { MakeButtonForLink('help') }
           </div>
         </div>
       </Fragment>

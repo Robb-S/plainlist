@@ -213,6 +213,12 @@ div.crumbsplusthree {
   gap: 4px;
 }
 
+div.crumbsplusfour {
+  max-width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 38px 38px 38px 38px;
+  gap: 4px;
+}
 
 div.settingsicon {
   padding: 5px 5px 0px 0px;

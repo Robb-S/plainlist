@@ -7,7 +7,7 @@ import { handleLogout, handleUpdateLastList, handleUpdateRemember,
 import { useHistory } from 'react-router-dom';
 import Loading from './Loading';
 import Login2 from './Login2';
-import { IconButton, MakeHomeButton, MakeHelpButton, MakeSpinButton } from './IconButton';
+import { IconButton, MakeButtonForLink } from './IconButton';
 import { FormControl, FormLabel, FormControlLabel, Radio, TextField,
   RadioGroup } from '@material-ui/core';
 import { getGreeting, getFlatMode2, getNickname, getRemember } from '../store/getData';
@@ -92,20 +92,23 @@ const Settings = () => {
   const crumbArea = () => {
     return (
       <Fragment>
-        <div className='crumbsplusthree'>
+        <div className='crumbsplusfour'>
           <div className='breadcrumbs'>
             <span className='oneCrumb'>
               Welcome { getGreeting(state) }
             </span>
           </div>
           <div className='helpicon'>
-            { MakeSpinButton() }
-          </div>
-          <div className='settingsicon'>
-            { MakeHomeButton() }
+            { MakeButtonForLink('spin') }
           </div>
           <div className='helpicon'>
-            { MakeHelpButton() }
+            { MakeButtonForLink('qrcode') }
+          </div>
+          <div className='helpicon'>
+            { MakeButtonForLink('home') }
+          </div>
+          <div className='helpicon'>
+            { MakeButtonForLink('help') }
           </div>
         </div>
       </Fragment>
@@ -218,7 +221,7 @@ const Settings = () => {
             </div>
             <div className='oneIconInRow hidden'>
               <IconButton config={ { title:'show QR code', width: 'alwaysWide',
-                caption: 'show QR code for this app',
+                caption: 'share QR code for this app',
                 iconType:'qrcode', callProc:doNothing }} />
             </div>
             <div className='oneIconInRow hidden'>

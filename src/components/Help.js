@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import '../css/lists.css';
 import '../css/settings.css';
 import { useStore } from '../store/StoreContext';
-import { IconButton, MakeHomeButton } from './IconButton';
+import { MakeButtonForLink } from './IconButton';
 
 const Help = () => {
   const { state } = useStore();
@@ -98,10 +98,10 @@ const Help = () => {
         </div>
         <div className='headingIcons'>
         {isLoggedIn &&
-          MakeHomeButton('home')
+          MakeButtonForLink('home', 'home')
         }
         {!isLoggedIn &&
-          <IconButton config={ loginConfig } />
+          MakeButtonForLink('login', 'log in')
         }
         </div>
       </div>

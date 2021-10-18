@@ -6,7 +6,7 @@ import { handleLogin } from '../store/handlersUser';
 import { useHistory, Link } from 'react-router-dom';
 import { getLastList, getRemember } from '../store/getData';
 import { validateLength } from '../util/helpers';
-import { MakeHelpButton } from './IconButton';
+import { MakeButtonForLink } from './IconButton';
 import { IconButton as CrossIconButton } from './IconButton';  // alias needed
 import IconButton from '@material-ui/core/IconButton';    // same name as local component
 import { FormLabel } from '@material-ui/core';
@@ -157,7 +157,7 @@ const Login = () => {
           Log in
         </div>
         <div className='headingIcons headingIconsSmaller'>
-          { MakeHelpButton() }
+          { MakeButtonForLink('help') }
         </div>
       </div>
     );

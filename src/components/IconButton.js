@@ -152,49 +152,64 @@ const IconButton = ({ config }) => {
   );
 };
 
-const MakeSettingsButton = ( caption='' ) => {
-  const settingsConfig = {
-    caption: caption,
-    title: 'go to settings page',
-    iconType: 'settings',
-    buttonLink: `/set/`,
-  };
-  return (
-    <IconButton config={ settingsConfig } />
-  );
-};
-
-const MakeSpinButton = ( caption='' ) => {
-  const theConfig = {
-    caption: caption,
-    title: 'go for a spin',
-    iconType: 'spin',
-    buttonLink: `/spin/`,
-  };
-  return (
-    <IconButton config={ theConfig } />
-  );
-};
-
-const MakeHomeButton = ( caption='' ) => {
-  const theConfig = {
-    caption: caption,
-    title: 'go to top page',
-    iconType: 'top',
-    buttonLink: `/`,
-  };
-  return (
-    <IconButton config={ theConfig } />
-  );
-};
-
-const MakeHelpButton = ( caption='' ) => {
-  const theConfig = {
-    caption: caption,
-    title: 'about',
-    iconType: 'help',
-    buttonLink: `/about/`,
-  };
+/**
+ * Preset configurations for commonly used link buttons.
+ */
+const MakeButtonForLink = ( linkType, caption='' ) => {
+  let theConfig;
+  switch (linkType) {
+    case 'qrcode':
+      theConfig = {
+        caption: caption,
+        title: 'show QR code',
+        iconType: 'qrcode',
+        buttonLink: `/qr/`,
+      };
+      break;
+    case 'help':
+    case 'about':
+      theConfig = {
+        caption: caption,
+        title: 'about',
+        iconType: 'help',
+        buttonLink: `/about/`,
+      };
+      break;
+    case 'home':
+      theConfig = {
+        caption: caption,
+        title: 'go to top page',
+        iconType: 'top',
+        buttonLink: `/`,
+      };
+      break;
+    case 'spin':
+      theConfig = {
+        caption: caption,
+        title: 'go for a spin',
+        iconType: 'spin',
+        buttonLink: `/spin/`,
+      };
+      break;
+    case 'settings':
+      theConfig = {
+        caption: caption,
+        title: 'go to settings page',
+        iconType: 'settings',
+        buttonLink: `/set/`,
+      };
+      break;
+    case 'login':
+      theConfig = {
+        caption: caption,
+        title: 'go to login page',
+        iconType: 'login',
+        buttonLink: `/login/`,
+      };
+      break;
+    default:
+      throw 'bad call to MakeButtonForLink';
+  }
   return (
     <IconButton config={ theConfig } />
   );
@@ -206,5 +221,5 @@ const MakeDragIcon = () => {
   );
 };
 
-export { IconButton, MakeSettingsButton, MakeHomeButton, MakeDragIcon,
-  MakeHelpButton, MakeSpinButton };
+export { IconButton, MakeDragIcon, MakeButtonForLink };
+

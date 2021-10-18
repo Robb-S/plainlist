@@ -8,6 +8,7 @@ import TopPage from './components/TopPage';
 import OneList from './components/OneList';
 import Login2 from './components/Login2';
 import Help from './components/Help';
+import Qr from './components/Qr';
 import Registration from './components/Registration';
 import NotFound from './components/NotFound';
 import Settings from './components/Settings';
@@ -53,6 +54,7 @@ function App() {
         <Route path='/reg/' component={Registration} exact />
         <Route path='/set/' component={Settings} exact />
         <Route path='/about/' component={Help} exact />
+        <Route path='/qr/' component={Qr} exact />
         <Route path='/spin/' component={Loading} exact />
         <Route path='*' component={NotFound} />
       </Switch>

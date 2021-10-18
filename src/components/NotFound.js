@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import '../css/lists.css';
 import '../css/settings.css';
 import { useStore } from '../store/StoreContext';
-import { IconButton, MakeHomeButton } from './IconButton';
+import { IconButton, MakeButtonForLink } from './IconButton';
 import { Link, useHistory } from 'react-router-dom';
 import { handleLogout } from '../store/handlersUser';
 
@@ -44,7 +44,7 @@ const NotFound = () => {
         </div>
         <div className='headingIcons'>
         {isLoggedIn &&
-          MakeHomeButton('home')
+          MakeButtonForLink('home', 'home')
         }
         {isLoggedIn &&
           <IconButton config={ logoutConfig } />
