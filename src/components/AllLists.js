@@ -71,8 +71,7 @@ const AllLists = () => {
    */
   const addListArea = () => {
     if (addMode && uncatCat!==null) {
-      const addListProps = { cancelAdd: cancelAdd, categoryID: uncatCat.id };
-      return (<AddList props={addListProps} />);
+      return (<AddList cancelAdd={cancelAdd} categoryID={uncatCat.id} />);
     }
   };
 
