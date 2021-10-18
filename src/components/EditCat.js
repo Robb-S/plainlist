@@ -54,11 +54,11 @@ const EditCat = ({ cancelEdit, categoryRec }) => {
             </span>
           </form>
           <span className='editButtonArea'>
+            <IconButton config={ { title:'cancel category edit', caption:'cancel rename',
+              width:'wide', iconType:'cancel', callProc:cancelEdit }} />
             <IconButton config={ { title:'accept category edit', caption:'rename category',
               disabled:catNameChangeDisabled, width:'wide',
               iconType:'confirm', callProc:onRequestEdit }} />
-            <IconButton config={ { title:'cancel category edit', caption:'cancel rename',
-              width:'wide', iconType:'cancel', callProc:cancelEdit }} />
           </span>
         </div>
       </Fragment>

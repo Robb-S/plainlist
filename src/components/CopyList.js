@@ -61,11 +61,11 @@ const CopyList = ({ cancelCopy, listRec }) => {
             </span>
           </form>
           <span className='editButtonArea'>
+            <IconButton config={ { title:'cancel new list', caption: 'cancel list copy',
+              width:'wide', iconType:'cancel', callProc:cancelCopy }} />
             <IconButton config={ { title:'copy list', caption: 'copy current list',
               disabled: !isValidLength(listName, 1, 60), width:'wide',
               iconType:'confirm', callProc:onRequestCopy }} />
-            <IconButton config={ { title:'cancel new list', caption: 'cancel list copy',
-              width:'wide', iconType:'cancel', callProc:cancelCopy }} />
           </span>
         </div>
       </Fragment>

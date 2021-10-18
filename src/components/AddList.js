@@ -51,11 +51,11 @@ const AddList = ({ cancelAdd, categoryID }) => {
               </span>
             </form>
             <span className='editButtonArea'>
+              <IconButton config={ { title:'cancel add',
+                width:'wide', iconType:'cancel', callProc:cancelAddLocal }} />
               <IconButton config={ { title:'accept add',
                 disabled: !isValidLength(listName, 1, 60), width:'wide',
                 iconType:'confirm', callProc:onRequestAdd }} />
-              <IconButton config={ { title:'cancel add',
-                width:'wide', iconType:'cancel', callProc:cancelAddLocal }} />
             </span>
           </div>
         </div>

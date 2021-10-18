@@ -63,10 +63,10 @@ const MoveList = ({ cancelMove, listRec }) => {
           </FormControl>
         </form>
         <div className='moveButtonArea'>
-          <IconButton config={ { title:'change category', caption:'change category',
-            iconType:'confirm', callProc:onRequestMove, disabled:moveButtonDisabled }} />
           <IconButton config={ { title:'cancel category change', caption: 'cancel',
             iconType:'cancel', callProc:cancelMoveLocal }} />
+          <IconButton config={ { title:'change category', caption:'change category',
+            iconType:'confirm', callProc:onRequestMove, disabled:moveButtonDisabled }} />
         </div>
       </div>
     </Fragment>

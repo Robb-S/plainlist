@@ -50,11 +50,11 @@ const EditList = ({ cancelEdit, listRec }) => {
             </span>
           </form>
           <span className='editButtonArea'>
+            <IconButton config={ { title:'cancel list edit', caption:'cancel rename',
+              width:'wide', iconType:'cancel', callProc:cancelEdit }} />
             <IconButton config={ { title:'accept list edit', caption:'rename list',
               disabled:listNameChangeDisabled, width:'wide',
               iconType:'confirm', callProc:onRequestEdit }} />
-            <IconButton config={ { title:'cancel list edit', caption:'cancel rename',
-              width:'wide', iconType:'cancel', callProc:cancelEdit }} />
           </span>
         </div>
       </Fragment>

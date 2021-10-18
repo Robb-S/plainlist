@@ -117,11 +117,11 @@ export function SortableItemUnit(props) {
               <input type="submit" className="hidden" />
             </form>
             <span className='editButtonArea'>
+              <IconButton config={ { title:'cancel edit',
+                iconType:'cancel', callProc:cancelEdit }} />
               <IconButton config={ { title:'accept edit',
                 disabled: !(isValidLength(itemName, 1, 60) && isValidLength(itemNote, 0, 60)),
                 iconType:'confirm', callProc:updateItem }} />
-              <IconButton config={ { title:'cancel edit',
-                iconType:'cancel', callProc:cancelEdit }} />
             </span>
           </div>
         </li>

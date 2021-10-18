@@ -62,11 +62,11 @@ const AddItemForm = ({ cancelAdd, listID }) => {
             <input type="submit" className="hidden" />
           </form>
           <span className='editButtonArea'>
+            <IconButton config={ { title:'cancel item',
+              iconType:'cancel', callProc:cancelAddLocal }} />
             <IconButton config={ { title:'add item',
               disabled: !(isValidLength(itemName, 1, 60) && isValidLength(itemNote, 0, 60)),
               iconType:'confirm', callProc:onRequestAdd }} />
-            <IconButton config={ { title:'cancel item',
-              iconType:'cancel', callProc:cancelAddLocal }} />
           </span>
         </div>
       </div>

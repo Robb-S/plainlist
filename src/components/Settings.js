@@ -194,11 +194,11 @@ const Settings = () => {
               />
             </div>
             <div className='nickEditButtonArea'>
+              <IconButton config={ { title:'cancel nickname edit',
+                iconType:'cancel', callProc:cancelEditNickname }} />
               <IconButton config={ { title:'accept nickname edit',
                 disabled: nicknameChangeDisabled,
                 iconType:'confirm', callProc:onRequestEditNickname }} />
-              <IconButton config={ { title:'cancel nickname edit',
-                iconType:'cancel', callProc:cancelEditNickname }} />
             </div>
           </div>
         </form>

@@ -122,6 +122,7 @@ div.regLoad {
 .qrcodeimg {
   text-align: center;
   margin-top: 15px;
+  margin-bottom: 50px;
 }
 
 .qrcodeimg img {
