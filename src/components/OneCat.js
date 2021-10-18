@@ -94,7 +94,6 @@ const OneCat = () => {
   };
 
   const headingArea = () => {
-    const showAddIcon = !addMode; // hide icon when already in add mode
     // don't allow delete or renaming of uncategorized category
     const showEditAndDelete = oneCatRec.uncategorized !== true;
     return (
@@ -127,13 +126,6 @@ const OneCat = () => {
           width:'wide', iconType:'close', callProc:cancelMore } } />
       </div>
     );
-  };
-
-  const addListArea = () => {
-    if (addMode) {
-      const addListProps = { cancelAdd: cancelAdd, categoryID: categoryID };
-      return (<AddList props={addListProps} />);
-    }
   };
 
   return (
