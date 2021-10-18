@@ -119,8 +119,13 @@ div.regLoad {
   height: 100%;
 }
 
+.qrcodeimg {
+  text-align: center;
+  margin-top: 15px;
+}
+
 .qrcodeimg img {
-  max-width: 100%;
+  width: 75%;
 }
 
 @media (min-width: 450px) { /* desktop */
